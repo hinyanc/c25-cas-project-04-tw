@@ -6,8 +6,7 @@ yarn add --dev @tsconfig/react-native @types/jest @types/react @types/react-test
 # install NestJS 
 npm i -g @nestjs/cli
 nest --version
-nest new nest-server
--yarn
+
 
 
 # nest auto validation
@@ -20,3 +19,7 @@ cd nest-server
 yarn add prisma --save-dev
 yarn prisma
 yarn prisma init
+
+# ReactNative
+npx react-native start
+npx react-native run-android
