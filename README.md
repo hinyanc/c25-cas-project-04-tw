@@ -20,12 +20,9 @@ yarn add prisma --save-dev
 yarn prisma
 yarn prisma init
 
-<<<<<<< HEAD
 
 
 cors
-=======
 # ReactNative
 npx react-native start
 npx react-native run-android
->>>>>>> ea685d183c359b725789164e3837bfa920f840db
