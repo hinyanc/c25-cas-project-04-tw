@@ -20,3 +20,7 @@ cd nest-server
 yarn add prisma --save-dev
 yarn prisma
 yarn prisma init
+
+
+
+cors
