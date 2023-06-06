@@ -29,3 +29,15 @@ cors
 npx react-native start
 npx react-native run-android
 >>>>>>> ea685d183c359b725789164e3837bfa920f840db
+
+# React Navigation 
+#
+android/app/src/main/java/<your package name>/MainActivity.java
+
+# MainActivity
+import android.os.Bundle;
+ # in public class MainActivity extends ReactActivity 
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
+  }
