@@ -1,7 +1,13 @@
 import cors from "cors";
 import express from "express";
+import { Server as SocketIO, Socket } from "socket.io";
+import http from "http";
+
 
 const app = express();
+const server = new http.Server(app);
+const io = new SocketIO(server);
+
 declare global {
   namespace Express {
     interface Request {
@@ -10,9 +16,22 @@ declare global {
   }
 }
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+io.on("connection", (socket: Socket) => {
+  console.log(`${socket.id} user just connected!`);
+
+  socket.on("disconnect", () => {
+    socket.disconnect();
+    console.log("A user disconnected");
+  });
+});
+
+
+
 import Knex from "knex";
 import { User } from "./model";
 
@@ -28,7 +47,6 @@ const PORT = 8080;
 // import { UserService } from "./services/UserService";
 // import { User } from "./model";
 
-
 // const todoService = new TodoService(knex);
 // const todoController = new TodoController(todoService);
 
@@ -42,10 +60,7 @@ app.get("/hi", (req, res) => {
 // app.use("/todo", todoController.router);
 // app.use("/auth", userController.router);
 
-
-app.post("/upload", async (req, res) => {
-
-});
+app.post("/upload", async (req, res) => {});
 
 app.listen(PORT, () => {
   console.log(`App running at http://localhost:${PORT}`);
