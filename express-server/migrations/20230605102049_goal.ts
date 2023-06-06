@@ -4,8 +4,10 @@ import { Knex } from "knex";
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable("goal", (table) => {
     table.increments();
-    table.string("name");
-    table.date("date_of_birth");
+    table.string("ongoing_task").notNullable();
+    table.string("completed_task").notNullable();
+    table.string("bmi").notNullable();
+    table.string("target_weight");
     table.timestamps(false, true);
   });
 }

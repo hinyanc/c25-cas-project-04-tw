@@ -4,9 +4,7 @@ import { Knex } from "knex";
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable("interest", (table) => {
     table.increments();
-    table.string("name");
-    table.date("date_of_birth");
-    table.timestamps(false, true);
+    table.string("name").notNullable();;
   });
 }
 
