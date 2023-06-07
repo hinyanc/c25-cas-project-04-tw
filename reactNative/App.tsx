@@ -117,7 +117,7 @@
 
 // export default App;
 import * as React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -136,36 +136,54 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '100',
     textAlign: 'center',
-  }
+  },
 });
 
 //name of routes
 type StackParamList = {
   Home: undefined;
   Detail: undefined;
+  Next: undefined;
   Cover: undefined;
   Chat: undefined;
   Messaging: undefined;
 };
 
-
 //name of routes = name props = StackParamList[Home]
-type HomeScreenProps = StackScreenProps<StackParamList,'Home'>;
-type DetailScreenProps = StackScreenProps<StackParamList,'Detail'>;
-
+type HomeScreenProps = StackScreenProps<StackParamList, 'Home'>;
+type DetailScreenProps = StackScreenProps<StackParamList, 'Detail'>;
+type NextScreenProps = StackScreenProps<StackParamList, 'Next'>;
 
 function HomeScreen({navigation}: HomeScreenProps) {
-
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Screen</Text>
+      <Button
+        title="Go to Detail"
+        onPress={() => {
+          navigation.push('Detail');
+        }}
+      />
     </View>
   );
 }
-function DetailScreen({navigation}:DetailScreenProps) {
+function DetailScreen({navigation}: DetailScreenProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Details Screen</Text>
+      <Button
+        title="Go to Next Page"
+        onPress={() => {
+          navigation.navigate('Next');
+        }}
+      />
+    </View>
+  );
+}
+function NextScreen({navigation}: NextScreenProps) {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Next Screen</Text>
     </View>
   );
 }
@@ -174,10 +192,13 @@ const Stack = createNativeStackNavigator<StackParamList>();
 export default function App() {
   return (
     <NavigationContainer>
-
-
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
+        {/* options change the header of the screen */}
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{title: 'Overview'}}
+        />
         <Stack.Screen name="Detail" component={DetailScreen} />
         <Stack.Screen
           name="Cover"
@@ -194,7 +215,7 @@ export default function App() {
           }}
         />
         <Stack.Screen name="Messaging" component={Messaging} />
-
+        <Stack.Screen name="Next" component={NextScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
