@@ -136,13 +136,15 @@ const styles = StyleSheet.create({
   }
 });
 
+//name of routes
 type StackParamList = {
   Home:undefined;
   Detail:undefined;
 }
 
-
+//name of routes = name props = StackParamList[Home]
 type HomeScreenProps = StackScreenProps<StackParamList,'Home'>;
+type DetailScreenProps = StackScreenProps<StackParamList,'Detail'>;
 
 function HomeScreen({navigation}:HomeScreenProps) {
   return (
@@ -151,7 +153,7 @@ function HomeScreen({navigation}:HomeScreenProps) {
     </View>
   );
 }
-function DetailScreen() {
+function DetailScreen({navigation}:DetailScreenProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Details Screen</Text>
@@ -164,9 +166,9 @@ const Stack = createNativeStackNavigator<StackParamList>();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Navigator initialRouteName='Detail'>
+        {/* <Stack.Screen name="Detail" component={DetailScreen} /> */}
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Detail" component={DetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
