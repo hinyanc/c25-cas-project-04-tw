@@ -144,6 +144,7 @@ type StackParamList = {
   Detail: undefined;
   Cover: undefined;
   Chat: undefined;
+  Messaging: undefined;
 };
 
 type HomeScreenProps = StackScreenProps<StackParamList, 'Home'>;
