@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {View, Text, Pressable, SafeAreaView, FlatList} from 'react-native';
 import ChatComponent from '../components/ChatComponent';
-import  { Feather }  from 'react-native-feather';
+// import {Feather} from 'react-native-feather';
+import Icon from 'react-native-vector-icons/Feather';
 import {styles} from '../utils/styles';
 import Modal from '../components/Modal';
-const Chat = () => {
-const [visible, setVisible] = useState(false);
 
+const Chat = () => {
+  const [visible, setVisible] = useState(false);
   //Dummy list of rooms
   const rooms = [
     {
@@ -53,9 +54,9 @@ const [visible, setVisible] = useState(false);
         <View style={styles.chatheader}>
           <Text style={styles.chatheading}>Chats</Text>
 
-          {/* 👇🏻 Logs "ButtonPressed" to the console when the icon is clicked */}
+          {/*  Logs "ButtonPressed" to the console when the icon is clicked */}
           <Pressable onPress={() => console.log('Button Pressed!')}>
-            <Feather name="edit" size={24} color="green" />
+            <Icon name="edit" size={24} color="green" />
           </Pressable>
         </View>
       </View>
@@ -64,7 +65,7 @@ const [visible, setVisible] = useState(false);
         {rooms.length > 0 ? (
           <FlatList
             data={rooms}
-            renderItem={({item}) => <ChatComponent item={item} />}
+            renderItem={({item}:any) => <ChatComponent item={item} />}
             keyExtractor={item => item.id}
           />
         ) : (
