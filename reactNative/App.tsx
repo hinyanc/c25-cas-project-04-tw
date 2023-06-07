@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
 
 //name of routes
 type StackParamList = {
+  Detail: {itemId: number; otherParam: string};
   Home: undefined;
-  Detail: undefined;
   Next: undefined;
   Cover: undefined;
   Chat: undefined;
@@ -161,7 +161,10 @@ function HomeScreen({navigation}: HomeScreenProps) {
       <Button
         title="Go to Detail"
         onPress={() => {
-          navigation.navigate('Detail');
+          navigation.navigate('Detail', {
+            itemId: 86,
+            otherParam: 'anything you want here',
+          });
         }}
       />
     </View>
@@ -170,24 +173,27 @@ function HomeScreen({navigation}: HomeScreenProps) {
 function DetailScreen({navigation}: DetailScreenProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Details Screen</Text>
+      <Text style={styles.text}>Detail Screen</Text>
       <Button
         title="Go to Details again.."
         onPress={() => {
           // add new route to the navigation stack
-          navigation.push('Detail');
+          navigation.push('Detail', {
+            itemId: 86,
+            otherParam: 'anything you want here',
+          });
         }}
+      />
+      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <Button
+        title="Go back to first screen in stack"
+        onPress={() => navigation.popToTop()}
       />
     </View>
   );
 }
-function NextScreen({navigation}: NextScreenProps) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Next Screen</Text>
-    </View>
-  );
-}
+
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
@@ -216,16 +222,6 @@ export default function App() {
           }}
         />
         <Stack.Screen name="Messaging" component={Messaging} />
-        <Stack.Screen
-          name="Next"
-          component={NextScreen}
-          options={({navigation}) => ({
-            title: 'Awesome app',
-            headerLeft: () => (
-              <Button  title="to home"onPress={() => navigation.navigate("Home")} />
-            ),
-          })}
-        />
       </Stack.Navigator>
     </NavigationContainer>
   );
