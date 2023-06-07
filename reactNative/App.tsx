@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '100',
     textAlign: 'center',
-  },
+  }
 });
 
 //name of routes
@@ -147,17 +147,14 @@ type StackParamList = {
   Chat: undefined;
 };
 
-<<<<<<< HEAD
+
 //name of routes = name props = StackParamList[Home]
 type HomeScreenProps = StackScreenProps<StackParamList,'Home'>;
 type DetailScreenProps = StackScreenProps<StackParamList,'Detail'>;
 
-function HomeScreen({navigation}:HomeScreenProps) {
-=======
-type HomeScreenProps = StackScreenProps<StackParamList, 'Home'>;
 
 function HomeScreen({navigation}: HomeScreenProps) {
->>>>>>> ae4fb9b0bc70dad43cf4fccba5d33bb2b6eaf6e5
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Screen</Text>
@@ -176,11 +173,8 @@ const Stack = createNativeStackNavigator<StackParamList>();
 export default function App() {
   return (
     <NavigationContainer>
-<<<<<<< HEAD
-      <Stack.Navigator initialRouteName='Detail'>
-        {/* <Stack.Screen name="Detail" component={DetailScreen} /> */}
-        <Stack.Screen name="Home" component={HomeScreen} />
-=======
+
+
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Detail" component={DetailScreen} />
@@ -199,7 +193,7 @@ export default function App() {
           }}
         />
         <Stack.Screen name="Messaging" component={Messaging} />
->>>>>>> ae4fb9b0bc70dad43cf4fccba5d33bb2b6eaf6e5
+
       </Stack.Navigator>
     </NavigationContainer>
   );
