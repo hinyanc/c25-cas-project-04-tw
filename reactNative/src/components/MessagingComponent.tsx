@@ -1,9 +1,7 @@
 import {View, Text} from 'react-native';
 import React from 'react';
-import Icon from 'react-native-ionicons';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import {styles} from '../utils/styles';
-
-
 
 export default function MessageComponent({item, user}:any) {
   const status = item.user !== user;
@@ -17,7 +15,7 @@ export default function MessageComponent({item, user}:any) {
             : [styles.mmessageWrapper, {alignItems: 'flex-end'}]
         }>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Icon
+          <IonIcon
             name="person-circle-outline"
             size={30}
             color="black"
