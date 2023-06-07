@@ -11,13 +11,12 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 import {PanGestureHandler} from 'react-native-gesture-handler';
-import Like from '../../../assets/images/LIKE.png';
-import Nope from '../../../assets/images/nope.png';
+
 
 const ROTATION = 60;
 const SWIPE_VELOCITY = 800;
 
-const AnimatedStack = props => {
+const AnimatedStack = (props: { data: any; renderItem: any; onSwipeRight: any; onSwipeLeft: any; }) => {
   const {data, renderItem, onSwipeRight, onSwipeLeft} = props;
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -74,13 +73,13 @@ const AnimatedStack = props => {
   }));
 
   const gestureHandler = useAnimatedGestureHandler({
-    onStart: (_, context) => {
+    onStart: (_: any, context: { startX: any; }) => {
       context.startX = translateX.value;
     },
-    onActive: (event, context) => {
+    onActive: (event: { translationX: any; }, context: { startX: any; }) => {
       translateX.value = context.startX + event.translationX;
     },
-    onEnd: event => {
+    onEnd: (event: { velocityX: number; }) => {
       if (Math.abs(event.velocityX) < SWIPE_VELOCITY) {
         translateX.value = withSpring(0);
         return;
@@ -116,12 +115,12 @@ const AnimatedStack = props => {
         <PanGestureHandler onGestureEvent={gestureHandler}>
           <Animated.View style={[styles.animatedCard, cardStyle]}>
             <Animated.Image
-              source={Like}
+              source={require('../assets/img/LIKE.png')}
               style={[styles.like, {left: 10}, likeStyle]}
               resizeMode="contain"
             />
             <Animated.Image
-              source={Nope}
+              source={require('../assets/img/nope.png')}
               style={[styles.like, {right: 10}, nopeStyle]}
               resizeMode="contain"
             />
