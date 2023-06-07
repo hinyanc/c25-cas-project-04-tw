@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View, Text, Pressable, SafeAreaView, FlatList} from 'react-native';
 import ChatComponent from '../components/ChatComponent';
 import  { Feather }  from 'react-native-feather';
 import {styles} from '../utils/styles';
-
+import Modal from '../components/Modal';
 const Chat = () => {
+const [visible, setVisible] = useState(false);
+
   //Dummy list of rooms
   const rooms = [
     {
@@ -72,6 +74,11 @@ const Chat = () => {
           </View>
         )}
       </View>
+      {/*
+                Pass setVisible as prop in order to toggle 
+                the display within the Modal component.
+            */}
+      {visible ? <Modal setVisible={setVisible} /> : ''}
     </SafeAreaView>
   );
 };

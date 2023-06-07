@@ -1,52 +1,55 @@
-// import React, {useLayoutEffect, useState} from 'react';
-// import {View, TextInput, Text, FlatList, Pressable} from 'react-native';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import MessageComponent from '../components/MessagingComponent';
-// import {styles} from '../utils/styles';
+import Reacr, {useLayoutEffect, useState} from 'react';
+import {View, TextInput, Text, FlatList, Pressable} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import MessageComponent from '../components/MessagingComponent';
+import {styles} from '../utils/styles';
 
-const Messaging = ({route, navigation}) => {
+const Messaging = ({route, navigation}:any) => {
   const [chatMessages, setChatMessages] = useState([
     {
       id: '1',
-      text: 'Hello guys, welcome!',
-      time: '07:50',
-      user: 'Tomer',
+      text: 'I like React Native!',
+      time: '10:00',
+      user: 'Yannes',
     },
     {
       id: '2',
-      text: 'Hi Tomer, thank you! 😇',
-      time: '08:50',
-      user: 'David',
+      text: 'I think so!',
+      time: '10:10',
+      user: 'Julia',
     },
   ]);
   const [message, setMessage] = useState('');
   const [user, setUser] = useState('');
 
-  //👇🏻 Access the chatroom's name and id
+  // Access the chatroom's name and id from the route object
   const {name, id} = route.params;
 
-  //👇🏻 This function gets the username saved on AsyncStorage
+  // This function gets the usersname saved on AsyncStorage
   const getUsername = async () => {
     try {
-      const value = await AsyncStorage.getItem('username');
-      if (value !== null) {
-        setUser(value);
+      const valve = await AsyncStorage.getItem('username');
+      if (valve !== null) {
+        setUser(valve);
       }
-    } catch (e) {
-      console.error('Error while loading username!');
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  //👇🏻 Sets the header title to the name chatroom's name
+  // Set the header title to the name chatroom's name
   useLayoutEffect(() => {
-    navigation.setOptions({title: name});
+    navigation.setOptions({
+      title: name,
+    });
     getUsername();
   }, []);
 
-  /*👇🏻 
+  /* 
         This function gets the time the user sends a message, then 
         logs the username, message, and the timestamp to the console.
      */
+
   const handleNewMessage = () => {
     const hour =
       new Date().getHours() < 10
