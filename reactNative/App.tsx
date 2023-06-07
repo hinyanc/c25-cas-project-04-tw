@@ -161,7 +161,7 @@ function HomeScreen({navigation}: HomeScreenProps) {
       <Button
         title="Go to Detail"
         onPress={() => {
-          navigation.push('Detail');
+          navigation.navigate('Detail');
         }}
       />
     </View>
@@ -172,9 +172,10 @@ function DetailScreen({navigation}: DetailScreenProps) {
     <View style={styles.container}>
       <Text style={styles.text}>Details Screen</Text>
       <Button
-        title="Go to Next Page"
+        title="Go to Details again.."
         onPress={() => {
-          navigation.navigate('Next');
+          // add new route to the navigation stack
+          navigation.push('Detail');
         }}
       />
     </View>
@@ -215,7 +216,16 @@ export default function App() {
           }}
         />
         <Stack.Screen name="Messaging" component={Messaging} />
-        <Stack.Screen name="Next" component={NextScreen} />
+        <Stack.Screen
+          name="Next"
+          component={NextScreen}
+          options={({navigation}) => ({
+            title: 'Awesome app',
+            headerLeft: () => (
+              <Button  title="to home"onPress={() => navigation.navigate("Home")} />
+            ),
+          })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
