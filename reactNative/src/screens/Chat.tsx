@@ -12,36 +12,51 @@ const Chat = () => {
             messages: [
                 {
                     id: "1a",
-                    text: "Hello ReactNative is so easy!!",
+                    text: "Hello, ReactNative is so easy!!",
                     time: "07:50",
                     user: "Chinny",
                 },
                 {
                     id: "1b",
-                    text: "Hi Tomer, thank you! 😇",
+                    text: "Hi Chinny, I think so! 😇",
                     time: "08:50",
-                    user: "David",
+                    user: "Yannes",
                 },
             ],
         },
         {
             id: "2",
-            name: "Hacksquad Team 1",
+            name: "GyMatess Admin",
             messages: [
                 {
                     id: "2a",
-                    text: "Guys, who's awake? 🙏🏽",
+                    text: "Girls, who's awake? 🙏🏽",
                     time: "12:50",
-                    user: "Team Leader",
+                    user: "Team Julia",
                 },
                 {
                     id: "2b",
                     text: "What's up? 🧑🏻‍💻",
                     time: "03:50",
-                    user: "Victoria",
+                    user: "Chinny",
                 },
             ],
         },
     ];
 
+    return (
+      <SafeAreaView style={styles.chatscreen}>
+        <View style={styles.chattopContainer}>
+          <View style={styles.chatheader}>
+            <Text style={styles.chatheading}>Chats</Text>
+            {/*  Logs "ButtonPressed" to the console when the icon is clicked */}
+
+            <Pressable onPress={() => console.log('ButtonPressed')}>
+              <Icon name="edit" size={24} color="green" />
+            </Pressable>
+          </View>
+        </View>
+      </SafeAreaView>
+    );
+  }
 export default Chat;
