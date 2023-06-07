@@ -182,8 +182,8 @@ function DetailScreen({route, navigation}: DetailScreenProps) {
         onPress={() => {
           // add new route to the navigation stack
           navigation.push('Detail', {
-            itemId: 86,
-            otherParam: 'anything you want here',
+            itemId: Math.floor(Math.random() * 100),
+            otherParam,
           });
         }}
       />
@@ -209,7 +209,7 @@ export default function App() {
           component={HomeScreen}
           options={{title: 'Overview'}}
         />
-        <Stack.Screen name="Detail" component={DetailScreen} />
+        <Stack.Screen name="Detail" component={DetailScreen} initialParams={{itemId:40}}/>
         <Stack.Screen
           name="Cover"
           component={Cover}
