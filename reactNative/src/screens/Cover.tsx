@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Text,
   SafeAreaView,
@@ -14,13 +15,25 @@ import {styles} from '../utils/styles';
 const Cover = ({navigation}:any) => {
   const [username, setUsername] = useState('');
 
-  const handleSignIn = () => {
-    if (username.trim()) {
-      console.log({username});
-    } else {
-      Alert.alert('Username is required.');
-    }
-  };
+const storeUsername = async () => {
+  try {
+    //  async function - saves the username to AsyncStorage
+    //  redirecting to the Chat page
+    await AsyncStorage.setItem('username', username);
+    navigation.navigate('Chat');
+  } catch (e) {
+    Alert.alert('Error! While saving username');
+  }
+};
+
+const handleSignIn = () => {
+  if (username.trim()) {
+    // calls AsyncStorage function
+    storeUsername();
+  } else {
+    Alert.alert('Username is required.');
+  }
+};
 
   return (
     <SafeAreaView style={styles.loginscreen}>
