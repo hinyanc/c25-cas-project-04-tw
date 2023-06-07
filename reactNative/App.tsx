@@ -120,7 +120,10 @@ import * as React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { StackScreenProps } from '@react-navigation/stack'
+import {StackScreenProps} from '@react-navigation/stack';
+import Cover from './src/screens/Cover';
+import Messaging from './src/screens/Messaging';
+import Chat from './src/screens/Chat';
 
 const styles = StyleSheet.create({
   container: {
@@ -133,18 +136,19 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '100',
     textAlign: 'center',
-  }
+  },
 });
 
 type StackParamList = {
-  Home:undefined;
-  Detail:undefined;
-}
+  Home: undefined;
+  Detail: undefined;
+  Cover: undefined;
+  Chat: undefined;
+};
 
+type HomeScreenProps = StackScreenProps<StackParamList, 'Home'>;
 
-type HomeScreenProps = StackScreenProps<StackParamList,'Home'>;
-
-function HomeScreen({navigation}:HomeScreenProps) {
+function HomeScreen({navigation}: HomeScreenProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Screen</Text>
@@ -160,13 +164,27 @@ function DetailScreen() {
 }
 const Stack = createNativeStackNavigator<StackParamList>();
 
-
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Detail" component={DetailScreen} />
+        <Stack.Screen
+          name="Cover"
+          component={Cover}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="Chat"
+          component={Chat}
+          options={{
+            title: 'Chats',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen name="Messaging" component={Messaging} />
       </Stack.Navigator>
     </NavigationContainer>
   );
