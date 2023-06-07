@@ -1,11 +1,18 @@
-import {View, Text, Pressable} from 'react-native';
-import React, {useLayoutEffect, useState} from 'react';
-// import {Ionicons} from '@expo/vector-icons';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {styles} from '../utils/style';
-
 import React, {useEffect} from 'react';
 import socket from 'socket.io-client';
+import io from 'socket.io-client';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const App = () => {
   const [users, setUsers] = useState([]);
@@ -26,6 +33,8 @@ const App = () => {
     </View>
   );
 };
+
+
 
 const ChatComponent = ({item}) => {
   const navigation = useNavigation();
