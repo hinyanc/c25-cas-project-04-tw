@@ -1,7 +1,7 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 // import {Ionicons} from '@expo/vector-icons';
-import {styles} from '../utils/style';
+import {styles} from '../utils/styles';
 
 export default function MessageComponent({item, user}) {
   const status = item.user !== user;

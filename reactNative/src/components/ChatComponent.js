@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {styles} from '../utils/style';
+import {styles} from '../utils/styles';
 import React, {useEffect} from 'react';
 import socket from 'socket.io-client';
 import io from 'socket.io-client';
@@ -33,8 +33,6 @@ const App = () => {
     </View>
   );
 };
-
-
 
 const ChatComponent = ({item}) => {
   const navigation = useNavigation();

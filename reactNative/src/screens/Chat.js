@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Pressable, SafeAreaView, FlatList} from 'react-native';
 import ChatComponent from '../components/ChatComponent';
-import {styles} from '../utils/style';
+import {styles} from '../utils/styles';
 
 const Chat = () => {
   //👇🏻 Dummy list of rooms
