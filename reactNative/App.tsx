@@ -145,6 +145,7 @@ type StackParamList = {
   Detail: undefined;
   Cover: undefined;
   Chat: undefined;
+  Messaging: undefined;
 };
 
 
