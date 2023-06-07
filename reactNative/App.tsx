@@ -170,10 +170,13 @@ function HomeScreen({navigation}: HomeScreenProps) {
     </View>
   );
 }
-function DetailScreen({navigation}: DetailScreenProps) {
+function DetailScreen({route, navigation}: DetailScreenProps) {
+  const {itemId, otherParam} = route.params;
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Detail Screen</Text>
+      <Text>itemId: {JSON.stringify(itemId)}</Text>
+      <Text>otherParam: {JSON.stringify(otherParam)}</Text>
       <Button
         title="Go to Details again.."
         onPress={() => {
