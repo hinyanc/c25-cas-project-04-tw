@@ -1,8 +1,8 @@
-import React, {useLayoutEffect, useState} from 'react';
-import {View, TextInput, Text, FlatList, Pressable} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import MessageComponent from '../component/MessageComponent';
-import {styles} from '../utils/styles';
+// import React, {useLayoutEffect, useState} from 'react';
+// import {View, TextInput, Text, FlatList, Pressable} from 'react-native';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import MessageComponent from '../components/MessagingComponent';
+// import {styles} from '../utils/styles';
 
 const Messaging = ({route, navigation}) => {
   const [chatMessages, setChatMessages] = useState([
