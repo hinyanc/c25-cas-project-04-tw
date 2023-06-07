@@ -121,7 +121,6 @@ import {View, Text, StyleSheet, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
-import Cover from './src/screens/Cover';
 import Messaging from './src/screens/Messaging';
 import Chat from './src/screens/Chat';
 
@@ -209,13 +208,6 @@ export default function App() {
           component={HomeScreen}
           options={{title: 'Overview'}}
         />
-        <Stack.Screen name="Detail" component={DetailScreen} />
-        <Stack.Screen
-          name="Cover"
-          component={Cover}
-          options={{headerShown: false}}
-        />
-
         <Stack.Screen
           name="Chat"
           component={Chat}
