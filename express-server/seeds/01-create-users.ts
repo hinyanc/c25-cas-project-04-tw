@@ -1,8 +1,18 @@
 import { Knex } from "knex";
 import { faker } from "@faker-js/faker";
 
-const userTable = "users"
-
+import {
+  ptTable,
+  gymLocationTable,
+  gymCenterTable,
+  targetGoalsTable,
+  goalsTable,
+  interestTable,
+  userTable,
+  usersInterestTable,
+  usersmatchingTable,
+  chatroomTable,
+} from "../migrations/20230605101740_users";
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
@@ -46,8 +56,10 @@ export async function seed(knex: Knex): Promise<void> {
       height: faker.number.int({ min: 150, max: 200 }) + "cm",
       weight: faker.number.int({ min: 50, max: 100 }) + "kg",
       gym_level: faker.helpers.arrayElement(["Newbie", "Moderate", "Vigorous"]),
-      has_membership:hasMembership,
-      gym_center_id: hasMembership ? faker.number.int({ min: 1, max: 8 }) : null,
+      has_membership: hasMembership,
+      gym_center_id: hasMembership
+        ? faker.number.int({ min: 1, max: 8 })
+        : null,
       gym_location_id: faker.number.int({ min: 1, max: 18 }),
       is_pt: isPt,
       pt_id: isPt ? faker.number.int({ min: 1, max: 5 }) : null,
