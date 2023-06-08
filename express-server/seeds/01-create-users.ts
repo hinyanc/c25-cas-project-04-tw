@@ -2,7 +2,6 @@ import { Knex } from "knex";
 import { faker } from "@faker-js/faker";
 import { hashPassword } from "../utils/hash";
 
-
 import {
   ptTable,
   gymLocationTable,
@@ -244,5 +243,53 @@ export async function seed(knex: Knex): Promise<void> {
         status: matchingStatus[j],
       });
     }
+  }
+
+  ///////////insert data into chatroomTable////////
+  for (let i = 0; i < 10; i++) {
+    let sender_id = faker.datatype.boolean() ? 1 : 0;
+    let receiver_id;
+    do {
+      receiver_id = faker.datatype.boolean() ? 1 : 0;
+    } while (receiver_id === sender_id);
+    let message = faker.lorem.sentence();
+    let created_at = faker.date.past();
+
+    await knex(chatroomTable).insert({
+      sender_id: sender_id,
+      receiver_id: receiver_id,
+      message: message,
+      created_at: created_at,
+    });
+  }
+  for (let i = 0; i < 10; i++) {
+    let sender_id = faker.datatype.boolean() ? 2 : 0;
+    let receiver_id;
+    do {
+      receiver_id = faker.datatype.boolean() ? 2 : 0;
+    } while (receiver_id === sender_id);
+    let message = faker.lorem.sentence();
+    let created_at = faker.date.past();
+    await knex(chatroomTable).insert({
+      sender_id: sender_id,
+      receiver_id: receiver_id,
+      message: message,
+      created_at: created_at,
+    });
+  }
+  for (let i = 0; i < 10; i++) {
+    let sender_id = faker.datatype.boolean() ? 1 : 2;
+    let receiver_id;
+    do {
+      receiver_id = faker.datatype.boolean() ? 1 : 2;
+    } while (receiver_id === sender_id);
+    let message = faker.lorem.sentence();
+    let created_at = faker.date.past();
+    await knex(chatroomTable).insert({
+      sender_id: sender_id,
+      receiver_id: receiver_id,
+      message: message,
+      created_at: created_at,
+    });
   }
 }
