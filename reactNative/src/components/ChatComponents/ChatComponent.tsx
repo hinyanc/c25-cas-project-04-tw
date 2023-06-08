@@ -1,6 +1,6 @@
 import {View, Text, Pressable} from 'react-native';
 import React, {useLayoutEffect, useState} from 'react';
-import Icon from 'react-native-ionicons';
+// import Icon from 'react-native-ionicons';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {styles} from '../../utils/styles';
@@ -48,7 +48,7 @@ const handleNavigation = () => {
   return (
     <Pressable style={styles.cchat} onPress={handleNavigation}>
       <IonIcon
-        name="person-circle-outline"
+        name="hi"
         size={45}
         color="black"
         style={styles.cavatar}
