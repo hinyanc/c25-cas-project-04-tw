@@ -213,4 +213,34 @@ export async function seed(knex: Knex): Promise<void> {
       });
     }
   }
+
+  //////insert into user matching table\
+  let matching = [
+    [
+      [1, 4],
+      [1, 5],
+      [1, 2],
+    ],
+    [
+      [0, 6],
+      [0, 3],
+      [0, 1],
+    ],
+    [
+      [2, 7],
+      [2, 8],
+      [2, 0],
+    ],
+  ];
+  let matchingStatus = ["request", "dislike", "matched"];
+
+  for (let i = 0; i < matching.length; i++) {
+    for (let j = 0; j < matching[i].length; j++) {
+      await knex(usersmatchingTable).insert({
+        users_id: matching[i][j][0],
+        matched_users_id: matching[i][j][1],
+        status: matchingStatus[j],
+      });
+    }
+  }
 }
