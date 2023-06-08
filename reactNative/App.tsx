@@ -121,7 +121,6 @@ import {View, Text, StyleSheet, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
-import Cover from './src/screens/Cover';
 import Messaging from './src/screens/Messaging';
 import Chat from './src/screens/Chat';
 
@@ -144,7 +143,6 @@ type StackParamList = {
   Detail: {itemId: number; otherParam: string};
   Home: undefined;
   Next: undefined;
-  Cover: undefined;
   Chat: undefined;
   Messaging: undefined;
 };
@@ -154,7 +152,7 @@ type HomeScreenProps = StackScreenProps<StackParamList, 'Home'>;
 type DetailScreenProps = StackScreenProps<StackParamList, 'Detail'>;
 type NextScreenProps = StackScreenProps<StackParamList, 'Next'>;
 
-function HomeScreen({navigation}: HomeScreenProps) {
+function HomeScreen({navigation,route}: HomeScreenProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Screen</Text>
@@ -193,6 +191,10 @@ function DetailScreen({route, navigation}: DetailScreenProps) {
         title="Go back to first screen in stack"
         onPress={() => navigation.popToTop()}
       />
+      <Button
+        title="Chat"
+        onPress={() => navigation.navigate('Chat')}
+      />
     </View>
   );
 }
@@ -210,11 +212,6 @@ export default function App() {
           options={{title: 'Overview'}}
         />
         <Stack.Screen name="Detail" component={DetailScreen} initialParams={{itemId:40}}/>
-        <Stack.Screen
-          name="Cover"
-          component={Cover}
-          options={{headerShown: false}}
-        />
 
         <Stack.Screen
           name="Chat"

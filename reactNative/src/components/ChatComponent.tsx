@@ -1,7 +1,7 @@
 import {View, Text, Pressable} from 'react-native';
 import React, {useLayoutEffect, useState} from 'react';
 import Icon from 'react-native-ionicons';
-// import {useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {styles} from '../utils/styles';
 // import {StackNavigationProp} from '@react-navigation/stack';
 
@@ -20,7 +20,7 @@ interface Message {
 
 
 const ChatComponent = ({item}:ChatComponentProps) => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const [messages, setMessages] = useState<Message>({text: '', time: ''});
 
   // Retrieves the last message in the array from the item prop
@@ -30,19 +30,19 @@ const ChatComponent = ({item}:ChatComponentProps) => {
     );
   }, []);
 
-// const handleNavigation = () => {
-//   navigation.navigate('Messaging', {
-//     id: item.id,
-//     name: item.name,
-//   });
-// };
-
-function handleNavigation ({navigation}:any) {
+const handleNavigation = () => {
   navigation.navigate('Messaging', {
     id: item.id,
     name: item.name,
   });
-}
+};
+
+// function handleNavigation ({navigation}:any) {
+//   navigation.navigate('Messaging', {
+//     id: item.id,
+//     name: item.name,
+//   });
+// }
 
   return (
     <Pressable style={styles.cchat} onPress={handleNavigation}>
