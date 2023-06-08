@@ -121,8 +121,9 @@ import {View, Text, StyleSheet, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
-import Messaging from './src/screens/Messaging';
-import Chat from './src/screens/Chat';
+import Messaging from './src/screens/ChatScreens/Messaging';
+import Chat from './src/screens/ChatScreens/Chat';
+import BottomTabs from './src/components/BottomTab';
 
 const styles = StyleSheet.create({
   container: {
@@ -224,6 +225,7 @@ export default function App() {
         <Stack.Screen name="Messaging" component={Messaging} />
         <Stack.Screen name="Detail" component={DetailScreen} />
       </Stack.Navigator>
+      <BottomTabs/>
     </NavigationContainer>
   );
 }

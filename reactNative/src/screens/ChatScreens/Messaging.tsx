@@ -1,9 +1,9 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {View, TextInput, Text, FlatList, Pressable} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import MessageComponent from '../components/MessagingComponent';
-import {styles} from '../utils/styles';
-import socket from '../utils/socket';
+import MessageComponent from '../../components/ChatComponents/MessagingComponent';
+import {styles} from '../../utils/styles';
+import socket from '../../utils/socket';
 
 const Messaging = ({route, navigation}: any) => {
   const [user, setUser] = useState('');
