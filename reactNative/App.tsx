@@ -222,7 +222,6 @@ export default function App() {
           }}
         />
         <Stack.Screen name="Messaging" component={Messaging} />
-        <Stack.Screen name="Detail" component={DetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
