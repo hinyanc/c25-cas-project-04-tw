@@ -3,7 +3,7 @@ import { Knex } from "knex";
 export const ptTable = "pt"
 export const gymLocationTable = "gym_location";
 export const gymCenterTable = "gym_center";
-export const targetGoalsTable = "target_goals";
+export const targetGoalsTable = "target";
 export const goalsTable = "goal";
 export const interestTable = "interest";
 export const userTable = "users";
