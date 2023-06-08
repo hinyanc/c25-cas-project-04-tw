@@ -12,14 +12,14 @@ import {
   interestTable,
   userTable,
   usersInterestTable,
-  usersmatchingTable,
+  usersMatchingTable,
   chatroomTable,
 } from "../migrations/20230605101740_users";
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
   await knex(chatroomTable).del();
-  await knex(usersmatchingTable).del();
+  await knex(usersMatchingTable).del();
   await knex(usersInterestTable).del();
   await knex(userTable).del();
   await knex(interestTable).del();
