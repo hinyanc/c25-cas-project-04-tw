@@ -97,8 +97,8 @@ const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 
 const PORT = 8080;
 
-import { MesssageController  } from "./controllers/messageController";
-import { MessageService  } from "./services/messageService";
+import { MessageController  } from "./controllers/MessageController";
+import { MessageService  } from "./services/MessageService";
 
 const messageService = new MessageService(knex);
 const messageController = new MessageController(messageService);
@@ -108,8 +108,7 @@ app.get("/chat", (req, res) => {
   res.json(chatRooms);
 });
 
-// app.use("/todo", todoController.router);
-// app.use("/auth", userController.router);
+
 
 app.post("/upload", async (req, res) => {});
 
