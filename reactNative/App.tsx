@@ -143,7 +143,6 @@ type StackParamList = {
   Detail: {itemId: number; otherParam: string};
   Home: undefined;
   Next: undefined;
-  Cover: undefined;
   Chat: undefined;
   Messaging: undefined;
 };
@@ -153,7 +152,7 @@ type HomeScreenProps = StackScreenProps<StackParamList, 'Home'>;
 type DetailScreenProps = StackScreenProps<StackParamList, 'Detail'>;
 type NextScreenProps = StackScreenProps<StackParamList, 'Next'>;
 
-function HomeScreen({navigation}: HomeScreenProps) {
+function HomeScreen({navigation,route}: HomeScreenProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Screen</Text>
@@ -181,8 +180,8 @@ function DetailScreen({route, navigation}: DetailScreenProps) {
         onPress={() => {
           // add new route to the navigation stack
           navigation.push('Detail', {
-            itemId: 86,
-            otherParam: 'anything you want here',
+            itemId: Math.floor(Math.random() * 100),
+            otherParam,
           });
         }}
       />
@@ -191,6 +190,10 @@ function DetailScreen({route, navigation}: DetailScreenProps) {
       <Button
         title="Go back to first screen in stack"
         onPress={() => navigation.popToTop()}
+      />
+      <Button
+        title="Chat"
+        onPress={() => navigation.navigate('Chat')}
       />
     </View>
   );
@@ -208,6 +211,8 @@ export default function App() {
           component={HomeScreen}
           options={{title: 'Overview'}}
         />
+        <Stack.Screen name="Detail" component={DetailScreen} initialParams={{itemId:40}}/>
+
         <Stack.Screen
           name="Chat"
           component={Chat}
