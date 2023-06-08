@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 // import { userService } from "./server";
 import { Bearer } from "permit";
-import { User } from "./model";
+import { User } from "./utils/model";
 
 const permit = new Bearer({
   query: "access_token",

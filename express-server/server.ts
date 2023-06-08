@@ -90,7 +90,7 @@ io.on("connection", (socket: Socket) => {
 });
 
 import Knex from "knex";
-import { User } from "./model";
+import { User } from "./utils/model";
 
 const knexConfig = require("./knexfile");
 const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
