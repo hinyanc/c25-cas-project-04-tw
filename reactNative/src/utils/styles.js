@@ -184,4 +184,17 @@ export const styles = StyleSheet.create({
   ctime: {
     opacity: 0.5,
   },
+  tabText: {
+    fontSize: 20,
+  },
+  tabShadow: {
+    shadowColor: '#CB1F2C',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 3.5,
+    elevation: 5,
+  },
 });

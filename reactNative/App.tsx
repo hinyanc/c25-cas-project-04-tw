@@ -205,26 +205,28 @@ const Stack = createNativeStackNavigator<StackParamList>();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        {/* options change the header of the screen */}
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{title: 'Overview'}}
-        />
-        <Stack.Screen name="Detail" component={DetailScreen} initialParams={{itemId:40}}/>
 
-        <Stack.Screen
-          name="Chat"
-          component={Chat}
-          options={{
-            title: 'Chats',
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen name="Messaging" component={Messaging} />
-      </Stack.Navigator>
       <BottomTabs/>
     </NavigationContainer>
   );
 }
+
+{/* <Stack.Navigator initialRouteName="Home">
+
+<Stack.Screen
+  name="Home"
+  component={HomeScreen}
+  options={{title: 'Overview'}}
+/>
+<Stack.Screen name="Detail" component={DetailScreen} initialParams={{itemId:40}}/>
+
+<Stack.Screen
+  name="Chat"
+  component={Chat}
+  options={{
+    title: 'Chats',
+    headerShown: false,
+  }}
+/>
+<Stack.Screen name="Messaging" component={Messaging} />
+</Stack.Navigator> */}

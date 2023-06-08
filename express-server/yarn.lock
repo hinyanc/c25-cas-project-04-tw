@@ -1554,6 +1554,11 @@ which-typed-array@^1.1.2:
     has-tostringtag "^1.0.0"
     is-typed-array "^1.1.10"
 
+winson@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/winson/-/winson-1.0.0.tgz#0c2b5edaf9f8976803edd244f5238450aad098d8"
+  integrity sha512-OHpgshGraXHAPxgzhwdgHJCeTHaxGoO2lBWBdM1yoadZLR/CpUXZaqWJU4n/HCdsXTIS6bMCwaYNkshaR71UEQ==
+
 wrappy@1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz"
