@@ -1,15 +1,15 @@
 import { Knex } from "knex";
 
-const ptTable = "pt"
-const gymLocationTable = "gym_location";
-const gymCenterTable = "gym_center";
-const targetGoalsTable = "target_goals";
-const goalsTable = "goal";
-const interestTable = "interest";
-const userTable = "users"
-const usersInterestTable = "users_interest";
-const usersmatchingTable = "users_matching";
-const chatroomTable = "chatroom"
+export const ptTable = "pt";
+export const gymLocationTable = "gym_location";
+export const gymCenterTable = "gym_center";
+export const targetGoalsTable = "target_goals";
+export const goalsTable = "goal";
+export const interestTable = "interest";
+export const userTable = "users";
+export const usersInterestTable = "users_interest";
+export const usersMatchingTable = "users_matching";
+export const chatroomTable = "chatroom";
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable(ptTable, (table) => {
@@ -84,7 +84,7 @@ export async function up(knex: Knex): Promise<void> {
     table.timestamps(false, true);
   });
 
-  await knex.schema.createTable(usersmatchingTable, (table) => {
+  await knex.schema.createTable(usersMatchingTable, (table) => {
     table.increments();
     table.integer("users_id").unsigned();
     table.foreign("users_id").references("users.id");
@@ -107,7 +107,7 @@ export async function up(knex: Knex): Promise<void> {
 
 export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTable(chatroomTable);
-  await knex.schema.dropTable(usersmatchingTable);
+  await knex.schema.dropTable(usersMatchingTable);
   await knex.schema.dropTable(usersInterestTable);
   await knex.schema.dropTable(userTable);
   await knex.schema.dropTable(interestTable);
