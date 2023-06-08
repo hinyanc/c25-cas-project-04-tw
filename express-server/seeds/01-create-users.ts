@@ -238,7 +238,7 @@ export async function seed(knex: Knex): Promise<void> {
 
   for (let i = 0; i < matching.length; i++) {
     for (let j = 0; j < matching[i].length; j++) {
-      await knex(usersmatchingTable).insert({
+      await knex(usersMatchingTable).insert({
         users_id: matching[i][j][0],
         matched_users_id: matching[i][j][1],
         status: matchingStatus[j],
