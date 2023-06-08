@@ -2,7 +2,7 @@ import type { Knex } from "knex";
 
 export class MessageService {
   constructor(private knex: Knex) {}
-  async create(knex: Knex, message: string) {
+  async sendMessage(knex: Knex, message: number) {
     return await knex("messages").insert({ message });
   }
 
