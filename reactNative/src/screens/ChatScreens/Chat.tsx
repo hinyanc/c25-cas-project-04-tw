@@ -1,11 +1,11 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {View, Text, Pressable, SafeAreaView, FlatList} from 'react-native';
-import ChatComponent from '../components/ChatComponent';
+import ChatComponent from '../../components/ChatComponents/ChatComponent';
 // import {Feather} from 'react-native-feather';
 import Icon from 'react-native-vector-icons/Feather';
-import {styles} from '../utils/styles';
-import Modal from '../components/Modal';
-import socket from '../utils/socket';
+import {styles} from '../../utils/styles';
+import Modal from '../../components/ChatComponents/Modal';
+import socket from '../../utils/socket';
 
 
 const Chat = () => {
