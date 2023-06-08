@@ -15,14 +15,14 @@ export class UserService {
   async loginWithPassword(user: LoginUserType) {
     console.log("entered service",user)
     let row = await this.table()
-      .select("id", "password_hash", "username")
+      .select("id", "password", "username")
       .where({ email: user.email });
 
     if (!row[0]) {
       throw new HttpError("Cannot find user", 401);
     }
 
-    let isMatch = await comparePassword(user.password, row[0].password_hash);
+    let isMatch = await comparePassword(user.password, row[0].password);
 
     if (!isMatch) {
       throw new HttpError("Wrong email or password", 402);
