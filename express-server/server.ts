@@ -97,18 +97,12 @@ const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 
 const PORT = 8080;
 
-// import { TodoController } from "./controllers/TodoController";
-// import { TodoService } from "./services/TodoService";
+import { MesssageController  } from "./controllers/messageController";
+import { MessageService  } from "./services/messageService";
 
-// import { UserController } from "./controllers/UserController";
-// import { UserService } from "./services/UserService";
-// import { User } from "./model";
+const messageService = new MessageService(knex);
+const messageController = new MessageController(messageService);
 
-// const todoService = new TodoService(knex);
-// const todoController = new TodoController(todoService);
-
-// export const userService = new UserService(knex);
-// const userController = new UserController(userService);
 
 app.get("/chat", (req, res) => {
   res.json(chatRooms);
