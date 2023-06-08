@@ -3,7 +3,7 @@ import React, {useLayoutEffect, useState} from 'react';
 // import Icon from 'react-native-ionicons';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
-import {styles} from '../utils/styles';
+import {styles} from '../../utils/styles';
 // import {StackNavigationProp} from '@react-navigation/stack';
 
 // import {NavigationContainer} from '@react-navigation/native';
