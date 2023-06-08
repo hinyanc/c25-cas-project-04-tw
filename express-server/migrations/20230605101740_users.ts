@@ -1,6 +1,6 @@
 import { Knex } from "knex";
 
-export const ptTable = "pt";
+export const ptTable = "pt"
 export const gymLocationTable = "gym_location";
 export const gymCenterTable = "gym_center";
 export const targetGoalsTable = "target_goals";
