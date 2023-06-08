@@ -16,7 +16,131 @@ import {
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
+  await knex(chatroomTable).del();
+  await knex(usersmatchingTable).del();
+  await knex(usersInterestTable).del();
   await knex(userTable).del();
+  await knex(interestTable).del();
+  await knex(goalsTable).del();
+  await knex(targetGoalsTable).del();
+  await knex(gymCenterTable).del();
+  await knex(gymLocationTable).del();
+  await knex(ptTable).del();
+
+  //////insert data for gym location/////
+  const gymLocations: string[] = [
+    "Central and Western",
+    "Eastern",
+    "Southern",
+    "Wan Chai",
+    "Kowloon City",
+    "Kwun Tong",
+    "Sham Shui Po",
+    "Wong Tai Sin",
+    "Yau Tsim Mong",
+    "Islands",
+    "Kwai Tsing",
+    "North",
+    "Sai Kung",
+    "Sha Tin",
+    "Tai Po",
+    "Tsuen Wan",
+    "Tuen Mun",
+    "Yuen Long",
+  ];
+
+  for (let i = 0; i < gymLocations.length; i++) {
+    await knex(gymLocationTable).insert({
+      gym_location: gymLocations[i],
+    });
+  }
+  //////insert data for  gym center/////
+  const gymCenter = [
+    "24/7 Fitness",
+    "Pure Fitness",
+    "Go24",
+    "Physical",
+    "Fitness First",
+    "Anytime Fitness",
+    "Snap Fitness",
+    "Leisure and Cultural Services Department (LCSD)",
+  ];
+
+  for (let i = 0; i < gymCenter.length; i++) {
+    await knex(gymCenterTable).insert({
+      gym_center: gymCenter[i],
+    });
+  }
+
+  ///////insert data for target goals///////
+  const targetGoals = [
+    "Increase muscle mass and strength",
+    "Improve cardiovascular health and endurance",
+    "Burn fat and lose weight",
+    "Increase flexibility and range of motion",
+    "Build core stability and balance",
+    "Enhance athletic performance in a specific sport or activity",
+    "Improve posture and reduce back pain",
+    "Boost energy levels and reduce fatigue",
+    "Increase bone density and prevent osteoporosis",
+    "Improve mental health and reduce stress and anxiety",
+    "Strengthen immune system and reduce risk of illness",
+    "Increase metabolism and improve digestion",
+    "Improve sleep quality and duration",
+    "Increase self-confidence and self-esteem",
+    "Improve overall body composition and appearance",
+    "Work on specific muscle groups or body parts",
+    "Improve coordination and agility",
+    "Reduce risk of chronic diseases such as diabetes and heart disease",
+    "Increase overall fitness and well-being",
+    "running a marathon",
+    "completing a triathlon",
+  ];
+
+  for (let i = 0; i < targetGoals.length; i++) {
+    await knex(targetGoalsTable).insert({
+      name: targetGoals[0],
+      is_completed: faker.datatype.boolean(),
+    });
+  }
+
+  /////////////insert data for goals table///////
+
+  for (let i = 1; i < 11; i++) {
+    const height = await this.knex("users")
+      .select("height")
+      .where("id", "=", `${i}`)
+      .first();
+    const weight = await this.knex("users")
+      .select("weight")
+      .where("id", "=", `${i}`)
+      .first();
+    const bmi = weight / (height * height);
+
+    await knex(goalsTable).insert({
+      bmi: bmi,
+      target_weight: faker.number.int({ min: 50, max: weight - 5 }) + "kg",
+      target_id: faker.number.int({ min: 1, max: 20 }),
+    });
+  }
+  ////// insert data for interest table/////
+  const interests: string[] = [
+    "Yoga",
+    "Weightlifting",
+    "Pilates",
+    "Injury recover",
+    "Aerobic",
+    "Cardio",
+    "Boxing",
+    "Stretching",
+  ];
+
+  for (let i = 0; i < interests.length; i++) {
+    await knex(interestTable).insert({
+      name: interests[0],
+    });
+  }
+  //////insert data for user table/////
 
   // Inserts seed entries
   const usedGoalIds = new Set();
@@ -66,5 +190,27 @@ export async function seed(knex: Knex): Promise<void> {
       created_at: faker.date.past(),
       updated_at: faker.date.recent(),
     });
+  }
+  /////insert data for user interest table///////
+  const interest = [
+    [1, 2, 4],
+    [3, 5, 7],
+    [8, 4, 3],
+    [1, 6, 3],
+    [8, 5, 7],
+    [2, 6, 4],
+    [1, 5, 2],
+    [4, 7, 3],
+    [1, 7, 3],
+    [7, 6, 5],
+  ];
+
+  for (let i = 0; i < interest.length; i++) {
+    for (let j = 0; j < interest[i].length; j++) {
+      await knex(usersInterestTable).insert({
+        users_id: i + 1,
+        interest_id: interest[i][j],
+      });
+    }
   }
 }
