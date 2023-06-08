@@ -1,31 +1,42 @@
 import { Knex } from "knex";
 
+const ptTable = "pt"
+const gymLocationTable = "gym_location";
+const gymCenterTable = "gym_center";
+const targetGoalsTable = "target_goals";
+const goalsTable = "goal";
+const interestTable = "interest";
+const userTable = "users"
+const usersInterestTable = "users_interest";
+const usersmatchingTable = "users_matching";
+const chatroomTable = "chatroom"
+
 export async function up(knex: Knex): Promise<void> {
-  await knex.schema.createTable("pt", (table) => {
+  await knex.schema.createTable(ptTable, (table) => {
     table.increments();
     table.string("certification");
     table.integer("hourly_rate");
     table.timestamps(false, true);
   });
 
-  await knex.schema.createTable("gym_location", (table) => {
+  await knex.schema.createTable(gymLocationTable, (table) => {
     table.increments();
     table.string("gym_location").notNullable();
   });
 
-  await knex.schema.createTable("gym_center", (table) => {
+  await knex.schema.createTable(gymCenterTable, (table) => {
     table.increments();
     table.string("gym_center");
   });
 
-  await knex.schema.createTable("target_goal", (table) => {
+  await knex.schema.createTable(targetGoalsTable, (table) => {
     table.increments();
     table.string("name").notNullable();
     table.boolean("is_completed").notNullable();
     table.timestamps(false, true);
   });
 
-  await knex.schema.createTable("goal", (table) => {
+  await knex.schema.createTable(goalsTable, (table) => {
     table.increments();
     table.string("bmi").notNullable();
     table.string("target_weight");
@@ -34,12 +45,12 @@ export async function up(knex: Knex): Promise<void> {
     table.timestamps(false, true);
   });
 
-  await knex.schema.createTable("interest", (table) => {
+  await knex.schema.createTable(interestTable, (table) => {
     table.increments();
     table.string("name").notNullable();
   });
 
-  await knex.schema.createTable("users", (table) => {
+  await knex.schema.createTable(userTable, (table) => {
     table.increments();
     table.string("email").notNullable().unique();
     table.string("password").notNullable();
@@ -64,7 +75,7 @@ export async function up(knex: Knex): Promise<void> {
     table.timestamps(false, true);
   });
 
-  await knex.schema.createTable("users_interest", (table) => {
+  await knex.schema.createTable(usersInterestTable, (table) => {
     table.increments();
     table.integer("users_id").unsigned();
     table.foreign("users_id").references("users.id");
@@ -73,7 +84,7 @@ export async function up(knex: Knex): Promise<void> {
     table.timestamps(false, true);
   });
 
-  await knex.schema.createTable("users_matching", (table) => {
+  await knex.schema.createTable(usersmatchingTable, (table) => {
     table.increments();
     table.integer("users_id").unsigned();
     table.foreign("users_id").references("users.id");
@@ -83,7 +94,7 @@ export async function up(knex: Knex): Promise<void> {
     table.timestamps(false, true);
   });
 
-  await knex.schema.createTable("chatroom", (table) => {
+  await knex.schema.createTable(chatroomTable, (table) => {
     table.increments();
     table.string("sender_id").unsigned();
     table.foreign("sender_id").references("users.id");
@@ -95,14 +106,14 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  await knex.schema.dropTable("chatroom");
-  await knex.schema.dropTable("users_matching");
-  await knex.schema.dropTable("users_interest");
-  await knex.schema.dropTable("users");
-  await knex.schema.dropTable("interest");
-  await knex.schema.dropTable("goal");
-  await knex.schema.dropTable("target_goal");
-  await knex.schema.dropTable("gym_center");
-  await knex.schema.dropTable("gym_location");
-  await knex.schema.dropTable("pt");
+  await knex.schema.dropTable(chatroomTable);
+  await knex.schema.dropTable(usersmatchingTable);
+  await knex.schema.dropTable(usersInterestTable);
+  await knex.schema.dropTable(userTable);
+  await knex.schema.dropTable(interestTable);
+  await knex.schema.dropTable(goalsTable);
+  await knex.schema.dropTable(targetGoalsTable);
+  await knex.schema.dropTable(gymCenterTable);
+  await knex.schema.dropTable(gymLocationTable);
+  await knex.schema.dropTable(ptTable);
 }
