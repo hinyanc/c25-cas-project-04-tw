@@ -1,7 +1,7 @@
 import { compare, hash } from "bcryptjs";
 
 let ROUND = 15;
-export async function hashPasword(password: string) {
+export async function hashPassword(password: string) {
   let result: string = await hash(password, ROUND);
   return result;
 }

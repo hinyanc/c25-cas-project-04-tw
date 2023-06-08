@@ -1,5 +1,7 @@
 import { Knex } from "knex";
 import { faker } from "@faker-js/faker";
+import { hashPassword } from "../utils/hash";
+
 
 import {
   ptTable,
@@ -168,11 +170,11 @@ export async function seed(knex: Knex): Promise<void> {
     await knex(userTable).insert({
       email: emails[0],
       //hash password
-      password: faker.internet.password(),
+      password: await hashPassword("123abc"),
       username: faker.internet.userName(),
       //not sure
       goal_id: goalId,
-      //can't generate picture
+      //can't generate useful picture
       profile_pic: faker.image.avatar(),
       birthday: faker.date.birthdate({ min: 18, max: 65, mode: "age" }),
       gender: faker.helpers.arrayElement(["Male", "Female"]),
@@ -214,7 +216,7 @@ export async function seed(knex: Knex): Promise<void> {
     }
   }
 
-  //////insert into user matching table\
+  //////insert into user matching table////
   let matching = [
     [
       [1, 4],
