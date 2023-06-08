@@ -107,11 +107,11 @@ export async function seed(knex: Knex): Promise<void> {
   /////////////insert data for goals table///////
 
   for (let i = 1; i < 11; i++) {
-    const height = await this.knex("users")
+    const height = await knex("users")
       .select("height")
       .where("id", "=", `${i}`)
       .first();
-    const weight = await this.knex("users")
+    const weight = await knex("users")
       .select("weight")
       .where("id", "=", `${i}`)
       .first();
