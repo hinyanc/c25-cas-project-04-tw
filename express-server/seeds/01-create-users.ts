@@ -14,7 +14,7 @@ import {
   ptTable,
   chatroomTable,
   userGymCenterTable,
-  userGymLocationTable
+  userGymLocationTable,
 } from "../migrations/20230605101740_users";
 
 export async function seed(knex: Knex): Promise<void> {
@@ -31,8 +31,7 @@ export async function seed(knex: Knex): Promise<void> {
   await knex(interestTable).del();
   await knex(gymCenterTable).del();
   await knex(gymLocationTable).del();
-///////insert data for pt table//////
-
+  ///////insert data for pt table//////
 
   //////insert data for gym location/////
   const gymLocations: string[] = [
@@ -78,7 +77,7 @@ export async function seed(knex: Knex): Promise<void> {
       gym_center: gymCenter[i],
     });
   }
-  
+
   ////// insert data for interest table/////
   const interests: string[] = [
     "Yoga",
@@ -94,57 +93,6 @@ export async function seed(knex: Knex): Promise<void> {
   for (let i = 0; i < interests.length; i++) {
     await knex(interestTable).insert({
       name: interests[0],
-    });
-  }
-  ///////insert data for target goals///////
-  const targetGoals = [
-    "Increase muscle mass and strength",
-    "Improve cardiovascular health and endurance",
-    "Burn fat and lose weight",
-    "Increase flexibility and range of motion",
-    "Build core stability and balance",
-    "Enhance athletic performance in a specific sport or activity",
-    "Improve posture and reduce back pain",
-    "Boost energy levels and reduce fatigue",
-    "Increase bone density and prevent osteoporosis",
-    "Improve mental health and reduce stress and anxiety",
-    "Strengthen immune system and reduce risk of illness",
-    "Increase metabolism and improve digestion",
-    "Improve sleep quality and duration",
-    "Increase self-confidence and self-esteem",
-    "Improve overall body composition and appearance",
-    "Work on specific muscle groups or body parts",
-    "Improve coordination and agility",
-    "Reduce risk of chronic diseases such as diabetes and heart disease",
-    "Increase overall fitness and well-being",
-    "running a marathon",
-    "completing a triathlon",
-  ];
-
-  for (let i = 0; i < targetGoals.length; i++) {
-    await knex(targetGoalsTable).insert({
-      name: targetGoals[0],
-      is_completed: faker.datatype.boolean(),
-    });
-  }
-
-  /////////////insert data for goals table///////
-
-  for (let i = 1; i < 11; i++) {
-    const height = await knex("users")
-      .select("height")
-      .where("id", "=", `${i}`)
-      .first();
-    const weight = await knex("users")
-      .select("weight")
-      .where("id", "=", `${i}`)
-      .first();
-    const bmi = weight / (height * height);
-
-    await knex(goalsTable).insert({
-      bmi: bmi,
-      target_weight: faker.number.int({ min: 50, max: weight - 5 }) + "kg",
-      target_id: faker.number.int({ min: 1, max: 20 }),
     });
   }
 
@@ -199,6 +147,61 @@ export async function seed(knex: Knex): Promise<void> {
       updated_at: faker.date.recent(),
     });
   }
+
+  /////////////insert data for goals table///////
+
+  for (let i = 1; i < 11; i++) {
+    const height = await knex("users")
+      .select("height")
+      .where("id", "=", `${i}`)
+      .first();
+    const weight = await knex("users")
+      .select("weight")
+      .where("id", "=", `${i}`)
+      .first();
+    const bmi = weight / (height * height);
+
+    await knex(goalsTable).insert({
+      bmi: bmi,
+      user_id: i,
+      target_weight: faker.number.int({ min: 50, max: weight - 5 }) + "kg",
+    });
+  }
+
+  ///////insert data for target goals///////
+  const targetGoals = [
+    "Increase muscle mass and strength",
+    "Improve cardiovascular health and endurance",
+    "Burn fat and lose weight",
+    "Increase flexibility and range of motion",
+    "Build core stability and balance",
+    "Enhance athletic performance in a specific sport or activity",
+    "Improve posture and reduce back pain",
+    "Boost energy levels and reduce fatigue",
+    "Increase bone density and prevent osteoporosis",
+    "Improve mental health and reduce stress and anxiety",
+    "Strengthen immune system and reduce risk of illness",
+    "Increase metabolism and improve digestion",
+    "Improve sleep quality and duration",
+    "Increase self-confidence and self-esteem",
+    "Improve overall body composition and appearance",
+    "Work on specific muscle groups or body parts",
+    "Improve coordination and agility",
+    "Reduce risk of chronic diseases such as diabetes and heart disease",
+    "Increase overall fitness and well-being",
+    "running a marathon",
+    "completing a triathlon",
+  ];
+
+  for (let i = 0; i < targetGoals.length; i++) {
+    await knex(targetGoalsTable).insert({
+      goal_id: faker.number.int({ min: 1, max: 10 }),
+      name: targetGoals[0],
+      is_completed: faker.datatype.boolean(),
+    });
+  }
+
+  
   /////insert data for user interest table///////
   const interest = [
     [1, 2, 4],
