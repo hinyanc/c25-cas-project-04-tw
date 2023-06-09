@@ -124,7 +124,8 @@ import {StackScreenProps} from '@react-navigation/stack';
 import Messaging from './src/screens/ChatScreens/Messaging';
 import Chat from './src/screens/ChatScreens/Chat';
 import BottomTabs from './src/components/BottomTab';
-
+import LoginScreen from './src/screens/LoginScreens/LoginScreen';
+import OnBoardingScreen from './src/screens/OnBoardScreen/onBoardScreen';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -140,78 +141,86 @@ const styles = StyleSheet.create({
 });
 
 //name of routes
-type StackParamList = {
-  Detail: {itemId: number; otherParam: string};
-  Home: undefined;
+export type StackParamList = {
+  Home:undefined
+  Onboarding: undefined;
+  Login: undefined;
   Next: undefined;
   Chat: undefined;
   Messaging: undefined;
 };
 
 //name of routes = name props = StackParamList[Home]
-type HomeScreenProps = StackScreenProps<StackParamList, 'Home'>;
-type DetailScreenProps = StackScreenProps<StackParamList, 'Detail'>;
-type NextScreenProps = StackScreenProps<StackParamList, 'Next'>;
+// type HomeScreenProps = StackScreenProps<StackParamList, 'Home'>;
+// type DetailScreenProps = StackScreenProps<StackParamList, 'Detail'>;
 
-function HomeScreen({navigation,route}: HomeScreenProps) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Home Screen</Text>
-      <Button
-        title="Go to Detail"
-        onPress={() => {
-          navigation.navigate('Detail', {
-            itemId: 86,
-            otherParam: 'anything you want here',
-          });
-        }}
-      />
-    </View>
-  );
-}
-function DetailScreen({route, navigation}: DetailScreenProps) {
-  const {itemId, otherParam} = route.params;
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Detail Screen</Text>
-      <Text>itemId: {JSON.stringify(itemId)}</Text>
-      <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-      <Button
-        title="Go to Details again.."
-        onPress={() => {
-          // add new route to the navigation stack
-          navigation.push('Detail', {
-            itemId: Math.floor(Math.random() * 100),
-            otherParam,
-          });
-        }}
-      />
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Button
-        title="Go back to first screen in stack"
-        onPress={() => navigation.popToTop()}
-      />
-      <Button
-        title="Chat"
-        onPress={() => navigation.navigate('Chat')}
-      />
-    </View>
-  );
-}
+// function HomeScreen({navigation,route}: HomeScreenProps) {
+//   return (
+//     <View style={styles.container}>
+//       <Text style={styles.text}>Home Screen</Text>
+//       <Button
+//         title="Go to Detail"
+//         onPress={() => {
+//           navigation.navigate('Detail', {
+//             itemId: 86,
+//             otherParam: 'anything you want here',
+//           });
+//         }}
+//       />
+//     </View>
+//   );
+// }
+// function DetailScreen({route, navigation}: DetailScreenProps) {
+//   const {itemId, otherParam} = route.params;
+//   return (
+//     <View style={styles.container}>
+//       <Text style={styles.text}>Detail Screen</Text>
+//       <Text>itemId: {JSON.stringify(itemId)}</Text>
+//       <Text>otherParam: {JSON.stringify(otherParam)}</Text>
+//       <Button
+//         title="Go to Details again.."
+//         onPress={() => {
+//           // add new route to the navigation stack
+//           navigation.push('Detail', {
+//             itemId: Math.floor(Math.random() * 100),
+//             otherParam,
+//           });
+//         }}
+//       />
+//       <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+//       <Button title="Go back" onPress={() => navigation.goBack()} />
+//       <Button
+//         title="Go back to first screen in stack"
+//         onPress={() => navigation.popToTop()}
+//       />
+//       <Button
+//         title="Chat"
+//         onPress={() => navigation.navigate('Chat')}
+//       />
+//     </View>
+//   );
+// }
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
   return (
-    <NavigationContainer>
-
-      <BottomTabs/>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Onboarding">
+          <Stack.Screen name="Onboarding" component={OnBoardingScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      {/* <NavigationContainer>
+        <BottomTabs />
+      </NavigationContainer> */}
+    </>
   );
 }
 
-{/* <Stack.Navigator initialRouteName="Home">
+{
+  /* <Stack.Navigator initialRouteName="Home">
 
 <Stack.Screen
   name="Home"
@@ -229,4 +238,5 @@ export default function App() {
   }}
 />
 <Stack.Screen name="Messaging" component={Messaging} />
-</Stack.Navigator> */}
+</Stack.Navigator> */
+}
