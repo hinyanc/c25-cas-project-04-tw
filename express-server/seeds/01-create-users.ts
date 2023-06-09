@@ -243,7 +243,7 @@ export async function seed(knex: Knex): Promise<void> {
   }
 
   /////insert  into pt profile Table////
-  for (let i = 0; i < 11; i++) {
+  for (let i = 1; i < 11; i++) {
     let ispt = faker.datatype.boolean();
     if (ispt) {
       await knex(ptTable).insert({
@@ -261,7 +261,7 @@ export async function seed(knex: Knex): Promise<void> {
 
     if (isPt) {
       await knex(ptCertificateTable).insert({
-        users_id: i,
+        pt_profile_id: i,
         certification: faker.image.avatar(),
       });
     }
@@ -269,10 +269,10 @@ export async function seed(knex: Knex): Promise<void> {
 
   ///////////insert data into chatroomTable////////
   for (let i = 0; i < 10; i++) {
-    let sender_id = faker.datatype.boolean() ? 1 : 0;
+    let sender_id = faker.datatype.boolean() ? 2 : 1;
     let receiver_id;
     do {
-      receiver_id = faker.datatype.boolean() ? 1 : 0;
+      receiver_id = faker.datatype.boolean() ? 2 : 1;
     } while (receiver_id === sender_id);
     let message = faker.lorem.sentence();
     let created_at = faker.date.past();
@@ -285,10 +285,10 @@ export async function seed(knex: Knex): Promise<void> {
     });
   }
   for (let i = 0; i < 10; i++) {
-    let sender_id = faker.datatype.boolean() ? 2 : 0;
+    let sender_id = faker.datatype.boolean() ? 3 : 1;
     let receiver_id;
     do {
-      receiver_id = faker.datatype.boolean() ? 2 : 0;
+      receiver_id = faker.datatype.boolean() ? 3 : 1;
     } while (receiver_id === sender_id);
     let message = faker.lorem.sentence();
     let created_at = faker.date.past();
@@ -300,10 +300,10 @@ export async function seed(knex: Knex): Promise<void> {
     });
   }
   for (let i = 0; i < 10; i++) {
-    let sender_id = faker.datatype.boolean() ? 1 : 2;
+    let sender_id = faker.datatype.boolean() ? 2 : 3;
     let receiver_id;
     do {
-      receiver_id = faker.datatype.boolean() ? 1 : 2;
+      receiver_id = faker.datatype.boolean() ? 2 : 3;
     } while (receiver_id === sender_id);
     let message = faker.lorem.sentence();
     let created_at = faker.date.past();
@@ -328,9 +328,9 @@ export async function seed(knex: Knex): Promise<void> {
       });
     }
   }
-  //////////insert into gymLocationTable/////
+  //////////insert into userGymLocationTable/////
   for (let i = 1; i < 11; i++) {
-    await knex(gymLocationTable).insert({
+    await knex(userGymLocationTable).insert({
       users_id: i,
       gym_location_id: faker.number.int({ min: 1, max: 18 }),
     });
