@@ -9,9 +9,11 @@ export type LoginUserType = {
   };
 
 export type ChatroomType = {
+  id: number;
   senderId: number;
-  receiverId: number;
+  recipientId: number;
   message: string;
+  timestamp:Date;
 }
 
 export type Users_Type ={
