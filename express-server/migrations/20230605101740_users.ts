@@ -35,8 +35,6 @@ export async function up(knex: Knex): Promise<void> {
     table.string("email").notNullable().unique();
     table.string("password").notNullable();
     table.string("username").notNullable();
-    table.integer("goal_id").unsigned();
-    table.foreign("goal_id").references("goal.id");
     table.string("profile_pic").notNullable();
     table.date("birthday").notNullable();
     table.string("gender").notNullable();
@@ -52,6 +50,8 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable(goalsTable, (table) => {
     table.increments();
     table.string("bmi").notNullable();
+    table.integer("users_id").unsigned();
+    table.foreign("users_id").references("users.id");
     table.string("target_weight");
     table.timestamps(false, true);
   });
@@ -85,8 +85,8 @@ export async function up(knex: Knex): Promise<void> {
 
   await knex.schema.createTable(ptTable, (table) => {
     table.increments();
-    table.integer("user_id").unsigned();
-    table.foreign("user_id").references("user.id");
+    table.integer("users_id").unsigned();
+    table.foreign("users_id").references("users.id");
     table.integer("hourly_rate");
     table.timestamps(false, true);
   });
@@ -110,8 +110,8 @@ export async function up(knex: Knex): Promise<void> {
 
   await knex.schema.createTable(userGymCenterTable, (table) => {
     table.increments();
-    table.integer("user_id").unsigned();
-    table.foreign("user_id").references("user.id");
+    table.integer("users_id").unsigned();
+    table.foreign("users_id").references("users.id");
     table.integer("gym_center_id").unsigned();
     table.foreign("gym_center_id").references("gym_center.id");
     table.timestamps(false, true);
@@ -119,8 +119,8 @@ export async function up(knex: Knex): Promise<void> {
 
   await knex.schema.createTable(userGymLocationTable, (table) => {
     table.increments();
-    table.integer("user_id").unsigned();
-    table.foreign("user_id").references("user.id");
+    table.integer("users_id").unsigned();
+    table.foreign("users_id").references("users.id");
     table.integer("gym_location_id").unsigned();
     table.foreign("gym_location_id").references("gym_location.id");
     table.timestamps(false, true);

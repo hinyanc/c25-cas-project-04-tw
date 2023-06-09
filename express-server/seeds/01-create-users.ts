@@ -150,7 +150,7 @@ export async function seed(knex: Knex): Promise<void> {
 
     await knex(goalsTable).insert({
       bmi: bmi,
-      user_id: i,
+      users_id: i,
       target_weight: faker.number.int({ min: 50, max: weight - 5 }) + "kg",
     });
   }
@@ -246,7 +246,7 @@ export async function seed(knex: Knex): Promise<void> {
     let ispt = faker.datatype.boolean();
     if (ispt) {
       await knex(ptTable).insert({
-        user_id: i,
+        users_id: i,
         hourly_rate: faker.number.int({ min: 500, max: 1000 }),
       });
     }
@@ -260,7 +260,7 @@ export async function seed(knex: Knex): Promise<void> {
 
     if (isPt) {
       await knex(ptCertificateTable).insert({
-        user_id: i,
+        users_id: i,
         certification:faker.image.avatar(),
       });
     }
@@ -322,7 +322,7 @@ export async function seed(knex: Knex): Promise<void> {
 
     if (isMember) {
       await knex(userGymCenterTable).insert({
-        user_id: i,
+        users_id: i,
         gym_center_id: faker.number.int({ min: 1, max: 8 }),
       });
     }
@@ -330,7 +330,7 @@ export async function seed(knex: Knex): Promise<void> {
   //////////insert into gymLocationTable/////
   for (let i = 1; i < 11; i++) {
       await knex(gymLocationTable).insert({
-        user_id: i,
+        users_id: i,
         gym_location_id: faker.number.int({ min: 1, max: 18 }),
       });
     }
