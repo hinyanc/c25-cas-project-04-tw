@@ -23,6 +23,7 @@ export async function seed(knex: Knex): Promise<void> {
   await knex(userGymLocationTable).del();
   await knex(userGymCenterTable).del();
   await knex(chatroomTable).del();
+  await knex(ptCertificateTable).del();
   await knex(ptTable).del();
   await knex(usersMatchingTable).del();
   await knex(usersInterestTable).del();
@@ -116,7 +117,7 @@ export async function seed(knex: Knex): Promise<void> {
     const hasMembership = faker.datatype.boolean();
 
     await knex(userTable).insert({
-      email: emails[0],
+      email: emails[i],
       //hash password
       password: await hashPassword("123abc"),
       username: faker.internet.userName(),
@@ -150,7 +151,7 @@ export async function seed(knex: Knex): Promise<void> {
 
     await knex(goalsTable).insert({
       bmi: bmi,
-      user_id: i,
+      users_id: i,
       target_weight: faker.number.int({ min: 50, max: weight - 5 }) + "kg",
     });
   }
@@ -214,19 +215,19 @@ export async function seed(knex: Knex): Promise<void> {
   //////insert into user matching table////
   let matching = [
     [
+      [2, 5],
+      [2, 6],
+      [2, 3],
+    ],
+    [
+      [1, 7],
       [1, 4],
-      [1, 5],
       [1, 2],
     ],
     [
-      [0, 6],
-      [0, 3],
-      [0, 1],
-    ],
-    [
-      [2, 7],
-      [2, 8],
-      [2, 0],
+      [3, 8],
+      [3, 9],
+      [3, 1],
     ],
   ];
   let matchingStatus = ["request", "dislike", "matched"];
@@ -242,11 +243,11 @@ export async function seed(knex: Knex): Promise<void> {
   }
 
   /////insert  into pt profile Table////
-  for (let i = 0; i < 11; i++) {
+  for (let i = 1; i < 11; i++) {
     let ispt = faker.datatype.boolean();
     if (ispt) {
       await knex(ptTable).insert({
-        user_id: i,
+        users_id: i,
         hourly_rate: faker.number.int({ min: 500, max: 1000 }),
       });
     }
@@ -260,18 +261,18 @@ export async function seed(knex: Knex): Promise<void> {
 
     if (isPt) {
       await knex(ptCertificateTable).insert({
-        user_id: i,
-        certification:faker.image.avatar(),
+        pt_profile_id: i,
+        certification: faker.image.avatar(),
       });
     }
   }
 
   ///////////insert data into chatroomTable////////
   for (let i = 0; i < 10; i++) {
-    let sender_id = faker.datatype.boolean() ? 1 : 0;
+    let sender_id = faker.datatype.boolean() ? 2 : 1;
     let receiver_id;
     do {
-      receiver_id = faker.datatype.boolean() ? 1 : 0;
+      receiver_id = faker.datatype.boolean() ? 2 : 1;
     } while (receiver_id === sender_id);
     let message = faker.lorem.sentence();
     let created_at = faker.date.past();
@@ -284,10 +285,10 @@ export async function seed(knex: Knex): Promise<void> {
     });
   }
   for (let i = 0; i < 10; i++) {
-    let sender_id = faker.datatype.boolean() ? 2 : 0;
+    let sender_id = faker.datatype.boolean() ? 3 : 1;
     let receiver_id;
     do {
-      receiver_id = faker.datatype.boolean() ? 2 : 0;
+      receiver_id = faker.datatype.boolean() ? 3 : 1;
     } while (receiver_id === sender_id);
     let message = faker.lorem.sentence();
     let created_at = faker.date.past();
@@ -299,10 +300,10 @@ export async function seed(knex: Knex): Promise<void> {
     });
   }
   for (let i = 0; i < 10; i++) {
-    let sender_id = faker.datatype.boolean() ? 1 : 2;
+    let sender_id = faker.datatype.boolean() ? 2 : 3;
     let receiver_id;
     do {
-      receiver_id = faker.datatype.boolean() ? 1 : 2;
+      receiver_id = faker.datatype.boolean() ? 2 : 3;
     } while (receiver_id === sender_id);
     let message = faker.lorem.sentence();
     let created_at = faker.date.past();
@@ -322,17 +323,16 @@ export async function seed(knex: Knex): Promise<void> {
 
     if (isMember) {
       await knex(userGymCenterTable).insert({
-        user_id: i,
+        users_id: i,
         gym_center_id: faker.number.int({ min: 1, max: 8 }),
       });
     }
   }
-  //////////insert into gymLocationTable/////
+  //////////insert into userGymLocationTable/////
   for (let i = 1; i < 11; i++) {
-      await knex(gymLocationTable).insert({
-        user_id: i,
-        gym_location_id: faker.number.int({ min: 1, max: 18 }),
-      });
-    }
+    await knex(userGymLocationTable).insert({
+      users_id: i,
+      gym_location_id: faker.number.int({ min: 1, max: 18 }),
+    });
   }
-
+}
