@@ -16,4 +16,6 @@ export class MessageService {
 
     return messagesHistory;
   };
+
+  sendMessage = async () => {};
 }
