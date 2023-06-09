@@ -1,24 +1,19 @@
 import { Knex } from "knex";
 
-export const ptTable = "pt"
 export const gymLocationTable = "gym_location";
 export const gymCenterTable = "gym_center";
-export const targetGoalsTable = "target";
-export const goalsTable = "goal";
 export const interestTable = "interest";
 export const userTable = "users";
+export const goalsTable = "goal";
+export const targetGoalsTable = "target";
 export const usersInterestTable = "users_interest";
 export const usersMatchingTable = "users_matching";
+export const ptTable = "pt_certificate";
 export const chatroomTable = "chatroom";
+export const userGymCenterTable = "user_gym_center";
+export const userGymLocationTable = "user_gym_location";
 
 export async function up(knex: Knex): Promise<void> {
-  await knex.schema.createTable(ptTable, (table) => {
-    table.increments();
-    table.string("certification");
-    table.integer("hourly_rate");
-    table.timestamps(false, true);
-  });
-
   await knex.schema.createTable(gymLocationTable, (table) => {
     table.increments();
     table.string("gym_location").notNullable();
@@ -27,22 +22,6 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable(gymCenterTable, (table) => {
     table.increments();
     table.string("gym_center");
-  });
-
-  await knex.schema.createTable(targetGoalsTable, (table) => {
-    table.increments();
-    table.string("name").notNullable();
-    table.boolean("is_completed").notNullable();
-    table.timestamps(false, true);
-  });
-
-  await knex.schema.createTable(goalsTable, (table) => {
-    table.increments();
-    table.string("bmi").notNullable();
-    table.string("target_weight");
-    table.integer("target_id").unsigned();
-    table.foreign("target_id").references("target.id");
-    table.timestamps(false, true);
   });
 
   await knex.schema.createTable(interestTable, (table) => {
@@ -65,16 +44,25 @@ export async function up(knex: Knex): Promise<void> {
     table.string("weight").notNullable();
     table.string("gym_level").notNullable();
     table.boolean("has_membership").notNullable();
-    table.integer("gym_center_id").unsigned();
-    table.foreign("gym_center_id").references("gym_center.id");
-    table.integer("gym_location_id").unsigned();
-    table.foreign("gym_location_id").references("gym_location.id");
     table.boolean("is_pt").defaultTo("false");
-    table.integer("pt_id").unsigned();
-    table.foreign("pt_id").references("pt.id");
     table.timestamps(false, true);
   });
 
+  await knex.schema.createTable(goalsTable, (table) => {
+    table.increments();
+    table.string("bmi").notNullable();
+    table.string("target_weight");
+    table.timestamps(false, true);
+  });
+
+  await knex.schema.createTable(targetGoalsTable, (table) => {
+    table.increments();
+    table.integer("goal_id").unsigned();
+    table.foreign("goal_id").references("goal.id");
+    table.string("name").notNullable();
+    table.boolean("is_completed").notNullable();
+    table.timestamps(false, true);
+  });
   await knex.schema.createTable(usersInterestTable, (table) => {
     table.increments();
     table.integer("users_id").unsigned();
@@ -94,6 +82,15 @@ export async function up(knex: Knex): Promise<void> {
     table.timestamps(false, true);
   });
 
+  await knex.schema.createTable(ptTable, (table) => {
+    table.increments();
+    table.integer("user_id").unsigned();
+    table.foreign("user_id").references("user.id");
+    table.string("certification");
+    table.integer("hourly_rate");
+    table.timestamps(false, true);
+  });
+
   await knex.schema.createTable(chatroomTable, (table) => {
     table.increments();
     table.string("sender_id").unsigned();
@@ -103,17 +100,37 @@ export async function up(knex: Knex): Promise<void> {
     table.string("message").notNullable();
     table.timestamps(false, true);
   });
+
+  await knex.schema.createTable(userGymCenterTable, (table) => {
+    table.increments();
+    table.integer("user_id").unsigned();
+    table.foreign("user_id").references("user.id");
+    table.integer("gym_center_id").unsigned();
+    table.foreign("gym_center_id").references("gym_center.id");
+    table.timestamps(false, true);
+  });
+
+  await knex.schema.createTable(userGymLocationTable, (table) => {
+    table.increments();
+    table.integer("user_id").unsigned();
+    table.foreign("user_id").references("user.id");
+    table.integer("gym_location_id").unsigned();
+    table.foreign("gym_location_id").references("gym_location.id");
+    table.timestamps(false, true);
+  });
 }
 
 export async function down(knex: Knex): Promise<void> {
+  await knex.schema.dropTable(userGymLocationTable);
+  await knex.schema.dropTable(userGymCenterTable);
   await knex.schema.dropTable(chatroomTable);
+  await knex.schema.dropTable(ptTable);
   await knex.schema.dropTable(usersMatchingTable);
   await knex.schema.dropTable(usersInterestTable);
+  await knex.schema.dropTable(targetGoalsTable);
+  await knex.schema.dropTable(goalsTable);
   await knex.schema.dropTable(userTable);
   await knex.schema.dropTable(interestTable);
-  await knex.schema.dropTable(goalsTable);
-  await knex.schema.dropTable(targetGoalsTable);
   await knex.schema.dropTable(gymCenterTable);
   await knex.schema.dropTable(gymLocationTable);
-  await knex.schema.dropTable(ptTable);
 }

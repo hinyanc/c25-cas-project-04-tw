@@ -3,30 +3,36 @@ import { faker } from "@faker-js/faker";
 import { hashPassword } from "../utils/hash";
 
 import {
-  ptTable,
   gymLocationTable,
   gymCenterTable,
-  targetGoalsTable,
-  goalsTable,
   interestTable,
   userTable,
+  goalsTable,
+  targetGoalsTable,
   usersInterestTable,
   usersMatchingTable,
+  ptTable,
   chatroomTable,
+  userGymCenterTable,
+  userGymLocationTable
 } from "../migrations/20230605101740_users";
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
+  await knex(userGymLocationTable).del();
+  await knex(userGymCenterTable).del();
   await knex(chatroomTable).del();
+  await knex(ptTable).del();
   await knex(usersMatchingTable).del();
   await knex(usersInterestTable).del();
+  await knex(targetGoalsTable).del();
+  await knex(goalsTable).del();
   await knex(userTable).del();
   await knex(interestTable).del();
-  await knex(goalsTable).del();
-  await knex(targetGoalsTable).del();
   await knex(gymCenterTable).del();
   await knex(gymLocationTable).del();
-  await knex(ptTable).del();
+///////insert data for pt table//////
+
 
   //////insert data for gym location/////
   const gymLocations: string[] = [
@@ -72,7 +78,24 @@ export async function seed(knex: Knex): Promise<void> {
       gym_center: gymCenter[i],
     });
   }
+  
+  ////// insert data for interest table/////
+  const interests: string[] = [
+    "Yoga",
+    "Weightlifting",
+    "Pilates",
+    "Injury recover",
+    "Aerobic",
+    "Cardio",
+    "Boxing",
+    "Stretching",
+  ];
 
+  for (let i = 0; i < interests.length; i++) {
+    await knex(interestTable).insert({
+      name: interests[0],
+    });
+  }
   ///////insert data for target goals///////
   const targetGoals = [
     "Increase muscle mass and strength",
@@ -124,23 +147,7 @@ export async function seed(knex: Knex): Promise<void> {
       target_id: faker.number.int({ min: 1, max: 20 }),
     });
   }
-  ////// insert data for interest table/////
-  const interests: string[] = [
-    "Yoga",
-    "Weightlifting",
-    "Pilates",
-    "Injury recover",
-    "Aerobic",
-    "Cardio",
-    "Boxing",
-    "Stretching",
-  ];
 
-  for (let i = 0; i < interests.length; i++) {
-    await knex(interestTable).insert({
-      name: interests[0],
-    });
-  }
   //////insert data for user table/////
 
   // Inserts seed entries
