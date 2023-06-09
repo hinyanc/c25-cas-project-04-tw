@@ -8,7 +8,6 @@ export class MessageController {
     try {
       const { mainUserId } = req.body;
       const { targetUserId } = req.body;
-      console.log("into the contorller");
       const messagesHistory = await this.messageService.getAllMessages(
         mainUserId,
         targetUserId
