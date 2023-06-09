@@ -205,11 +205,6 @@ const Stack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
   return (
-<<<<<<< HEAD
-    <NavigationContainer>
-      <BottomTabs/>
-    </NavigationContainer>
-=======
     <>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Onboarding">
@@ -221,7 +216,6 @@ export default function App() {
         <BottomTabs />
       </NavigationContainer> */}
     </>
->>>>>>> efb9190846acc6beac4854fcc3689baf6f7f5d3e
   );
 }
 
