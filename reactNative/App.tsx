@@ -205,7 +205,6 @@ const Stack = createNativeStackNavigator<StackParamList>();
 export default function App() {
   return (
     <NavigationContainer>
-
       <BottomTabs/>
     </NavigationContainer>
   );

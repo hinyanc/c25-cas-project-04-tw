@@ -1,25 +1,14 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
-import Card from '../components/TinderCard';
+import {View, StyleSheet, Text, SafeAreaView} from 'react-native';
 import users from '../assets/data/users';
-
-import AnimatedStack from '../components/TinderAnimated';
+import {TinderSwipe} from '../components/TinderSwipe';
 
 const HomeDiscoverScreen = () => {
-  return(
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home</Text>
-    </View>
-  )
+  return (
+    <SafeAreaView>
+      <TinderSwipe />
+    </SafeAreaView>
+  );
 };
-
-const styles = StyleSheet.create({
-  pageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-    width: '100%',
-  },
-});
 
 export default HomeDiscoverScreen;
