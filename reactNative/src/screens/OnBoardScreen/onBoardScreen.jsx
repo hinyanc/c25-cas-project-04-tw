@@ -100,7 +100,7 @@ import {
 
 const {width, height} = Dimensions.get('window');
 
-const COLORS = {primary: '#282534', white: '#fff'};
+const COLORS = {primary: '#282534', white: '#fff',red:"#e24e59",grey:"d6d6d6"};
 
 const slides = [
   {
@@ -192,8 +192,12 @@ const OnboardingScreen = ({navigation}) => {
               style={[
                 styles.indicator,
                 currentSlideIndex == index && {
-                  backgroundColor: COLORS.white,
+                  backgroundColor: COLORS.red,
                   width: 25,
+                  height: 10,
+                  width: 10,
+                  marginHorizontal: 3,
+                  borderRadius: 5,
                 },
               ]}
             />
