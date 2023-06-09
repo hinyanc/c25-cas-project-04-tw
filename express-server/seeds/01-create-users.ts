@@ -12,6 +12,7 @@ import {
   usersInterestTable,
   usersMatchingTable,
   ptTable,
+  ptCertificateTable,
   chatroomTable,
   userGymCenterTable,
   userGymLocationTable,
@@ -250,6 +251,20 @@ export async function seed(knex: Knex): Promise<void> {
       });
     }
   }
+  /////insert  into pt certificate Table////
+  for (let i = 1; i < 11; i++) {
+    const isPt = await knex(ptTable)
+      .select("id")
+      .where("id", "=", `${i}`)
+      .first();
+
+    if (isPt) {
+      await knex(ptCertificateTable).insert({
+        user_id: i,
+        certification:faker.image.avatar(),
+      });
+    }
+  }
 
   ///////////insert data into chatroomTable////////
   for (let i = 0; i < 10; i++) {
@@ -298,4 +313,26 @@ export async function seed(knex: Knex): Promise<void> {
       created_at: created_at,
     });
   }
-}
+  //////////insert into userGymCenterTable/////
+  for (let i = 1; i < 11; i++) {
+    const isMember = await knex("users")
+      .select("has_membership")
+      .where("id", "=", `${i}`)
+      .first();
+
+    if (isMember) {
+      await knex(userGymCenterTable).insert({
+        user_id: i,
+        gym_center_id: faker.number.int({ min: 1, max: 8 }),
+      });
+    }
+  }
+  //////////insert into gymLocationTable/////
+  for (let i = 1; i < 11; i++) {
+      await knex(gymLocationTable).insert({
+        user_id: i,
+        gym_location_id: faker.number.int({ min: 1, max: 18 }),
+      });
+    }
+  }
+
