@@ -4,55 +4,47 @@ import React, {useLayoutEffect, useState} from 'react';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {styles} from '../../utils/styles';
-// import {StackNavigationProp} from '@react-navigation/stack';
+import {StackParamList} from '../../../App';
+import type {StackNavigationProp} from '@react-navigation/stack';
 
+// import {StackNavigationProp} from '@react-navigation/stack';
 // import {NavigationContainer} from '@react-navigation/native';
 // import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-
 interface ChatComponentProps {
-  item:any
+  item: any;
 }
-
 interface Message {
   text: string;
   time: any;
 }
 
-
-const ChatComponent = ({item}:ChatComponentProps) => {
-  const navigation = useNavigation();
+const ChatComponent = ({item}: ChatComponentProps) => {
+  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
   const [messages, setMessages] = useState<Message>({text: '', time: ''});
 
   // Retrieves the last message in the array from the item prop
   useLayoutEffect(() => {
-    setMessages(
-      item.messages[item.messages.length - 1],
-    );
+    setMessages(item.messages[item.messages.length - 1]);
   }, []);
 
-const handleNavigation = () => {
-  navigation.navigate('Messaging', {
-    id: item.id,
-    name: item.name,
-  });
-};
+  const handleNavigation = () => {
+    navigation.navigate('Messaging', {
+      id: item.id,
+      name: item.name,
+    });
+  };
 
-// function handleNavigation ({navigation}:any) {
-//   navigation.navigate('Messaging', {
-//     id: item.id,
-//     name: item.name,
-//   });
-// }
+  // function handleNavigation ({navigation}:any) {
+  //   navigation.navigate('Messaging', {
+  //     id: item.id,
+  //     name: item.name,
+  //   });
+  // }
 
   return (
     <Pressable style={styles.cchat} onPress={handleNavigation}>
-      <IonIcon
-        name="hi"
-        size={45}
-        color="black"
-        style={styles.cavatar}
-      />
+      <IonIcon name="hi" size={45} color="black" style={styles.cavatar} />
 
       <View style={styles.crightContainer}>
         <View>
