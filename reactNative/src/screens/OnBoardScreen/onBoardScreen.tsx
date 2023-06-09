@@ -35,7 +35,7 @@ const OnBoardingScreen = ({navigation}:OnBoardingScreenProps) => {
       },
 
   ]}
-/>
+ />
   );
 };
 

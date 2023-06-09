@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
 
 //name of routes
 export type StackParamList = {
-  Home:undefined
+  Home: undefined;
   Onboarding: undefined;
   Login: undefined;
   Next: undefined;
@@ -208,7 +208,13 @@ export default function App() {
     <>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Onboarding">
-          <Stack.Screen name="Onboarding" component={OnBoardingScreen} />
+          <Stack.Screen
+            name="Onboarding"
+            component={OnBoardingScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
           <Stack.Screen name="Login" component={LoginScreen} />
         </Stack.Navigator>
       </NavigationContainer>
