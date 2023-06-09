@@ -94,7 +94,7 @@ export async function seed(knex: Knex): Promise<void> {
 
   for (let i = 0; i < interests.length; i++) {
     await knex(interestTable).insert({
-      name: interests[0],
+      name: interests[i],
     });
   }
 

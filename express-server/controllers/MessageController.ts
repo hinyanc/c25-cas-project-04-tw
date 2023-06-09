@@ -6,7 +6,7 @@ export class MessageController {
 
   getAllMessageController = async (req: Request, res: Response) => {
     try {
-      const userId = req.user_id!;
+      // const userId = req.user_id!;
       const messagesHistory = await this.messageService.getAllMessages(
         
       );
