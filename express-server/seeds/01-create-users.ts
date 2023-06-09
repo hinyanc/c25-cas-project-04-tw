@@ -98,8 +98,6 @@ export async function seed(knex: Knex): Promise<void> {
 
   //////insert data for user table/////
 
-  // Inserts seed entries
-  const usedGoalIds = new Set();
   //default email
   const emails: string[] = [
     "beyourdetective@gmail.com",
@@ -115,19 +113,12 @@ export async function seed(knex: Knex): Promise<void> {
   for (let i = 0; i < 10; i++) {
     const isPt = faker.datatype.boolean();
     const hasMembership = faker.datatype.boolean();
-    let goalId = faker.number.int({ min: 1, max: 10 });
-    while (usedGoalIds.has(goalId)) {
-      // generate a new goal ID if already used
-      goalId = faker.number.int({ min: 1, max: 10 });
-    }
-    usedGoalIds.add(goalId); // add the new goal ID to the set of used IDs
+
     await knex(userTable).insert({
       email: emails[0],
       //hash password
       password: await hashPassword("123abc"),
       username: faker.internet.userName(),
-      //not sure
-      goal_id: goalId,
       //can't generate useful picture
       profile_pic: faker.image.avatar(),
       birthday: faker.date.birthdate({ min: 18, max: 65, mode: "age" }),
@@ -137,12 +128,7 @@ export async function seed(knex: Knex): Promise<void> {
       weight: faker.number.int({ min: 50, max: 100 }) + "kg",
       gym_level: faker.helpers.arrayElement(["Newbie", "Moderate", "Vigorous"]),
       has_membership: hasMembership,
-      gym_center_id: hasMembership
-        ? faker.number.int({ min: 1, max: 8 })
-        : null,
-      gym_location_id: faker.number.int({ min: 1, max: 18 }),
       is_pt: isPt,
-      pt_id: isPt ? faker.number.int({ min: 1, max: 5 }) : null,
       created_at: faker.date.past(),
       updated_at: faker.date.recent(),
     });
@@ -201,7 +187,6 @@ export async function seed(knex: Knex): Promise<void> {
     });
   }
 
-  
   /////insert data for user interest table///////
   const interest = [
     [1, 2, 4],
@@ -251,6 +236,17 @@ export async function seed(knex: Knex): Promise<void> {
         users_id: matching[i][j][0],
         matched_users_id: matching[i][j][1],
         status: matchingStatus[j],
+      });
+    }
+  }
+
+  /////insert  into pt profile Table////
+  for (let i = 0; i < 11; i++) {
+    let ispt = faker.datatype.boolean();
+    if (ispt) {
+      await knex(ptTable).insert({
+        user_id: i,
+        hourly_rate: faker.number.int({ min: 500, max: 1000 }),
       });
     }
   }

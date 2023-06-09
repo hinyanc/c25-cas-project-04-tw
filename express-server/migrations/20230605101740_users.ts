@@ -8,7 +8,8 @@ export const goalsTable = "goal";
 export const targetGoalsTable = "target";
 export const usersInterestTable = "users_interest";
 export const usersMatchingTable = "users_matching";
-export const ptTable = "pt_certificate";
+export const ptTable = "pt_profile";
+export const ptCertificateTable = "pt_certificate";
 export const chatroomTable = "chatroom";
 export const userGymCenterTable = "user_gym_center";
 export const userGymLocationTable = "user_gym_location";
@@ -86,8 +87,14 @@ export async function up(knex: Knex): Promise<void> {
     table.increments();
     table.integer("user_id").unsigned();
     table.foreign("user_id").references("user.id");
-    table.string("certification");
     table.integer("hourly_rate");
+    table.timestamps(false, true);
+  });
+  await knex.schema.createTable(ptCertificateTable, (table) => {
+    table.increments();
+    table.integer("pt_profile_id").unsigned();
+    table.foreign("pt_profile_id").references("pt_profile.id");
+    table.string("certification");
     table.timestamps(false, true);
   });
 
