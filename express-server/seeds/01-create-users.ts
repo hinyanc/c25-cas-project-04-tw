@@ -116,7 +116,7 @@ export async function seed(knex: Knex): Promise<void> {
     const hasMembership = faker.datatype.boolean();
 
     await knex(userTable).insert({
-      email: emails[0],
+      email: emails[i],
       //hash password
       password: await hashPassword("123abc"),
       username: faker.internet.userName(),

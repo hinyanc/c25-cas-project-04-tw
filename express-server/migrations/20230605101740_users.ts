@@ -131,6 +131,7 @@ export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTable(userGymLocationTable);
   await knex.schema.dropTable(userGymCenterTable);
   await knex.schema.dropTable(chatroomTable);
+  await knex.schema.dropTable(ptCertificateTable);
   await knex.schema.dropTable(ptTable);
   await knex.schema.dropTable(usersMatchingTable);
   await knex.schema.dropTable(usersInterestTable);
