@@ -197,4 +197,15 @@ export const styles = StyleSheet.create({
     shadowRadius: 3.5,
     elevation: 5,
   },
+  subPlan: {
+    fontSize: 30,
+    color: '#E24E59',
+    marginTop: 15,
+    marginBottom: 4,
+    fontWeight: 'bold'
+  },
+  subDetails: {
+    fontSize: 15,
+    color: '#E2868D',
+  }
 });
