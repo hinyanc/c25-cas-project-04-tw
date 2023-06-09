@@ -140,12 +140,12 @@ const styles = StyleSheet.create({
 });
 
 //name of routes
-type StackParamList = {
+export type StackParamList = {
   Detail: {itemId: number; otherParam: string};
   Home: undefined;
   Next: undefined;
   Chat: undefined;
-  Messaging: undefined;
+  Messaging: {id: number; name:string};
 };
 
 //name of routes = name props = StackParamList[Home]
@@ -153,7 +153,7 @@ type HomeScreenProps = StackScreenProps<StackParamList, 'Home'>;
 type DetailScreenProps = StackScreenProps<StackParamList, 'Detail'>;
 type NextScreenProps = StackScreenProps<StackParamList, 'Next'>;
 
-function HomeScreen({navigation,route}: HomeScreenProps) {
+function HomeScreen({navigation, route}: HomeScreenProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Screen</Text>
@@ -192,10 +192,7 @@ function DetailScreen({route, navigation}: DetailScreenProps) {
         title="Go back to first screen in stack"
         onPress={() => navigation.popToTop()}
       />
-      <Button
-        title="Chat"
-        onPress={() => navigation.navigate('Chat')}
-      />
+      <Button title="Chat" onPress={() => navigation.navigate('Chat')} />
     </View>
   );
 }
@@ -205,13 +202,13 @@ const Stack = createNativeStackNavigator<StackParamList>();
 export default function App() {
   return (
     <NavigationContainer>
-
-      <BottomTabs/>
+      <BottomTabs />
     </NavigationContainer>
   );
 }
 
-{/* <Stack.Navigator initialRouteName="Home">
+{
+  /* <Stack.Navigator initialRouteName="Home">
 
 <Stack.Screen
   name="Home"
@@ -229,4 +226,5 @@ export default function App() {
   }}
 />
 <Stack.Screen name="Messaging" component={Messaging} />
-</Stack.Navigator> */}
+</Stack.Navigator> */
+}
