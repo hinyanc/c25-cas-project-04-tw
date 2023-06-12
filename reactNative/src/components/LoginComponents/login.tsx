@@ -15,21 +15,23 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 type LoginScreenProps = StackScreenProps<StackParamList, 'Login'>;
 
 const {width, height} = Dimensions.get('window');
-// type Validate = {
-//   email:string;
-//   password:string
-// }
+type Validate = {
+  email: string;
+  password: string;
+};
 const LoginForm = ({navigation}: LoginScreenProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Validate>({email: '', password: ''});
 
   const validate = () => {
+    console.log(' hihivalidate');
     const emailRegex = /\S+@\S+\.\S+/;
-    let errors = {};
+    let errors: Validate = {email: '', password: ''};
     if (!email) {
       errors.email = 'Email is required';
+      console.log('email is required');
     } else if (!emailRegex.test(email)) {
       errors.email = 'Invalid email format';
     }
@@ -41,12 +43,17 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
     return errors;
   };
 
-
   const handleLogin = () => {
-    // Handle login logic here
-    console.log(navigation);
-    // navigation.navigate('Home');
-    navigation.replace('MyHome');
+    const errors = validate();
+    setErrors(errors);
+    console.log('error', errors);
+    if (errors.email === '' && errors.password === '') {
+      // Handle login logic here
+      // console.log(navigation);
+      // navigation.navigate('Home');
+      navigation.replace('MyHome');
+    }
+    setSubmitted(true);
   };
 
   // console.log(navigation)
@@ -85,9 +92,19 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
             placeholder="Email"
             value={email}
             onChangeText={setEmail}
-            style={styles.input}
+            style={[styles.input, errors.email ? styles.error : {}]}
             keyboardType="email-address"
+            onBlur={() => {
+              let errors = validate();
+              console.log('check check', errors);
+              setErrors(errors);
+            }}
           />
+          {errors.email ? (
+            <Text style={styles.errorMsg}>{errors.email}</Text>
+          ) : (
+            <></>
+          )}
           <Text
             style={{
               textAlign: 'left',
@@ -100,8 +117,13 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
             secureTextEntry
             value={password}
             onChangeText={setPassword}
-            style={styles.input}
+            style={[styles.input, errors.password ? styles.error : {}]}
           />
+          {errors.password ? (
+            <Text style={styles.errorMsg}>{errors.password}</Text>
+          ) : (
+            <></>
+          )}
           <TouchableOpacity onPress={handleLogin} style={styles.loginbtn}>
             <Text
               style={{
@@ -162,8 +184,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderWidth: 2,
     borderRadius: 16,
-    opacity: 0.1,
-    borderColor: 'red',
+    color: 'black',
+    borderColor: 'rgba(255, 94, 135, 0.17)',
     textAlign: 'center',
   },
   loginbtn: {

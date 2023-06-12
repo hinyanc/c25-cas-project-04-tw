@@ -8,10 +8,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from '../utils/styles';
 import PlanScreen from '../screens/PlanScreen';
 
-
 const Tab = createBottomTabNavigator();
-
-
 
 const BottomTabs = () => {
   return (
