@@ -1,13 +1,16 @@
 import React from 'react';
-import {View, StyleSheet, Text, SafeAreaView} from 'react-native';
-import users from '../assets/data/users';
-import {TinderSwipe} from '../components/TinderSwipe';
-import BottomTab from '../components/BottomTab';
+import {SafeAreaView, ScrollView} from 'react-native';
+import {TinderSwipe} from '../components/HomeDiscoverComponents/TinderSwipe';
+import { UserInfo } from '../components/HomeDiscoverComponents/UserInfo';
+
+
 
 const HomeDiscoverScreen = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView >
+      <UserInfo />
       <TinderSwipe />
+      
     </SafeAreaView>
   );
 };

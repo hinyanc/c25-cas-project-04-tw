@@ -202,10 +202,23 @@ export const styles = StyleSheet.create({
     color: '#E24E59',
     marginTop: 15,
     marginBottom: 4,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   subDetails: {
     fontSize: 15,
     color: '#E2868D',
-  }
+  },
+  hiName: {
+    fontSize: 30,
+    color: '#E24E59',
+    fontWeight: 'bold',
+    textShadowColor: 'rgba(0, 0, 0, 0.35)',
+    textShadowOffset: {width: 3, height: 2},
+    textShadowRadius: 10,
+  },
+  welcome: {
+    fontSize: 15,
+    color: '#E2868D',
+    fontWeight: 'bold',
+  },
 });
