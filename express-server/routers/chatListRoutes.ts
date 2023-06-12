@@ -5,4 +5,4 @@ export const chatListRouter = express.Router();
 
 chatListRouter.get("/", chatListController.getChatHistoryController);
 chatListRouter.post("/", chatListController.createChatController);
-chatListRouter.delete("/:chatid", chatListController.deleteChatController);
+chatListRouter.delete("/:chatId", chatListController.deleteChatController);

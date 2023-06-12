@@ -20,12 +20,12 @@ export class MessageService {
   sendMessage = async (
     mainUserId: number,
     targetUserId: number,
-    messages: string
+    messagesId: string
   ) => {
     const message = await this.knex(chatroomTable).insert({
       sender_id: mainUserId,
       receiver_id: targetUserId,
-      message: messages,
+      message: messagesId,
       update_at: new Date(),
     });
     return message;
@@ -34,12 +34,13 @@ export class MessageService {
   deleteMessage = async (
     mainUserId: number,
     targetUserId: number,
-    messages: string
+    messagesId: string
   ) => {
     const message = await this.knex(chatroomTable)
       .where("sender_id", mainUserId)
       .andWhere("receiver_id", targetUserId)
-      .andWhere("message", messages)
+      .andWhere("message", messagesId)
+      .first()
       .del();
     return message;
   };
