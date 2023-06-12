@@ -32,7 +32,8 @@ export class ChatListController {
 
   deleteChatController = async (req: Request, res: Response) => {
     try {
-      const { mainUserId, chatId } = req.body;
+      const { mainUserId } = req.body;
+      const { chatId } = req.params;
       const deletedChat = await this.chatListService.deleteChat(
         mainUserId,
         chatId
