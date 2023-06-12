@@ -147,8 +147,6 @@ const OnboardingScreen = ({navigation}) => {
                 style={[
                   styles.btn,
                   {
-                    borderColor: COLORS.white,
-                    borderWidth: 1,
                     backgroundColor: 'transparent',
                   },
                 ]}
@@ -226,9 +224,6 @@ const styles = StyleSheet.create({
   indicator: {
     backgroundColor: 'grey',
     marginHorizontal: 3,
-    borderRadius: 2,
-
-    width: 25,
     height: 10,
     width: 10,
     marginHorizontal: 3,
