@@ -1,6 +1,4 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeDiscoverScreen from '../screens/HomeDiscoverScreen';
 import Chat from '../screens/ChatScreens/Chat';
@@ -10,7 +8,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from '../utils/styles';
 import PlanScreen from '../screens/PlanScreen';
 
+
 const Tab = createBottomTabNavigator();
+
+
 
 const BottomTabs = () => {
   return (
@@ -53,9 +54,21 @@ const BottomTabs = () => {
           ...styles.tabShadow,
         },
       })}>
-      <Tab.Screen name="Goal" component={GoalScreen} options={{headerShown:false}}/>
-      <Tab.Screen name="Plan" component={PlanScreen} options={{headerShown:false}}/>
-      <Tab.Screen name="Home" component={HomeDiscoverScreen} options={{headerShown:false}}/>
+      <Tab.Screen
+        name="Goal"
+        component={GoalScreen}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Plan"
+        component={PlanScreen}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Home"
+        component={HomeDiscoverScreen}
+        options={{headerShown: false}}
+      />
       <Tab.Screen
         name="Chat"
         component={Chat}
@@ -64,7 +77,11 @@ const BottomTabs = () => {
           headerShown: false,
         }}
       />
-      <Tab.Screen name="Profile" component={UserScreen} options={{headerShown:false}}/>
+      <Tab.Screen
+        name="Profile"
+        component={UserScreen}
+        options={{headerShown: false}}
+      />
     </Tab.Navigator>
   );
 };

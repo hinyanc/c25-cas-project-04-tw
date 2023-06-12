@@ -6,7 +6,7 @@ import PlanButton from '../components/PlanComponents/PlanButton';
 
 const PlanScreen = () => {
   return (
-    <View style={{flex: 1, alignItems: 'center'}}>
+    <View style={{flex: 1, alignItems: 'center', backgroundColor:'#FFF9F0'}}>
       <Text style={styles.subPlan}>Subscription Plans</Text>
       <Text style={styles.subDetails}>Upgrade to Diamond</Text>
       <Text style={styles.subDetails}>
