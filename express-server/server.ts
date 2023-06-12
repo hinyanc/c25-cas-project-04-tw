@@ -8,7 +8,7 @@ const knexConfig = require("./knexfile");
 const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 const app = express();
 const server = new http.Server(app);
-const io = new SocketIO(server);
+export const io = new SocketIO(server);
 
 dotenv.config();
 

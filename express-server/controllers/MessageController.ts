@@ -21,14 +21,14 @@ export class MessageController {
 
   sendMessageController = async (req: Request, res: Response) => {
     try {
-      // const userId = req.user_id!;
-      // const { message, receiverId } = req.body;
-      // const messageSent = await this.messageService.sendMessage(
-      //   message,
-      //   userId,
-      //   receiverId
-      // );
-      res.status(200).json("hi");
+      const { mainUserId } = req.body;
+      const { message, targetUserId } = req.body;
+      const messageSent = await this.messageService.sendMessage(
+        message,
+        mainUserId,
+        targetUserId
+      );
+      res.status(200).json(messageSent);
     } catch (error) {
       logger.error(error);
       res.status(500).json({ error: "Internal server error" });
