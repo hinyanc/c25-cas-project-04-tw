@@ -24,9 +24,9 @@ export class MessageController {
       const { mainUserId } = req.body;
       const { message, targetUserId } = req.body;
       const messageSent = await this.messageService.sendMessage(
-        message,
         mainUserId,
-        targetUserId
+        targetUserId,
+        message
       );
       res.status(200).json(messageSent);
     } catch (error) {
@@ -37,6 +37,14 @@ export class MessageController {
 
   deleteMessageController = async (req: Request, res: Response) => {
     try {
+      const { mainUserId } = req.body;
+      const { message, targetUserId } = req.body;
+      const messageDeleted = await this.messageService.deleteMessage(
+        mainUserId,
+        targetUserId,
+        message
+      );
+      res.status(200).json(messageDeleted);
     } catch (error) {}
   };
 }

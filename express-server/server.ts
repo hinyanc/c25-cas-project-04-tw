@@ -61,14 +61,18 @@ const PORT = 8080;
 // Controllers
 import { MessageController } from "./controllers/MessageController";
 import { DiscoverController } from "./controllers/discoverController";
-
+import { ChatListController } from "./controllers/ChatListController";
 // Services
 import { MessageService } from "./services/MessageService";
+import { ChatListService } from "./services/ChatListService";
+import { DiscoverService } from "./services/discoverService";
 
 const messageService = new MessageService(knex);
 export const messageController = new MessageController(messageService);
 
-import { DiscoverService } from "./services/discoverService";
+const chatListService = new ChatListService(knex);
+export const chatListController = new ChatListController(chatListService);
+
 const discoverService = new DiscoverService(knex);
 export const discoverController = new DiscoverController(discoverService);
 
@@ -76,7 +80,6 @@ export const discoverController = new DiscoverController(discoverService);
 import { messageRoutes } from "./routers/messageRoutes";
 import { User } from "./utils/model";
 import { discoverRoutes } from "./routers/discoverRoutes";
-
 
 app.use("/message", messageRoutes);
 app.use("/discover", discoverRoutes);
