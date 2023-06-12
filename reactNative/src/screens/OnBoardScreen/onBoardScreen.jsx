@@ -29,21 +29,24 @@ const slides = [
     image1: require('../../assets/onBoardImg/GymLun-1-PhotoRoom.png-PhotoRoom.png'),
     image2: require('../../assets/onBoardImg/onboard-1.png'),
     title: 'Meet your perfect personal trainer',
-    subtitle: 'Please read our privacy policy and policy regarding before registering',
+    subtitle:
+      'Please read our privacy policy and policy regarding before registering',
   },
   {
     id: '2',
     image1: require('../../assets/onBoardImg/GymLun-1-PhotoRoom.png-PhotoRoom.png'),
     image2: require('../../assets/onBoardImg/onboard-2.png'),
     title: 'Meet your gym mates,',
-    subtitle: 'Please read our privacy policy and policy regarding before registering',
+    subtitle:
+      'Please read our privacy policy and policy regarding before registering',
   },
   {
     id: '3',
     image1: require('../../assets/onBoardImg/GymLun-1-PhotoRoom.png-PhotoRoom.png'),
     image2: require('../../assets/onBoardImg/onboard-3.png'),
     title: 'Make your gym goals',
-    subtitle: 'lease read our privacy policy and policy regarding before registering',
+    subtitle:
+      'lease read our privacy policy and policy regarding before registering',
   },
 ];
 
@@ -58,14 +61,16 @@ const OnboardingScreen = ({navigation}) => {
 
   const Slide = ({item}) => {
     return (
-      <View style={{alignItems: 'center',justifyContent:'center'}}>
+      <View style={{width: width}}>
+        {/* Logo */}
         <Image
           source={item?.image1}
           style={{marginTop: 30, height: '8%', width, resizeMode: 'contain'}}
         />
+        {/* Image */}
         <Image
           source={item?.image2}
-          style={{marginTop: 20,height: '60%', width, resizeMode: 'contain'}}
+          style={{marginTop: 20, height: '60%', width, resizeMode: 'contain'}}
         />
         {/* Indicator container */}
         <View
@@ -91,7 +96,7 @@ const OnboardingScreen = ({navigation}) => {
             />
           ))}
         </View>
-        <View style={{alignItems: 'center',justifyContent:'center'}}>
+        <View style={{alignItems: 'center', justifyContent: 'center',flex:1}}>
           <Text style={styles.title}>{item?.title}</Text>
           <Text style={styles.subtitle}>{item?.subtitle}</Text>
         </View>
@@ -119,7 +124,7 @@ const OnboardingScreen = ({navigation}) => {
     return (
       <View
         style={{
-          height: height * 0.10,
+          height: height * 0.1,
           justifyContent: 'space-between',
           paddingHorizontal: 20,
         }}>
@@ -130,7 +135,7 @@ const OnboardingScreen = ({navigation}) => {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => navigation.replace('Login')}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>
+                <Text style={{fontWeight: 'bold', fontSize: 15, color: '#fff'}}>
                   GET STARTED
                 </Text>
               </TouchableOpacity>
@@ -142,8 +147,6 @@ const OnboardingScreen = ({navigation}) => {
                 style={[
                   styles.btn,
                   {
-                    borderColor: COLORS.white,
-                    borderWidth: 1,
                     backgroundColor: 'transparent',
                   },
                 ]}
@@ -179,7 +182,7 @@ const OnboardingScreen = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
+    <SafeAreaView style={{flex: 1}}>
       <StatusBar backgroundColor={COLORS.primary} />
       <FlatList
         ref={ref}
@@ -204,6 +207,7 @@ const styles = StyleSheet.create({
     maxWidth: '70%',
     textAlign: 'center',
     lineHeight: 23,
+
   },
   title: {
     color: COLORS.primary,
@@ -220,9 +224,6 @@ const styles = StyleSheet.create({
   indicator: {
     backgroundColor: 'grey',
     marginHorizontal: 3,
-    borderRadius: 2,
-
-    width: 25,
     height: 10,
     width: 10,
     marginHorizontal: 3,
@@ -231,7 +232,7 @@ const styles = StyleSheet.create({
   btn: {
     flex: 1,
     height: 50,
-    borderRadius: 5,
+    borderRadius: 16,
     backgroundColor: COLORS.red,
     justifyContent: 'center',
     alignItems: 'center',

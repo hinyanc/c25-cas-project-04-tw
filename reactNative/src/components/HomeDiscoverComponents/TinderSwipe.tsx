@@ -40,11 +40,11 @@ export function TinderSwipe() {
   const [swipedCards, setSwipedCards] = useState<CardType[]>([]);
 
   const cards = [
-    {id: 1, image: require('../assets/img/mui.jpeg')},
-    {id: 2, image: require('../assets/img/day.jpeg')},
-    {id: 3, image: require('../assets/img/ivy.jpeg')},
-    {id: 4, image: require('../assets/img/edan.jpeg')},
-    {id: 4, image: require('../assets/img/stanley.jpeg')},
+    {id: 1, image: require('../../assets/img/mui.jpeg')},
+    {id: 2, image: require('../../assets/img/day.jpeg')},
+    {id: 3, image: require('../../assets/img/ivy.jpeg')},
+    {id: 4, image: require('../../assets/img/edan.jpeg')},
+    {id: 4, image: require('../../assets/img/stanley.jpeg')},
   ];
 
   const pan = useState(new Animated.ValueXY())[0];

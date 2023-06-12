@@ -1,6 +1,4 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeDiscoverScreen from '../screens/HomeDiscoverScreen';
 import Chat from '../screens/ChatScreens/Chat';
@@ -14,14 +12,13 @@ const Tab = createBottomTabNavigator();
 
 const BottomTabs = () => {
   return (
-    // <NavigationContainer>
     <Tab.Navigator
-      initialRouteName="MyHome"
+      initialRouteName="Home"
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
-          let iconName = '';
+          let iconName;
 
-          if (route.name === 'MyHome') {
+          if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'Plan') {
             iconName = focused ? 'wallet' : 'wallet-outline';
@@ -54,8 +51,21 @@ const BottomTabs = () => {
           ...styles.tabShadow,
         },
       })}>
-      <Tab.Screen name="MyHome" component={HomeDiscoverScreen} />
-      <Tab.Screen name="Plan" component={PlanScreen} />
+      <Tab.Screen
+        name="Goal"
+        component={GoalScreen}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Plan"
+        component={PlanScreen}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Home"
+        component={HomeDiscoverScreen}
+        options={{headerShown: false}}
+      />
       <Tab.Screen
         name="Chat"
         component={Chat}
@@ -64,10 +74,12 @@ const BottomTabs = () => {
           headerShown: false,
         }}
       />
-      <Tab.Screen name="Goal" component={GoalScreen} />
-      <Tab.Screen name="Profile" component={UserScreen} />
+      <Tab.Screen
+        name="Profile"
+        component={UserScreen}
+        options={{headerShown: false}}
+      />
     </Tab.Navigator>
-    // </NavigationContainer>
   );
 };
 
