@@ -135,7 +135,7 @@ const OnboardingScreen = ({navigation}) => {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => navigation.replace('Login')}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>
+                <Text style={{fontWeight: 'bold', fontSize: 15, color: '#fff'}}>
                   GET STARTED
                 </Text>
               </TouchableOpacity>
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
   btn: {
     flex: 1,
     height: 50,
-    borderRadius: 5,
+    borderRadius: 16,
     backgroundColor: COLORS.red,
     justifyContent: 'center',
     alignItems: 'center',
