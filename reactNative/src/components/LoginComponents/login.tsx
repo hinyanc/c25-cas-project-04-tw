@@ -4,14 +4,18 @@ import {StackParamList} from '../../../App';
 import {StackScreenProps} from '@react-navigation/stack';
 
 type LoginScreenProps = StackScreenProps<StackParamList, 'Login'>;
+
 const LoginForm = ({navigation}: LoginScreenProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
     // Handle login logic here
+    console.log(navigation)
     navigation.navigate('Home');
   };
+
+  console.log(navigation)
 
   return (
     <View>

@@ -8,6 +8,8 @@ import Chat from './src/screens/ChatScreens/Chat';
 import BottomTabs from './src/components/BottomTab';
 import LoginScreen from './src/screens/LoginScreens/LoginScreen';
 import OnBoardingScreen from './src/screens/OnBoardScreen/onBoardScreen';
+import HomeDiscoverScreen from './src/screens/HomeDiscoverScreen';
+import LoginForm from './src/components/LoginComponents/login';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -29,10 +31,8 @@ export type StackParamList = {
   Login: undefined;
   Next: undefined;
   Chat: undefined;
-  Messaging: {id: number; name:string};
+  Messaging: {id: number; name: string};
 };
-
-
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -48,8 +48,14 @@ export default function App() {
               headerShown: false,
             }}
           />
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Login" component={LoginForm} />
+          <Stack.Screen
+            name="Home"
+            component={HomeDiscoverScreen}
+            options={{title: 'Overview'}}
+          />
         </Stack.Navigator>
+        <Stack.Screen name="Messaging" component={Messaging} />
       </NavigationContainer>
       {/* <NavigationContainer>
         <BottomTabs />
