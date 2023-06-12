@@ -50,10 +50,10 @@ export default class PlansTable extends Component<{}, TableState> {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, padding: 16, paddingTop: 30, width: 400},
-  head: {height: 60, backgroundColor: '#FDDBDD'},
+  container: {flex: 1, padding: 16, paddingTop: 30, width: 400, height:500},
+  head: {height: 70, backgroundColor: '#FDDBDD'},
   wrapper: {flexDirection: 'row'},
-  row: {flex: 1, height: 50, backgroundColor: '#fff'},
-  text: {textAlign: 'center'},
+  row: {flex: 1, height: 60, backgroundColor: '#fff'},
+  text: {textAlign: 'center', fontSize: 17},
   body: {borderRadius: 15},
 });

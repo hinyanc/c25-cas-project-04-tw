@@ -25,7 +25,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
     // Handle login logic here
     console.log(navigation);
     // navigation.navigate('Home');
-    navigation.replace('Home');
+    navigation.replace("MyHome")
   };
 
   // console.log(navigation)
@@ -100,7 +100,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
             }}
             onPress={() => {
               // Linking.openURL('https://aboutreact.com');
-              navigation.navigate("Home")
+              navigation.navigate("MyHome")
               // sign up
             }}>
              Sign Up
