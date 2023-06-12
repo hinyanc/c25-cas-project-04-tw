@@ -48,11 +48,17 @@ export default function App() {
               headerShown: false,
             }}
           />
-          <Stack.Screen name="Login" component={LoginForm} />
+          <Stack.Screen
+            name="Login"
+            component={LoginForm}
+            options={{
+              headerShown: false,
+            }}
+          />
           <Stack.Screen
             name="MyHome"
             component={BottomTabs}
-            options={{title: 'Overview', headerShown:false}}
+            options={{title: 'Overview', headerShown: false}}
           />
         </Stack.Navigator>
         <Stack.Screen name="Messaging" component={Messaging} />
