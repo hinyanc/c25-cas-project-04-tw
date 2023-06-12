@@ -51,8 +51,8 @@ export default function App() {
           <Stack.Screen name="Login" component={LoginForm} />
           <Stack.Screen
             name="Home"
-            component={HomeDiscoverScreen}
-            options={{title: 'Overview'}}
+            component={BottomTabs}
+            options={{title: 'Overview', headerShown:false}}
           />
         </Stack.Navigator>
         <Stack.Screen name="Messaging" component={Messaging} />

@@ -12,10 +12,11 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
   const handleLogin = () => {
     // Handle login logic here
     console.log(navigation)
-    navigation.navigate('Home');
+    // navigation.navigate('Home');
+    navigation.replace("Home")
   };
 
-  console.log(navigation)
+  // console.log(navigation)
 
   return (
     <View>

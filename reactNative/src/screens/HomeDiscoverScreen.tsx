@@ -8,7 +8,6 @@ const HomeDiscoverScreen = () => {
   return (
     <SafeAreaView>
       <TinderSwipe />
-      <BottomTab />
     </SafeAreaView>
   );
 };
