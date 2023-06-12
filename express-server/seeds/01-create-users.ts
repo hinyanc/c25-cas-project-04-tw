@@ -139,18 +139,17 @@ export async function seed(knex: Knex): Promise<void> {
   /////////////insert data for goals table///////
 
   for (let i = 1; i < 11; i++) {
-    const height = await knex("users")
-      .select("height")
-      .where("id", "=", `${i}`)
-      .first();
+    // const height = await knex("users")
+    //   .select("height")
+    //   .where("id", "=", `${i}`)
+    //   .first();
     const weight = await knex("users")
       .select("weight")
       .where("id", "=", `${i}`)
       .first();
-    const bmi = weight / (height * height);
+    // const bmi = weight / (height * height);
 
     await knex(goalsTable).insert({
-      bmi: bmi,
       users_id: i,
       target_weight: faker.number.int({ min: 50, max: weight - 5 }) + "kg",
     });
