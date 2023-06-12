@@ -1,89 +1,5 @@
-// import React from 'react';
-// import {
-//   View,
-//   Text,
-//   Button,
-//   StyleSheet,
-//   Image,
-//   TouchableOpacity,
-// } from 'react-native';
 import {StackParamList} from '../../../App';
 import {StackScreenProps} from '@react-navigation/stack';
-// import Onboarding from 'react-native-onboarding-swiper';
-
-// const Skip = ({...props}) => (
-//   <TouchableOpacity style={styles.Button}>
-//     <Text style={styles.buttonText}>Skip</Text>
-//   </TouchableOpacity>
-// );
-// const Next = ({...props}) => (
-//   <TouchableOpacity style={styles.Button}>
-//     <Text style={styles.buttonText}>Next</Text>
-//   </TouchableOpacity>
-// );
-// const Done = ({...props}) => (
-//   <TouchableOpacity style={styles.Button}>
-//     <Text style={styles.buttonText}>Done</Text>
-//   </TouchableOpacity>
-// );
-
-// type OnBoardingScreenProps = StackScreenProps<StackParamList, 'Onboarding'>;
-
-// const OnBoardingScreen = ({navigation}: OnBoardingScreenProps) => {
-//   return (
-//     <Onboarding
-//       SkipButtonComponent={Skip}
-//       NextButtonComponent={Next}
-//       DoneButtonComponent={Done}
-//       onSkip={() => navigation.navigate('Login')}
-//       onDone={() => navigation.navigate('Login')}
-//       pages={[
-//         {
-//           backgroundColor: '#fff',
-//           image: (
-//             <Image source={require('../../assets/onBoardImg/onboard-1.png')} />
-//           ),
-//           title: 'Onboarding',
-//           subtitle: 'Done with React Native Onboarding Swiper',
-//         },
-//         {
-//           backgroundColor: '#fff',
-//           image: (
-//             <Image source={require('../../assets/onBoardImg/onboard-2.png')} />
-//           ),
-//           title: 'Onboarding',
-//           subtitle: 'Done with React Native Onboarding Swiper',
-//         },
-//         {
-//           backgroundColor: '#fff',
-//           image: (
-//             <Image source={require('../../assets/onBoardImg/onboard-3.png')} />
-//           ),
-//           title: 'Onboarding',
-//           subtitle: 'Done with React Native Onboarding Swiper',
-//         },
-//       ]}
-//     />
-//   );
-// };
-
-// export default OnBoardingScreen;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   Button: {
-//     marginHorizontal: 10,
-//     backgroundColor: 'red',
-//     padding: 10,
-//     borderRadius: 4,
-//   },buttonText:{
-//     color:"white"
-//   }
-// });
 
 import React from 'react';
 import {
@@ -100,7 +16,12 @@ import {
 
 const {width, height} = Dimensions.get('window');
 
-const COLORS = {primary: '#282534', white: '#fff',red:"#e24e59",grey:"d6d6d6"};
+const COLORS = {
+  primary: '#282534',
+  white: '#fff',
+  red: '#e24e59',
+  grey: 'd6d6d6',
+};
 
 const slides = [
   {
@@ -126,25 +47,6 @@ const slides = [
   },
 ];
 
-const Slide = ({item}) => {
-  return (
-    <View style={{alignItems: 'center'}}>
-      <Image
-        source={item?.image1}
-        style={{marginTop:30,height: '10%', width, resizeMode: 'contain'}}
-      />
-      <Image
-        source={item?.image2}
-        style={{height: '75%', width, resizeMode: 'contain'}}
-      />
-      <View>
-        <Text style={styles.title}>{item?.title}</Text>
-        <Text style={styles.subtitle}>{item?.subtitle}</Text>
-      </View>
-    </View>
-  );
-};
-
 const OnboardingScreen = ({navigation}) => {
   const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
   const ref = React.useRef();
@@ -152,6 +54,49 @@ const OnboardingScreen = ({navigation}) => {
     const contentOffsetX = e.nativeEvent.contentOffset.x;
     const currentIndex = Math.round(contentOffsetX / width);
     setCurrentSlideIndex(currentIndex);
+  };
+
+  const Slide = ({item}) => {
+    return (
+      <View style={{alignItems: 'center'}}>
+        <Image
+          source={item?.image1}
+          style={{marginTop: 30, height: '8%', width, resizeMode: 'contain'}}
+        />
+        <Image
+          source={item?.image2}
+          style={{marginTop: 20,height: '60%', width, resizeMode: 'contain'}}
+        />
+        {/* Indicator container */}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 20,
+          }}>
+          {/* Render indicator */}
+          {slides.map((_, index) => (
+            <View
+              key={index}
+              style={[
+                styles.indicator,
+                currentSlideIndex == index && {
+                  backgroundColor: COLORS.red,
+                  width: 30,
+                  height: 10,
+                  marginHorizontal: 3,
+                  borderRadius: 5,
+                },
+              ]}
+            />
+          ))}
+        </View>
+        <View >
+          <Text style={styles.title}>{item?.title}</Text>
+          <Text style={styles.subtitle}>{item?.subtitle}</Text>
+        </View>
+      </View>
+    );
   };
 
   const goToNextSlide = () => {
@@ -174,43 +119,17 @@ const OnboardingScreen = ({navigation}) => {
     return (
       <View
         style={{
-          height: height * 0.25,
+          height: height * 0.10,
           justifyContent: 'space-between',
           paddingHorizontal: 20,
         }}>
-        {/* Indicator container */}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginTop: 20,
-          }}>
-          {/* Render indicator */}
-          {slides.map((_, index) => (
-            <View
-              key={index}
-              style={[
-                styles.indicator,
-                currentSlideIndex == index && {
-                  backgroundColor: COLORS.red,
-                  width: 25,
-                  height: 10,
-                  width: 10,
-                  marginHorizontal: 3,
-                  borderRadius: 5,
-                },
-              ]}
-            />
-          ))}
-        </View>
-
         {/* Render buttons */}
         <View style={{marginBottom: 20}}>
           {currentSlideIndex == slides.length - 1 ? (
             <View style={{height: 50}}>
               <TouchableOpacity
                 style={styles.btn}
-                onPress={() => navigation.replace('HomeScreen')}>
+                onPress={() => navigation.replace('Login')}>
                 <Text style={{fontWeight: 'bold', fontSize: 15}}>
                   GET STARTED
                 </Text>
@@ -233,12 +152,12 @@ const OnboardingScreen = ({navigation}) => {
                   style={{
                     fontWeight: 'bold',
                     fontSize: 15,
-                    color: COLORS.primary,
+                    color: COLORS.red,
                   }}>
                   SKIP
                 </Text>
               </TouchableOpacity>
-              <View style={{width: 15}} />
+              {/* <View style={{width: 15}} /> */}
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={goToNextSlide}
@@ -247,6 +166,7 @@ const OnboardingScreen = ({navigation}) => {
                   style={{
                     fontWeight: 'bold',
                     fontSize: 15,
+                    color: COLORS.white,
                   }}>
                   NEXT
                 </Text>
@@ -260,7 +180,7 @@ const OnboardingScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
-      <StatusBar backgroundColor={COLORS.white} />
+      <StatusBar backgroundColor={COLORS.primary} />
       <FlatList
         ref={ref}
         onMomentumScrollEnd={updateCurrentSlideIndex}
@@ -298,17 +218,21 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   indicator: {
-    height: 2.5,
-    width: 10,
     backgroundColor: 'grey',
     marginHorizontal: 3,
     borderRadius: 2,
+
+    width: 25,
+    height: 10,
+    width: 10,
+    marginHorizontal: 3,
+    borderRadius: 5,
   },
   btn: {
     flex: 1,
     height: 50,
     borderRadius: 5,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.red,
     justifyContent: 'center',
     alignItems: 'center',
   },
