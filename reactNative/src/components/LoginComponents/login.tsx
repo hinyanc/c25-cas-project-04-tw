@@ -13,7 +13,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
     // Handle login logic here
     console.log(navigation)
     // navigation.navigate('Home');
-    navigation.replace("Home")
+    navigation.replace("MyHome")
   };
 
   // console.log(navigation)

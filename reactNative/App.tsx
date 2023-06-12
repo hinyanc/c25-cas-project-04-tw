@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 
 //name of routes
 export type StackParamList = {
-  Home: undefined;
+  MyHome: undefined;
   Onboarding: undefined;
   Login: undefined;
   Next: undefined;
@@ -50,7 +50,7 @@ export default function App() {
           />
           <Stack.Screen name="Login" component={LoginForm} />
           <Stack.Screen
-            name="Home"
+            name="MyHome"
             component={BottomTabs}
             options={{title: 'Overview', headerShown:false}}
           />
