@@ -5,10 +5,24 @@ export class ChatListService {
   constructor(private knex: Knex) {}
   getChatHistory = async (mainUserId: number) => {
     const chatHistory = await this.knex(chatroomTable)
-      .select("id")
-      .where("sender_id", mainUserId)
-      .andWhere("receiver_id", mainUserId)
-      .orderBy("created_at", "desc");
+      .select(
+        "chatroom.id as chat_room_id",
+        "chatroom.updated_at",
+        "users_sender.username as sender_username",
+        "users_receiver.username as receiver_username"
+      )
+      .leftJoin(
+        "users as users_sender",
+        "chatroom.sender_id",
+        "users_sender.id"
+      )
+      .leftJoin(
+        "users as users_receiver",
+        "chatroom.receiver_id",
+        "users_receiver.id"
+      )
+      .andWhere("users_sender.id", mainUserId)
+      .orderBy("chatroom.updated_at", "asc");
 
     return chatHistory;
   };

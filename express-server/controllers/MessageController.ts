@@ -23,12 +23,8 @@ export class MessageController {
     try {
       const { mainUserId } = req.body;
       const { message, targetUserId } = req.body;
-      const messageSent = await this.messageService.sendMessage(
-        mainUserId,
-        targetUserId,
-        message
-      );
-      res.status(200).json(messageSent);
+      await this.messageService.sendMessage(mainUserId, targetUserId, message);
+      res.status(200).json("Success send message");
     } catch (error) {
       logger.error(error);
       res.status(500).json({ error: "Internal server error" });

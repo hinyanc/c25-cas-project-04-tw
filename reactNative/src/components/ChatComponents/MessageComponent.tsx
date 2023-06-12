@@ -3,7 +3,7 @@ import React from 'react';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import {styles} from '../../utils/styles';
 
-export default function MessageComponent({item, user}:any) {
+export default function MessageComponent({item, user}: any) {
   const status = item.user !== user;
 
   return (
@@ -19,7 +19,7 @@ export default function MessageComponent({item, user}:any) {
             name="person-circle-outline"
             size={30}
             color="black"
-            style={styles.mvatar}
+            style={styles.mvatar as any}
           />
           <View
             style={

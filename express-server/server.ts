@@ -87,8 +87,10 @@ import { messageRoutes } from "./routers/messageRoutes";
 import { User } from "./utils/model";
 import { discoverRoutes } from "./routers/discoverRoutes";
 import { goalRoutes } from "./routers/goalRoutes";
+import { chatListRoutes } from "./routers/chatListRoutes";
 
 app.use("/message", messageRoutes);
+app.use("/chatlist", chatListRoutes);
 app.use("/discover", discoverRoutes);
 app.use("/goal", goalRoutes);
 

@@ -31,7 +31,7 @@ export type StackParamList = {
   Login: undefined;
   Next: undefined;
   Chat: undefined;
-  Messaging: {id: number; name: string};
+  Messaging: {receiverName: string; senderId: number};
 };
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -52,10 +52,9 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={BottomTabs}
-            options={{title: 'Overview', headerShown:false}}
+            options={{title: 'Overview', headerShown: false}}
           />
         </Stack.Navigator>
-        <Stack.Screen name="Messaging" component={Messaging} />
       </NavigationContainer>
       {/* <NavigationContainer>
         <BottomTabs />

@@ -1,13 +1,30 @@
 import type { Knex } from "knex";
 // import type { ChatroomType } from "../utils/model";
 import { chatroomTable } from "../migrations/20230605101740_users";
-import { io } from "../server";
+// import { io } from "../server";
 export class MessageService {
   constructor(private knex: Knex) {}
 
   getAllMessages = async (mainUserId: number, targetUserId: number) => {
     const messagesHistory = await this.knex(chatroomTable)
-      .select("message", "sender_id", "receiver_id", "updated_at")
+      .select(
+        "chatroom.sender_id",
+        "chatroom.receiver_id",
+        "chatroom.updated_at",
+        "chatroom.message",
+        "users_sender.username as sender_username",
+        "users_receiver.username as receiver_username"
+      )
+      .leftJoin(
+        "users as users_sender",
+        "chatroom.sender_id",
+        "users_sender.id"
+      )
+      .leftJoin(
+        "users as users_receiver",
+        "chatroom.receiver_id",
+        "users_receiver.id"
+      )
       .where("sender_id", mainUserId)
       .andWhere("receiver_id", targetUserId)
       .orWhere("sender_id", targetUserId)
@@ -26,7 +43,6 @@ export class MessageService {
       sender_id: mainUserId,
       receiver_id: targetUserId,
       message: messagesId,
-      update_at: new Date(),
     });
     return message;
   };
