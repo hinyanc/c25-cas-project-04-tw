@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeDiscoverScreen from '../screens/HomeDiscoverScreen';
 import Chat from '../screens/ChatScreens/Chat';
-import GoalScreen from '../screens/GoalScreen';
+import GoalScreen from '../screens/GoalScreen/GoalScreen';
 import UserScreen from '../screens/ProfileScreens/UserScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from '../utils/styles';
