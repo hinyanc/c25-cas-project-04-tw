@@ -49,7 +49,6 @@ export async function up(knex: Knex): Promise<void> {
 
   await knex.schema.createTable(goalsTable, (table) => {
     table.increments();
-    table.string("bmi").notNullable();
     table.integer("users_id").unsigned();
     table.foreign("users_id").references("users.id");
     table.string("target_weight");

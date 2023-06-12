@@ -8,7 +8,7 @@ const knexConfig = require("./knexfile");
 const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 const app = express();
 const server = new http.Server(app);
-const io = new SocketIO(server);
+export const io = new SocketIO(server);
 
 dotenv.config();
 
@@ -61,25 +61,36 @@ const PORT = 8080;
 // Controllers
 import { MessageController } from "./controllers/MessageController";
 import { DiscoverController } from "./controllers/discoverController";
+import { GoalController } from "./controllers/goalController";
 
+import { ChatListController } from "./controllers/ChatListController";
 // Services
 import { MessageService } from "./services/MessageService";
+import { ChatListService } from "./services/ChatListService";
+import { DiscoverService } from "./services/discoverService";
 
 const messageService = new MessageService(knex);
 export const messageController = new MessageController(messageService);
 
-import { DiscoverService } from "./services/discoverService";
+const chatListService = new ChatListService(knex);
+export const chatListController = new ChatListController(chatListService);
+
 const discoverService = new DiscoverService(knex);
 export const discoverController = new DiscoverController(discoverService);
+
+import { GoalService } from "./services/goalService";
+const goalService = new GoalService(knex);
+export const goalController = new GoalController(goalService);
 
 // Route Handlers
 import { messageRoutes } from "./routers/messageRoutes";
 import { User } from "./utils/model";
 import { discoverRoutes } from "./routers/discoverRoutes";
-
+import { goalRoutes } from "./routers/goalRoutes";
 
 app.use("/message", messageRoutes);
 app.use("/discover", discoverRoutes);
+app.use("/goal", goalRoutes);
 
 server.listen(PORT, () => {
   console.log(`App running at http://localhost:${PORT}`);
