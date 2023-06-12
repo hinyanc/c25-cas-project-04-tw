@@ -26,7 +26,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
   const [errors, setErrors] = useState<Validate>({email: '', password: ''});
 
   const validate = () => {
-    console.log('validate');
+    console.log(' hihivalidate');
     const emailRegex = /\S+@\S+\.\S+/;
     let errors: Validate = {email: '', password: ''};
     if (!email) {
@@ -46,7 +46,8 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
   const handleLogin = () => {
     const errors = validate();
     setErrors(errors);
-    if (Object.keys(errors).length === 0) {
+    console.log('error', errors);
+    if (errors.email === '' && errors.password === '') {
       // Handle login logic here
       // console.log(navigation);
       // navigation.navigate('Home');
@@ -99,7 +100,11 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
               setErrors(errors);
             }}
           />
-          {errors.email ? <Text>{errors.email}</Text> : <></>}
+          {errors.email ? (
+            <Text style={styles.errorMsg}>{errors.email}</Text>
+          ) : (
+            <></>
+          )}
           <Text
             style={{
               textAlign: 'left',
@@ -112,8 +117,13 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
             secureTextEntry
             value={password}
             onChangeText={setPassword}
-            style={styles.input}
+            style={[styles.input, errors.password ? styles.error : {}]}
           />
+          {errors.password ? (
+            <Text style={styles.errorMsg}>{errors.password}</Text>
+          ) : (
+            <></>
+          )}
           <TouchableOpacity onPress={handleLogin} style={styles.loginbtn}>
             <Text
               style={{
