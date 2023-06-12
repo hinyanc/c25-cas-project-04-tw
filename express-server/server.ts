@@ -60,6 +60,7 @@ const PORT = 8080;
 
 // Controllers
 import { MessageController } from "./controllers/MessageController";
+import { DiscoverController } from "./controllers/discoverController";
 
 // Services
 import { MessageService } from "./services/MessageService";
@@ -67,11 +68,18 @@ import { MessageService } from "./services/MessageService";
 const messageService = new MessageService(knex);
 export const messageController = new MessageController(messageService);
 
+import { DiscoverService } from "./services/discoverService";
+const discoverService = new DiscoverService(knex);
+export const discoverController = new DiscoverController(discoverService);
+
 // Route Handlers
 import { messageRoutes } from "./routers/messageRoutes";
 import { User } from "./utils/model";
+import { discoverRoutes } from "./routers/discoverRoutes";
+
 
 app.use("/message", messageRoutes);
+app.use("/discover", discoverRoutes);
 
 server.listen(PORT, () => {
   console.log(`App running at http://localhost:${PORT}`);
