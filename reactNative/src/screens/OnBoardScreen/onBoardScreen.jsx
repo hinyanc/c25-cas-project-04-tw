@@ -28,22 +28,22 @@ const slides = [
     id: '1',
     image1: require('../../assets/onBoardImg/GymLun-1-PhotoRoom.png-PhotoRoom.png'),
     image2: require('../../assets/onBoardImg/onboard-1.png'),
-    title: 'Best Digital Solution',
-    subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    title: 'Meet your perfect personal trainer',
+    subtitle: 'Please read our privacy policy and policy regarding before registering',
   },
   {
     id: '2',
     image1: require('../../assets/onBoardImg/GymLun-1-PhotoRoom.png-PhotoRoom.png'),
     image2: require('../../assets/onBoardImg/onboard-2.png'),
-    title: 'Achieve Your Goals',
-    subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    title: 'Meet your gym mates,',
+    subtitle: 'Please read our privacy policy and policy regarding before registering',
   },
   {
     id: '3',
     image1: require('../../assets/onBoardImg/GymLun-1-PhotoRoom.png-PhotoRoom.png'),
     image2: require('../../assets/onBoardImg/onboard-3.png'),
-    title: 'Increase Your Value',
-    subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    title: 'Make your gym goals',
+    subtitle: 'lease read our privacy policy and policy regarding before registering',
   },
 ];
 
@@ -58,7 +58,7 @@ const OnboardingScreen = ({navigation}) => {
 
   const Slide = ({item}) => {
     return (
-      <View style={{alignItems: 'center'}}>
+      <View style={{alignItems: 'center',justifyContent:'center'}}>
         <Image
           source={item?.image1}
           style={{marginTop: 30, height: '8%', width, resizeMode: 'contain'}}
@@ -91,7 +91,7 @@ const OnboardingScreen = ({navigation}) => {
             />
           ))}
         </View>
-        <View >
+        <View style={{alignItems: 'center',justifyContent:'center'}}>
           <Text style={styles.title}>{item?.title}</Text>
           <Text style={styles.subtitle}>{item?.subtitle}</Text>
         </View>
