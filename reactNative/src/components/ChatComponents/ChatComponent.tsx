@@ -6,12 +6,12 @@ import {styles} from '../../utils/styles';
 import {StackParamList} from '../../../App';
 import type {StackNavigationProp} from '@react-navigation/stack';
 
-interface ChatComponent {
-  userId: number;
-  username: string;
-  content: string;
-  updated_at: Date;
-}
+// interface ChatComponent {
+//   userId: number;
+//   username: string;
+//   content: string;
+//   updated_at: Date;
+// }
 
 interface Item {
   item: any;

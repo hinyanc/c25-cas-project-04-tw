@@ -6,19 +6,12 @@ import {
   SafeAreaView,
   FlatList,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import ChatComponent from '../../components/ChatComponents/ChatComponent';
 import Icon from 'react-native-vector-icons/Feather';
 import {styles} from '../../utils/styles';
 import socket from '../../utils/socket';
-
-interface ChatComponentPros {
-  id: string;
-  userId: number;
-  username: string;
-  content: string;
-  updated_at: Date;
-}
 
 const Chat = () => {
   // const [chats, setChats] = useState<ChatComponentPros[]>([]);
@@ -44,6 +37,96 @@ const Chat = () => {
     {
       id: '2',
       name: 'Yannes',
+      messages: [
+        {
+          id: '2a',
+          text: 'hihi 🙏🏽',
+          time: '12:50',
+          user: 'Julia',
+        },
+        {
+          id: '2b',
+          text: 'Hi Julia, I like React Native too! 😇',
+          time: '03:50',
+          user: 'Julia',
+        },
+      ],
+    },
+    {
+      id: '3',
+      name: 'Yannes',
+      messages: [
+        {
+          id: '2a',
+          text: 'hihi 🙏🏽',
+          time: '12:50',
+          user: 'Julia',
+        },
+        {
+          id: '2b',
+          text: 'Hi Julia, I like React Native too! 😇',
+          time: '03:50',
+          user: 'Julia',
+        },
+      ],
+    },
+    {
+      id: '4',
+      name: 'Yannes',
+      messages: [
+        {
+          id: '2a',
+          text: 'hihi 🙏🏽',
+          time: '12:50',
+          user: 'Julia',
+        },
+        {
+          id: '2b',
+          text: 'Hi Julia, I like React Native too! 😇',
+          time: '03:50',
+          user: 'Julia',
+        },
+      ],
+    },
+    {
+      id: '5',
+      name: 'Yannes',
+      messages: [
+        {
+          id: '2a',
+          text: 'hihi 🙏🏽',
+          time: '12:50',
+          user: 'Julia',
+        },
+        {
+          id: '2b',
+          text: 'Hi Julia, I like React Native too! 😇',
+          time: '03:50',
+          user: 'Julia',
+        },
+      ],
+    },
+    {
+      id: '6',
+      name: 'Julia',
+      messages: [
+        {
+          id: '2a',
+          text: 'hihi 🙏🏽',
+          time: '12:50',
+          user: 'Julia',
+        },
+        {
+          id: '2b',
+          text: 'Hi Julia, I like React Native too! 😇',
+          time: '03:50',
+          user: 'Julia',
+        },
+      ],
+    },
+    {
+      id: '7',
+      name: 'Julia',
       messages: [
         {
           id: '2a',
@@ -86,7 +169,7 @@ const Chat = () => {
         </View>
       </View>
 
-      <View style={styles.chatlistContainer}>
+      <ScrollView style={styles.chatlistContainer}>
         {chats.length > 0 ? (
           <FlatList
             data={chats}
@@ -99,7 +182,7 @@ const Chat = () => {
             <Text>Go to discover and match your new gyMatess!</Text>
           </View>
         )}
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

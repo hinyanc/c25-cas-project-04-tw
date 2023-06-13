@@ -19,12 +19,48 @@ const Messaging = ({route, navigation}: any) => {
       time: '08:50',
       user: 'Yannes',
     },
+    {
+      id: '3',
+      text: 'Hello Julia, React Native is very easy!',
+      time: '07:50',
+      user: 'Chinny',
+    },
+    {
+      id: '4',
+      text: 'Hi Julia, I like React Native! 😇',
+      time: '08:50',
+      user: 'Yannes',
+    },
+    {
+      id: '5',
+      text: 'Hello Julia, React Native is very easy!',
+      time: '07:50',
+      user: 'Chinny',
+    },
+    {
+      id: '6',
+      text: 'Hi Julia, I like React Native! 😇',
+      time: '08:50',
+      user: 'Yannes',
+    },
+    {
+      id: '7',
+      text: 'Hello Julia, React Native is very easy!',
+      time: '07:50',
+      user: 'Chinny',
+    },
+    {
+      id: '8',
+      text: 'Hi Julia, I like React Native! 😇',
+      time: '08:50',
+      user: 'Yannes',
+    },
   ]);
   const [message, setMessage] = useState('');
   const [user, setUser] = useState('');
 
   // Access the chatroom's name and id
-  const {name, id} = route.params;
+  const {name, chatroomId} = route.params;
 
   // This function gets the username saved on AsyncStorage
   const getUsername = async () => {
