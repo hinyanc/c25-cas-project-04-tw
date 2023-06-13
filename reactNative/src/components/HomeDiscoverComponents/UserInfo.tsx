@@ -4,7 +4,7 @@ import {styles} from '../../utils/styles';
 
 export function UserInfo() {
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#fff'}}>
     <View style={{flex: 2, flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
       <Image
         source={require('../../assets/img/day.jpeg')}

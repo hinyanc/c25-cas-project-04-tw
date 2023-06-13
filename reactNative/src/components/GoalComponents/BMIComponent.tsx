@@ -45,21 +45,21 @@ const BMI = () => {
               <Text style={styles.modalText}>＞18.5 - 22.9 = Normal</Text>
               <Text style={styles.modalText}>23 - 24.9 = Overweight</Text>
               <Text style={styles.modalText}>＞ 25 = Obese</Text>
-              <Pressable
+              <TouchableOpacity
                 style={[styles.BMIChartBtn]}
                 onPress={() => setModalVisible(!modalVisible)}>
                 <Text style={styles.BMIChartText}>OK</Text>
-              </Pressable>
+              </TouchableOpacity>
             </View>
             </TouchableWithoutFeedback>
             </ScrollView>
           </TouchableOpacity>
         </Modal>
-        <Pressable
+        <TouchableOpacity
           style={[styles.BMIChartBtn]}
           onPress={() => setModalVisible(true)}>
           <Text style={styles.BMIChartText}>BMI Chart</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   );
