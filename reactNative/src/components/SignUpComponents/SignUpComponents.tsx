@@ -28,6 +28,7 @@
 
 // type InputProps = {
 //   input: InputType;
+//   onPage:()=>void
 // };
 
 // const {width, height} = Dimensions.get('window');

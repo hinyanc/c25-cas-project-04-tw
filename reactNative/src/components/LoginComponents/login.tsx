@@ -145,7 +145,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
                 fontSize: 20,
               }}
               onPress={() => {
-                navigation.navigate('MyHome');
+                navigation.navigate('SignUp');
                 // sign up
               }}>
               Sign Up
