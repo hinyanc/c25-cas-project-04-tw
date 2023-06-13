@@ -3,39 +3,88 @@ import {View, TextInput, Text, FlatList, Pressable} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MessageComponent from '../../components/ChatComponents/MessageComponent';
 import {styles} from '../../utils/styles';
-import socket from '../../utils/socket';
+// import socket from '../../utils/socket';
 
-interface Message {
-  sender: string;
-  message: string;
-}
+const Messaging = ({route, navigation}: any) => {
+  const [chatMessages, setChatMessages] = useState([
+    {
+      id: '1',
+      text: 'Hello Julia, React Native is very easy!',
+      time: '07:50',
+      user: 'Chinny',
+    },
+    {
+      id: '2',
+      text: 'Hi Julia, I like React Native! 😇',
+      time: '08:50',
+      user: 'Yannes',
+    },
+    {
+      id: '3',
+      text: 'Hello Julia, React Native is very easy!',
+      time: '07:50',
+      user: 'Chinny',
+    },
+    {
+      id: '4',
+      text: 'Hi Julia, I like React Native! 😇',
+      time: '08:50',
+      user: 'Yannes',
+    },
+    {
+      id: '5',
+      text: 'Hello Julia, React Native is very easy!',
+      time: '07:50',
+      user: 'Chinny',
+    },
+    {
+      id: '6',
+      text: 'Hi Julia, I like React Native! 😇',
+      time: '08:50',
+      user: 'Yannes',
+    },
+    {
+      id: '7',
+      text: 'Hello Julia, React Native is very easy!',
+      time: '07:50',
+      user: 'Chinny',
+    },
+    {
+      id: '8',
+      text: 'Hi Julia, I like React Native! 😇',
+      time: '08:50',
+      user: 'Yannes',
+    },
+  ]);
+  const [message, setMessage] = useState('');
+  const [user, setUser] = useState('');
 
-const Messaging = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [newMessage, setNewMessage] = useState('');
+  // Access the chatroom's name and id
+  const {name, chatroomId} = route.params;
 
-  useEffect(() => {
-    fetchMessages();
-  }, []);
-
-  const fetchMessages = async () => {
+  // This function gets the username saved on AsyncStorage
+  const getUsername = async () => {
     try {
-      const response = await fetch('http://localhost:8080/messages');
-      const data = await response.json();
-
-      if (response) {
-        setMessages(data);
-      } else {
-        console.error('Error retrieving messages:', data);
+      const value = await AsyncStorage.getItem('username');
+      if (value !== null) {
+        setUser(value);
       }
-    } catch (error) {
-      console.error('Error retrieving messages:', error);
+    } catch (e) {
+      console.error('Error while loading username!');
     }
   };
 
-  const handleNewMessage = () => {
-    console.log('Sending message:', newMessage);
+  // Sets the header title to the name chatroom's name
+  useLayoutEffect(() => {
+    navigation.setOptions({title: name});
+    getUsername();
+  }, []);
 
+  /*
+        This function gets the time the user sends a message, then 
+        logs the username, message, and the timestamp to the console.
+     */
+  const handleNewMessage = () => {
     const hour =
       new Date().getHours() < 10
         ? `0${new Date().getHours()}`
@@ -46,13 +95,11 @@ const Messaging = () => {
         ? `0${new Date().getMinutes()}`
         : `${new Date().getMinutes()}`;
 
-    const newMessageObj: Message = {
-      sender: '??',
-      message: newMessage,
-    };
-
-    setMessages(prevMessages => [...prevMessages, newMessageObj]);
-    setNewMessage('');
+    console.log({
+      message,
+      user,
+      timestamp: {hour, mins},
+    });
   };
 
   return (
@@ -62,14 +109,13 @@ const Messaging = () => {
           styles.messagingscreen,
           {paddingVertical: 15, paddingHorizontal: 10},
         ]}>
-        {messages[0] ? (
+        {chatMessages[0] ? (
           <FlatList
-            data={messages}
+            data={chatMessages}
             renderItem={({item}) => (
               <MessageComponent item={item} user={user} />
             )}
-            // keyExtractor={item => item.id}
-            keyExtractor={(item: {id: any}) => item.id}
+            keyExtractor={item => item.id}
           />
         ) : (
           ''
@@ -79,7 +125,7 @@ const Messaging = () => {
       <View style={styles.messaginginputContainer}>
         <TextInput
           style={styles.messaginginput}
-          onChangeText={value => setMessages(value)}
+          onChangeText={value => setMessage(value)}
         />
         <Pressable
           style={styles.messagingbuttonContainer}
@@ -94,3 +140,45 @@ const Messaging = () => {
 };
 
 export default Messaging;
+
+//keep!
+// useEffect(() => {
+//   fetchMessages();
+// }, []);
+
+// const fetchMessages = async () => {
+//   try {
+//     const response = await fetch('http://localhost:8080/messages');
+//     const data = await response.json();
+
+//     if (response) {
+//       setMessages(data);
+//     } else {
+//       console.error('Error retrieving messages:', data);
+//     }
+//   } catch (error) {
+//     console.error('Error retrieving messages:', error);
+//   }
+// };
+
+// const handleNewMessage = () => {
+//   console.log('Sending message:', newMessage);
+
+//   const hour =
+//     new Date().getHours() < 10
+//       ? `0${new Date().getHours()}`
+//       : `${new Date().getHours()}`;
+
+//   const mins =
+//     new Date().getMinutes() < 10
+//       ? `0${new Date().getMinutes()}`
+//       : `${new Date().getMinutes()}`;
+
+//   const newMessageObj: Message = {
+//     sender: '??',
+//     message: newMessage,
+//   };
+
+//   setMessages(prevMessages => [...prevMessages, newMessageObj]);
+//   setNewMessage('');
+// };

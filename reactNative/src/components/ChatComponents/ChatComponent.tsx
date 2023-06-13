@@ -6,48 +6,57 @@ import {styles} from '../../utils/styles';
 import {StackParamList} from '../../../App';
 import type {StackNavigationProp} from '@react-navigation/stack';
 
-interface ChatComponentProps {
-  message: string;
-  sender_id: number;
-  sender_name: string;
-  receiver_id: number;
-  receiver_name: string;
-  updated_at: Date;
+// interface ChatComponent {
+//   userId: number;
+//   username: string;
+//   content: string;
+//   updated_at: Date;
+// }
+
+interface Item {
+  item: any;
 }
 
-const ChatComponent = ({
-  message,
-  sender_id,
-  receiver_id,
-  updated_at,
-  receiver_name,
-}: ChatComponentProps) => {
+const ChatComponent = ({item}: Item) => {
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
-  const handleNavigation = () => {
-    navigation.navigate('Messaging', {
-      receiverName: receiver_name,
-      senderId: sender_id,
-    });
-  };
-  // const [messages, setMessages] = useState<Message>({text: '', time: ''});
+
+  const [messages, setMessages] = useState({text: ' ', time: ' '});
 
   // // Retrieves the last message in the array from the item prop
-  // useLayoutEffect(() => {
-  //   setMessages(item.messages[item.messages.length - 1]);
-  // }, []);
+  useLayoutEffect(() => {
+    setMessages(item.messages[item.messages.length - 1]);
+  }, []);
+
+  const handleNavigation = () => {
+    navigation.navigate('Messaging', {
+      id: item.id,
+      name: item.name,
+    });
+  };
+
+  //
 
   return (
     <Pressable style={styles.cchat} onPress={handleNavigation}>
       <IonIcon
-        name="hi"
+        name="person-circle-outline"
         size={45}
         color="black"
-        style={styles.cavatar as any}
+        // style={styles.cavatar as StyleProp<TextStyle> | undefined}
       />
 
       <View style={styles.crightContainer}>
         <View>
-          <Text style={styles.cusername}>{receiver_name}</Text>
+          <Text style={styles.cusername}>{item.name}</Text>
+
+          <Text style={styles.cmessage}>
+            {messages?.text ? messages.text : 'Tap to start chatting'}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.ctime}>
+            {messages?.time ? messages.time : 'now'}
+          </Text>
         </View>
       </View>
     </Pressable>
