@@ -60,6 +60,15 @@ export default function App() {
             component={BottomTabs}
             options={{title: 'Overview', headerShown: false}}
           />
+          <Stack.Screen
+            name="Chat"
+            component={Chat}
+            options={{
+              title: 'Chats',
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen name="Messaging" component={Messaging} />
         </Stack.Navigator>
       </NavigationContainer>
       {/* <NavigationContainer>
