@@ -53,6 +53,7 @@ type CardType = {
   name: string;
   gymCenter: string;
   interest: string[];
+  bio: string
 };
 
 export function TinderSwipe() {
@@ -65,6 +66,7 @@ export function TinderSwipe() {
       name: 'Ah Mui',
       gymCenter: 'Physical Wan Chai',
       interest: ['Dance', 'Pilates', 'Cardio'],
+      bio: 'I love to meet friends!'
     },
     {
       id: 2,
@@ -72,6 +74,7 @@ export function TinderSwipe() {
       name: 'Day',
       gymCenter: 'Physical Wan Chai',
       interest: ['Dance', 'Pilates', 'Cardio'],
+      bio: 'I love to meet friends!'
     },
     {
       id: 3,
@@ -79,6 +82,7 @@ export function TinderSwipe() {
       name: 'Ivy So',
       gymCenter: 'Physical Wan Chai',
       interest: ['Dance', 'Pilates', 'Cardio', 'Boxing', 'Yoga'],
+      bio: 'I love to meet friends!'
     },
     {
       id: 4,
@@ -92,6 +96,7 @@ export function TinderSwipe() {
         'Pilates',
         'Cardio',
       ],
+      bio: 'I love to meet friends!'
     },
     {
       id: 5,
@@ -99,6 +104,7 @@ export function TinderSwipe() {
       name: 'Stanley',
       gymCenter: 'Physical Wan Chai',
       interest: ['Dance', 'Pilates', 'Cardio'],
+      bio: 'I love to meet friends!'
     },
   ];
 
@@ -134,7 +140,12 @@ export function TinderSwipe() {
                   ]}>
                   <Text style={styles.DiscoverUsername}>{card.name}</Text>
                   <Text style={styles.DiscoverGym}>{card.gymCenter}</Text>
-                  <View style={{marginLeft: 15, flexDirection: 'row', flexWrap: 'wrap'}}>
+                  <View
+                    style={{
+                      marginLeft: 15,
+                      flexDirection: 'row',
+                      flexWrap: 'wrap',
+                    }}>
                     {card.interest.map(interest => {
                       return (
                         <View style={styles.DiscoverInterest}>
@@ -147,18 +158,28 @@ export function TinderSwipe() {
                   </View>
                 </View>
 
-                <TouchableOpacity style={[
+                <TouchableOpacity
+                  style={[
                     styles.NopeIcon,
                     card.interest.length > 3 ? {bottom: 182} : {bottom: 145},
                   ]}>
                   <Ionicons name="close" size={45} color={'#ED8974'} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.SuperIcon}>
-                  <Ionicons name="md-star" size={40} color={'#4FADC2'} />
+                <TouchableOpacity
+                  style={[
+                    styles.SuperIcon,
+                    card.interest.length > 3 ? {bottom: 242} : {bottom: 205},
+                  ]}>
+                  <Ionicons name="md-star" size={35} color={'#4FADC2'} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.LikeIcon}>
+                <TouchableOpacity
+                  style={[
+                    styles.LikeIcon,
+                    card.interest.length > 3 ? {bottom: 302} : {bottom: 265},
+                  ]}>
                   <Ionicons name="heart" size={35} color={'#7CCD96'} />
                 </TouchableOpacity>
+                <Text style={[styles.bio, card.interest.length > 3 ? {bottom: 290} : {bottom: 260},]}>{card.bio}</Text>
               </View>
             </Animated.View>
           )}

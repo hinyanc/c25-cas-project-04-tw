@@ -290,7 +290,6 @@ export const styles = StyleSheet.create({
     borderBottomEndRadius: 10,
     borderBottomStartRadius: 10,
     paddingBottom: 30,
-    elevation: 5,
   },
   DiscoverUsername: {
     color: '#E24E59',
@@ -377,4 +376,7 @@ export const styles = StyleSheet.create({
     shadowRadius: 3.5,
     elevation: 6,
   },
+  bio: {
+    position: 'relative'
+  }
 });
