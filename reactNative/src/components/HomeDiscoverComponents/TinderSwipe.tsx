@@ -7,9 +7,11 @@ import {
   Text,
   Dimensions,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import {styles} from '../../utils/styles';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ScreenWidth = Dimensions.get('window').width;
 const ScreenHeight = Dimensions.get('window').height;
@@ -29,6 +31,14 @@ const styles1 = StyleSheet.create({
     backgroundColor: 'white',
     width: ScreenWidth * 0.9,
     height: ScreenHeight * 0.4,
+    shadowColor: '#E24E59',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 3.5,
+    elevation: 5,
   },
   image: {
     width: ScreenWidth * 0.9, // 50% of the screen width
@@ -75,7 +85,13 @@ export function TinderSwipe() {
       image: require('../../assets/img/edan.jpeg'),
       name: 'Edan',
       gymCenter: 'Physical Wan Chai',
-      interest: ['Weightlifting', 'Injury recover', 'Stretching', 'Pilates', 'Cardio'],
+      interest: [
+        'Weightlifting',
+        'Injury recover',
+        'Stretching',
+        'Pilates',
+        'Cardio',
+      ],
     },
     {
       id: 5,
@@ -112,24 +128,37 @@ export function TinderSwipe() {
               <View>
                 <Image source={card.image} style={styles1.card} />
                 <View
-                  style={{
-                    position: 'relative',
-                    bottom: 86.5,
-                    backgroundColor: 'rgba(0,0,0,0.5)',
-                    borderBottomEndRadius: 10,
-                    borderBottomStartRadius: 10
-                  }}>
+                  style={[
+                    styles.CardInfo,
+                    card.interest.length > 4 ? {bottom: 160} : {bottom: 121.5},
+                  ]}>
                   <Text style={styles.DiscoverUsername}>{card.name}</Text>
                   <Text style={styles.DiscoverGym}>{card.gymCenter}</Text>
-                  <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                    {card.interest.map((interest)=>{
-                      return(
-                        <View style={styles.DiscoverInterest}><Text style={styles.DiscoverInterestText}>{interest}</Text></View>
-                      )
+                  <View style={{marginLeft: 15, flexDirection: 'row', flexWrap: 'wrap'}}>
+                    {card.interest.map(interest => {
+                      return (
+                        <View style={styles.DiscoverInterest}>
+                          <Text style={styles.DiscoverInterestText}>
+                            {interest}
+                          </Text>
+                        </View>
+                      );
                     })}
-
                   </View>
                 </View>
+
+                <TouchableOpacity style={[
+                    styles.NopeIcon,
+                    card.interest.length > 3 ? {bottom: 182} : {bottom: 145},
+                  ]}>
+                  <Ionicons name="close" size={45} color={'#ED8974'} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.SuperIcon}>
+                  <Ionicons name="md-star" size={40} color={'#4FADC2'} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.LikeIcon}>
+                  <Ionicons name="heart" size={35} color={'#7CCD96'} />
+                </TouchableOpacity>
               </View>
             </Animated.View>
           )}
@@ -138,25 +167,25 @@ export function TinderSwipe() {
           onSwipedAll={handleSwipeAll}
           useViewOverflow={false}
           overlayLabels={{
-            bottom: {
-              element: <Text>BLEAH</Text> /* Optional */,
-              title: 'BLEAH',
-              style: {
-                label: {
-                  backgroundColor: 'black',
-                  borderColor: 'black',
-                  color: 'white',
-                  borderWidth: 1,
-                },
-                wrapper: {
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                },
-              },
-            },
             left: {
-              element: <Text>NOPE</Text> /* Optional */,
+              element: (
+                <View
+                  style={{
+                    borderWidth: 3,
+                    borderRadius: 16,
+                    borderColor: '#ED8974',
+                  }}>
+                  <Text
+                    style={{
+                      color: '#ED8974',
+                      fontWeight: 'bold',
+                      fontSize: 30,
+                      marginHorizontal: 10,
+                    }}>
+                    NOPE
+                  </Text>
+                </View>
+              ) /* Optional */,
               title: 'NOPE',
               style: {
                 label: {
@@ -169,13 +198,30 @@ export function TinderSwipe() {
                   flexDirection: 'column',
                   alignItems: 'flex-end',
                   justifyContent: 'flex-start',
-                  marginTop: 30,
-                  marginLeft: -30,
+                  marginTop: 20,
+                  marginLeft: -20,
                 },
               },
             },
             right: {
-              element: <Text>LIKE</Text> /* Optional */,
+              element: (
+                <View
+                  style={{
+                    borderWidth: 3,
+                    borderRadius: 16,
+                    borderColor: '#7CCD96',
+                  }}>
+                  <Text
+                    style={{
+                      color: '#7CCD96',
+                      fontWeight: 'bold',
+                      fontSize: 30,
+                      marginHorizontal: 10,
+                    }}>
+                    LIKE
+                  </Text>
+                </View>
+              ) /* Optional */,
               title: 'LIKE',
               style: {
                 label: {
@@ -188,13 +234,30 @@ export function TinderSwipe() {
                   flexDirection: 'column',
                   alignItems: 'flex-start',
                   justifyContent: 'flex-start',
-                  marginTop: 30,
-                  marginLeft: 30,
+                  marginTop: 20,
+                  marginLeft: 20,
                 },
               },
             },
             top: {
-              element: <Text>SUPER</Text> /* Optional */,
+              element: (
+                <View
+                  style={{
+                    borderWidth: 3,
+                    borderRadius: 16,
+                    borderColor: '#4FADC2',
+                  }}>
+                  <Text
+                    style={{
+                      color: '#4FADC2',
+                      fontWeight: 'bold',
+                      fontSize: 30,
+                      marginHorizontal: 10,
+                    }}>
+                    SUPER LIKE!
+                  </Text>
+                </View>
+              ) /* Optional */,
               title: 'SUPER LIKE',
               style: {
                 label: {
@@ -207,6 +270,7 @@ export function TinderSwipe() {
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  marginTop: -200,
                 },
               },
             },
