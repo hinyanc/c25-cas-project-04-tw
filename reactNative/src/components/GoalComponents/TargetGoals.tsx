@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const TargetGoals = () => {
   return (
     <View>
-      <View style={{marginTop: 100}}>
+      <View style={{marginTop: 70}}>
         <Text style={styles.setGoal}>Target Goals  <Ionicons name='add-circle-sharp' size={35} color={'#E24E59'} onPress={()=>{}}/></Text>
         
       </View>

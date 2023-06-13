@@ -1,20 +1,31 @@
 import React, {useState} from 'react';
-import {Pressable, Text, TextInput, View} from 'react-native';
+import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {styles} from '../../utils/styles';
 
 const TargetWeight = () => {
   const [targetWeight, setTargetWeight] = useState('');
+  const [showText, setShowText] = useState(false);
+
+  const handleInputChange = (text: string) => {
+    setTargetWeight(text);
+  };
+
+  const handleSubmit = () => {
+    setShowText(true);
+  };
+
   return (
     <View>
       <Text style={styles.targetWeight}>Your Target Weight:</Text>
+
       <View>
-        <View
-          style={{flex: 2, flexDirection: 'row', justifyContent: 'flex-start'}}>
+        <View style={{flexDirection: 'row'}}>
           <TextInput
-            placeholder="set your target weight here.."
+            placeholder="Set your target weight here"
+            maxLength={3}
             placeholderTextColor="#B1B1B1"
             value={targetWeight}
-            onChangeText={setTargetWeight}
+            onChangeText={handleInputChange}
             keyboardType="numeric"
             style={{
               padding: 0,
@@ -30,10 +41,15 @@ const TargetWeight = () => {
               color: '#B1B1B1',
             }}
           />
-          <Pressable style={[styles.weightBtn]} onPress={() => {}}>
+          <TouchableOpacity style={[styles.weightBtn]} onPress={handleSubmit}>
             <Text style={styles.BMIChartText}>Confirm</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
+        {showText && (
+          <Text style={{fontSize: 16, textAlign: 'center', color: '#E2868D', marginTop:8}}>
+            Still 10 kg to go! Fighting!
+          </Text>
+        )}
       </View>
     </View>
   );

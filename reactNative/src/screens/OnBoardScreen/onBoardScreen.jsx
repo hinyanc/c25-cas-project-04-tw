@@ -46,7 +46,7 @@ const slides = [
     image2: require('../../assets/onBoardImg/onboard-3.png'),
     title: 'Make your gym goals',
     subtitle:
-      'lease read our privacy policy and policy regarding before registering',
+      'Please read our privacy policy and policy regarding before registering',
   },
 ];
 
