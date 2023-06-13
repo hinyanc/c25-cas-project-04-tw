@@ -12,7 +12,7 @@ const PlanButton = () => {
 }
 
 const styles = StyleSheet.create({
-    button: { backgroundColor: "#E24E59", color: '#FDDBDD', borderRadius: 15}
+    button: { backgroundColor: "#E24E59", color: '#FDDBDD', borderRadius: 26, width: 260}
   });
 
 export default PlanButton

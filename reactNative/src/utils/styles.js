@@ -308,6 +308,7 @@ export const styles = StyleSheet.create({
     color: '#E24E59',
     fontSize: 24,
     fontWeight: 'bold',
+    marginVertical: 20,
   },
   FilteringBtnPressed: {
     justifyContent: 'center',
@@ -332,5 +333,31 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff',
     fontWeight: 'bold',
+  },
+  DiscoverUsername: {
+    color: '#E24E59',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginHorizontal: 20,
+  },
+  DiscoverGym: {
+    color: '#B1B1B1',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginHorizontal: 20,
+  },
+  DiscoverInterest: {
+    justifyContent: 'center',
+    margin: 5,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#FDDBDD',
+    borderRadius: 16,
+  },
+  DiscoverInterestText: {
+    color: '#707070',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginHorizontal: 20,
   },
 });

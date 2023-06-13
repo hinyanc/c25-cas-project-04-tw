@@ -6,11 +6,13 @@ import {Filtering} from '../components/HomeDiscoverComponents/Filtering';
 
 const HomeDiscoverScreen = () => {
   return (
-    <SafeAreaView>
+
+      <SafeAreaView style={{backgroundColor: '#FFF9F0'}}>
         <UserInfo />
         <Filtering />
         <TinderSwipe />
-    </SafeAreaView>
+      </SafeAreaView>
+
   );
 };
 
