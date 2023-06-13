@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   chatheading: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: 'black',
+    color: '#E24E59',
   },
   chattopContainer: {
     // backgroundColor: '#F7F7F7',
@@ -79,7 +79,7 @@ export const styles = StyleSheet.create({
   },
   mmessage: {
     maxWidth: '50%',
-    backgroundColor: '#f5ccc2',
+    backgroundColor: 'white',
     padding: 15,
     borderRadius: 10,
     marginBottom: 2,
