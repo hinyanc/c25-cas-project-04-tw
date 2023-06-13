@@ -10,6 +10,8 @@ import LoginScreen from './src/screens/LoginScreens/LoginScreen';
 import OnBoardingScreen from './src/screens/OnBoardScreen/onBoardScreen';
 import HomeDiscoverScreen from './src/screens/HomeDiscoverScreen';
 import LoginForm from './src/components/LoginComponents/login';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useEffect, useState} from 'react';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -37,10 +39,49 @@ export type StackParamList = {
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
+  const [isFirstLaunch, setFirstLaunch] = useState(false);
+  useEffect(() => {
+    const getOnboardingFlag = async () => {
+      const flag = await AsyncStorage.getItem('hasCompletedOnboarding');
+      setFirstLaunch(flag === 'true');
+    };
+    getOnboardingFlag();
+  }, []);
+  
+
+  
   return (
     <>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Onboarding">
+          {/* {isFirstLaunch ? (
+            <>
+              
+              <Stack.Screen
+                name="Onboarding"
+                component={OnBoardingScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="Login"
+                component={LoginForm}
+                options={{
+                  headerShown: false,
+                }}
+              />
+            </>
+          ) : (
+            <Stack.Screen
+              name="Login"
+              component={LoginForm}
+              options={{
+                headerShown: false,
+              }}
+            />
+          )} */}
+
           <Stack.Screen
             name="Onboarding"
             component={OnBoardingScreen}
@@ -55,6 +96,7 @@ export default function App() {
               headerShown: false,
             }}
           />
+
           <Stack.Screen
             name="MyHome"
             component={BottomTabs}
