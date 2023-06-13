@@ -33,7 +33,7 @@ export type StackParamList = {
   Login: undefined;
   Next: undefined;
   Chat: undefined;
-  Messaging: {id: Number; name: string};
+  Messaging: {target_user_id: Number; target_username: string};
 };
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -47,9 +47,7 @@ export default function App() {
     };
     getOnboardingFlag();
   }, []);
-  
 
-  
   return (
     <>
       <NavigationContainer>

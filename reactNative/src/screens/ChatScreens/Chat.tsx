@@ -13,134 +13,31 @@ import Icon from 'react-native-vector-icons/Feather';
 import {styles} from '../../utils/styles';
 import socket from '../../utils/socket';
 
+// interface ChatList {
+//   id: number;
+//   profile_pic: string;
+//   username: string;
+//   lastMessage: string;
+//   updatedAt: string;
+// }
+
 const Chat = () => {
-  // const [chats, setChats] = useState<ChatComponentPros[]>([]);
+  // const [chats, setChats] = useState<ChatList[]>([]);
+
   const chats = [
     {
-      id: '1',
-      name: 'Chinny',
-      messages: [
-        {
-          id: '1a',
-          text: 'Hello Julia, React Native is very easy!',
-          time: '07:50',
-          user: 'Julia',
-        },
-        {
-          id: '1b',
-          text: 'Hi Julia, I like React Native! 😇',
-          time: '08:50',
-          user: 'Julia',
-        },
-      ],
+      target_user_id: 1,
+      profile_pic: '',
+      target_username: 'Doug_Beer50',
+      last_message: 'hihi',
+      updated_at: new Date().toUTCString(),
     },
     {
-      id: '2',
-      name: 'Yannes',
-      messages: [
-        {
-          id: '2a',
-          text: 'hihi 🙏🏽',
-          time: '12:50',
-          user: 'Julia',
-        },
-        {
-          id: '2b',
-          text: 'Hi Julia, I like React Native too! 😇',
-          time: '03:50',
-          user: 'Julia',
-        },
-      ],
-    },
-    {
-      id: '3',
-      name: 'Yannes',
-      messages: [
-        {
-          id: '2a',
-          text: 'hihi 🙏🏽',
-          time: '12:50',
-          user: 'Julia',
-        },
-        {
-          id: '2b',
-          text: 'Hi Julia, I like React Native too! 😇',
-          time: '03:50',
-          user: 'Julia',
-        },
-      ],
-    },
-    {
-      id: '4',
-      name: 'Yannes',
-      messages: [
-        {
-          id: '2a',
-          text: 'hihi 🙏🏽',
-          time: '12:50',
-          user: 'Julia',
-        },
-        {
-          id: '2b',
-          text: 'Hi Julia, I like React Native too! 😇',
-          time: '03:50',
-          user: 'Julia',
-        },
-      ],
-    },
-    {
-      id: '5',
-      name: 'Yannes',
-      messages: [
-        {
-          id: '2a',
-          text: 'hihi 🙏🏽',
-          time: '12:50',
-          user: 'Julia',
-        },
-        {
-          id: '2b',
-          text: 'Hi Julia, I like React Native too! 😇',
-          time: '03:50',
-          user: 'Julia',
-        },
-      ],
-    },
-    {
-      id: '6',
-      name: 'Julia',
-      messages: [
-        {
-          id: '2a',
-          text: 'hihi 🙏🏽',
-          time: '12:50',
-          user: 'Julia',
-        },
-        {
-          id: '2b',
-          text: 'Hi Julia, I like React Native too! 😇',
-          time: '03:50',
-          user: 'Julia',
-        },
-      ],
-    },
-    {
-      id: '7',
-      name: 'Julia',
-      messages: [
-        {
-          id: '2a',
-          text: 'hihi 🙏🏽',
-          time: '12:50',
-          user: 'Julia',
-        },
-        {
-          id: '2b',
-          text: 'Hi Julia, I like React Native too! 😇',
-          time: '03:50',
-          user: 'Julia',
-        },
-      ],
+      target_user_id: 3,
+      profile_pic: '',
+      target_username: 'Jason',
+      last_message: 'hibye',
+      updated_at: new Date().toUTCString(),
     },
   ];
 
@@ -169,12 +66,12 @@ const Chat = () => {
         </View>
       </View>
 
-      <ScrollView style={styles.chatlistContainer}>
+      <View style={styles.chatlistContainer}>
         {chats.length > 0 ? (
           <FlatList
             data={chats}
             renderItem={({item}) => <ChatComponent item={item} />}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item.target_user_id as any}
           />
         ) : (
           <View style={styles.chatemptyContainer}>
@@ -182,9 +79,138 @@ const Chat = () => {
             <Text>Go to discover and match your new gyMatess!</Text>
           </View>
         )}
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
 
 export default Chat;
+
+//  const chats = [
+//    {
+//      id: '1',
+//      name: 'Chinny',
+//      messages: [
+//        {
+//          id: '1a',
+//          text: 'Hello Julia, React Native is very easy!',
+//          time: '07:50',
+//          user: 'Julia',
+//        },
+//        {
+//          id: '1b',
+//          text: 'Hi Julia, I like React Native! 😇',
+//          time: '08:50',
+//          user: 'Julia',
+//        },
+//      ],
+//    },
+//    {
+//      id: '2',
+//      name: 'Yannes',
+//      messages: [
+//        {
+//          id: '2a',
+//          text: 'hihi 🙏🏽',
+//          time: '12:50',
+//          user: 'Julia',
+//        },
+//        {
+//          id: '2b',
+//          text: 'Hi Julia, I like React Native too! 😇',
+//          time: '03:50',
+//          user: 'Julia',
+//        },
+//      ],
+//    },
+//    {
+//      id: '3',
+//      name: 'Yannes',
+//      messages: [
+//        {
+//          id: '2a',
+//          text: 'hihi 🙏🏽',
+//          time: '12:50',
+//          user: 'Julia',
+//        },
+//        {
+//          id: '2b',
+//          text: 'Hi Julia, I like React Native too! 😇',
+//          time: '03:50',
+//          user: 'Julia',
+//        },
+//      ],
+//    },
+//    {
+//      id: '4',
+//      name: 'Yannes',
+//      messages: [
+//        {
+//          id: '2a',
+//          text: 'hihi 🙏🏽',
+//          time: '12:50',
+//          user: 'Julia',
+//        },
+//        {
+//          id: '2b',
+//          text: 'Hi Julia, I like React Native too! 😇',
+//          time: '03:50',
+//          user: 'Julia',
+//        },
+//      ],
+//    },
+//    {
+//      id: '5',
+//      name: 'Yannes',
+//      messages: [
+//        {
+//          id: '2a',
+//          text: 'hihi 🙏🏽',
+//          time: '12:50',
+//          user: 'Julia',
+//        },
+//        {
+//          id: '2b',
+//          text: 'Hi Julia, I like React Native too! 😇',
+//          time: '03:50',
+//          user: 'Julia',
+//        },
+//      ],
+//    },
+//    {
+//      id: '6',
+//      name: 'Julia',
+//      messages: [
+//        {
+//          id: '2a',
+//          text: 'hihi 🙏🏽',
+//          time: '12:50',
+//          user: 'Julia',
+//        },
+//        {
+//          id: '2b',
+//          text: 'Hi Julia, I like React Native too! 😇',
+//          time: '03:50',
+//          user: 'Julia',
+//        },
+//      ],
+//    },
+//    {
+//      id: '7',
+//      name: 'Julia',
+//      messages: [
+//        {
+//          id: '2a',
+//          text: 'hihi 🙏🏽',
+//          time: '12:50',
+//          user: 'Julia',
+//        },
+//        {
+//          id: '2b',
+//          text: 'Hi Julia, I like React Native too! 😇',
+//          time: '03:50',
+//          user: 'Julia',
+//        },
+//      ],
+//    },
+//  ];

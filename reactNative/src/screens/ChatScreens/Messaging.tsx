@@ -8,61 +8,30 @@ import {styles} from '../../utils/styles';
 const Messaging = ({route, navigation}: any) => {
   const [chatMessages, setChatMessages] = useState([
     {
-      id: '1',
-      text: 'Hello Julia, React Native is very easy!',
-      time: '07:50',
-      user: 'Chinny',
+      sender_id: 1,
+      receiver_id: 2,
+      updated_at: '2023-06-12T03:40:54.192Z',
+      message: 'Accusantium quas aliquam culpa similique quis laudantium ad.',
+      sender_username: 'Doug_Beer50',
+      receiver_username: 'Julia',
     },
     {
-      id: '2',
-      text: 'Hi Julia, I like React Native! 😇',
-      time: '08:50',
-      user: 'Yannes',
-    },
-    {
-      id: '3',
-      text: 'Hello Julia, React Native is very easy!',
-      time: '07:50',
-      user: 'Chinny',
-    },
-    {
-      id: '4',
-      text: 'Hi Julia, I like React Native! 😇',
-      time: '08:50',
-      user: 'Yannes',
-    },
-    {
-      id: '5',
-      text: 'Hello Julia, React Native is very easy!',
-      time: '07:50',
-      user: 'Chinny',
-    },
-    {
-      id: '6',
-      text: 'Hi Julia, I like React Native! 😇',
-      time: '08:50',
-      user: 'Yannes',
-    },
-    {
-      id: '7',
-      text: 'Hello Julia, React Native is very easy!',
-      time: '07:50',
-      user: 'Chinny',
-    },
-    {
-      id: '8',
-      text: 'Hi Julia, I like React Native! 😇',
-      time: '08:50',
-      user: 'Yannes',
+      sender_id: 2,
+      receiver_id: 1,
+      updated_at: '2023-06-12T03:40:54.192Z',
+      message: 'Possimus dolorem nemo.',
+      sender_username: 'Julia',
+      receiver_username: 'Doug_Beer50',
     },
   ]);
   const [message, setMessage] = useState('');
   const [user, setUser] = useState('');
 
   // Access the chatroom's name and id
-  const {name, chatroomId} = route.params;
 
-  // This function gets the username saved on AsyncStorage
+  const {target_username} = route.params;
+
+  // This function gets the own username saved on AsyncStorage
   const getUsername = async () => {
     try {
       const value = await AsyncStorage.getItem('username');
@@ -76,7 +45,7 @@ const Messaging = ({route, navigation}: any) => {
 
   // Sets the header title to the name chatroom's name
   useLayoutEffect(() => {
-    navigation.setOptions({title: name});
+    navigation.setOptions({title: target_username});
     getUsername();
   }, []);
 
@@ -115,7 +84,7 @@ const Messaging = ({route, navigation}: any) => {
             renderItem={({item}) => (
               <MessageComponent item={item} user={user} />
             )}
-            keyExtractor={item => item.id}
+            // keyExtractor={item => item}
           />
         ) : (
           ''

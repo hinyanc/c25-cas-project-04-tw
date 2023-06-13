@@ -6,13 +6,6 @@ import {styles} from '../../utils/styles';
 import {StackParamList} from '../../../App';
 import type {StackNavigationProp} from '@react-navigation/stack';
 
-// interface ChatComponent {
-//   userId: number;
-//   username: string;
-//   content: string;
-//   updated_at: Date;
-// }
-
 interface Item {
   item: any;
 }
@@ -20,17 +13,16 @@ interface Item {
 const ChatComponent = ({item}: Item) => {
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
 
-  const [messages, setMessages] = useState({text: ' ', time: ' '});
+  // const [messages, setMessages] = useState({text: ' ', time: ' '});
 
-  // // Retrieves the last message in the array from the item prop
-  useLayoutEffect(() => {
-    setMessages(item.messages[item.messages.length - 1]);
-  }, []);
+  // useLayoutEffect(() => {
+  //   setMessages(item.messages[item.messages.length - 1]);
+  // }, []);
 
   const handleNavigation = () => {
     navigation.navigate('Messaging', {
-      id: item.id,
-      name: item.name,
+      target_user_id: item.target_user_id,
+      target_username: item.target_username,
     });
   };
 
@@ -47,16 +39,12 @@ const ChatComponent = ({item}: Item) => {
 
       <View style={styles.crightContainer}>
         <View>
-          <Text style={styles.cusername}>{item.name}</Text>
+          <Text style={styles.cusername}>{item.target_username}</Text>
 
-          <Text style={styles.cmessage}>
-            {messages?.text ? messages.text : 'Tap to start chatting'}
-          </Text>
+          <Text style={styles.cmessage}>{item.last_message}</Text>
         </View>
         <View>
-          <Text style={styles.ctime}>
-            {messages?.time ? messages.time : 'now'}
-          </Text>
+          <Text style={styles.ctime}>{item.updated_at}</Text>
         </View>
       </View>
     </Pressable>
