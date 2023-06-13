@@ -28,20 +28,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/demo", express.static("demoClient"));
 
 // custom client ID
-io.engine.generateId = (req: any) => {
-  const userId = req.session.userId;
-  if (userId) {
-    return `custom-client-id-${userId}`;
-  }
-  return `custom-client-id-default`;
-};
+// io.engine.generateId = (req: any) => {
+//   const userId = req.session.userId;
+//   if (userId) {
+//     return `custom-client-id-${userId}`;
+//   }
+//   return `custom-client-id-default`;
+// };
 
-io.on("connect", function (req: any) {
-  const userId = req.session.userId;
-  console.log(socket.io.engine.id); // old ID
-  socket.io.engine.id = userId;
-  console.log(socket.io.engine.id); // new ID
-});
+// io.on("connect", function (req: any) {
+//   const userId = req.session.userId;
+//   console.log(socket.io.engine.id); // old ID
+//   socket.io.engine.id = userId;
+//   console.log(socket.io.engine.id); // new ID
+// });
 
 io.use((socket, next) => {
   console.log("check middle", socket.id);
