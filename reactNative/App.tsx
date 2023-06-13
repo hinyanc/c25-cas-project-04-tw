@@ -12,6 +12,8 @@ import HomeDiscoverScreen from './src/screens/HomeDiscoverScreen';
 import LoginForm from './src/components/LoginComponents/login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
+import SignUpForm from './src/screens/SignUpScreen/SignUpScreen';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -28,6 +30,24 @@ const styles = StyleSheet.create({
 
 //name of routes
 export type StackParamList = {
+  // SignUp: {
+  //   onSubmit: (
+  //     username: string,
+  //     email: string,
+  //     password: string,
+  //     gender: string,
+  //     birthday: string,
+  //     height: number,
+  //     weight: number,
+  //     isMember: boolean,
+  //     gymCenter: string,
+  //     locaiton: string,
+  //     bio: string,
+  //     gymLevel: string,
+  //     interests: string[],
+  //   ) => void;
+  // };
+  SignUp:undefined;
   MyHome: undefined;
   Onboarding: undefined;
   Login: undefined;
@@ -90,6 +110,13 @@ export default function App() {
           <Stack.Screen
             name="Login"
             component={LoginForm}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUpForm}
             options={{
               headerShown: false,
             }}

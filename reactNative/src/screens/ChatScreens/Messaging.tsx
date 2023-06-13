@@ -1,5 +1,5 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {View, TextInput, Text, FlatList, Pressable} from 'react-native';
+import {View, TextInput, Text, FlatList, Pressable, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MessageComponent from '../../components/ChatComponents/MessageComponent';
 import {styles} from '../../utils/styles';
@@ -12,7 +12,7 @@ const Messaging = ({route, navigation}: any) => {
       receiver_id: 2,
       updated_at: '2023-06-12T03:40:54.192Z',
       message: 'Accusantium quas aliquam culpa similique quis laudantium ad.',
-      sender_username: 'Doug_Beer50',
+      sender_username: 'Mui',
       receiver_username: 'Julia',
     },
     {
@@ -20,14 +20,15 @@ const Messaging = ({route, navigation}: any) => {
       receiver_id: 1,
       updated_at: '2023-06-12T03:40:54.192Z',
       message: 'Possimus dolorem nemo.',
-      sender_username: 'Julia',
+      sender_username: 'Mui',
+      profile_pic: require('../../assets/img/mui.jpeg'),
       receiver_username: 'Doug_Beer50',
     },
   ]);
   const [message, setMessage] = useState('');
   const [user, setUser] = useState('');
 
-  // Access the chatroom's name and id
+  // Access the chatroom's name
 
   const {target_username} = route.params;
 
@@ -100,7 +101,7 @@ const Messaging = ({route, navigation}: any) => {
           style={styles.messagingbuttonContainer}
           onPress={handleNewMessage}>
           <View>
-            <Text style={{color: '#f2f0f1', fontSize: 20}}>SEND</Text>
+            <Text style={{color: '#f2f0f1', fontSize: 20}}>Send</Text>
           </View>
         </Pressable>
       </View>

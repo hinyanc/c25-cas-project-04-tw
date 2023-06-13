@@ -1,4 +1,4 @@
-import {View, Text, Pressable, TextStyle, StyleProp} from 'react-native';
+import {View, Text, Pressable, TextStyle, StyleProp, Image} from 'react-native';
 import React from 'react';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
@@ -30,13 +30,9 @@ const ChatComponent = ({item}: Item) => {
 
   return (
     <Pressable style={styles.cchat} onPress={handleNavigation}>
-      <IonIcon
-        name="person-circle-outline"
-        size={45}
-        color="black"
-        // style={styles.cavatar as StyleProp<TextStyle> | undefined}
-      />
-
+      <View>
+        <Image source={item.profile_pic} style={styles.cprofilepic} />
+      </View>
       <View style={styles.crightContainer}>
         <View>
           <Text style={styles.cusername}>{item.target_username}</Text>
