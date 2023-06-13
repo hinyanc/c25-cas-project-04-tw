@@ -5,11 +5,22 @@ import { logger } from "../utils/logger";
 export class ChatListController {
   constructor(private chatListService: ChatListService) {}
 
-  getChatHistoryController = async (req: Request, res: Response) => {
+  // getChatHistoryController = async (req: Request, res: Response) => {
+  //   try {
+  //     const { mainUserId } = req.body;
+  //     const chatHistory = await this.chatListService.getChatHistory(mainUserId);
+  //     res.status(200).json(chatHistory);
+  //   } catch (error) {
+  //     logger.error(error);
+  //     res.status(500).json({ error: "Internal server error" });
+  //   }
+  // };
+
+  lastMessageController = async (req: Request, res: Response) => {
     try {
       const { mainUserId } = req.body;
-      const chatHistory = await this.chatListService.getChatHistory(mainUserId);
-      res.status(200).json(chatHistory);
+      const lastMessage = await this.chatListService.getLastMessage(mainUserId);
+      res.status(200).json(lastMessage);
     } catch (error) {
       logger.error(error);
       res.status(500).json({ error: "Internal server error" });

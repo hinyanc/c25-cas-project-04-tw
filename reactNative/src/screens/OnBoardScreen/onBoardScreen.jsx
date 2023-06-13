@@ -36,7 +36,7 @@ const slides = [
     id: '2',
     image1: require('../../assets/onBoardImg/GymLun-1-PhotoRoom.png-PhotoRoom.png'),
     image2: require('../../assets/onBoardImg/onboard-2.png'),
-    title: 'Meet your gym mates,',
+    title: 'Meet your gym mates',
     subtitle:
       'Please read our privacy policy and policy regarding before registering',
   },

@@ -19,7 +19,7 @@ export default function MessageComponent({item, user}: any) {
             name="person-circle-outline"
             size={30}
             color="black"
-            style={styles.mvatar as any}
+            // style={styles.mvatar as any}
           />
           <View
             style={
