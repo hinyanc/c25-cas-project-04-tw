@@ -151,6 +151,19 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
               Sign Up
             </Text>
           </Text>
+          {/* escape */}
+          <Text
+              style={{
+                // textDecorationLine: 'underline',
+                fontWeight: 'bold',
+                fontSize: 20,
+              }}
+              onPress={() => {
+                navigation.navigate('MyHome');
+                // sign up
+              }}>
+              Go to home 
+            </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
