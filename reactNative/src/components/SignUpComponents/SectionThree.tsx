@@ -20,8 +20,20 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../App';
 import {FormState} from '../../screens/SignUpScreen/SignUpScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {Picker} from '@react-native-picker/picker';
 
 const {width, height} = Dimensions.get('window');
+
+const gymCenter = [
+  "24/7 Fitness",
+  "Pure Fitness",
+  "Go24",
+  "Physical",
+  "Fitness First",
+  "Anytime Fitness",
+  "Snap Fitness",
+  "Leisure and Cultural Services Department (LCSD)",
+];
 
 interface SectionOneProps {
   next: () => void;
@@ -60,7 +72,7 @@ export default function SectionTwo({
   };
 
   const [pressedButton, setPressedButton] = useState<string | null>(null);
-
+  const [selectedCenter, setSelectedCenter] = useState(null);
   const handleButtonPress = (button: string) => {
     setPressedButton(button);
   };
@@ -131,13 +143,22 @@ export default function SectionTwo({
         />
       </View>
       <Text style={[styles.inputTitle, {marginTop: 10}]}>Choose your gym center</Text>
-      <TextInput
+      {/* <TextInput
         value={formState.birthday}
         onChangeText={text => onChangeHandler('birthday', text)}
         placeholder="Email"
         style={styles.input}
-      />
-      <Text style={styles.inputTitle}>Height*</Text>
+      /> */}
+         <Picker
+        selectedValue={selectedCenter}
+        onValueChange={(itemValue, itemIndex) => setSelectedCenter(itemValue)}
+      >
+        <Picker.Item label="Gym center" value={null} />
+        {gymCenter.map((center, index) => (
+          <Picker.Item key={index} label={center} value={center} />
+        ))}
+      </Picker>
+      <Text style={styles.inputTitle}>Choose your gym center location</Text>
       <TextInput
         keyboardType="numeric"
         value={formState.height}
@@ -145,7 +166,7 @@ export default function SectionTwo({
         placeholder="Height"
         style={styles.input}
       />
-      <Text style={styles.inputTitle}>Weight*</Text>
+      <Text style={styles.inputTitle}>Bio</Text>
       <TextInput
         value={formState.weight}
         onChangeText={text => onChangeHandler('weight', text)}

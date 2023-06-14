@@ -2,8 +2,8 @@ import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {View, Text, SafeAreaView, FlatList} from 'react-native';
 import ChatComponent from '../../components/ChatComponents/ChatComponent';
 import {styles} from '../../utils/styles';
-import { useChatList } from
-import socket from '../../utils/socket';
+
+// import socket from '../../utils/socket';
 
 const Chat = () => {
   // const [chats, setChats] = useState<ChatList[]>([]);
