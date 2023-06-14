@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import SectionOne from '../../components/SignUpComponents/SectionOne';
 import SectionTwo from '../../components/SignUpComponents/SectionTwo';
+import SectionThree from '../../components/SignUpComponents/SectionThree';
 const {width, height} = Dimensions.get('window');
 
 export interface FormState {
@@ -49,8 +50,12 @@ export default function SignUpForm() {
     interests: [],
   });
 
-  const onChangeHandler = (e: any) => {
-    setFormState({...formState, [e.target.name]: e.target.value});
+//   const onChangeHandler = (e: any) => {
+//     setFormState({...formState, [e.target.name]: e.target.value});
+//   };
+
+  const onChangeHandler = (name: string, value: string) => {
+    setFormState({...formState, [name]: value});
   };
 
   return (
@@ -94,6 +99,9 @@ export default function SignUpForm() {
               onChangeHandler={onChangeHandler}
               next={() => {
                 setSectionNum(4);
+              }}
+              back={() => {
+                setSectionNum(2);
               }}
             />
           )}
