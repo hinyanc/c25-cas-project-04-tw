@@ -9,79 +9,57 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 // import socket from '../../utils/socket';
 
 const Messaging = ({route, navigation}: any) => {
-  const getMessages = useGetMessages();
-  const onCreateMessages = useMutation(
-    async (data: {message: string}) => useCreateMessages(data.message),
-    {
-      onSuccess: () => queryClient.invalidateQueries(['message']),
-    },
-  );
-
   const queryClient = useQueryClient();
-  const [chatMessages, setChatMessages] = useState([
-    // {
-    //   sender_id: 1,
-    //   receiver_id: 2,
-    //   updated_at: '2023-06-12T03:40:54.192Z',
-    //   message: 'Accusantium quas aliquam culpa similique quis laudantium ad.',
-    //   sender_username: 'Mui',
-    //   receiver_username: 'Julia',
-    // },
-    // {
-    //   sender_id: 2,
-    //   receiver_id: 1,
-    //   updated_at: '2023-06-12T03:40:54.192Z',
-    //   message: 'Possimus dolorem nemo.',
-    //   sender_username: 'Mui',
-    //   profile_pic: require('../../assets/img/mui.jpeg'),
-    //   receiver_username: 'Doug_Beer50',
-    // },
-  ]);
   const [message, setMessage] = useState('');
-  const [user, setUser] = useState('');
+  const [mainUser, setMainUser] = useState('');
+  const {target_username, target_user_id} = route.params;
 
-  // Access the chatroom's name
-
-  const {target_username} = route.params;
-
-  // This function gets the own username saved on AsyncStorage
-  const getUsername = async () => {
+  const getMainUserId = async () => {
     try {
-      const value = await AsyncStorage.getItem('username');
+      const value = await AsyncStorage.getItem('mainUserId');
       if (value !== null) {
-        setUser(value);
+        setMainUser(value);
       }
     } catch (e) {
       console.error('Error while loading username!');
     }
   };
 
+  getMainUserId();
+
+  const chatMessages = useGetMessages(mainUser);
+  const onCreateMessages = useMutation(
+    async (data: {
+      message: string;
+      target_user_id: number;
+      main_user_id: number;
+    }) =>
+      useCreateMessages(data.message, data.target_user_id, data.main_user_id),
+    {
+      onSuccess: () => queryClient.invalidateQueries(['message']),
+    },
+  );
+
   // Sets the header title to the name chatroom's name
   useLayoutEffect(() => {
     navigation.setOptions({title: target_username});
-    getUsername();
+    getMainUserId();
   }, []);
 
-  /*
-        This function gets the time the user sends a message, then 
-        logs the username, message, and the timestamp to the console.
-     */
   const handleNewMessage = () => {
-    onCreateMessages.mutate({message});
-    const hour =
-      new Date().getHours() < 10
-        ? `0${new Date().getHours()}`
-        : `${new Date().getHours()}`;
-
-    const mins =
-      new Date().getMinutes() < 10
-        ? `0${new Date().getMinutes()}`
-        : `${new Date().getMinutes()}`;
-
-    console.log({
+    onCreateMessages.mutate({
       message,
-      user,
-      timestamp: {hour, mins},
+      target_user_id,
+      main_user_id: parseInt(mainUser),
+      // const hour =
+      //   new Date().getHours() < 10
+      //     ? `0${new Date().getHours()}`
+      //     : `${new Date().getHours()}`;
+
+      // const mins =
+      //   new Date().getMinutes() < 10
+      //     ? `0${new Date().getMinutes()}`
+      //     : `${new Date().getMinutes()}`;
     });
   };
 
@@ -96,7 +74,7 @@ const Messaging = ({route, navigation}: any) => {
           <FlatList
             data={chatMessages}
             renderItem={({item}) => (
-              <MessageComponent item={item} user={user} />
+              <MessageComponent item={item} mainUser={mainUser} />
             )}
             // keyExtractor={item => item}
           />

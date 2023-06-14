@@ -4,43 +4,41 @@ import ChatComponent from '../../components/ChatComponents/ChatComponent';
 import {styles} from '../../utils/styles';
 import {useChatList} from '../../hooks/chatAPI';
 import socket from '../../utils/socket';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Chat = () => {
-  // const [chats, setChats] = useState<ChatList[]>([]);
-  const chats = useChatList();
-  // const chats = [
-  //   {
-  //     target_user_id: 1,
-  //     profile_pic: require('../../assets/img/mui.jpeg'),
-  //     target_username: 'Mui',
-  //     last_message: 'hihi',
-  //     updated_at: '7:30 am',
-  //   },
-  //   {
-  //     target_user_id: 3,
-  //     profile_pic: require('../../assets/img/day.jpeg'),
-  //     target_username: 'Day',
-  //     last_message: 'hibye',
-  //     updated_at: '2:30 am',
-  //   },
-  // ];
+  // let mainUserId = await AsyncStorage.getItem('mainUserId');
+  // let mainUserId = 1;
+  // const chats = useChatList(mainUserId!);
+  const [mainUser, setMainUser] = useState('');
 
-  // useEffect(() => {
-  //   const fetchChats = async () => {
-  //     try {
-  //       const response = await fetch('http://locolhost:8080/chatList');
-  //       const data = await response.json();
-  //       if (response.status === 200) {
-  //         setChats(data);
-  //       } else {
-  //         console.error('Error retrieving chats:', data);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error retrieving messages:', error);
-  //     }
-  //   };
-  //   fetchChats();
+  const getMainUserId = async () => {
+    try {
+      const value = await AsyncStorage.getItem('mainUserId');
+      if (value !== null) {
+        console.log('hi', value);
+        setMainUser(value);
+      }
+    } catch (e) {
+      console.error('Error while loading username!');
+    }
+  };
+
+  useEffect(() => {
+    getMainUserId();
+  }, []);
+  // useLayoutEffect(() => {
+  //   getMainUserId();
   // }, []);
+
+  let chats: any[] = [];
+  // if (mainUser != '') {
+
+  chats = useChatList(mainUser);
+
+  // } else {
+  //   chats = [];
+  // }
 
   return (
     <SafeAreaView style={styles.chatscreen}>
