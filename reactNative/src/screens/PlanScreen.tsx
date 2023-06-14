@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {styles} from '../utils/styles';
 import PlansTable from '../components/PlanComponents/PlanTable';
 import PlanButton from '../components/PlanComponents/PlanButton';
 
 const PlanScreen = () => {
   return (
+    <ScrollView>
     <View style={{flex: 1, alignItems: 'center', backgroundColor:'#FFF9F0'}}>
       <Text style={styles.subPlan}>Subscription Plans</Text>
       <Text style={styles.subDetails}>Upgrade to Diamond</Text>
@@ -14,7 +15,7 @@ const PlanScreen = () => {
       </Text>
       <PlansTable />
       <PlanButton />
-    </View>
+    </View></ScrollView>
   );
 };
 

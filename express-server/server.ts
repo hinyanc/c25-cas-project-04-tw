@@ -19,6 +19,15 @@ declare global {
     }
   }
 }
+declare module "express-session" {
+  interface SessionData {
+    userIsLoggedIn?: boolean;
+    users_id: number;
+    // firstName: string;
+    // loginType: string;
+    // email: string;
+  }
+}
 
 let onlineUsers: string[] = [];
 
@@ -26,6 +35,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/demo", express.static("demoClient"));
+app.use(
+  expressSession({
+    secret: "group 4 is the best",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
 // custom client ID
 // io.engine.generateId = (req: any) => {
@@ -103,6 +119,7 @@ import { User } from "./utils/model";
 import { discoverRoutes } from "./routers/discoverRoutes";
 import { goalRoutes } from "./routers/goalRoutes";
 import { chatListRoutes } from "./routers/chatListRoutes";
+import expressSession from "express-session";
 
 app.get("/hi", (req, res) => {
   res.send("bye");
