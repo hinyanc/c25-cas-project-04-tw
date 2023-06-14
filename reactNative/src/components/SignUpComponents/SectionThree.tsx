@@ -107,14 +107,13 @@ export default function SectionTwo({
     <View
       style={{
         marginBottom: height * 0.13,
-        marginTop: height * 0.04,
+        marginTop: height * 0.02,
       }}>
       <View
         style={{
           justifyContent: 'space-between',
           alignItems: 'center',
           flexDirection: 'row',
-          marginTop:height * 0.05
         }}>
         <TouchableOpacity
           onPress={e => {
@@ -210,16 +209,7 @@ export default function SectionTwo({
         placeholder="Type something about yourself..."
         style={styles.bioInput}
       />
-      {/* remind */}
-      <Text
-        style={{
-          // textDecorationLine: 'underline',
-          textAlign: 'center',
-          width: width * 0.75,
-          marginBottom: height * 0.02,
-        }}>
-        Age and gender help improve recommendations
-      </Text>
+
 
       {/* ///continue button */}
       <TouchableOpacity

@@ -21,7 +21,6 @@ import {StackParamList} from '../../../App';
 import {FormState} from '../../screens/SignUpScreen/SignUpScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Picker} from '@react-native-picker/picker';
-
 const {width, height} = Dimensions.get('window');
 
 const interests: string[] = [
@@ -149,18 +148,22 @@ export default function SectionTwo({
     return selectedInterests.includes(interest);
   };
   ////
+  // check box
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
   return (
     <View
       style={{
         marginBottom: height * 0.13,
-        marginTop: height * 0.04,
+        marginTop: height * 0.05,
       }}>
       <View
         style={{
           justifyContent: 'space-between',
           alignItems: 'center',
           flexDirection: 'row',
+          marginTop: height * 0.03,
         }}>
         <TouchableOpacity
           onPress={e => {
@@ -192,7 +195,7 @@ export default function SectionTwo({
           isPressed={isButtonPressed('Newbie')}
           text="Newbie"
           textStyle={{
-            color: '#000000',
+            color: '#000',
           }}
           btnType="level"
         />
@@ -203,7 +206,7 @@ export default function SectionTwo({
           isPressed={isButtonPressed('Moderate')}
           text="Moderate"
           textStyle={{
-            color: '#000000',
+            color: '#000',
           }}
           btnType="level"
         />
@@ -213,7 +216,7 @@ export default function SectionTwo({
           isPressed={isButtonPressed('Vigorous')}
           text="Vigorous"
           textStyle={{
-            color: '#000000',
+            color: '#000',
           }}
           btnType="level"
         />
@@ -254,16 +257,19 @@ export default function SectionTwo({
       </View>
 
       {/* remind */}
-      <Text
-        style={{
-          // textDecorationLine: 'underline',
-          textAlign: 'center',
-          width: width * 0.75,
-          marginBottom: height * 0.02,
-        }}>
-        Age and gender help improve recommendations
-      </Text>
-
+      <View>
+        <Text
+          style={{
+            // textDecorationLine: 'underline',
+            textAlign: 'center',
+            width: width * 0.75,
+            marginBottom: height * 0.02,
+          }}>
+          By continuing, you agree to Gymatess's Terms of service. We will
+          manage information about you as described in our Privacy Policy, and
+          Cookie Policy.
+        </Text>
+      </View>
       {/* ///continue button */}
       <TouchableOpacity
         onPress={e => {
@@ -278,7 +284,7 @@ export default function SectionTwo({
             fontWeight: 'bold',
             color: '#fff',
           }}>
-          Submit
+          Sign Up
         </Text>
       </TouchableOpacity>
     </View>

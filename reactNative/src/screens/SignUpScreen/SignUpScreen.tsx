@@ -14,6 +14,9 @@ import SectionOne from '../../components/SignUpComponents/SectionOne';
 import SectionTwo from '../../components/SignUpComponents/SectionTwo';
 import SectionThree from '../../components/SignUpComponents/SectionThree';
 import SectionFour from '../../components/SignUpComponents/SectionFour';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from '../../../App';
 const {width, height} = Dimensions.get('window');
 
 export interface FormState {
@@ -58,6 +61,8 @@ export default function SignUpForm() {
   const onChangeHandler = (name: string, value: string|string[]) => {
     setFormState({...formState, [name]: value});
   };
+
+  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
 
   return (
     <SafeAreaView
@@ -116,7 +121,10 @@ export default function SignUpForm() {
               formState={formState}
               onChangeHandler={onChangeHandler}
               next={() => {
-                setSectionNum(5);
+                // setSectionNum(5);
+                //validate if success
+                // show success and redirect to login
+                navigation.navigate("Login")
               }}
               back={() => {
                 setSectionNum(3);

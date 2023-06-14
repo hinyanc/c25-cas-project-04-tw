@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     marginVertical: 10,
     alignSelf: 'flex-start',
-    color: '#00000',
+    // color: '#000',
   },
   btn: {
     width: width * 0.75,
@@ -127,7 +127,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#000000',
+    color: '#000',
   },
   levelBtnTextPressed: {
     textAlign: 'center',
