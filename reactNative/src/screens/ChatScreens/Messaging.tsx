@@ -9,40 +9,28 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 // import socket from '../../utils/socket';
 
 const Messaging = ({route, navigation}: any) => {
-  const getMessages = useGetMessages();
+  const chatMessages = useGetMessages();
   const onCreateMessages = useMutation(
-    async (data: {message: string}) => useCreateMessages(data.message),
+    async (data: {
+      message: string;
+      target_user_id: number;
+      main_user_id: number;
+    }) =>
+      useCreateMessages(data.message, data.target_user_id, data.main_user_id),
     {
       onSuccess: () => queryClient.invalidateQueries(['message']),
     },
   );
 
   const queryClient = useQueryClient();
-  const [chatMessages, setChatMessages] = useState([
-    // {
-    //   sender_id: 1,
-    //   receiver_id: 2,
-    //   updated_at: '2023-06-12T03:40:54.192Z',
-    //   message: 'Accusantium quas aliquam culpa similique quis laudantium ad.',
-    //   sender_username: 'Mui',
-    //   receiver_username: 'Julia',
-    // },
-    // {
-    //   sender_id: 2,
-    //   receiver_id: 1,
-    //   updated_at: '2023-06-12T03:40:54.192Z',
-    //   message: 'Possimus dolorem nemo.',
-    //   sender_username: 'Mui',
-    //   profile_pic: require('../../assets/img/mui.jpeg'),
-    //   receiver_username: 'Doug_Beer50',
-    // },
-  ]);
+
   const [message, setMessage] = useState('');
   const [user, setUser] = useState('');
 
   // Access the chatroom's name
 
-  const {target_username} = route.params;
+  const {target_username, target_user_id} = route.params;
+  const main_user_id = 1;
 
   // This function gets the own username saved on AsyncStorage
   const getUsername = async () => {
@@ -67,7 +55,7 @@ const Messaging = ({route, navigation}: any) => {
         logs the username, message, and the timestamp to the console.
      */
   const handleNewMessage = () => {
-    onCreateMessages.mutate({message});
+    onCreateMessages.mutate({message, target_user_id, main_user_id});
     const hour =
       new Date().getHours() < 10
         ? `0${new Date().getHours()}`

@@ -6,11 +6,12 @@ export class MessageController {
 
   getMessageHistoryController = async (req: Request, res: Response) => {
     try {
-      const { mainUserId } = req.body;
-      const { targetUserId } = req.body;
+      console.log("check har", req.params);
+      const { mainUserId, targetUserId } = req.params;
+
       const messagesHistory = await this.messageService.getAllMessages(
-        mainUserId,
-        targetUserId
+        parseInt(mainUserId),
+        parseInt(targetUserId)
       );
       res.status(200).json(messagesHistory);
     } catch (error) {

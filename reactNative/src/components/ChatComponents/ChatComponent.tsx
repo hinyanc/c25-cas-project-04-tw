@@ -27,8 +27,6 @@ const ChatComponent = ({item}: Item) => {
     });
   };
 
-  //
-
   return (
     <Pressable style={styles.cchat} onPress={handleNavigation}>
       <View>
