@@ -25,7 +25,8 @@ const {width, height} = Dimensions.get('window');
 interface SectionOneProps {
   next: () => void;
   formState: FormState;
-  onChangeHandler: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  // onChangeHandler: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  onChangeHandler: (name: string, value: string) => void;
 }
 
 export default function SectionOne({
@@ -49,21 +50,21 @@ export default function SectionOne({
       <Text style={styles.inputTitle}>Username*</Text>
       <TextInput
         value={formState.username}
-        onChange={onChangeHandler}
+        onChangeText={(text)=> onChangeHandler("username",text)}
         placeholder="UserName"
         style={styles.input}
       />
       <Text style={styles.inputTitle}>Email address*</Text>
       <TextInput
         value={formState.email}
-        onChange={onChangeHandler}
+        onChangeText={(text)=> onChangeHandler("email",text)}
         placeholder="Email"
         style={styles.input}
       />
       <Text style={styles.inputTitle}>Password*</Text>
       <TextInput
         value={formState.password}
-        onChange={onChangeHandler}
+        onChangeText={(text)=> onChangeHandler("password",text)}
         placeholder="Password"
         style={styles.input}
       />

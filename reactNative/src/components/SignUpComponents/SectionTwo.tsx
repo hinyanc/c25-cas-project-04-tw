@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   NativeSyntheticEvent,
   TextInputChangeEventData,
+  TextStyle,
 } from 'react-native';
 
 import {styles} from '../../utils/signUpStyles';
@@ -26,7 +27,7 @@ interface SectionOneProps {
   next: () => void;
   back: () => void;
   formState: FormState;
-  onChangeHandler: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  onChangeHandler: (name: string, value: string) => void;
 }
 
 export default function SectionTwo({
@@ -35,18 +36,56 @@ export default function SectionTwo({
   formState,
   onChangeHandler,
 }: SectionOneProps) {
+  type ButtonProps = {
+    onPress: () => void;
+    isPressed: boolean;
+    text: string;
+    textStyle?: TextStyle;
+  };
+  const Button = ({onPress, isPressed, text, textStyle}: ButtonProps) => {
+    return (
+      <TouchableOpacity
+        style={[styles.toogleBtn, isPressed && styles.toogleBtnPressed]}
+        onPress={onPress}>
+        <Text
+          style={[
+            styles.toogleBtnText,
+            textStyle,
+            isPressed && styles.pressedToogleBtnBtnText,
+          ]}>
+          {text}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const [pressedButton, setPressedButton] = useState<string | null>(null);
+
+  const handleButtonPress = (button: string) => {
+    setPressedButton(button);
+  };
+
+  const isButtonPressed = (button: string) => {
+    return pressedButton === button;
+  };
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
   return (
     <View
       style={{
         marginBottom: height * 0.13,
+        marginTop: height * 0.04,
       }}>
-      <View>
+      <View
+        style={{
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexDirection: 'row',
+        }}>
         <TouchableOpacity
           onPress={e => {
             back();
           }}>
-          <Ionicons name="arrow-back"></Ionicons>
+          <Ionicons name="arrow-back" size={30} style={{}}></Ionicons>
         </TouchableOpacity>
         <Text
           style={{
@@ -59,43 +98,37 @@ export default function SectionTwo({
       </View>
 
       {/* input */}
-      <Text style={styles.inputTitle}>Gender*</Text>
-      <View style={{
-            flexDirection: 'row'
-          }}>
-      <TouchableOpacity
-        onPress={e => {
-          next();
-        }}
-        style={styles. tooglebtn}>
-        <Text
-          style={{
-            textAlign: 'center',
-            paddingVertical: 10,
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: '#fff',
-          }}>
-          Male
-        </Text>
-      </TouchableOpacity>
-      <View style={{width: 15}} />
-      <TouchableOpacity
-        onPress={e => {
-          next();
-        }}
-        style={styles. tooglebtn}>
-        <Text
-          style={{
-            textAlign: 'center',
-            paddingVertical: 10,
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: '#fff',
-          }}>
-          Female
-        </Text>
-      </TouchableOpacity>
+      <Text
+        style={[
+          styles.inputTitle,
+          {marginTop: height * 0.04, marginBottom: 10},
+        ]}>
+        Gender*
+      </Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Button
+          onPress={() => handleButtonPress('Male')}
+          isPressed={isButtonPressed('Male')}
+          text="Male"
+          textStyle={{
+            color: '#F2B3B7',
+          }}
+        />
+        <View style={{width: 15}} />
+
+        <Button
+          onPress={() => handleButtonPress('Female')}
+          isPressed={isButtonPressed('Female')}
+          text="Female"
+          textStyle={{
+            color: '#F2B3B7',
+          }}
+        />
       </View>
       {/* <TextInput
         value={formState.gender}
@@ -103,18 +136,26 @@ export default function SectionTwo({
         placeholder="UserName"
         style={styles.input}
       /> */}
-      <Text style={styles.inputTitle}>Date of birth</Text>
+      <Text style={[styles.inputTitle, {marginTop: 10}]}>Date of birth</Text>
       <TextInput
         value={formState.birthday}
-        onChange={onChangeHandler}
+        onChangeText={text => onChangeHandler('birthday', text)}
         placeholder="Email"
         style={styles.input}
       />
       <Text style={styles.inputTitle}>Height*</Text>
       <TextInput
+        keyboardType="numeric"
         value={formState.height}
-        onChange={onChangeHandler}
-        placeholder="Password"
+        onChangeText={text => onChangeHandler('height', text)}
+        placeholder="Height"
+        style={styles.input}
+      />
+      <Text style={styles.inputTitle}>Weight*</Text>
+      <TextInput
+        value={formState.weight}
+        onChangeText={text => onChangeHandler('weight', text)}
+        placeholder="Weight"
         style={styles.input}
       />
       {/* remind */}
