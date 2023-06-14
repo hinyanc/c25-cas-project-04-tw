@@ -25,14 +25,35 @@ import {Picker} from '@react-native-picker/picker';
 const {width, height} = Dimensions.get('window');
 
 const gymCenter = [
-  "24/7 Fitness",
-  "Pure Fitness",
-  "Go24",
-  "Physical",
-  "Fitness First",
-  "Anytime Fitness",
-  "Snap Fitness",
-  "Leisure and Cultural Services Department (LCSD)",
+  '24/7 Fitness',
+  'Pure Fitness',
+  'Go24',
+  'Physical',
+  'Fitness First',
+  'Anytime Fitness',
+  'Snap Fitness',
+  'Leisure and Cultural Services Department (LCSD)',
+];
+
+const gymLocations: string[] = [
+  'Central and Western',
+  'Eastern',
+  'Southern',
+  'Wan Chai',
+  'Kowloon City',
+  'Kwun Tong',
+  'Sham Shui Po',
+  'Wong Tai Sin',
+  'Yau Tsim Mong',
+  'Islands',
+  'Kwai Tsing',
+  'North',
+  'Sai Kung',
+  'Sha Tin',
+  'Tai Po',
+  'Tsuen Wan',
+  'Tuen Mun',
+  'Yuen Long',
 ];
 
 interface SectionOneProps {
@@ -72,7 +93,8 @@ export default function SectionTwo({
   };
 
   const [pressedButton, setPressedButton] = useState<string | null>(null);
-  const [selectedCenter, setSelectedCenter] = useState(null);
+  const [selectedCenter, setSelectedCenter] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('');
   const handleButtonPress = (button: string) => {
     setPressedButton(button);
   };
@@ -92,6 +114,7 @@ export default function SectionTwo({
           justifyContent: 'space-between',
           alignItems: 'center',
           flexDirection: 'row',
+          marginTop:height * 0.05
         }}>
         <TouchableOpacity
           onPress={e => {
@@ -142,36 +165,50 @@ export default function SectionTwo({
           }}
         />
       </View>
-      <Text style={[styles.inputTitle, {marginTop: 10}]}>Choose your gym center</Text>
+      <Text style={[styles.inputTitle, {marginTop: 10}]}>
+        Choose your gym center
+      </Text>
       {/* <TextInput
         value={formState.birthday}
         onChangeText={text => onChangeHandler('birthday', text)}
         placeholder="Email"
         style={styles.input}
       /> */}
-         <Picker
-        selectedValue={selectedCenter}
-        onValueChange={(itemValue, itemIndex) => setSelectedCenter(itemValue)}
-      >
-        <Picker.Item label="Gym center" value={null} />
-        {gymCenter.map((center, index) => (
-          <Picker.Item key={index} label={center} value={center} />
-        ))}
-      </Picker>
+      <View style={styles.input}>
+        <Picker
+          selectedValue={selectedCenter}
+          onValueChange={(itemValue, itemIndex) => {
+            setSelectedCenter(itemValue);
+            onChangeHandler('gymCenter', itemValue);
+          }}>
+          <Picker.Item label="Gym center" value={null} />
+          {gymCenter.map((center, index) => (
+            <Picker.Item key={index} label={center} value={center} />
+          ))}
+        </Picker>
+      </View>
       <Text style={styles.inputTitle}>Choose your gym center location</Text>
-      <TextInput
-        keyboardType="numeric"
-        value={formState.height}
-        onChangeText={text => onChangeHandler('height', text)}
-        placeholder="Height"
-        style={styles.input}
-      />
+      <View style={styles.input}>
+        <Picker
+          selectedValue={selectedLocation}
+          onValueChange={(itemValue, itemIndex) => {
+            setSelectedLocation(itemValue);
+            onChangeHandler('locaiton', itemValue);
+          }}>
+          <Picker.Item label="Gym location" value={null} />
+          {gymLocations.map((location, index) => (
+            <Picker.Item key={index} label={location} value={location} />
+          ))}
+        </Picker>
+      </View>
       <Text style={styles.inputTitle}>Bio</Text>
       <TextInput
-        value={formState.weight}
-        onChangeText={text => onChangeHandler('weight', text)}
-        placeholder="Weight"
-        style={styles.input}
+        multiline={true}
+        numberOfLines={4}
+        onChangeText={text => onChangeHandler('bio', text)}
+        value={formState.bio}
+        placeholder="Type something about yourself..."
+        style={styles.bioInput}
       />
       {/* remind */}
       <Text
@@ -201,28 +238,6 @@ export default function SectionTwo({
           Continue
         </Text>
       </TouchableOpacity>
-      {/* have account back to login */}
-      <Text
-        style={{
-          // textDecorationLine: 'underline',
-          textAlign: 'center',
-          width: width * 0.75,
-          marginTop: 10,
-        }}>
-        Already have an account?
-        <Text
-          style={{
-            // textDecorationLine: 'underline',
-            fontWeight: 'bold',
-            fontSize: 20,
-          }}
-          onPress={() => {
-            navigation.navigate('Login');
-            // sign up
-          }}>
-          Login
-        </Text>
-      </Text>
     </View>
   );
 }

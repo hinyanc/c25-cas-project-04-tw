@@ -112,7 +112,7 @@ export default function SectionTwo({
           alignItems: 'center',
         }}>
         <Button
-          onPress={() => handleButtonPress('Male')}
+          onPress={() => {handleButtonPress('Male')} }
           isPressed={isButtonPressed('Male')}
           text="Male"
           textStyle={{
@@ -143,7 +143,7 @@ export default function SectionTwo({
         placeholder="Email"
         style={styles.input}
       />
-      <Text style={styles.inputTitle}>Height*</Text>
+      <Text style={styles.inputTitle}>Height* (Kg)</Text>
       <TextInput
         keyboardType="numeric"
         value={formState.height}
@@ -151,8 +151,9 @@ export default function SectionTwo({
         placeholder="Height"
         style={styles.input}
       />
-      <Text style={styles.inputTitle}>Weight*</Text>
+      <Text style={styles.inputTitle}>Weight* (cm)</Text>
       <TextInput
+        keyboardType="numeric"
         value={formState.weight}
         onChangeText={text => onChangeHandler('weight', text)}
         placeholder="Weight"

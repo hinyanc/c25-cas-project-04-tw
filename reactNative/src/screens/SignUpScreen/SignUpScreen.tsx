@@ -13,6 +13,7 @@ import {
 import SectionOne from '../../components/SignUpComponents/SectionOne';
 import SectionTwo from '../../components/SignUpComponents/SectionTwo';
 import SectionThree from '../../components/SignUpComponents/SectionThree';
+import SectionFour from '../../components/SignUpComponents/SectionFour';
 const {width, height} = Dimensions.get('window');
 
 export interface FormState {
@@ -78,6 +79,7 @@ export default function SignUpForm() {
               onChangeHandler={onChangeHandler}
               next={() => {
                 setSectionNum(2);
+                console.log("p1",formState)
               }}
             />
           )}
@@ -87,6 +89,8 @@ export default function SignUpForm() {
               onChangeHandler={onChangeHandler}
               next={() => {
                 setSectionNum(3);
+                console.log("p2",formState)
+
               }}
               back={() => {
                 setSectionNum(1);
@@ -99,6 +103,8 @@ export default function SignUpForm() {
               onChangeHandler={onChangeHandler}
               next={() => {
                 setSectionNum(4);
+                console.log("p3",formState)
+
               }}
               back={() => {
                 setSectionNum(2);
@@ -111,6 +117,9 @@ export default function SignUpForm() {
               onChangeHandler={onChangeHandler}
               next={() => {
                 setSectionNum(5);
+              }}
+              back={() => {
+                setSectionNum(3);
               }}
             />
           )}
