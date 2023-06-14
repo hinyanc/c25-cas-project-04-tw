@@ -1,5 +1,4 @@
 import {useQuery} from '@tanstack/react-query';
-
 interface Message {
   sender_id: Number;
   receiver_id: Number;
@@ -10,12 +9,16 @@ interface Message {
 }
 
 const API_URL = 'http://192.168.160.72:8080';
+const main_user_id = 1;
+const target_user_id = 2;
 
 export function useGetMessages() {
   const {isLoading, error, data, isFetching} = useQuery({
     queryKey: ['Messages'],
     queryFn: async () => {
-      const res = await fetch(`${API_URL}/message/mainUserId/1/targetUserId/2`);
+      const res = await fetch(
+        `${API_URL}/message/mainUserId/${main_user_id}/targetUserId/${target_user_id}`,
+      );
       const result = await res.json();
       return result as Message[];
     },
@@ -48,7 +51,3 @@ export async function useCreateMessages(
   const result = await res.json();
   return result;
 }
-
-// export async function useDeleteMessage(id: Number) {
-
-// }

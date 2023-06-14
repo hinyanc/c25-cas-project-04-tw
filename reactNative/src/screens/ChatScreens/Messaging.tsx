@@ -21,18 +21,14 @@ const Messaging = ({route, navigation}: any) => {
       onSuccess: () => queryClient.invalidateQueries(['message']),
     },
   );
-
   const queryClient = useQueryClient();
 
   const [message, setMessage] = useState('');
   const [user, setUser] = useState('');
-
-  // Access the chatroom's name
-
   const {target_username, target_user_id} = route.params;
+
   const main_user_id = 1;
 
-  // This function gets the own username saved on AsyncStorage
   const getUsername = async () => {
     try {
       const value = await AsyncStorage.getItem('username');
@@ -50,27 +46,17 @@ const Messaging = ({route, navigation}: any) => {
     getUsername();
   }, []);
 
-  /*
-        This function gets the time the user sends a message, then 
-        logs the username, message, and the timestamp to the console.
-     */
   const handleNewMessage = () => {
     onCreateMessages.mutate({message, target_user_id, main_user_id});
-    const hour =
-      new Date().getHours() < 10
-        ? `0${new Date().getHours()}`
-        : `${new Date().getHours()}`;
+    // const hour =
+    //   new Date().getHours() < 10
+    //     ? `0${new Date().getHours()}`
+    //     : `${new Date().getHours()}`;
 
-    const mins =
-      new Date().getMinutes() < 10
-        ? `0${new Date().getMinutes()}`
-        : `${new Date().getMinutes()}`;
-
-    console.log({
-      message,
-      user,
-      timestamp: {hour, mins},
-    });
+    // const mins =
+    //   new Date().getMinutes() < 10
+    //     ? `0${new Date().getMinutes()}`
+    //     : `${new Date().getMinutes()}`;
   };
 
   return (
