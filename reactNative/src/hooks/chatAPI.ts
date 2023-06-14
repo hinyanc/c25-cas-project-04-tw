@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useQuery} from '@tanstack/react-query';
 
-const API_URL = 'http://192.168.160.72:8080';
+// const API_URL = 'http://192.168.160.72:8080';
 
 interface ChatList {
   target_user_id: number;
@@ -17,7 +17,7 @@ export function useChatList(mainUserId: string) {
     queryKey: ['chatList', mainUserId],
     queryFn: async () => {
       const response = await fetch(
-        `${API_URL}/chatlist/mainUserId/${mainUserId}`,
+        `${process.env.REACT_APP_API_SERVER}/chatlist/mainUserId/${mainUserId}`,
       );
       const result = await response.json();
       console.log('check check', result);
