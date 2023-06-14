@@ -13,6 +13,9 @@ import LoginForm from './src/components/LoginComponents/login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
 import SignUpForm from './src/screens/SignUpScreen/SignUpScreen';
+import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
+
+export const queryClient = new QueryClient();
 
 const styles = StyleSheet.create({
   container: {
@@ -47,7 +50,7 @@ export type StackParamList = {
   //     interests: string[],
   //   ) => void;
   // };
-  SignUp:undefined;
+  SignUp: undefined;
   MyHome: undefined;
   Onboarding: undefined;
   Login: undefined;
@@ -70,9 +73,10 @@ export default function App() {
 
   return (
     <>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Onboarding">
-          {/* {isFirstLaunch ? (
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Onboarding">
+            {/* {isFirstLaunch ? (
             <>
               
               <Stack.Screen
@@ -100,47 +104,48 @@ export default function App() {
             />
           )} */}
 
-          <Stack.Screen
-            name="Onboarding"
-            component={OnBoardingScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Login"
-            component={LoginForm}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUpForm}
-            options={{
-              headerShown: false,
-            }}
-          />
+            <Stack.Screen
+              name="Onboarding"
+              component={OnBoardingScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Login"
+              component={LoginForm}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUpForm}
+              options={{
+                headerShown: false,
+              }}
+            />
 
-          <Stack.Screen
-            name="MyHome"
-            component={BottomTabs}
-            options={{title: 'Overview', headerShown: false}}
-          />
-          <Stack.Screen
-            name="Chat"
-            component={Chat}
-            options={{
-              title: 'Chats',
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen name="Messaging" component={Messaging} />
-        </Stack.Navigator>
-      </NavigationContainer>
-      {/* <NavigationContainer>
+            <Stack.Screen
+              name="MyHome"
+              component={BottomTabs}
+              options={{title: 'Overview', headerShown: false}}
+            />
+            <Stack.Screen
+              name="Chat"
+              component={Chat}
+              options={{
+                title: 'Chats',
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen name="Messaging" component={Messaging} />
+          </Stack.Navigator>
+        </NavigationContainer>
+        {/* <NavigationContainer>
         <BottomTabs />
       </NavigationContainer> */}
+      </QueryClientProvider>
     </>
   );
 }
