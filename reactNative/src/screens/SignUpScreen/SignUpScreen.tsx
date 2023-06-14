@@ -14,6 +14,11 @@ import SectionOne from '../../components/SignUpComponents/SectionOne';
 import SectionTwo from '../../components/SignUpComponents/SectionTwo';
 import SectionThree from '../../components/SignUpComponents/SectionThree';
 import SectionFour from '../../components/SignUpComponents/SectionFour';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from '../../../App';
+import { z } from "zod";
+
 const {width, height} = Dimensions.get('window');
 
 export interface FormState {
@@ -29,8 +34,30 @@ export interface FormState {
   locaiton: string;
   bio: string;
   gymLevel: string;
-  interests: string[];
+  interests: string[]|null;
 }
+export interface FormErrorState {
+  username: string|null;
+  email: string|null;
+  password: string|null;
+  gender: string|null;
+  birthday: string|null;
+  height: string|null;
+  weight: string|null;
+  isMember: string|null;
+  gymLevel: string|null;
+  interests: string|null;
+}
+
+const schema = {
+  email: z.string().email(),
+  username: z.string().min(4),
+  password:z.string().min(6),
+  gender:z.string(),
+  // not sure
+  birthday:z.string().datetime(),
+  height:,
+} as { [x: string]: z.ZodString };
 
 //height weight  parse int
 export default function SignUpForm() {
@@ -48,16 +75,31 @@ export default function SignUpForm() {
     locaiton: '',
     bio: '',
     gymLevel: '',
-    interests: [],
+    interests: null,
   });
 
+
+  const [errorState, setErrorState] = useState<FormErrorState>({
+    username: null,
+    email: null,
+    password:null,
+    gender: null,
+    birthday: null,
+    height: null,
+    weight: null,
+    isMember: null,
+    gymLevel:null,
+    interests: null,
+  });
 //   const onChangeHandler = (e: any) => {
 //     setFormState({...formState, [e.target.name]: e.target.value});
 //   };
 
-  const onChangeHandler = (name: string, value: string) => {
+  const onChangeHandler = (name: string, value: string|string[]|boolean) => {
     setFormState({...formState, [name]: value});
   };
+
+  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
 
   return (
     <SafeAreaView
@@ -116,7 +158,11 @@ export default function SignUpForm() {
               formState={formState}
               onChangeHandler={onChangeHandler}
               next={() => {
-                setSectionNum(5);
+                // setSectionNum(5);
+                //validate if success
+                // show success and redirect to login
+                
+                navigation.navigate("Login")
               }}
               back={() => {
                 setSectionNum(3);

@@ -60,7 +60,7 @@ interface SectionOneProps {
   next: () => void;
   back: () => void;
   formState: FormState;
-  onChangeHandler: (name: string, value: string) => void;
+  onChangeHandler: (name: string, value: string|boolean) => void;
 }
 
 export default function SectionTwo({
@@ -107,14 +107,13 @@ export default function SectionTwo({
     <View
       style={{
         marginBottom: height * 0.13,
-        marginTop: height * 0.04,
+        marginTop: height * 0.02,
       }}>
       <View
         style={{
           justifyContent: 'space-between',
           alignItems: 'center',
           flexDirection: 'row',
-          marginTop:height * 0.05
         }}>
         <TouchableOpacity
           onPress={e => {
@@ -147,7 +146,7 @@ export default function SectionTwo({
           alignItems: 'center',
         }}>
         <Button
-          onPress={() => handleButtonPress('Yes')}
+          onPress={() => {handleButtonPress('Yes');onChangeHandler('isMember', true)}}
           isPressed={isButtonPressed('Yes')}
           text="Yes"
           textStyle={{
@@ -157,7 +156,7 @@ export default function SectionTwo({
         <View style={{width: 15}} />
 
         <Button
-          onPress={() => handleButtonPress('No')}
+          onPress={() => {handleButtonPress('No');onChangeHandler('isMember', false)}}
           isPressed={isButtonPressed('No')}
           text="No"
           textStyle={{
@@ -210,16 +209,7 @@ export default function SectionTwo({
         placeholder="Type something about yourself..."
         style={styles.bioInput}
       />
-      {/* remind */}
-      <Text
-        style={{
-          // textDecorationLine: 'underline',
-          textAlign: 'center',
-          width: width * 0.75,
-          marginBottom: height * 0.02,
-        }}>
-        Age and gender help improve recommendations
-      </Text>
+
 
       {/* ///continue button */}
       <TouchableOpacity

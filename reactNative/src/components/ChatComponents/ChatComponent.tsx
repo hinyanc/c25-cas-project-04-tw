@@ -14,20 +14,12 @@ interface Item {
 const ChatComponent = ({item}: Item) => {
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
 
-  // const [messages, setMessages] = useState({text: ' ', time: ' '});
-
-  // useLayoutEffect(() => {
-  //   setMessages(item.messages[item.messages.length - 1]);
-  // }, []);
-
   const handleNavigation = () => {
     navigation.navigate('Messaging', {
       target_user_id: item.target_user_id,
       target_username: item.target_username,
     });
   };
-
-  //
 
   return (
     <Pressable style={styles.cchat} onPress={handleNavigation}>

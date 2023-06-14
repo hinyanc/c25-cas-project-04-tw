@@ -21,24 +21,23 @@ import {StackParamList} from '../../../App';
 import {FormState} from '../../screens/SignUpScreen/SignUpScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Picker} from '@react-native-picker/picker';
-
 const {width, height} = Dimensions.get('window');
 
 const interests: string[] = [
-  "Yoga",
-  "Weightlifting",
-  "Pilates",
-  "Injury recover",
-  "Aerobic",
-  "Cardio",
-  "Boxing",
-  "Stretching",
+  'Yoga',
+  'Weightlifting',
+  'Pilates',
+  'Injury recover',
+  'Aerobic',
+  'Cardio',
+  'Boxing',
+  'Stretching',
 ];
 interface SectionOneProps {
   next: () => void;
   back: () => void;
   formState: FormState;
-  onChangeHandler: (name: string, value: string) => void;
+  onChangeHandler: (name: string, value: string | string[]) => void;
 }
 
 export default function SectionTwo({
@@ -52,17 +51,70 @@ export default function SectionTwo({
     isPressed: boolean;
     text: string;
     textStyle?: TextStyle;
+    btnType: string;
   };
-  const Button = ({onPress, isPressed, text, textStyle}: ButtonProps) => {
+  const ToogleButton = ({
+    onPress,
+    isPressed,
+    text,
+    textStyle,
+    btnType,
+  }: ButtonProps) => {
     return (
       <TouchableOpacity
-        style={[styles.levelBtn, isPressed && styles.levelBtnPressed]}
+        style={[
+          btnType === 'level'
+            ? [styles.levelBtn, isPressed && styles.levelBtnPressed]
+            : [styles.interestBtn, isPressed && styles.interestBtnPressed],
+        ]}
         onPress={onPress}>
         <Text
           style={[
-            styles.levelBtnText,
-            textStyle,
-            isPressed && styles.levelBtnTextPressed,
+            btnType === 'level'
+              ? [
+                  styles.levelBtnText,
+                  textStyle,
+                  isPressed && styles.levelBtnTextPressed,
+                ]
+              : [
+                  styles.interestBtnText,
+                  textStyle,
+                  isPressed && styles.interestToogleBtnText,
+                ],
+          ]}>
+          {text}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+  const Button = ({
+    onPress,
+    isPressed,
+    text,
+    textStyle,
+    btnType,
+  }: ButtonProps) => {
+    return (
+      <TouchableOpacity
+        style={[
+          btnType === 'level'
+            ? [styles.levelBtn, isPressed && styles.levelBtnPressed]
+            : [styles.interestBtn, isPressed && styles.interestBtnPressed],
+        ]}
+        onPress={onPress}>
+        <Text
+          style={[
+            btnType === 'level'
+              ? [
+                  styles.levelBtnText,
+                  textStyle,
+                  isPressed && styles.levelBtnTextPressed,
+                ]
+              : [
+                  styles.interestBtnText,
+                  textStyle,
+                  isPressed && styles.interestToogleBtnText,
+                ],
           ]}>
           {text}
         </Text>
@@ -79,18 +131,39 @@ export default function SectionTwo({
   const isButtonPressed = (button: string) => {
     return pressedButton === button;
   };
+
+  // interest
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+
+  const handleInterestPress = (interest: string) => {
+    const maxSelections = 5;
+    if (selectedInterests.includes(interest)) {
+      setSelectedInterests(selectedInterests.filter(item => item !== interest));
+    } else if (selectedInterests.length < maxSelections) {
+      setSelectedInterests([...selectedInterests, interest]);
+    }
+  };
+
+  const isInterestPressed = (interest: string) => {
+    return selectedInterests.includes(interest);
+  };
+  ////
+  // check box
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
   return (
     <View
       style={{
         marginBottom: height * 0.13,
-        marginTop: height * 0.04,
+        marginTop: height * 0.05,
       }}>
       <View
         style={{
           justifyContent: 'space-between',
           alignItems: 'center',
           flexDirection: 'row',
+          marginTop: height * 0.03,
         }}>
         <TouchableOpacity
           onPress={e => {
@@ -117,55 +190,95 @@ export default function SectionTwo({
           width: width * 0.75,
           height: height * 0.23,
         }}>
-        <Button
-          onPress={() => handleButtonPress('Newbie')}
+        <ToogleButton
+          onPress={() => {
+            handleButtonPress('Newbie');
+            onChangeHandler('gymLevel', 'Newbie');
+          }}
           isPressed={isButtonPressed('Newbie')}
           text="Newbie"
           textStyle={{
-            color: '#000000',
+            color: '#000',
           }}
+          btnType="level"
         />
         <View style={{width: 15}} />
 
-        <Button
-          onPress={() => handleButtonPress('Moderate')}
+        <ToogleButton
+          onPress={() => {
+            handleButtonPress('Moderate');
+            onChangeHandler('gymLevel', 'Moderate');
+          }}
           isPressed={isButtonPressed('Moderate')}
           text="Moderate"
           textStyle={{
-            color: '#000000',
+            color: '#000',
           }}
+          btnType="level"
         />
 
-        <Button
-          onPress={() => handleButtonPress('Vigorous')}
+        <ToogleButton
+          onPress={() => {
+            handleButtonPress('Vigorous');
+            onChangeHandler('gymLevel', 'Vigorous');
+          }}
           isPressed={isButtonPressed('Vigorous')}
           text="Vigorous"
           textStyle={{
-            color: '#000000',
+            color: '#000',
           }}
+          btnType="level"
         />
       </View>
       <Text style={[styles.title]}>Interests</Text>
 
-      <TextInput
-        keyboardType="numeric"
-        value={formState.height}
-        onChangeText={text => onChangeHandler('height', text)}
-        placeholder="Height"
-        style={styles.input}
-      />
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: width * 0.75,
+          flexWrap: 'wrap',
+        }}>
+        {/* {interests.map((interest, index) => (
+          <Button
+            key={index}
+            onPress={() => handleButtonPress(interest)}
+            isPressed={isButtonPressed(interest)}
+            text={interest}
+            textStyle={{color: '#000000'}}
+            btnType="interest"
+          />
+        ))} */}
+        {interests.map((interest, index) => (
+          <Button
+            key={index}
+            onPress={() => {
+              handleInterestPress(interest);
+              onChangeHandler('interests', selectedInterests);
+            }}
+            isPressed={isInterestPressed(interest)}
+            text={interest}
+            textStyle={{color: '#F2B3B7'}}
+            btnType="interest"
+          />
+        ))}
+      </View>
 
       {/* remind */}
-      <Text
-        style={{
-          // textDecorationLine: 'underline',
-          textAlign: 'center',
-          width: width * 0.75,
-          marginBottom: height * 0.02,
-        }}>
-        Age and gender help improve recommendations
-      </Text>
-
+      <View>
+        <Text
+          style={{
+            // textDecorationLine: 'underline',
+            textAlign: 'center',
+            width: width * 0.75,
+            marginBottom: height * 0.02,
+          }}>
+          By continuing, you agree to Gymatess's Terms of service. We will
+          manage information about you as described in our Privacy Policy, and
+          Cookie Policy.
+        </Text>
+      </View>
       {/* ///continue button */}
       <TouchableOpacity
         onPress={e => {
@@ -180,7 +293,7 @@ export default function SectionTwo({
             fontWeight: 'bold',
             color: '#fff',
           }}>
-          Submit
+          Sign Up
         </Text>
       </TouchableOpacity>
     </View>

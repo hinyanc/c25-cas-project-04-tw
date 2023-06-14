@@ -4,31 +4,19 @@ import { chatroomTable } from "../migrations/20230605101740_users";
 
 export class ChatListService {
   constructor(private knex: Knex) {}
-  // getChatHistory = async (mainUserId: number) => {
-  //   const chatHistory = await this.knex(userTable)
-  //     .select("id", "username")
-  //     .whereIn(
-  //       "id",
-  //       this.knex(chatroomTable)
-  //         .select("sender_id")
-  //         .orWhere("receiver_id", mainUserId)
-  //         .distinct()
-  //     );
-  //   return chatHistory;
-  // };
 
   getLastMessage = async (mainUserId: number) => {
     const mainUserIdString = mainUserId.toString();
 
     const rawQuery = `
-            SELECT DISTINCT ON (users.id)
-        users.id AS target_user_id,
-        users.username AS target_username,
-        users.profile_pic as profile_pic,
-        chatroom.message AS last_message,
-        chatroom.updated_at
-      FROM users
-      LEFT JOIN chatroom ON (
+    SELECT DISTINCT ON (users.id)
+    users.id AS target_user_id,
+    users.username AS target_username,
+    users.profile_pic as profile_pic,
+    chatroom.message AS last_message,
+    chatroom.updated_at
+    FROM users
+    LEFT JOIN chatroom ON (
         (users.id = chatroom.sender_id AND chatroom.receiver_id = '${mainUserIdString}') OR
         (users.id = chatroom.receiver_id AND chatroom.sender_id = '${mainUserIdString}')
       )
@@ -52,15 +40,6 @@ export class ChatListService {
 
     return filteredLastMessage;
   };
-
-  // createChat = async (mainUserId: number, targetUserId: number) => {
-  //   const newChat = await this.knex(chatroomTable).insert({
-  //     sender_id: mainUserId,
-  //     receiver_id: targetUserId,
-  //   });
-
-  //   return newChat;
-  // };
 
   deleteChat = async (mainUserId: number, chatId: string) => {
     const deleteChat = await this.knex(chatroomTable)

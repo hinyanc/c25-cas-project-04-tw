@@ -1,5 +1,13 @@
 {
-  "cSpell.words": ["cavatar", "Pressable", "swipeout"],
+  "cSpell.words": [
+    "cavatar",
+    "messagingbutton",
+    "messaginginput",
+    "messagingscreen",
+    "mmessage",
+    "Pressable",
+    "swipeout"
+  ],
   "sqltools.connections": [
     {
       "previewLimit": 50,
