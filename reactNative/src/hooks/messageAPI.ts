@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useQuery} from '@tanstack/react-query';
 interface Message {
   sender_id: Number;
@@ -9,15 +10,14 @@ interface Message {
 }
 
 const API_URL = 'http://192.168.160.72:8080';
-const main_user_id = 1;
 const target_user_id = 2;
 
-export function useGetMessages() {
+export function useGetMessages(mainUserId: string) {
   const {isLoading, error, data, isFetching} = useQuery({
     queryKey: ['Messages'],
     queryFn: async () => {
       const res = await fetch(
-        `${API_URL}/message/mainUserId/${main_user_id}/targetUserId/${target_user_id}`,
+        `${API_URL}/message/mainUserId/${mainUserId}/targetUserId/${target_user_id}`,
       );
       const result = await res.json();
       return result as Message[];

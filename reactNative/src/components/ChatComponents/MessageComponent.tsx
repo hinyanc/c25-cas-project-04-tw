@@ -2,9 +2,8 @@ import {View, Text, Image} from 'react-native';
 import React from 'react';
 import {styles} from '../../utils/styles';
 
-export default function MessageComponent({item, user}: any) {
-  let main_user_id = 1;
-  const status = item.sender_id == main_user_id;
+export default function MessageComponent({item, mainUser}: any) {
+  const status = item.sender_id == mainUser;
 
   return (
     <View>

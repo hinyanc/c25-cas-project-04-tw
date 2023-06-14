@@ -4,9 +4,41 @@ import ChatComponent from '../../components/ChatComponents/ChatComponent';
 import {styles} from '../../utils/styles';
 import {useChatList} from '../../hooks/chatAPI';
 import socket from '../../utils/socket';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Chat = () => {
-  const chats = useChatList();
+  // let mainUserId = await AsyncStorage.getItem('mainUserId');
+  // let mainUserId = 1;
+  // const chats = useChatList(mainUserId!);
+  const [mainUser, setMainUser] = useState('');
+
+  const getMainUserId = async () => {
+    try {
+      const value = await AsyncStorage.getItem('mainUserId');
+      if (value !== null) {
+        console.log('hi', value);
+        setMainUser(value);
+      }
+    } catch (e) {
+      console.error('Error while loading username!');
+    }
+  };
+
+  useEffect(() => {
+    getMainUserId();
+  }, []);
+  // useLayoutEffect(() => {
+  //   getMainUserId();
+  // }, []);
+
+  let chats: any[] = [];
+  // if (mainUser != '') {
+
+  chats = useChatList(mainUser);
+
+  // } else {
+  //   chats = [];
+  // }
 
   return (
     <SafeAreaView style={styles.chatscreen}>

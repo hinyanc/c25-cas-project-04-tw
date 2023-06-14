@@ -11,6 +11,7 @@ import {
 import {StackParamList} from '../../../App';
 import {StackScreenProps} from '@react-navigation/stack';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type LoginScreenProps = StackScreenProps<StackParamList, 'Login'>;
 
@@ -153,17 +154,18 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
           </Text>
           {/* escape */}
           <Text
-              style={{
-                // textDecorationLine: 'underline',
-                fontWeight: 'bold',
-                fontSize: 20,
-              }}
-              onPress={() => {
-                navigation.navigate('MyHome');
-                // sign up
-              }}>
-              Go to home 
-            </Text>
+            style={{
+              // textDecorationLine: 'underline',
+              fontWeight: 'bold',
+              fontSize: 20,
+            }}
+            onPress={async () => {
+              await AsyncStorage.setItem('mainUserId', '1');
+              navigation.navigate('MyHome');
+              // sign up
+            }}>
+            Go to home
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
