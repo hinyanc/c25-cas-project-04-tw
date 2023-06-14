@@ -1,8 +1,8 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {View, Text, SafeAreaView, FlatList} from 'react-native';
 import ChatComponent from '../../components/ChatComponents/ChatComponent';
-import Icon from 'react-native-vector-icons/Feather';
 import {styles} from '../../utils/styles';
+import { useChatList } from
 import socket from '../../utils/socket';
 
 const Chat = () => {
