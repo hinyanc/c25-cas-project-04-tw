@@ -188,7 +188,7 @@ export default function SectionTwo({
       <TextInput
         keyboardType="numeric"
         value={formState.height}
-        onChangeText={text => onChangeHandler('height', parseInt(text))}
+        onChangeText={text => onChangeHandler('height', text)}
         onBlur={e=> parseInt(formState.height)}
         placeholder="Height"
         style={styles.input}
