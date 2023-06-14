@@ -26,28 +26,28 @@ export class ChatListService {
         users.username AS user_username,
         users.profile_pic,
         chatroom.message,
-        chatroom.created_at
+        chatroom.updated_at
       FROM users
       LEFT JOIN chatroom ON (
         (users.id = chatroom.sender_id AND chatroom.receiver_id = '${mainUserIdString}') OR
         (users.id = chatroom.receiver_id AND chatroom.sender_id = '${mainUserIdString}')
       )
-      AND chatroom.created_at = (
-        SELECT MAX(created_at)
+      AND chatroom.updated_at = (
+        SELECT MAX(updated_at)
         FROM chatroom AS subquery
         WHERE
           (subquery.sender_id = users.id AND subquery.receiver_id = '${mainUserIdString}')
           OR
           (subquery.sender_id = '${mainUserIdString}' AND subquery.receiver_id = users.id)
       )
-      ORDER BY users.id ASC, chatroom.created_at DESC;
+      ORDER BY users.id ASC, chatroom.updated_at DESC;
     `;
 
     const lastMessage = await this.knex.raw(rawQuery);
 
     const filteredLastMessage = lastMessage.rows.filter(
-      (row: { message: string; created_at: Date; profile_pic: string }) =>
-        row.message !== null && row.created_at !== null
+      (row: { message: string; updated_at: Date; profile_pic: string }) =>
+        row.message !== null && row.updated_at !== null
     );
 
     return filteredLastMessage;
