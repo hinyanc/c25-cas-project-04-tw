@@ -2,28 +2,28 @@ import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {View, Text, SafeAreaView, FlatList} from 'react-native';
 import ChatComponent from '../../components/ChatComponents/ChatComponent';
 import {styles} from '../../utils/styles';
-import { useChatList } from
+import {useChatList} from '../../hooks/chatAPI';
 import socket from '../../utils/socket';
 
 const Chat = () => {
   // const [chats, setChats] = useState<ChatList[]>([]);
-
-  const chats = [
-    {
-      target_user_id: 1,
-      profile_pic: require('../../assets/img/mui.jpeg'),
-      target_username: 'Mui',
-      last_message: 'hihi',
-      updated_at: '7:30 am',
-    },
-    {
-      target_user_id: 3,
-      profile_pic: require('../../assets/img/day.jpeg'),
-      target_username: 'Day',
-      last_message: 'hibye',
-      updated_at: '2:30 am',
-    },
-  ];
+  const chats = useChatList();
+  // const chats = [
+  //   {
+  //     target_user_id: 1,
+  //     profile_pic: require('../../assets/img/mui.jpeg'),
+  //     target_username: 'Mui',
+  //     last_message: 'hihi',
+  //     updated_at: '7:30 am',
+  //   },
+  //   {
+  //     target_user_id: 3,
+  //     profile_pic: require('../../assets/img/day.jpeg'),
+  //     target_username: 'Day',
+  //     last_message: 'hibye',
+  //     updated_at: '2:30 am',
+  //   },
+  // ];
 
   // useEffect(() => {
   //   const fetchChats = async () => {
