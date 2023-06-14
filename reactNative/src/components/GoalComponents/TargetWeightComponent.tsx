@@ -11,7 +11,11 @@ const TargetWeight = () => {
   };
 
   const handleSubmit = () => {
-    setShowText(true);
+    if (!targetWeight) {
+      setShowText(false);
+    } else {
+      setShowText(true);
+    }
   };
 
   return (
@@ -46,7 +50,13 @@ const TargetWeight = () => {
           </TouchableOpacity>
         </View>
         {showText && (
-          <Text style={{fontSize: 16, textAlign: 'center', color: '#E2868D', marginTop:8}}>
+          <Text
+            style={{
+              fontSize: 16,
+              textAlign: 'center',
+              color: '#E2868D',
+              marginTop: 8,
+            }}>
             Still 10 kg to go! Fighting!
           </Text>
         )}

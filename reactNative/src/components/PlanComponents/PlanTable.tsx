@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(253,219,221,0.7)',
     borderTopStartRadius: 15,
     borderTopEndRadius: 15,
+    
   },
   wrapper: {flexDirection: 'row'},
   row: {
@@ -86,5 +87,5 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: 15,
   },
   text: {textAlign: 'center', fontSize: 17},
-  body: {borderRadius: 15},
+  body: {borderRadius: 15,},
 });

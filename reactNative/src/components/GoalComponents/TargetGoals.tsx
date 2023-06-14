@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {FlatList, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {styles} from '../../utils/styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -9,8 +9,15 @@ type Task = {
   checked: boolean;
 };
 
+const task: Task[] = [
+  {id: 1, label: "Workout 3 times a week!!", checked: false},
+  {id: 2, label: "Match 1 gym mate a week!", checked: false},
+  {id: 3, label: "Lose weight!!", checked: false},
+  {id: 4, label: "Body fat lower than 25%", checked: true},
+]
+
 const TargetGoals = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>(task);
   const [inputValue, setInputValue] = useState('');
 
   const handleAddTask = () => {
@@ -40,9 +47,9 @@ const TargetGoals = () => {
       <View key={task.id} style={styless.task}>
         <TouchableOpacity style={styless.checkbox} onPress={handleToggle}>
           {isCompleted ? (
-            <Ionicons name="checkbox-outline" size={24} color="blue" />
+            <Ionicons name="checkmark-circle-outline" size={24} color="#E24E59" />
           ) : (
-            <Ionicons name="square-outline" size={24} color="blue" />
+            <Ionicons name="ellipse-outline" size={24} color="#E24E59" />
           )}
         </TouchableOpacity>
         <TextInput
@@ -72,7 +79,7 @@ const TargetGoals = () => {
             name="add-circle-sharp"
             size={35}
             color={'#E24E59'}
-            style={{margin: 4}}
+            style={styles.setGoal}
           />
         </TouchableOpacity>
       </View>
