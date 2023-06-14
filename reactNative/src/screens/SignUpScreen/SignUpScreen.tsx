@@ -17,7 +17,7 @@ import SectionFour from '../../components/SignUpComponents/SectionFour';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '../../../App';
-import { z } from "zod";
+// import { z } from "zod";
 
 const {width, height} = Dimensions.get('window');
 
@@ -36,28 +36,28 @@ export interface FormState {
   gymLevel: string;
   interests: string[]|null;
 }
-export interface FormErrorState {
-  username: string|null;
-  email: string|null;
-  password: string|null;
-  gender: string|null;
-  birthday: string|null;
-  height: string|null;
-  weight: string|null;
-  isMember: string|null;
-  gymLevel: string|null;
-  interests: string|null;
-}
+// export interface FormErrorState {
+//   username: string|null;
+//   email: string|null;
+//   password: string|null;
+//   gender: string|null;
+//   birthday: string|null;
+//   height: string|null;
+//   weight: string|null;
+//   isMember: string|null;
+//   gymLevel: string|null;
+//   interests: string|null;
+// }
 
-const schema = {
-  email: z.string().email(),
-  username: z.string().min(4),
-  password:z.string().min(6),
-  gender:z.string(),
-  // not sure
-  birthday:z.string().datetime(),
-  height:,
-} as { [x: string]: z.ZodString };
+// const schema = {
+//   email: z.string().email(),
+//   username: z.string().min(4),
+//   password:z.string().min(6),
+//   gender:z.string(),
+//   // not sure
+//   birthday:z.string().datetime(),
+//   height:,
+// } as { [x: string]: z.ZodString };
 
 //height weight  parse int
 export default function SignUpForm() {
@@ -79,18 +79,18 @@ export default function SignUpForm() {
   });
 
 
-  const [errorState, setErrorState] = useState<FormErrorState>({
-    username: null,
-    email: null,
-    password:null,
-    gender: null,
-    birthday: null,
-    height: null,
-    weight: null,
-    isMember: null,
-    gymLevel:null,
-    interests: null,
-  });
+  // const [errorState, setErrorState] = useState<FormErrorState>({
+  //   username: null,
+  //   email: null,
+  //   password:null,
+  //   gender: null,
+  //   birthday: null,
+  //   height: null,
+  //   weight: null,
+  //   isMember: null,
+  //   gymLevel:null,
+  //   interests: null,
+  // });
 //   const onChangeHandler = (e: any) => {
 //     setFormState({...formState, [e.target.name]: e.target.value});
 //   };
