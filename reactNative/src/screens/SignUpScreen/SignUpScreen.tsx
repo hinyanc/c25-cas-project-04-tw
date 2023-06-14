@@ -29,7 +29,7 @@ export interface FormState {
   locaiton: string;
   bio: string;
   gymLevel: string;
-  interests: string[];
+  interests: string[]|null;
 }
 
 //height weight  parse int
@@ -48,14 +48,14 @@ export default function SignUpForm() {
     locaiton: '',
     bio: '',
     gymLevel: '',
-    interests: [],
+    interests: null,
   });
 
 //   const onChangeHandler = (e: any) => {
 //     setFormState({...formState, [e.target.name]: e.target.value});
 //   };
 
-  const onChangeHandler = (name: string, value: string) => {
+  const onChangeHandler = (name: string, value: string|string[]) => {
     setFormState({...formState, [name]: value});
   };
 
