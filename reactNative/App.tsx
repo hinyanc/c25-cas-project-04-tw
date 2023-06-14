@@ -33,23 +33,7 @@ const styles = StyleSheet.create({
 
 //name of routes
 export type StackParamList = {
-  // SignUp: {
-  //   onSubmit: (
-  //     username: string,
-  //     email: string,
-  //     password: string,
-  //     gender: string,
-  //     birthday: string,
-  //     height: number,
-  //     weight: number,
-  //     isMember: boolean,
-  //     gymCenter: string,
-  //     locaiton: string,
-  //     bio: string,
-  //     gymLevel: string,
-  //     interests: string[],
-  //   ) => void;
-  // };
+
   SignUp: undefined;
   MyHome: undefined;
   Onboarding: undefined;

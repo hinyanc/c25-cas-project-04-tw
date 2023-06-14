@@ -17,6 +17,8 @@ import SectionFour from '../../components/SignUpComponents/SectionFour';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '../../../App';
+import { z } from "zod";
+
 const {width, height} = Dimensions.get('window');
 
 export interface FormState {
@@ -34,6 +36,28 @@ export interface FormState {
   gymLevel: string;
   interests: string[]|null;
 }
+export interface FormErrorState {
+  username: string|null;
+  email: string|null;
+  password: string|null;
+  gender: string|null;
+  birthday: string|null;
+  height: string|null;
+  weight: string|null;
+  isMember: string|null;
+  gymLevel: string|null;
+  interests: string|null;
+}
+
+const schema = {
+  email: z.string().email(),
+  username: z.string().min(4),
+  password:z.string().min(6),
+  gender:z.string(),
+  // not sure
+  birthday:z.string().datetime(),
+  height:,
+} as { [x: string]: z.ZodString };
 
 //height weight  parse int
 export default function SignUpForm() {
@@ -54,11 +78,24 @@ export default function SignUpForm() {
     interests: null,
   });
 
+
+  const [errorState, setErrorState] = useState<FormErrorState>({
+    username: null,
+    email: null,
+    password:null,
+    gender: null,
+    birthday: null,
+    height: null,
+    weight: null,
+    isMember: null,
+    gymLevel:null,
+    interests: null,
+  });
 //   const onChangeHandler = (e: any) => {
 //     setFormState({...formState, [e.target.name]: e.target.value});
 //   };
 
-  const onChangeHandler = (name: string, value: string|string[]) => {
+  const onChangeHandler = (name: string, value: string|string[]|boolean) => {
     setFormState({...formState, [name]: value});
   };
 
@@ -124,6 +161,7 @@ export default function SignUpForm() {
                 // setSectionNum(5);
                 //validate if success
                 // show success and redirect to login
+                
                 navigation.navigate("Login")
               }}
               back={() => {

@@ -20,6 +20,8 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../App';
 import {FormState} from '../../screens/SignUpScreen/SignUpScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 const {width, height} = Dimensions.get('window');
 
@@ -38,14 +40,21 @@ export default function SectionTwo({
 }: SectionOneProps) {
   type ButtonProps = {
     onPress: () => void;
-    isPressed: boolean;
+    isPressed?: boolean;
     text: string;
     textStyle?: TextStyle;
+    btnType: string;
   };
-  const Button = ({onPress, isPressed, text, textStyle}: ButtonProps) => {
+  const Button = ({
+    onPress,
+    isPressed,
+    text,
+    textStyle,
+    btnType,
+  }: ButtonProps) => {
     return (
       <TouchableOpacity
-        style={[styles.toogleBtn, isPressed && styles.toogleBtnPressed]}
+        style={[btnType==="gender"?[styles.toogleBtn, isPressed && styles.toogleBtnPressed]:[styles.Continuebtn]]}
         onPress={onPress}>
         <Text
           style={[
@@ -69,6 +78,20 @@ export default function SectionTwo({
     return pressedButton === button;
   };
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
+
+  // date
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [chosenDate, setChosenDate] = useState(new Date());
+
+  const handleDateChange = (event: any, selectedDate?: Date) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      setChosenDate(selectedDate);
+    }
+  };
+  const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() - 12);
+
   return (
     <View
       style={{
@@ -112,42 +135,61 @@ export default function SectionTwo({
           alignItems: 'center',
         }}>
         <Button
-          onPress={() => {handleButtonPress('Male')} }
+          onPress={() => {
+            handleButtonPress('Male');
+            onChangeHandler('gender', 'Male');
+          }}
           isPressed={isButtonPressed('Male')}
           text="Male"
           textStyle={{
             color: '#F2B3B7',
           }}
+          btnType="gender"
         />
         <View style={{width: 15}} />
 
         <Button
-          onPress={() => handleButtonPress('Female')}
+          onPress={() => {
+            handleButtonPress('Female');
+            onChangeHandler('gender', 'Female');
+          }}
           isPressed={isButtonPressed('Female')}
           text="Female"
           textStyle={{
             color: '#F2B3B7',
           }}
+          btnType="gender"
         />
       </View>
-      {/* <TextInput
-        value={formState.gender}
-        onChange={onChangeHandler}
-        placeholder="UserName"
-        style={styles.input}
-      /> */}
+
       <Text style={[styles.inputTitle, {marginTop: 10}]}>Date of birth</Text>
-      <TextInput
-        value={formState.birthday}
-        onChangeText={text => onChangeHandler('birthday', text)}
-        placeholder="Email"
-        style={styles.input}
+
+      <Button
+        onPress={() => setShowDatePicker(true)}
+        text="Select Date"
+        textStyle={{
+          color: '#fff',
+        }}
+        btnType="date"
       />
+      {showDatePicker && (
+        <RNDateTimePicker
+          testID="datePicker"
+          value={chosenDate}
+          mode="date"
+          display="default"
+          onChange={handleDateChange}
+          maximumDate={maxDate}
+        />
+      )}
+      <Text>Chosen Date: {chosenDate.toDateString()}</Text>
+
       <Text style={styles.inputTitle}>Height* (Kg)</Text>
       <TextInput
         keyboardType="numeric"
         value={formState.height}
-        onChangeText={text => onChangeHandler('height', text)}
+        onChangeText={text => onChangeHandler('height', parseInt(text))}
+        onBlur={e=> parseInt(formState.height)}
         placeholder="Height"
         style={styles.input}
       />

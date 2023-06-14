@@ -19,7 +19,6 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../App';
 import {FormState} from '../../screens/SignUpScreen/SignUpScreen';
 
-
 const {width, height} = Dimensions.get('window');
 
 interface SectionOneProps {
@@ -36,44 +35,50 @@ export default function SectionOne({
 }: SectionOneProps) {
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
   return (
-    <View   style={{
-      marginBottom:height *0.13
-    }}>
-      <Text style={{
-      textAlign:"right",
-      color:"#e24e59",
-      fontWeight: 'bold'
-    }}>STEP 1/4</Text>
+    <View
+      style={{
+        marginBottom: height * 0.13,
+      }}>
+      <Text
+        style={{
+          textAlign: 'right',
+          color: '#e24e59',
+          fontWeight: 'bold',
+        }}>
+        STEP 1/4
+      </Text>
       {/* title */}
-      <Text style={[styles.title,{marginBottom:height *0.05}]}>Signup</Text>
+      <Text style={[styles.title, {marginBottom: height * 0.05}]}>Signup</Text>
       {/* input */}
       <Text style={styles.inputTitle}>Username*</Text>
       <TextInput
         value={formState.username}
-        onChangeText={(text)=> onChangeHandler("username",text)}
+        onChangeText={text => onChangeHandler('username', text)}
         placeholder="UserName"
         style={styles.input}
       />
       <Text style={styles.inputTitle}>Email address*</Text>
       <TextInput
         value={formState.email}
-        onChangeText={(text)=> onChangeHandler("email",text)}
+        onChangeText={text => onChangeHandler('email', text)}
         placeholder="Email"
         style={styles.input}
       />
       <Text style={styles.inputTitle}>Password*</Text>
       <TextInput
+        secureTextEntry
         value={formState.password}
-        onChangeText={(text)=> onChangeHandler("password",text)}
+        onChangeText={text => onChangeHandler('password', text)}
         placeholder="Password"
         style={styles.input}
       />
       {/* remind */}
-      <Text    style={{
+      <Text
+        style={{
           // textDecorationLine: 'underline',
           textAlign: 'center',
           width: width * 0.75,
-          marginBottom:height *0.02
+          marginBottom: height * 0.02,
         }}>
         Your name will be public and we'll send updates to the email address you
         provide.
@@ -110,8 +115,6 @@ export default function SectionOne({
             // textDecorationLine: 'underline',
             fontWeight: 'bold',
             fontSize: 20,
-
-
           }}
           onPress={() => {
             navigation.navigate('Login');

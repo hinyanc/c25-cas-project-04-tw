@@ -60,7 +60,7 @@ interface SectionOneProps {
   next: () => void;
   back: () => void;
   formState: FormState;
-  onChangeHandler: (name: string, value: string) => void;
+  onChangeHandler: (name: string, value: string|boolean) => void;
 }
 
 export default function SectionTwo({
@@ -146,7 +146,7 @@ export default function SectionTwo({
           alignItems: 'center',
         }}>
         <Button
-          onPress={() => handleButtonPress('Yes')}
+          onPress={() => {handleButtonPress('Yes');onChangeHandler('isMember', true)}}
           isPressed={isButtonPressed('Yes')}
           text="Yes"
           textStyle={{
@@ -156,7 +156,7 @@ export default function SectionTwo({
         <View style={{width: 15}} />
 
         <Button
-          onPress={() => handleButtonPress('No')}
+          onPress={() => {handleButtonPress('No');onChangeHandler('isMember', false)}}
           isPressed={isButtonPressed('No')}
           text="No"
           textStyle={{

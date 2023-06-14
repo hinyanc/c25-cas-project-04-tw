@@ -191,7 +191,10 @@ export default function SectionTwo({
           height: height * 0.23,
         }}>
         <ToogleButton
-          onPress={() => handleButtonPress('Newbie')}
+          onPress={() => {
+            handleButtonPress('Newbie');
+            onChangeHandler('gymLevel', 'Newbie');
+          }}
           isPressed={isButtonPressed('Newbie')}
           text="Newbie"
           textStyle={{
@@ -202,7 +205,10 @@ export default function SectionTwo({
         <View style={{width: 15}} />
 
         <ToogleButton
-          onPress={() => handleButtonPress('Moderate')}
+          onPress={() => {
+            handleButtonPress('Moderate');
+            onChangeHandler('gymLevel', 'Moderate');
+          }}
           isPressed={isButtonPressed('Moderate')}
           text="Moderate"
           textStyle={{
@@ -212,7 +218,10 @@ export default function SectionTwo({
         />
 
         <ToogleButton
-          onPress={() => handleButtonPress('Vigorous')}
+          onPress={() => {
+            handleButtonPress('Vigorous');
+            onChangeHandler('gymLevel', 'Vigorous');
+          }}
           isPressed={isButtonPressed('Vigorous')}
           text="Vigorous"
           textStyle={{
