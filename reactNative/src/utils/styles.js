@@ -180,9 +180,10 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     color: '#E24E59',
     fontWeight: 'bold',
-    textShadowColor: 'rgba(203, 31, 44, 0.4)',
-    textShadowOffset: {width: 3, height: 2},
-    textShadowRadius: 10,
+    // textShadowColor: 'rgba(203, 31, 44, 0.4)',
+    // textShadowOffset: {width: 3, height: 2},
+    // textShadowRadius: 10,
+    fontFamily:'Proxima Nova Font'
   },
   welcome: {
     fontSize: 15,
@@ -252,7 +253,8 @@ export const styles = StyleSheet.create({
     marginBottom: 4,
     fontWeight: 'bold',
     paddingVertical: 20,
-    paddingHorizontal:5
+    paddingHorizontal:5,
+
   },
   targetWeight: {
     fontSize: 24,
