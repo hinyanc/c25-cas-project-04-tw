@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import React from 'react';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import {styles} from '../../utils/styles';
@@ -17,12 +17,9 @@ export default function MessageComponent({item, user}: any) {
             : [styles.mmessageWrapper, {alignItems: 'flex-end'}]
         }>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <IonIcon
-            name="person-circle-outline"
-            size={30}
-            color="black"
-            // style={styles.mvatar as any}
-          />
+          <View>
+            <Image source={item.profile_pic} style={styles.mprofilepic} />
+          </View>
           <View
             style={
               status

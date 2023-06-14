@@ -1,8 +1,8 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {View, Text, SafeAreaView, FlatList} from 'react-native';
 import ChatComponent from '../../components/ChatComponents/ChatComponent';
-import Icon from 'react-native-vector-icons/Feather';
 import {styles} from '../../utils/styles';
+import { useChatList } from
 import socket from '../../utils/socket';
 
 const Chat = () => {
@@ -11,17 +11,17 @@ const Chat = () => {
   const chats = [
     {
       target_user_id: 1,
-      profile_pic: '',
-      target_username: 'Doug_Beer50',
+      profile_pic: require('../../assets/img/mui.jpeg'),
+      target_username: 'Mui',
       last_message: 'hihi',
-      updated_at: new Date().toUTCString(),
+      updated_at: '7:30 am',
     },
     {
       target_user_id: 3,
-      profile_pic: '',
-      target_username: 'Jason',
+      profile_pic: require('../../assets/img/day.jpeg'),
+      target_username: 'Day',
       last_message: 'hibye',
-      updated_at: new Date().toUTCString(),
+      updated_at: '2:30 am',
     },
   ];
 

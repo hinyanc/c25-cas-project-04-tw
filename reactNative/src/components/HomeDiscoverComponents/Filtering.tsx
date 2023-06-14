@@ -21,7 +21,14 @@ export function Filtering() {
       <TouchableOpacity
         style={[styles.FilteringBtn, isPressed && styles.FilteringBtnPressed]}
         onPress={onPress}>
-        <Text style={[styles.FilteringBtnText, textStyle, isPressed && styles.FilteringBtnText]}>{text}</Text>
+        <Text
+          style={[
+            styles.FilteringBtnText,
+            textStyle,
+            isPressed && styles.FilteringBtnText,
+          ]}>
+          {text}
+        </Text>
       </TouchableOpacity>
     );
   };
