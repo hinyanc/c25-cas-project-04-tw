@@ -22,10 +22,10 @@ export class ChatListService {
 
     const rawQuery = `
             SELECT DISTINCT ON (users.id)
-        users.id AS user_id,
-        users.username AS user_username,
-        users.profile_pic,
-        chatroom.message,
+        users.id AS target_user_id,
+        users.username AS target_username,
+        users.profile_pic as profile_pic,
+        chatroom.message AS last_message,
         chatroom.updated_at
       FROM users
       LEFT JOIN chatroom ON (
@@ -53,14 +53,14 @@ export class ChatListService {
     return filteredLastMessage;
   };
 
-  createChat = async (mainUserId: number, targetUserId: number) => {
-    const newChat = await this.knex(chatroomTable).insert({
-      sender_id: mainUserId,
-      receiver_id: targetUserId,
-    });
+  // createChat = async (mainUserId: number, targetUserId: number) => {
+  //   const newChat = await this.knex(chatroomTable).insert({
+  //     sender_id: mainUserId,
+  //     receiver_id: targetUserId,
+  //   });
 
-    return newChat;
-  };
+  //   return newChat;
+  // };
 
   deleteChat = async (mainUserId: number, chatId: string) => {
     const deleteChat = await this.knex(chatroomTable)

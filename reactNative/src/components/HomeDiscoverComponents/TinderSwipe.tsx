@@ -8,6 +8,7 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  TextStyle,
 } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import {styles} from '../../utils/styles';
@@ -20,15 +21,25 @@ const styles1 = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: ScreenWidth * 0.9,
-    height: ScreenHeight * 0.4,
-    // backgroundColor: 'white',
+    width: ScreenWidth ,
+    height: ScreenHeight ,
+    backgroundColor: '#FFF9F0',
+    top:370
   },
   card: {
     position: 'relative',
+    bottom: 200,
     borderRadius: 10,
-    borderColor: '#E8E8E8',
-    backgroundColor: 'white',
+    backgroundColor: '#FFF9F0',
+    width: ScreenWidth * 0.9,
+    height: ScreenHeight * 0.3,
+  },
+  card2: {
+    position: 'relative',
+    bottom: 200,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    backgroundColor: '#FFF9F0',
     width: ScreenWidth * 0.9,
     height: ScreenHeight * 0.4,
     shadowColor: '#E24E59',
@@ -53,10 +64,45 @@ type CardType = {
   name: string;
   gymCenter: string;
   interest: string[];
-  bio: string
+  bio: string;
+  isPT: boolean;
 };
 
 export function TinderSwipe() {
+  type ButtonProps = {
+    onPress: () => void;
+    isPressed: boolean;
+    text: string;
+    textStyle?: TextStyle;
+  };
+
+  const Button = ({onPress, isPressed, text, textStyle}: ButtonProps) => {
+    return (
+      <TouchableOpacity
+        style={[styles.FilteringBtn, isPressed && styles.FilteringBtnPressed]}
+        onPress={onPress}>
+        <Text
+          style={[
+            styles.FilteringBtnText,
+            textStyle,
+            isPressed && styles.FilteringBtnText,
+          ]}>
+          {text}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const [pressedButton, setPressedButton] = useState<string | null>(null);
+
+  const handleButtonPress = (button: string) => {
+    setPressedButton(button);
+  };
+
+  const isButtonPressed = (button: string) => {
+    return pressedButton === button;
+  };
+
   const [swipedCards, setSwipedCards] = useState<CardType[]>([]);
 
   const cards = [
@@ -66,7 +112,8 @@ export function TinderSwipe() {
       name: 'Ah Mui',
       gymCenter: 'Physical Wan Chai',
       interest: ['Dance', 'Pilates', 'Cardio'],
-      bio: 'I love to meet friends!'
+      bio: 'I love to meet friends!',
+      isPT: true,
     },
     {
       id: 2,
@@ -74,7 +121,8 @@ export function TinderSwipe() {
       name: 'Day',
       gymCenter: 'Physical Wan Chai',
       interest: ['Dance', 'Pilates', 'Cardio'],
-      bio: 'I love to meet friends!'
+      bio: 'I love to meet friends!',
+      isPT: false,
     },
     {
       id: 3,
@@ -82,7 +130,8 @@ export function TinderSwipe() {
       name: 'Ivy So',
       gymCenter: 'Physical Wan Chai',
       interest: ['Dance', 'Pilates', 'Cardio', 'Boxing', 'Yoga'],
-      bio: 'I love to meet friends!'
+      bio: 'I love to meet friends!',
+      isPT: true,
     },
     {
       id: 4,
@@ -96,7 +145,8 @@ export function TinderSwipe() {
         'Pilates',
         'Cardio',
       ],
-      bio: 'I love to meet friends!'
+      bio: 'I love to meet friends!',
+      isPT: false,
     },
     {
       id: 5,
@@ -104,7 +154,8 @@ export function TinderSwipe() {
       name: 'Stanley',
       gymCenter: 'Physical Wan Chai',
       interest: ['Dance', 'Pilates', 'Cardio'],
-      bio: 'I love to meet friends!'
+      bio: 'I love to meet friends!',
+      isPT: true,
     },
   ];
 
@@ -120,9 +171,46 @@ export function TinderSwipe() {
   };
 
   return (
+<ScrollView style={{backgroundColor: '#FFF9F0'}}>
+      <View
+        style={{
+          flex: 2,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={styles.discoverTitle}>Discover</Text>
+        <View
+          style={{
+            flex: 3,
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            marginLeft: 20,
+            marginRight: 20,
+          }}>
+          <Button
+            onPress={() => handleButtonPress('All Users')}
+            isPressed={isButtonPressed('All Users')}
+            text="All Users"
+            textStyle={{color: '#F2B3B7'}}
+          />
+          <Button
+            onPress={() => handleButtonPress('GyMates')}
+            isPressed={isButtonPressed('GyMates')}
+            text="GyMates"
+            textStyle={{color: '#F2B3B7'}}
+          />
+          <Button
+            onPress={() => handleButtonPress('PTs')}
+            isPressed={isButtonPressed('PTs')}
+            text="PTs"
+            textStyle={{color: '#F2B3B7'}}
+          />
+        </View>
+      </View>
+
     <View style={styles1.container}>
       {swipedCards.length === 5 ? (
-        <Text>All cards swiped!</Text>
+        <Text style={{position: 'relative', bottom:500}}>All cards swiped!</Text>
       ) : (
         <Swiper
           cards={cards}
@@ -132,11 +220,11 @@ export function TinderSwipe() {
           renderCard={card => (
             <Animated.View style={[styles1.card]}>
               <View>
-                <Image source={card.image} style={styles1.card} />
+                <Image source={card.image} style={styles1.card2} />
                 <View
                   style={[
                     styles.CardInfo,
-                    card.interest.length > 4 ? {bottom: 160} : {bottom: 121.5},
+                    card.interest.length > 4 ? {bottom: 360} : {bottom: 321.5},
                   ]}>
                   <Text style={styles.DiscoverUsername}>{card.name}</Text>
                   <Text style={styles.DiscoverGym}>{card.gymCenter}</Text>
@@ -161,25 +249,33 @@ export function TinderSwipe() {
                 <TouchableOpacity
                   style={[
                     styles.NopeIcon,
-                    card.interest.length > 3 ? {bottom: 182} : {bottom: 145},
+                    card.interest.length > 3 ? {bottom: 382} : {bottom: 345},
                   ]}>
                   <Ionicons name="close" size={45} color={'#ED8974'} />
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[
                     styles.SuperIcon,
-                    card.interest.length > 3 ? {bottom: 242} : {bottom: 205},
+                    card.interest.length > 3 ? {bottom: 442} : {bottom: 405},
                   ]}>
                   <Ionicons name="md-star" size={35} color={'#4FADC2'} />
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[
                     styles.LikeIcon,
-                    card.interest.length > 3 ? {bottom: 302} : {bottom: 265},
+                    card.interest.length > 3 ? {bottom: 502} : {bottom: 465},
                   ]}>
                   <Ionicons name="heart" size={35} color={'#7CCD96'} />
                 </TouchableOpacity>
-                <Text style={[styles.bio, card.interest.length > 3 ? {bottom: 290} : {bottom: 260},]}>{card.bio}</Text>
+                <View
+                  style={[
+                    styles.bio,
+                    card.interest.length > 3
+                      ? {bottom: 490 }
+                      : {bottom: 460 },
+                  ]}>
+                  <Text style={styles.bio}>{card.bio}</Text>
+                </View>
               </View>
             </Animated.View>
           )}
@@ -195,6 +291,7 @@ export function TinderSwipe() {
                     borderWidth: 3,
                     borderRadius: 16,
                     borderColor: '#ED8974',
+                    bottom: 400
                   }}>
                   <Text
                     style={{
@@ -231,6 +328,7 @@ export function TinderSwipe() {
                     borderWidth: 3,
                     borderRadius: 16,
                     borderColor: '#7CCD96',
+                    bottom: 400
                   }}>
                   <Text
                     style={{
@@ -267,6 +365,7 @@ export function TinderSwipe() {
                     borderWidth: 3,
                     borderRadius: 16,
                     borderColor: '#4FADC2',
+                    bottom: 400
                   }}>
                   <Text
                     style={{
@@ -306,5 +405,7 @@ export function TinderSwipe() {
         />
       )}
     </View>
+    </ScrollView>
+
   );
 }

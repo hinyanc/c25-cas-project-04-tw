@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import { color } from 'react-native-elements/dist/helpers';
 
 export const styles = StyleSheet.create({
   chatscreen: {
@@ -153,16 +154,33 @@ export const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 4,
     fontWeight: 'bold',
+    padding: 20,
   },
   subDetails: {
     fontSize: 15,
     color: '#E2868D',
   },
+  PlanButton: {
+    backgroundColor: '#E24E59',
+    color: '#FDDBDD',
+    borderRadius: 26,
+    width: 260,
+  },
+  PlanSubmitBtn:{
+    justifyContent: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+    marginHorizontal:10,
+    backgroundColor: '#E24E59',
+    width: 100,
+    borderRadius: 16,
+    height: 30,
+  },
   hiName: {
     fontSize: 30,
     color: '#E24E59',
     fontWeight: 'bold',
-    textShadowColor: 'rgba(0, 0, 0, 0.35)',
+    textShadowColor: 'rgba(203, 31, 44, 0.4)',
     textShadowOffset: {width: 3, height: 2},
     textShadowRadius: 10,
   },
@@ -183,7 +201,7 @@ export const styles = StyleSheet.create({
   },
   BMIChartBtn: {
     justifyContent: 'center',
-    marginTop: 15,
+    marginTop: 20,
     marginLeft: 40,
     marginRight: 20,
     marginBottom: 4,
@@ -214,7 +232,7 @@ export const styles = StyleSheet.create({
     elevation: 5,
   },
   modalTitle: {
-    marginBottom: 15,
+    marginVertical: 15,
     textAlign: 'center',
     color: '#E24E59',
     fontSize: 20,
@@ -233,6 +251,8 @@ export const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 4,
     fontWeight: 'bold',
+    paddingVertical: 20,
+    paddingHorizontal:5
   },
   targetWeight: {
     fontSize: 24,
@@ -287,9 +307,8 @@ export const styles = StyleSheet.create({
   CardInfo: {
     position: 'relative',
     backgroundColor: 'rgba(0,0,0,0.5)',
-    borderBottomEndRadius: 10,
-    borderBottomStartRadius: 10,
     paddingBottom: 30,
+
   },
   DiscoverUsername: {
     color: '#E24E59',
@@ -377,6 +396,9 @@ export const styles = StyleSheet.create({
     elevation: 6,
   },
   bio: {
-    position: 'relative'
-  }
+    position: 'relative',
+    paddingHorizontal: 20,
+    fontSize: 16,
+ 
+  },
 });

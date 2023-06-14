@@ -18,8 +18,13 @@ export class ChatListController {
 
   lastMessageController = async (req: Request, res: Response) => {
     try {
-      const { mainUserId } = req.body;
-      const lastMessage = await this.chatListService.getLastMessage(mainUserId);
+      console.log("check har", req.params);
+      const { mainUserId } = req.params;
+
+      const lastMessage = await this.chatListService.getLastMessage(
+        parseInt(mainUserId)
+      );
+      console.log("last message", lastMessage);
       res.status(200).json(lastMessage);
     } catch (error) {
       logger.error(error);
@@ -27,19 +32,19 @@ export class ChatListController {
     }
   };
 
-  createChatController = async (req: Request, res: Response) => {
-    try {
-      const { mainUserId, targetUserId } = req.body;
-      const newChat = await this.chatListService.createChat(
-        mainUserId,
-        targetUserId
-      );
-      res.status(200).json(newChat);
-    } catch (error) {
-      logger.error(error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  };
+  // createChatController = async (req: Request, res: Response) => {
+  //   try {
+  //     const { mainUserId, targetUserId } = req.body;
+  //     const newChat = await this.chatListService.createChat(
+  //       mainUserId,
+  //       targetUserId
+  //     );
+  //     res.status(200).json(newChat);
+  //   } catch (error) {
+  //     logger.error(error);
+  //     res.status(500).json({ error: "Internal server error" });
+  //   }
+  // };
 
   deleteChatController = async (req: Request, res: Response) => {
     try {
