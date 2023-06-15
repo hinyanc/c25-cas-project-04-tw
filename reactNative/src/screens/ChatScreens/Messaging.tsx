@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState, useRef} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {View, TextInput, Text, FlatList, Pressable, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MessageComponent from '../../components/ChatComponents/MessageComponent';
@@ -15,7 +15,6 @@ const Messaging = ({route, navigation}: any) => {
   const [targetUser, setTargetUser] = useState('');
   const {target_username, target_user_id} = route.params;
   console.log('check target', target_username, target_user_id);
-  const flatListRef = useRef<FlatList>(null);
 
   const getMainUserId = async () => {
     try {
@@ -70,7 +69,6 @@ const Messaging = ({route, navigation}: any) => {
       //     ? `0${new Date().getMinutes()}`
       //     : `${new Date().getMinutes()}`;
     });
-    flatListRef.current?.scrollToEnd();
   };
 
   return (
@@ -82,7 +80,6 @@ const Messaging = ({route, navigation}: any) => {
         ]}>
         {chatMessages[0] ? (
           <FlatList
-            ref={flatListRef}
             data={chatMessages}
             renderItem={({item}) => (
               <MessageComponent item={item} mainUser={mainUser} />
