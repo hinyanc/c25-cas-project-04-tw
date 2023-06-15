@@ -8,7 +8,8 @@ interface UserInfo {
 }
 interface TinderProfile {
   id: number;
-  is_PT: boolean;
+  is_pt: boolean;
+  gender: string;
   username: string;
   profile_pic: string;
   gym_center: string;

@@ -316,6 +316,22 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     paddingBottom: 30,
   },
+  CardPT: {
+    bottom: 400,
+    alignSelf: 'flex-end',
+    marginRight: 10,
+    fontSize:16,
+    color: '#E24E59',
+    fontWeight: 'bold',
+    textShadowColor: 'rgba(0,0,0,0.3)',
+    textShadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    textShadowOpacity: 0.3,
+    textShadowRadius: 3.5,
+    elevation: 6,
+  },
   DiscoverUsername: {
     color: '#E24E59',
     fontSize: 24,
@@ -347,7 +363,7 @@ export const styles = StyleSheet.create({
   LikeIcon: {
     position: 'relative',
     bottom: 265,
-    left: 220,
+    // left: 220,
     width: 60,
     height: 60,
     borderRadius: 30,
@@ -366,7 +382,7 @@ export const styles = StyleSheet.create({
   NopeIcon: {
     position: 'relative',
     bottom: 145,
-    left: 70,
+    // left: 70,
     width: 60,
     height: 60,
     borderRadius: 30,
