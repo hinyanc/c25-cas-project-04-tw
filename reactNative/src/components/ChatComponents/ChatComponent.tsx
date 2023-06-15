@@ -29,11 +29,10 @@ const ChatComponent = ({item}: Item) => {
       <View style={styles.crightContainer}>
         <View>
           <Text style={styles.cusername}>{item.target_username}</Text>
-
-          <Text style={styles.cmessage}>{item.last_message}</Text>
-        </View>
-        <View>
-          <Text style={styles.ctime}>{item.updated_at}</Text>
+          <View style={styles.crightContainer2}>
+            <Text style={styles.cmessage}>{item.last_message}</Text>
+            <Text style={styles.ctime}>{item.updated_at}</Text>
+          </View>
         </View>
       </View>
     </Pressable>

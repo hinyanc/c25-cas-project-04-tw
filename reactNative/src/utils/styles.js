@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import { color } from 'react-native-elements/dist/helpers';
+import {color} from 'react-native-elements/dist/helpers';
 
 export const styles = StyleSheet.create({
   chatscreen: {
@@ -121,10 +121,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
   },
-  cmessage: {
-    fontSize: 15,
-    opacity: 0.7,
-  },
+
   crightContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -132,8 +129,18 @@ export const styles = StyleSheet.create({
     // justifyContent: 'flex-start',
     flex: 1,
   },
+  crightContainer2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
+  cmessage: {
+    fontSize: 15,
+    opacity: 0.7,
+  },
   ctime: {
     opacity: 0.5,
+    marginRight: 0,
   },
   tabText: {
     fontSize: 20,
@@ -166,13 +173,13 @@ export const styles = StyleSheet.create({
     color: '#FDDBDD',
     borderRadius: 26,
     width: 260,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
-  PlanSubmitBtn:{
+  PlanSubmitBtn: {
     justifyContent: 'center',
     marginTop: 20,
     marginBottom: 20,
-    marginHorizontal:10,
+    marginHorizontal: 10,
     backgroundColor: '#E24E59',
     width: 100,
     borderRadius: 16,
@@ -182,7 +189,7 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     color: '#E24E59',
     fontWeight: 'bold',
-    fontFamily:'Proxima Nova Font'
+    fontFamily: 'Proxima Nova Font',
   },
   welcome: {
     fontSize: 15,
@@ -252,8 +259,7 @@ export const styles = StyleSheet.create({
     marginBottom: 4,
     fontWeight: 'bold',
     paddingVertical: 20,
-    paddingHorizontal:5,
-
+    paddingHorizontal: 5,
   },
   targetWeight: {
     fontSize: 24,
@@ -309,7 +315,6 @@ export const styles = StyleSheet.create({
     position: 'relative',
     backgroundColor: 'rgba(0,0,0,0.5)',
     paddingBottom: 30,
-
   },
   DiscoverUsername: {
     color: '#E24E59',
@@ -400,6 +405,5 @@ export const styles = StyleSheet.create({
     position: 'relative',
     paddingHorizontal: 20,
     fontSize: 16,
- 
   },
 });

@@ -96,7 +96,7 @@ const OnboardingScreen = ({navigation}) => {
             />
           ))}
         </View>
-        <View style={{alignItems: 'center', justifyContent: 'center',flex:1}}>
+        <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
           <Text style={styles.title}>{item?.title}</Text>
           <Text style={styles.subtitle}>{item?.subtitle}</Text>
         </View>
@@ -207,7 +207,6 @@ const styles = StyleSheet.create({
     maxWidth: '70%',
     textAlign: 'center',
     lineHeight: 23,
-
   },
   title: {
     color: COLORS.primary,

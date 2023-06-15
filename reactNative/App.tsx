@@ -14,6 +14,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
 import SignUpForm from './src/screens/SignUpScreen/SignUpScreen';
 import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
+import {LogBox} from 'react-native';
+
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message'])
+LogBox.ignoreAllLogs();
 
 export const queryClient = new QueryClient();
 

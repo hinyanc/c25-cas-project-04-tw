@@ -31,15 +31,23 @@ const Chat = () => {
   //   getMainUserId();
   // }, []);
 
-  let chats: any[] = [];
+  // let chats: any[] = [];
   // if (mainUser != '') {
 
-  chats = useChatList(mainUser);
+  const chats: any[] = useChatList(mainUser);
+  const [tempChats, setTempChats] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (chats.length > 0) {
+      console.log('setting internal cache');
+      setTempChats(chats);
+    }
+  }, [chats]);
 
   // } else {
   //   chats = [];
   // }
-
+  console.log('check temp', tempChats);
   return (
     <SafeAreaView style={styles.chatscreen}>
       <View style={styles.chattopContainer}>
@@ -49,9 +57,9 @@ const Chat = () => {
       </View>
 
       <View style={styles.chatlistContainer}>
-        {chats.length > 0 ? (
+        {chats.length > 0 || tempChats.length > 0 ? (
           <FlatList
-            data={chats}
+            data={chats.length > 0 ? chats : tempChats}
             renderItem={({item}) => <ChatComponent item={item} />}
             keyExtractor={item => item.target_user_id as any}
           />
