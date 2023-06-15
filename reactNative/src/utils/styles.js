@@ -337,12 +337,12 @@ export const styles = StyleSheet.create({
     color: '#707070',
     fontSize: 16,
     fontWeight: 'bold',
-    marginHorizontal: 20,
+    marginHorizontal: 12,
   },
   LikeIcon: {
     position: 'relative',
     bottom: 265,
-    left: 250,
+    left: 220,
     width: 60,
     height: 60,
     borderRadius: 30,
@@ -361,7 +361,7 @@ export const styles = StyleSheet.create({
   NopeIcon: {
     position: 'relative',
     bottom: 145,
-    left: 50,
+    left: 70,
     width: 60,
     height: 60,
     borderRadius: 30,

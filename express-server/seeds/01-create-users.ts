@@ -71,7 +71,7 @@ export async function seed(knex: Knex): Promise<void> {
     "Fitness First",
     "Anytime Fitness",
     "Snap Fitness",
-    "Leisure and Cultural Services Department (LCSD)",
+    "LCSD",
   ];
 
   for (let i = 0; i < gymCenter.length; i++) {
@@ -106,6 +106,41 @@ export async function seed(knex: Knex): Promise<void> {
     "learning20150133@gmail.com",
     "yannes.0828@gmail.com",
   ];
+  const image: string[] = [
+    "alex.jpeg",
+    "soxee.jpeg",
+    "jason.jpeg",
+    "jennie.jpeg",
+    "bruce.jpeg",
+    "jisoo.jpeg",
+    "adams.jpeg",
+    "lisa.jpeg",
+    "jeffery.jpeg",
+    "rose.jpeg",
+  ];
+  const usernames: string[] = [
+    "Alex",
+    "So xee",
+    "Jason",
+    "Jennie",
+    "Bruce",
+    "Jisoo",
+    "Adams",
+    "Lisa",
+    "Jeffery",
+    "Rose",
+  ];
+  const gender: string[] = [
+    "Male",
+    "Female",
+    "Male",
+    "Female",
+    "Male",
+    "Female",
+    "Male",
+    "Female",
+    "Male", "Female",
+  ];
   //dummy email
   for (let randomEmail = 0; randomEmail < 7; randomEmail++) {
     const email = faker.internet.email();
@@ -120,11 +155,11 @@ export async function seed(knex: Knex): Promise<void> {
       email: emails[i],
       //hash password
       password: await hashPassword("123abc"),
-      username: faker.internet.userName(),
+      username: usernames[i],
       //can't generate useful picture
-      profile_pic: faker.image.avatar(),
+      profile_pic: image[i],
       birthday: faker.date.birthdate({ min: 18, max: 65, mode: "age" }),
-      gender: faker.helpers.arrayElement(["Male", "Female"]),
+      gender: gender[i],
       bio: faker.lorem.sentence(),
       height: faker.number.int({ min: 150, max: 200 }) + "cm",
       weight: faker.number.int({ min: 50, max: 100 }) + "kg",
@@ -229,7 +264,7 @@ export async function seed(knex: Knex): Promise<void> {
       [3, 1],
     ],
   ];
-  let matchingStatus = ["request", "dislike", "matched"];
+  let matchingStatus = ["requested", "matched"];
 
   for (let i = 0; i < matching.length; i++) {
     for (let j = 0; j < matching[i].length; j++) {
