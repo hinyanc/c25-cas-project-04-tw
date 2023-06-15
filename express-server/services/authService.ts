@@ -67,7 +67,7 @@ export class AuthService {
 			.select('*')
 			.from('users')
             .where('email', email))[0]
-		return user
+		return user;
 	}
 
 }

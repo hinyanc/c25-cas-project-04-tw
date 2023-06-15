@@ -51,22 +51,22 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
   
   const handleLogin = async (e:any) => {
     e.preventDefault()
-    const errors = validate();
-    setErrors(errors);
-    console.log('error', errors);
-    if (errors.email === '' && errors.password === '') {
-      // Handle login logic here
-      // console.log(navigation);
-      // navigation.navigate('Home');
-      setNotEmpty(true);
+    // const errors = validate();
+    // setErrors(errors);
+    // console.log('error', errors);
+    // if (errors.email === '' && errors.password === '') {
+    //   // Handle login logic here
+    //   // navigation.navigate('Home');
+    //   setNotEmpty(true);
       const success = await localLogin(email, password)
       if(success){
         dispatch(login(email))
         navigation.replace('MyHome');
-      }else{
-        // react-toast alert not
-        console.log("fail")
-      }
+    //     console.log("uuu")
+    //   }else{
+    //     // react-toast alert not
+    //     console.log("fail")
+    //   }
     }
   };
 
