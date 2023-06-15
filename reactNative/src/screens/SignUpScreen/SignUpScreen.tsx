@@ -36,6 +36,7 @@ export interface FormState {
   gymLevel: string;
   interests: string[] | null;
 }
+
 export interface FormErrorState {
   username: string | null;
   email: string | null;
@@ -49,9 +50,9 @@ export interface FormErrorState {
   interests: string | null;
 }
 
-const schema = {
-  email: z.string().email(),
+export const schema = {
   username: z.string().min(4),
+  email: z.string().email(),
   password: z.string().min(6),
   gender: z.string(),
   // not sure
@@ -103,18 +104,19 @@ export default function SignUpForm() {
   //   const onChangeHandler = (e: any) => {
   //     setFormState({...formState, [e.target.name]: e.target.value});
   //   };
-  const inputHandler = (    name: string,
-    value: string | string[] | boolean,) => {
-    setFormState({ ...formState, [name]: value });
+  const inputHandler = (name: keyof FormState) => {
+   const value = formState[name]
 
     try {
       schema[name].parse(value);
-      setErrorState({ ...errorState, [name]: null });
+      setErrorState({...errorState, [name]: null});
     } catch (err) {
-      setErrorState({ ...errorState, [name]: (err as z.ZodError).errors[0].message });
+      setErrorState({
+        ...errorState,
+        [name]: (err as z.ZodError).errors[0].message,
+      });
     }
   };
-
 
   const onChangeHandler = (
     name: string,
@@ -147,6 +149,8 @@ export default function SignUpForm() {
                 setSectionNum(2);
                 console.log('p1', formState);
               }}
+              inputHandler={inputHandler}
+              errorState={errorState}
             />
           )}
           {sectionNum === 2 && (
