@@ -1,0 +1,1 @@
+select * from users_matching join users on users_matching.users_id = users.id where users_id = 1 and status = "matched";
