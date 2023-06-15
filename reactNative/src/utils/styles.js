@@ -73,6 +73,16 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
   },
 
+  disabledButton: {
+    width: '25%',
+    height: 45,
+    backgroundColor: '#black',
+    borderRadius: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+  },
+
   mmessageWrapper: {
     width: '100%',
     alignItems: 'flex-start',

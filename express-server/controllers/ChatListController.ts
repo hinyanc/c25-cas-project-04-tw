@@ -7,10 +7,11 @@ export class ChatListController {
 
   lastMessageController = async (req: Request, res: Response) => {
     try {
-      const mainUserId  = req.user?.id;
+      const { mainUserId } = req.params;
       const lastMessage = await this.chatListService.getLastMessage(
-        mainUserId!
+        parseInt(mainUserId)
       );
+
       console.log("last message", lastMessage);
       res.status(200).json(lastMessage);
     } catch (error) {
