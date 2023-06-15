@@ -19,15 +19,7 @@ declare global {
     }
   }
 }
-// declare module "express-session" {
-//   interface SessionData {
-//     userIsLoggedIn?: boolean;
-//     users_id: number;
-//     // firstName: string;
-//     // loginType: string;
-//     // email: string;
-//   }
-// }
+//
 
 let onlineUsers: string[] = [];
 
