@@ -26,12 +26,14 @@ interface SectionOneProps {
   formState: FormState;
   // onChangeHandler: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   onChangeHandler: (name: string, value: string) => void;
+  inputHandler: (name: string, value: string) => void;
 }
 
 export default function SectionOne({
   next,
   formState,
   onChangeHandler,
+  inputHandler
 }: SectionOneProps) {
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
   return (
@@ -54,6 +56,7 @@ export default function SectionOne({
       <TextInput
         value={formState.username}
         onChangeText={text => onChangeHandler('username', text)}
+        // onBlur={e =>inputHandler={'username',formState.username}}
         placeholder="UserName"
         style={styles.input}
       />
