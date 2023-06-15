@@ -14,7 +14,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
 import SignUpForm from './src/screens/SignUpScreen/SignUpScreen';
 import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
+import {Provider, useSelector} from 'react-redux';
+import {store} from './src/store/store';
+import {LogBox} from 'react-native';
 
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message'])
+LogBox.ignoreAllLogs();
+
+// import {LoginForm} from "./src/components/LoginComponents/login"
 export const queryClient = new QueryClient();
 
 const styles = StyleSheet.create({
@@ -45,6 +52,7 @@ export type StackParamList = {
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
+  // const isAuth = useSelector((state:IRootState)=>state.auth.isAuthenticated)
   const [isFirstLaunch, setFirstLaunch] = useState(false);
   useEffect(() => {
     const getOnboardingFlag = async () => {
@@ -56,10 +64,11 @@ export default function App() {
 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Onboarding">
-            {/* {isFirstLaunch ? (
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Onboarding">
+              {/* {isFirstLaunch ? (
             <>
               
               <Stack.Screen
@@ -87,48 +96,49 @@ export default function App() {
             />
           )} */}
 
-            <Stack.Screen
-              name="Onboarding"
-              component={OnBoardingScreen}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Login"
-              component={LoginForm}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="SignUp"
-              component={SignUpForm}
-              options={{
-                headerShown: false,
-              }}
-            />
+              <Stack.Screen
+                name="Onboarding"
+                component={OnBoardingScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="Login"
+                component={LoginForm}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="SignUp"
+                component={SignUpForm}
+                options={{
+                  headerShown: false,
+                }}
+              />
 
-            <Stack.Screen
-              name="MyHome"
-              component={BottomTabs}
-              options={{title: 'Overview', headerShown: false}}
-            />
-            <Stack.Screen
-              name="Chat"
-              component={Chat}
-              options={{
-                title: 'Chats',
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen name="Messaging" component={Messaging} />
-          </Stack.Navigator>
-        </NavigationContainer>
-        {/* <NavigationContainer>
+              <Stack.Screen
+                name="MyHome"
+                component={BottomTabs}
+                options={{title: 'Overview', headerShown: false}}
+              />
+              <Stack.Screen
+                name="Chat"
+                component={Chat}
+                options={{
+                  title: 'Chats',
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen name="Messaging" component={Messaging} />
+            </Stack.Navigator>
+          </NavigationContainer>
+          {/* <NavigationContainer>
         <BottomTabs />
       </NavigationContainer> */}
-      </QueryClientProvider>
+        </QueryClientProvider>
+      </Provider>
     </>
   );
 }

@@ -20,6 +20,7 @@ export function useChatList(mainUserId: string) {
       console.log('check check', result);
       return result as ChatList[];
     },
+    refetchInterval: 2000,
   });
 
   if (isLoading || isFetching || error || !data) {

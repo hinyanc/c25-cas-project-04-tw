@@ -12,7 +12,10 @@ import {StackParamList} from '../../../App';
 import {StackScreenProps} from '@react-navigation/stack';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {localLogin} from "../../hooks/authAPI"
+import {useDispatch} from "react-redux"
+import { AppDispatch } from '../../store/store';
+import { login } from '../../slices/authSlices';
 type LoginScreenProps = StackScreenProps<StackParamList, 'Login'>;
 
 const {width, height} = Dimensions.get('window');
@@ -23,7 +26,7 @@ type Validate = {
 const LoginForm = ({navigation}: LoginScreenProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [notEmpty, setNotEmpty] = useState(false);
   const [errors, setErrors] = useState<Validate>({email: '', password: ''});
 
   const validate = () => {
@@ -44,17 +47,27 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
     return errors;
   };
 
-  const handleLogin = () => {
-    const errors = validate();
-    setErrors(errors);
-    console.log('error', errors);
-    if (errors.email === '' && errors.password === '') {
-      // Handle login logic here
-      // console.log(navigation);
-      // navigation.navigate('Home');
-      navigation.replace('MyHome');
+  const dispatch = useDispatch<AppDispatch>()
+  
+  const handleLogin = async (e:any) => {
+    e.preventDefault()
+    // const errors = validate();
+    // setErrors(errors);
+    // console.log('error', errors);
+    // if (errors.email === '' && errors.password === '') {
+    //   // Handle login logic here
+    //   // navigation.navigate('Home');
+    //   setNotEmpty(true);
+      const success = await localLogin(email, password)
+      if(success){
+        dispatch(login(email))
+        navigation.replace('MyHome');
+    //     console.log("uuu")
+    //   }else{
+    //     // react-toast alert not
+    //     console.log("fail")
+    //   }
     }
-    setSubmitted(true);
   };
 
   // console.log(navigation)
@@ -95,7 +108,8 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
             onChangeText={setEmail}
             style={[styles.input, errors.email ? styles.error : {}]}
             keyboardType="email-address"
-            onBlur={() => {
+            onBlur={(e) => {
+             console.log("email",e.target.valueOf.name) 
               let errors = validate();
               console.log('check check', errors);
               setErrors(errors);

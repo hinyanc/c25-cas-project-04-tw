@@ -1,4 +1,4 @@
-import cors from "cors";
+// import cors from "cors";
 import express from "express";
 import { Server as SocketIO } from "socket.io";
 import http from "http";
@@ -19,19 +19,11 @@ declare global {
     }
   }
 }
-// declare module "express-session" {
-//   interface SessionData {
-//     userIsLoggedIn?: boolean;
-//     users_id: number;
-//     // firstName: string;
-//     // loginType: string;
-//     // email: string;
-//   }
-// }
+//
 
 let onlineUsers: string[] = [];
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/demo", express.static("demoClient"));

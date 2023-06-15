@@ -18,7 +18,10 @@ import {styles} from '../../utils/signUpStyles';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../App';
-import {FormState} from '../../screens/SignUpScreen/SignUpScreen';
+import {
+  FormErrorState,
+  FormState,
+} from '../../screens/SignUpScreen/SignUpScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Picker} from '@react-native-picker/picker';
 
@@ -60,7 +63,9 @@ interface SectionOneProps {
   next: () => void;
   back: () => void;
   formState: FormState;
-  onChangeHandler: (name: string, value: string|boolean) => void;
+  errorState: FormErrorState;
+  onChangeHandler: (name: string, value: string | boolean) => void;
+  inputHandler: (name: keyof FormState) => void;
 }
 
 export default function SectionTwo({
@@ -68,6 +73,8 @@ export default function SectionTwo({
   back,
   formState,
   onChangeHandler,
+  inputHandler,
+  errorState,
 }: SectionOneProps) {
   type ButtonProps = {
     onPress: () => void;
@@ -146,7 +153,10 @@ export default function SectionTwo({
           alignItems: 'center',
         }}>
         <Button
-          onPress={() => {handleButtonPress('Yes');onChangeHandler('isMember', true)}}
+          onPress={() => {
+            handleButtonPress('Yes');
+            onChangeHandler('isMember', true);
+          }}
           isPressed={isButtonPressed('Yes')}
           text="Yes"
           textStyle={{
@@ -156,7 +166,10 @@ export default function SectionTwo({
         <View style={{width: 15}} />
 
         <Button
-          onPress={() => {handleButtonPress('No');onChangeHandler('isMember', false)}}
+          onPress={() => {
+            handleButtonPress('No');
+            onChangeHandler('isMember', false);
+          }}
           isPressed={isButtonPressed('No')}
           text="No"
           textStyle={{
@@ -164,15 +177,11 @@ export default function SectionTwo({
           }}
         />
       </View>
+      {errorState.isMember && <Text>Error: {errorState.isMember}</Text>}
+
       <Text style={[styles.inputTitle, {marginTop: 10}]}>
         Choose your gym center
       </Text>
-      {/* <TextInput
-        value={formState.birthday}
-        onChangeText={text => onChangeHandler('birthday', text)}
-        placeholder="Email"
-        style={styles.input}
-      /> */}
       <View style={styles.input}>
         <Picker
           selectedValue={selectedCenter}
@@ -186,6 +195,7 @@ export default function SectionTwo({
           ))}
         </Picker>
       </View>
+
       <Text style={styles.inputTitle}>Choose your gym center location</Text>
       <View style={styles.input}>
         <Picker
@@ -209,7 +219,6 @@ export default function SectionTwo({
         placeholder="Type something about yourself..."
         style={styles.bioInput}
       />
-
 
       {/* ///continue button */}
       <TouchableOpacity

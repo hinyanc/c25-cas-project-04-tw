@@ -61,9 +61,11 @@ export default function SectionOne({
       <TextInput
         value={formState.username}
         onChangeText={text => onChangeHandler('username', text)}
-        // onBlur={e =>inputHandler={'username',formState.username}}
+        onBlur={e => inputHandler('username')}
         style={styles.input}
       />
+      {errorState.username && <Text>Error: {errorState.username}</Text>}
+
       <Text style={styles.inputTitle}>Email address*</Text>
       <TextInput
         value={formState.email}
@@ -79,9 +81,12 @@ export default function SectionOne({
         secureTextEntry
         value={formState.password}
         onChangeText={text => onChangeHandler('password', text)}
+        onBlur={e => inputHandler('password')}
         placeholder="Password"
         style={styles.input}
       />
+      {errorState.password && <Text>Error: {errorState.password}</Text>}
+
       {/* remind */}
       <Text
         style={{

@@ -11,12 +11,13 @@ interface Message {
 
 const target_user_id = 2;
 
-export function useGetMessages(mainUserId: string) {
+export function useGetMessages(mainUserId: string, targetUserId: string) {
+  console.log('api check', mainUserId);
   const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['Messages'],
+    queryKey: ['message', mainUserId, targetUserId],
     queryFn: async () => {
       const res = await fetch(
-        `${REACT_APP_API_SERVER}/message/mainUserId/${mainUserId}/targetUserId/${target_user_id}`,
+        `${REACT_APP_API_SERVER}/message/mainUserId/${mainUserId}/targetUserId/${targetUserId}`,
       );
       const result = await res.json();
       return result as Message[];

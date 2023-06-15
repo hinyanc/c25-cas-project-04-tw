@@ -29,8 +29,10 @@ export class AuthController{
             }
             const token = jwtSimple.encode(payload, jwt.jwtSecret)
             res.json({
-                token:token
+                token:token,
+                user:user.id
             })
+            
         }catch(error:any){
             logger.error(error.message)
             res.status(400).json({message:"Failed to login"})
