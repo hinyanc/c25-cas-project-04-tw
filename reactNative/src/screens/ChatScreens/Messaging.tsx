@@ -12,12 +12,15 @@ const Messaging = ({route, navigation}: any) => {
   const queryClient = useQueryClient();
   const [message, setMessage] = useState('');
   const [mainUser, setMainUser] = useState('');
+  const [targetUser, setTargetUser] = useState('');
   const {target_username, target_user_id} = route.params;
+  console.log('check target', target_username, target_user_id);
 
   const getMainUserId = async () => {
     try {
       const value = await AsyncStorage.getItem('mainUserId');
       if (value !== null) {
+        console.log('check value', value);
         setMainUser(value);
       }
     } catch (e) {
@@ -25,9 +28,8 @@ const Messaging = ({route, navigation}: any) => {
     }
   };
 
-  getMainUserId();
+  // getMainUserId();
 
-  const chatMessages = useGetMessages(mainUser);
   const onCreateMessages = useMutation(
     async (data: {
       message: string;
@@ -43,10 +45,16 @@ const Messaging = ({route, navigation}: any) => {
   // Sets the header title to the name chatroom's name
   useLayoutEffect(() => {
     navigation.setOptions({title: target_username});
+    setTargetUser(target_user_id);
+  }, []);
+
+  useEffect(() => {
     getMainUserId();
   }, []);
 
+  const chatMessages = useGetMessages(mainUser, targetUser);
   const handleNewMessage = () => {
+    console.log('new message check main user', mainUser);
     onCreateMessages.mutate({
       message,
       target_user_id,
