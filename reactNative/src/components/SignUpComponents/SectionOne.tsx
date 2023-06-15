@@ -17,21 +17,28 @@ import {styles} from '../../utils/signUpStyles';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../App';
-import {FormState} from '../../screens/SignUpScreen/SignUpScreen';
+import {
+  FormErrorState,
+  FormState,
+} from '../../screens/SignUpScreen/SignUpScreen';
 
 const {width, height} = Dimensions.get('window');
 
 interface SectionOneProps {
   next: () => void;
   formState: FormState;
+  errorState: FormErrorState;
   // onChangeHandler: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   onChangeHandler: (name: string, value: string) => void;
+  inputHandler: (name: keyof FormState) => void;
 }
 
 export default function SectionOne({
   next,
   formState,
   onChangeHandler,
+  inputHandler,
+  errorState,
 }: SectionOneProps) {
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
   return (
@@ -54,16 +61,19 @@ export default function SectionOne({
       <TextInput
         value={formState.username}
         onChangeText={text => onChangeHandler('username', text)}
-        placeholder="UserName"
+        // onBlur={e =>inputHandler={'username',formState.username}}
         style={styles.input}
       />
       <Text style={styles.inputTitle}>Email address*</Text>
       <TextInput
         value={formState.email}
         onChangeText={text => onChangeHandler('email', text)}
+        onBlur={e => inputHandler('email')}
         placeholder="Email"
         style={styles.input}
       />
+      {errorState.email && <Text>Error: {errorState.email}</Text>}
+
       <Text style={styles.inputTitle}>Password*</Text>
       <TextInput
         secureTextEntry
