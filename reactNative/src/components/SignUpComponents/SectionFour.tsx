@@ -18,7 +18,7 @@ import {styles} from '../../utils/signUpStyles';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../App';
-import {FormState} from '../../screens/SignUpScreen/SignUpScreen';
+import {FormErrorState, FormState} from '../../screens/SignUpScreen/SignUpScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Picker} from '@react-native-picker/picker';
 const {width, height} = Dimensions.get('window');
@@ -37,7 +37,10 @@ interface SectionOneProps {
   next: () => void;
   back: () => void;
   formState: FormState;
+  errorState: FormErrorState;
   onChangeHandler: (name: string, value: string | string[]) => void;
+  inputHandler: (name: keyof FormState) => void;
+
 }
 
 export default function SectionTwo({
@@ -45,6 +48,8 @@ export default function SectionTwo({
   back,
   formState,
   onChangeHandler,
+  inputHandler,
+  errorState,
 }: SectionOneProps) {
   type ButtonProps = {
     onPress: () => void;
@@ -230,6 +235,10 @@ export default function SectionTwo({
           btnType="level"
         />
       </View>
+
+      {errorState.gymLevel && <Text>Error: {errorState.gymLevel}</Text>}
+
+
       <Text style={[styles.title]}>Interests</Text>
 
       <View
@@ -264,6 +273,8 @@ export default function SectionTwo({
           />
         ))}
       </View>
+      {errorState.interests && <Text>Error: {errorState.interests}</Text>}
+
 
       {/* remind */}
       <View>

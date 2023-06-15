@@ -65,6 +65,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
         navigation.replace('MyHome');
       }else{
         // react-toast alert not
+        console.log("fail")
       }
     }
   };

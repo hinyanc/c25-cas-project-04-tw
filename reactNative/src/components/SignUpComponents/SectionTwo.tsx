@@ -18,7 +18,10 @@ import {styles} from '../../utils/signUpStyles';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../App';
-import {FormState} from '../../screens/SignUpScreen/SignUpScreen';
+import {
+  FormErrorState,
+  FormState,
+} from '../../screens/SignUpScreen/SignUpScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
@@ -28,8 +31,10 @@ const {width, height} = Dimensions.get('window');
 interface SectionOneProps {
   next: () => void;
   back: () => void;
+  errorState: FormErrorState;
   formState: FormState;
   onChangeHandler: (name: string, value: string) => void;
+  inputHandler: (name: keyof FormState) => void;
 }
 
 export default function SectionTwo({
@@ -37,6 +42,8 @@ export default function SectionTwo({
   back,
   formState,
   onChangeHandler,
+  errorState,
+  inputHandler,
 }: SectionOneProps) {
   type ButtonProps = {
     onPress: () => void;
@@ -54,7 +61,11 @@ export default function SectionTwo({
   }: ButtonProps) => {
     return (
       <TouchableOpacity
-        style={[btnType==="gender"?[styles.toogleBtn, isPressed && styles.toogleBtnPressed]:[styles.Continuebtn]]}
+        style={[
+          btnType === 'gender'
+            ? [styles.toogleBtn, isPressed && styles.toogleBtnPressed]
+            : [styles.Continuebtn],
+        ]}
         onPress={onPress}>
         <Text
           style={[
@@ -161,6 +172,7 @@ export default function SectionTwo({
           btnType="gender"
         />
       </View>
+      {errorState.gender && <Text>Error: {errorState.gender}</Text>}
 
       <Text style={[styles.inputTitle, {marginTop: 10}]}>Date of birth</Text>
 
@@ -183,16 +195,19 @@ export default function SectionTwo({
         />
       )}
       <Text>Chosen Date: {chosenDate.toDateString()}</Text>
+      {errorState.birthday && <Text>Error: {errorState.birthday}</Text>}
 
       <Text style={styles.inputTitle}>Height* (Kg)</Text>
       <TextInput
         keyboardType="numeric"
         value={formState.height}
         onChangeText={text => onChangeHandler('height', text)}
-        onBlur={e=> parseInt(formState.height)}
+        onBlur={e => parseInt(formState.height)}
         placeholder="Height"
         style={styles.input}
       />
+      {errorState.height && <Text>Error: {errorState.height}</Text>}
+
       <Text style={styles.inputTitle}>Weight* (cm)</Text>
       <TextInput
         keyboardType="numeric"
@@ -201,6 +216,8 @@ export default function SectionTwo({
         placeholder="Weight"
         style={styles.input}
       />
+      {errorState.weight && <Text>Error: {errorState.weight}</Text>}
+
       {/* remind */}
       <Text
         style={{
