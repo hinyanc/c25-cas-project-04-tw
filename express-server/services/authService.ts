@@ -62,11 +62,11 @@ import { Knex } from 'knex'
 
 export class AuthService {
 	constructor(private knex: Knex) {}
-	async getUser(username:string) {
+	async getUser(email:string) {
 		const user = (await this.knex
 			.select('*')
 			.from('users')
-            .where('username', username))[0]
+            .where('email', email))[0]
 		return user
 	}
 

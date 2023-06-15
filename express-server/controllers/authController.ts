@@ -10,11 +10,11 @@ export class AuthController{
 
     login = async (req:Request,res:Response)=>{
         try{
-            const {username,password}= req.body
-            if(!username||!password){
-                throw new Error("Missing username or password")
+            const {email,password}= req.body
+            if(!email||!password){
+                throw new Error("Missing email or password")
             }
-            const user = await this.authService.getUser(username);
+            const user = await this.authService.getUser(email);
 
             if(!user){
                 throw new Error("No user found")
