@@ -20,3 +20,9 @@ SELECT * FROM gym_center;
 SELECT * FROM user_gym_center;
 
 SELECT * FROM users_interest;
+
+select exists (select * from users_matching where users_id = 1 and matched_users_id = 2 or users_id = 2 and matched_users_id =1) 
+
+select * from users_matching where users_matching.status = 'matched' and users_id = 1 or matched_users_id = 1 
+
+select * from users_matching

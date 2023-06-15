@@ -32,7 +32,7 @@ export default class PlansTable extends Component<{}, TableState> {
   render() {
     // const state:any = this.state;
     return (
-      <View style={{height: 400}}>
+      <View style={{height: 370}}>
         <ScrollView style={styles.container}>
           <Table
             style={styles.body}

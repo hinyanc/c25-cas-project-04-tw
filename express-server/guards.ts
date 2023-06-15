@@ -2,19 +2,31 @@ import { Request, Response, NextFunction } from "express";
 // import { userService } from "./server";
 import { Bearer } from "permit";
 import { User } from "./utils/model";
+import jwt from "./utils/jwt";
+import jwtSimple from "jwt-simple";
 
 const permit = new Bearer({
   query: "access_token",
 });
 
-export function checkJWT(req: Request, res: Response, next: NextFunction) {
-  let token: string;
+export async function isLoggedIn(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
-    token = permit.check(req);
+    const token = permit.check(req);
+    if (!token) {
+      return res.status(401).json({ msg: "Permission Denied" });
+    }
 
-    let user: User = userService.decodeToken(token);
+    const decoded: Omit<User, "password"> = jwtSimple.decode(
+      token,
+      jwt.jwtSecret
+    );
+    req.user = decoded;
 
-    req.user = user;
+    console.log("guard check", req.user);
 
     return next();
   } catch (error) {

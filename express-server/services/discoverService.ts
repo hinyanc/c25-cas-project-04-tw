@@ -1,5 +1,8 @@
 import type { Knex } from "knex";
-import { userTable, usersMatchingTable } from "../migrations/20230605101740_users";
+import {
+  userTable,
+  usersMatchingTable,
+} from "../migrations/20230605101740_users";
 
 export class DiscoverService {
   constructor(private knex: Knex) {}
@@ -16,7 +19,7 @@ export class DiscoverService {
     const getAllProfileResult = await this.knex(userTable)
       .select(
         this.knex.raw(
-          /*sql*/ `is_pt, username, json_agg(gym_center.gym_center) AS gym_center, json_agg(gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio`
+          /*sql*/ `is_pt, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio, (users_matching.status) AS match_status`
         )
       )
       .join("users_interest", "users_interest.users_id", "users.id")
@@ -29,7 +32,23 @@ export class DiscoverService {
         "user_gym_location.gym_location_id",
         "gym_location.id"
       )
-      .groupBy("is_pt", "username", "bio");
+      .join("users_matching", function () {
+        this.on("users_matching.users_id", "=", "users.id").orOn(
+          "users_matching.matched_users_id",
+          "=",
+          "users.id"
+        );
+      })
+      .whereNot({ "users_matching.status": "matched" })
+      .groupBy(
+        "is_pt",
+        "username",
+        "bio",
+        "profile_pic",
+        "gym_center.gym_center",
+        "gym_location.gym_location",
+        "users_matching.status"
+      );
     return getAllProfileResult;
   };
 
@@ -37,7 +56,7 @@ export class DiscoverService {
     const getAllUsersProfileResult = await this.knex(userTable)
       .select(
         this.knex.raw(
-          /*sql*/ `is_pt, username, json_agg(gym_center.gym_center) AS gym_center, json_agg(gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio`
+          /*sql*/ `is_pt, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio,(users_matching.status) AS match_status`
         )
       )
       .join("users_interest", "users_interest.users_id", "users.id")
@@ -50,7 +69,23 @@ export class DiscoverService {
         "user_gym_location.gym_location_id",
         "gym_location.id"
       )
-      .groupBy("is_pt", "username", "bio")
+      .join("users_matching", function () {
+        this.on("users_matching.users_id", "=", "users.id").orOn(
+          "users_matching.matched_users_id",
+          "=",
+          "users.id"
+        );
+      })
+      .whereNot({ "users_matching.status": "matched" })
+      .groupBy(
+        "is_pt",
+        "username",
+        "bio",
+        "profile_pic",
+        "gym_center.gym_center",
+        "gym_location.gym_location",
+        "users_matching.status"
+      )
       .where("is_pt", "=", "false");
     return getAllUsersProfileResult;
   };
@@ -59,7 +94,7 @@ export class DiscoverService {
     const getAllPTProfileResult = await this.knex(userTable)
       .select(
         this.knex.raw(
-          /*sql*/ `is_pt, username, json_agg(gym_center.gym_center) AS gym_center, json_agg(gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio`
+          /*sql*/ `is_pt, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio,(users_matching.status) AS match_status`
         )
       )
       .join("users_interest", "users_interest.users_id", "users.id")
@@ -72,36 +107,64 @@ export class DiscoverService {
         "user_gym_location.gym_location_id",
         "gym_location.id"
       )
-      .groupBy("is_pt", "username", "bio")
+      .join("users_matching", function () {
+        this.on("users_matching.users_id", "=", "users.id").orOn(
+          "users_matching.matched_users_id",
+          "=",
+          "users.id"
+        );
+      })
+      .whereNot({ "users_matching.status": "matched" })
+      .groupBy(
+        "is_pt",
+        "username",
+        "bio",
+        "profile_pic",
+        "gym_center.gym_center",
+        "gym_location.gym_location",
+        "users_matching.status"
+      )
       .where("is_pt", "=", "true");
     return getAllPTProfileResult;
   };
 
   updateLikeUser = async (userId: number, targetUserId: number) => {
-    // const updateLikeUserResult = await this.knex(usersMatchingTable)
-    //   .where('users_id','=')
-    // return updateLikeUserResult;
-
     // Check if a matching record already exists
-    const matchExists = await this.knex(usersMatchingTable)
-    .where({ users_id: userId, matched_users_id: targetUserId })
-    .orWhere({ users_id: targetUserId, matched_users_id: userId })
-    .first();
+    const matchExists = await this.knex.raw(
+      /*sql*/ `select exists (select from users_matching where users_id = ${userId} and matched_users_id = ${targetUserId} or users_id = ${targetUserId} and matched_users_id = ${userId}) `
+    );
 
     if (matchExists) {
       // Update the status to 'matched'
       await this.knex(usersMatchingTable)
-        .where({ id: matchExists.id })
-        .update({ status: 'matched' });
+        .where("users_id", userId)
+        .andWhere("matched_users_id", targetUserId)
+        .orWhere("users_id", targetUserId)
+        .andWhere("matched_users_id", userId)
+        .update({ status: "matched" });
     } else {
       // Insert a new matching record with the status 'requested'
       await this.knex(usersMatchingTable).insert({
         users_id: userId,
         matched_users_id: targetUserId,
-        status: 'requested',
+        status: "requested",
       });
     }
+  };
 
+  updateDislikeUser = async (userId: number, targetUserId: number) => {
+    // Check if a matching record already exists
+    const matchExists = await this.knex.raw(
+      /*sql*/ `select exists (select from users_matching where users_id = ${userId} and matched_users_id = ${targetUserId} or users_id = ${targetUserId} and matched_users_id = ${userId}) `
+    );
 
+    if (matchExists) {
+      await this.knex(usersMatchingTable)
+      .where("users_id", userId)
+      .andWhere("matched_users_id", targetUserId)
+      .orWhere("users_id", targetUserId)
+      .andWhere("matched_users_id", userId)
+      .update({ status: "dislike" });
+    }
   };
 }
