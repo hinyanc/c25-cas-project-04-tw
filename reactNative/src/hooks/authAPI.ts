@@ -1,7 +1,7 @@
 import {REACT_APP_API_SERVER} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export async function loaclLogin(email: string, password: string) {
+export async function localLogin(email: string, password: string) {
   const res = await fetch(`${REACT_APP_API_SERVER}/auth/login`, {
     method: 'POST',
     headers: {
