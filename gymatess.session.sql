@@ -1,10 +1,13 @@
 SELECT
+    users.id, 
     is_pt, 
     username, 
+    profile_pic,
     (gym_center.gym_center) AS gym_center,
     (gym_location.gym_location) AS gym_location, 
     json_agg(interest.name) AS interest_name, 
-    bio
+    bio,
+    (users_matching.status) AS match_status
 FROM
     users
 JOIN users_interest ON users_interest.users_id = users.id
@@ -13,8 +16,17 @@ JOIN user_gym_center ON user_gym_center.users_id = users.id
 JOIN gym_center ON user_gym_center.gym_center_id = gym_center.id
 JOIN user_gym_location ON user_gym_location.users_id = users.id
 JOIN gym_location ON user_gym_location.gym_location_id = gym_location.id
+JOIN 
 GROUP BY
     is_pt, username, bio, gym_center, gym_location;
+
+
+
+
+
+
+
+
 
 SELECT * FROM gym_center;
 SELECT * FROM user_gym_center;
