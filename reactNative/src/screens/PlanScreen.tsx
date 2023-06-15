@@ -3,6 +3,7 @@ import {ScrollView, Text, View} from 'react-native';
 import {styles} from '../utils/styles';
 import PlansTable from '../components/PlanComponents/PlanTable';
 import PlanButton from '../components/PlanComponents/PlanButton';
+import PlansPrice from '../components/PlanComponents/PlanPrice';
 
 const PlanScreen = () => {
   return (
@@ -14,6 +15,7 @@ const PlanScreen = () => {
         for an enhanced GyMatess experience.
       </Text>
       <PlansTable />
+      <PlansPrice />
       <PlanButton />
     </View></ScrollView>
   );

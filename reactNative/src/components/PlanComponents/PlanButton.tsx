@@ -39,14 +39,8 @@ const PlanButton = () => {
   );
 
   return (
-    <View>
+    <View style={{ width: ScreenWidth}}>
       
-      <Text style={styles.modalTitle}>
-        Limited promotion for our GyMatess Diamond 💎
-      </Text>
-      <Text style={styles.modalText}>1 month plan: $29.9</Text>
-      <Text style={styles.modalText}>Half year plan: $19.9 per month</Text>
-      <Text style={styles.modalText}>1 year plan: $9.9 per month</Text>
       <Modal
         animationType="fade"
         transparent={true}
@@ -65,45 +59,44 @@ const PlanButton = () => {
           onPressOut={() => {
             setModalVisible(false);
           }}>
-            <TouchableWithoutFeedback>
-              <View style={styles.modalView}>
-                <Text style={styles.modalTitle}>
-                  Enter the promotion code to get 1 month free trial !
-                </Text>
-                <TextInput
-                  placeholder="Enter the promotion code here"
-                  maxLength={6}
-                  placeholderTextColor="#B1B1B1"
-                  // value={promotionCode}
-                  // onChangeText={handleInputChange}
-                  style={{
-                    padding: 0,
-                    fontSize: 14,
-                    paddingLeft: 10,
-                    width: 250,
-                    height: 35,
-                    backgroundColor: 'white',
-                    borderWidth: 1,
-                    borderRadius: 16,
-                    borderColor: '#E2868D',
-                    color: '#B1B1B1',
-                  }}
-                />
-                <View style={{flexDirection: 'row'}}>
-                  <TouchableOpacity
-                    style={[styles.PlanSubmitBtn]}
-                    onPress={() => setModalVisible(!modalVisible)}>
-                    <Text style={styles.BMIChartText}>Submit</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[styles.PlanSubmitBtn]}
-                    onPress={() => setModalVisible(!modalVisible)}>
-                    <Text style={styles.BMIChartText}>Cancel</Text>
-                  </TouchableOpacity>
-                </View>
+          <TouchableWithoutFeedback>
+            <View style={styles.modalView}>
+              <Text style={styles.modalTitle}>
+                Enter the promotion code to get 1 month free trial !
+              </Text>
+              <TextInput
+                placeholder="Enter the promotion code here"
+                maxLength={6}
+                placeholderTextColor="#B1B1B1"
+                // value={promotionCode}
+                // onChangeText={handleInputChange}
+                style={{
+                  padding: 0,
+                  fontSize: 14,
+                  paddingLeft: 10,
+                  width: 250,
+                  height: 35,
+                  backgroundColor: 'white',
+                  borderWidth: 1,
+                  borderRadius: 16,
+                  borderColor: '#E2868D',
+                  color: '#B1B1B1',
+                }}
+              />
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity
+                  style={[styles.PlanSubmitBtn]}
+                  onPress={() => setModalVisible(!modalVisible)}>
+                  <Text style={styles.BMIChartText}>Submit</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.PlanSubmitBtn]}
+                  onPress={() => setModalVisible(!modalVisible)}>
+                  <Text style={styles.BMIChartText}>Cancel</Text>
+                </TouchableOpacity>
               </View>
-            </TouchableWithoutFeedback>
-
+            </View>
+          </TouchableWithoutFeedback>
         </TouchableOpacity>
       </Modal>
       <Button
@@ -112,7 +105,6 @@ const PlanButton = () => {
         title="Join Diamond 💎 by NOW!"
         onPress={() => setModalVisible(true)}
       />
-      
     </View>
   );
 };

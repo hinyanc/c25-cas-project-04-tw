@@ -17,55 +17,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const ScreenWidth = Dimensions.get('window').width;
 const ScreenHeight = Dimensions.get('window').height;
 
-const styles1 = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: ScreenWidth ,
-    height: ScreenHeight ,
-    backgroundColor: '#FFF9F0',
-    top:370
-  },
-  card: {
-    position: 'relative',
-    bottom: 200,
-    borderRadius: 10,
-    backgroundColor: '#FFF9F0',
-    width: ScreenWidth * 0.9,
-    height: ScreenHeight * 0.3,
-  },
-  card2: {
-    position: 'relative',
-    bottom: 200,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    backgroundColor: '#FFF9F0',
-    width: ScreenWidth * 0.9,
-    height: ScreenHeight * 0.4,
-    shadowColor: '#E24E59',
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 3.5,
-    elevation: 5,
-  },
-  image: {
-    width: ScreenWidth * 0.9, // 50% of the screen width
-    height: ScreenHeight * 0.4, // 30% of the screen height
-    backgroundColor: 'white',
-  },
-});
-
 type CardType = {
   id: number;
   image: any;
-  name: string;
-  gymCenter: string;
-  interest: string[];
+  username: string;
+  gym_center: string;
+  gym_location:string;
+  interest_name: string[];
   bio: string;
-  isPT: boolean;
+  is_PT: boolean;
 };
 
 export function TinderSwipe() {
@@ -159,8 +119,9 @@ export function TinderSwipe() {
     },
   ];
 
-  const handleSwipeRight = () => {
-    console.log('swipe right');
+  const handleSwipeRight = (idx: number) => {
+    console.log('swipe right', idx + index);
+    // setIndex(index => index + 1)
   };
 
   const handleSwipeLeft = () => {
@@ -170,13 +131,21 @@ export function TinderSwipe() {
     console.log('all images are shown');
   };
 
+  const [index, setIndex] = useState(0);
+
+  const onSwipe = (newIndex: React.SetStateAction<number>) => {
+    setIndex(newIndex);
+  };
+
+  console.log(cards.filter((card, idx) => idx >= index))
   return (
-<ScrollView style={{backgroundColor: '#FFF9F0'}}>
+    <ScrollView style={{backgroundColor: '#FFF9F0'}}>
       <View
         style={{
           flex: 2,
           justifyContent: 'center',
           alignItems: 'center',
+
         }}>
         <Text style={styles.discoverTitle}>Discover</Text>
         <View
@@ -208,204 +177,254 @@ export function TinderSwipe() {
         </View>
       </View>
 
-    <View style={styles1.container}>
-      {swipedCards.length === 5 ? (
-        <Text style={{position: 'relative', bottom:500}}>All cards swiped!</Text>
-      ) : (
-        <Swiper
-          cards={cards}
-          stackSize={2}
-          cardIndex={0}
-          backgroundColor="#FFF9F0"
-          renderCard={card => (
-            <Animated.View style={[styles1.card]}>
-              <View>
-                <Image source={card.image} style={styles1.card2} />
-                <View
-                  style={[
-                    styles.CardInfo,
-                    card.interest.length > 4 ? {bottom: 360} : {bottom: 321.5},
-                  ]}>
-                  <Text style={styles.DiscoverUsername}>{card.name}</Text>
-                  <Text style={styles.DiscoverGym}>{card.gymCenter}</Text>
+      <View style={styles1.container}>
+        {swipedCards.length === 5 ? (
+          <Text style={{position: 'relative', bottom: 500}}>
+            All cards swiped!
+          </Text>
+        ) : (
+          <Swiper
+            cards={cards.filter((card, idx) => idx >= index)}
+            stackSize={2}
+            cardIndex={0}
+            backgroundColor="#FFF9F0"
+            renderCard={card => (
+              <Animated.View style={[styles1.card]}>
+                <View>
+                  <Image source={card.image} style={styles1.card2} />
                   <View
-                    style={{
-                      marginLeft: 15,
-                      flexDirection: 'row',
-                      flexWrap: 'wrap',
-                    }}>
-                    {card.interest.map(interest => {
-                      return (
-                        <View style={styles.DiscoverInterest}>
-                          <Text style={styles.DiscoverInterestText}>
-                            {interest}
-                          </Text>
-                        </View>
-                      );
-                    })}
+                    style={[
+                      styles.CardInfo,
+                      card.interest.length > 4
+                        ? {bottom: 260}
+                        : {bottom: 221.5},
+                    ]}>
+                    <Text style={styles.DiscoverUsername}>{card.name}</Text>
+                    <Text style={styles.DiscoverGym}>{card.gymCenter}</Text>
+                    <View
+                      style={{
+                        marginLeft: 15,
+                        flexDirection: 'row',
+                        flexWrap: 'wrap',
+                      }}>
+                      {card.interest.map(interest => {
+                        return (
+                          <View style={styles.DiscoverInterest}>
+                            <Text style={styles.DiscoverInterestText}>
+                              {interest}
+                            </Text>
+                          </View>
+                        );
+                      })}
+                    </View>
+                  </View>
+
+                  <TouchableOpacity
+                    onPress={() => {}}
+                    style={[
+                      styles.NopeIcon,
+                      card.interest.length > 3 ? {bottom: 282} : {bottom: 245},
+                    ]}>
+                    <Ionicons name="close" size={45} color={'#ED8974'} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                  onPress={() => {onSwipe(index + 1)}}
+                    style={[
+                      styles.SuperIcon,
+                      card.interest.length > 3 ? {bottom: 342} : {bottom: 305},
+                    ]}>
+                    <Ionicons name="md-star" size={35} color={'#4FADC2'} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                  onPress={() => {onSwipe(index + 1)}}
+                    style={[
+                      styles.LikeIcon,
+                      card.interest.length > 3 ? {bottom: 402} : {bottom: 365},
+                    ]}>
+                    <Ionicons name="heart" size={35} color={'#7CCD96'} />
+                  </TouchableOpacity>
+                  <View
+                    style={[
+                      styles.bio,
+                      card.interest.length > 3 ? {bottom: 390} : {bottom: 360},
+                    ]}>
+                    <Text style={styles.bio}>{card.bio}</Text>
                   </View>
                 </View>
-
-                <TouchableOpacity
-                  style={[
-                    styles.NopeIcon,
-                    card.interest.length > 3 ? {bottom: 382} : {bottom: 345},
-                  ]}>
-                  <Ionicons name="close" size={45} color={'#ED8974'} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.SuperIcon,
-                    card.interest.length > 3 ? {bottom: 442} : {bottom: 405},
-                  ]}>
-                  <Ionicons name="md-star" size={35} color={'#4FADC2'} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.LikeIcon,
-                    card.interest.length > 3 ? {bottom: 502} : {bottom: 465},
-                  ]}>
-                  <Ionicons name="heart" size={35} color={'#7CCD96'} />
-                </TouchableOpacity>
-                <View
-                  style={[
-                    styles.bio,
-                    card.interest.length > 3
-                      ? {bottom: 490 }
-                      : {bottom: 460 },
-                  ]}>
-                  <Text style={styles.bio}>{card.bio}</Text>
-                </View>
-              </View>
-            </Animated.View>
-          )}
-          onSwipedRight={handleSwipeRight}
-          onSwipedLeft={handleSwipeLeft}
-          onSwipedAll={handleSwipeAll}
-          useViewOverflow={false}
-          overlayLabels={{
-            left: {
-              element: (
-                <View
-                  style={{
-                    borderWidth: 3,
-                    borderRadius: 16,
-                    borderColor: '#ED8974',
-                    bottom: 400
-                  }}>
-                  <Text
+              </Animated.View>
+            )}
+            onSwipedRight={handleSwipeRight}
+            onSwipedLeft={handleSwipeLeft}
+            onSwipedAll={handleSwipeAll}
+            useViewOverflow={false}
+            overlayLabels={{
+              left: {
+                element: (
+                  <View
                     style={{
-                      color: '#ED8974',
-                      fontWeight: 'bold',
-                      fontSize: 30,
-                      marginHorizontal: 10,
+                      borderWidth: 3,
+                      borderRadius: 16,
+                      borderColor: '#ED8974',
+                      bottom: 400,
                     }}>
-                    NOPE
-                  </Text>
-                </View>
-              ) /* Optional */,
-              title: 'NOPE',
-              style: {
-                label: {
-                  backgroundColor: 'black',
-                  borderColor: 'black',
-                  color: 'white',
-                  borderWidth: 1,
-                },
-                wrapper: {
-                  flexDirection: 'column',
-                  alignItems: 'flex-end',
-                  justifyContent: 'flex-start',
-                  marginTop: 20,
-                  marginLeft: -20,
+                    <Text
+                      style={{
+                        color: '#ED8974',
+                        fontWeight: 'bold',
+                        fontSize: 30,
+                        marginHorizontal: 10,
+                      }}>
+                      NOPE
+                    </Text>
+                  </View>
+                ) /* Optional */,
+                title: 'NOPE',
+                style: {
+                  label: {
+                    backgroundColor: 'black',
+                    borderColor: 'black',
+                    color: 'white',
+                    borderWidth: 1,
+                  },
+                  wrapper: {
+                    flexDirection: 'column',
+                    alignItems: 'flex-end',
+                    justifyContent: 'flex-start',
+                    marginTop: 20,
+                    marginLeft: -20,
+                  },
                 },
               },
-            },
-            right: {
-              element: (
-                <View
-                  style={{
-                    borderWidth: 3,
-                    borderRadius: 16,
-                    borderColor: '#7CCD96',
-                    bottom: 400
-                  }}>
-                  <Text
+              right: {
+                element: (
+                  <View
                     style={{
-                      color: '#7CCD96',
-                      fontWeight: 'bold',
-                      fontSize: 30,
-                      marginHorizontal: 10,
+                      borderWidth: 3,
+                      borderRadius: 16,
+                      borderColor: '#7CCD96',
+                      bottom: 400,
                     }}>
-                    LIKE
-                  </Text>
-                </View>
-              ) /* Optional */,
-              title: 'LIKE',
-              style: {
-                label: {
-                  backgroundColor: 'black',
-                  borderColor: 'black',
-                  color: 'white',
-                  borderWidth: 1,
-                },
-                wrapper: {
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  justifyContent: 'flex-start',
-                  marginTop: 20,
-                  marginLeft: 20,
+                    <Text
+                      style={{
+                        color: '#7CCD96',
+                        fontWeight: 'bold',
+                        fontSize: 30,
+                        marginHorizontal: 10,
+                      }}>
+                      LIKE
+                    </Text>
+                  </View>
+                ) /* Optional */,
+                title: 'LIKE',
+                style: {
+                  label: {
+                    backgroundColor: 'black',
+                    borderColor: 'black',
+                    color: 'white',
+                    borderWidth: 1,
+                  },
+                  wrapper: {
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                    marginTop: 20,
+                    marginLeft: 20,
+                  },
                 },
               },
-            },
-            top: {
-              element: (
-                <View
-                  style={{
-                    borderWidth: 3,
-                    borderRadius: 16,
-                    borderColor: '#4FADC2',
-                    bottom: 400
-                  }}>
-                  <Text
+              top: {
+                element: (
+                  <View
                     style={{
-                      color: '#4FADC2',
-                      fontWeight: 'bold',
-                      fontSize: 30,
-                      marginHorizontal: 10,
+                      borderWidth: 3,
+                      borderRadius: 16,
+                      borderColor: '#4FADC2',
+                      bottom: 400,
                     }}>
-                    SUPER LIKE!
-                  </Text>
-                </View>
-              ) /* Optional */,
-              title: 'SUPER LIKE',
-              style: {
-                label: {
-                  backgroundColor: 'black',
-                  borderColor: 'black',
-                  color: 'white',
-                  borderWidth: 1,
-                },
-                wrapper: {
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginTop: -200,
+                    <Text
+                      style={{
+                        color: '#4FADC2',
+                        fontWeight: 'bold',
+                        fontSize: 30,
+                        marginHorizontal: 10,
+                      }}>
+                      SUPER LIKE!
+                    </Text>
+                  </View>
+                ) /* Optional */,
+                title: 'SUPER LIKE',
+                style: {
+                  label: {
+                    backgroundColor: 'black',
+                    borderColor: 'black',
+                    color: 'white',
+                    borderWidth: 1,
+                  },
+                  wrapper: {
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: -200,
+                  },
                 },
               },
-            },
-          }}
-          overlayLabelWrapperStyle={{
-            position: 'absolute',
-            backgroundColor: 'transparent',
-            zIndex: 2,
-            width: '100%',
-            height: '100%',
-          }}
-        />
-      )}
-    </View>
+            }}
+            overlayLabelWrapperStyle={{
+              position: 'absolute',
+              backgroundColor: 'transparent',
+              zIndex: 2,
+              width: '100%',
+              height: '100%',
+            }}
+          />
+        )}
+      </View>
     </ScrollView>
-
   );
 }
+
+const styles1 = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: ScreenWidth*0.9,
+    height: ScreenHeight*0.85,
+    backgroundColor: '#FFF9F0',
+    top: 370,
+  },
+  card: {
+    position: 'relative',
+    bottom: 300,
+    borderRadius: 10,
+    borderTopStartRadius:0,
+    borderTopEndRadius:0,
+    backgroundColor: '#FFF9F0',
+    width: ScreenWidth * 0.9,
+    height: ScreenHeight * 0.5,
+    borderWidth:1,
+    borderTopWidth:0,
+    borderColor:'#707070'
+  },
+  card2: {
+    position: 'relative',
+    bottom: 100,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    backgroundColor: '#FFF9F0',
+    width: ScreenWidth * 0.9,
+    height: ScreenHeight * 0.4,
+    borderTopWidth:1,
+    borderRightWidth:1,
+    borderLeftWidth:1,
+    borderColor:'#707070'
+  },
+  image: {
+    width: ScreenWidth * 0.9, // 50% of the screen width
+    height: ScreenHeight * 0.4, // 30% of the screen height
+    backgroundColor: 'white',
+    borderTopWidth:1,
+    borderRightWidth:1,
+    borderLeftWidth:1,
+    borderColor:'#707070'
+  },
+});

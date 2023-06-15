@@ -161,10 +161,12 @@ export const styles = StyleSheet.create({
     color: '#E2868D',
   },
   PlanButton: {
+    marginVertical: 20,
     backgroundColor: '#E24E59',
     color: '#FDDBDD',
     borderRadius: 26,
     width: 260,
+    alignSelf: 'center'
   },
   PlanSubmitBtn:{
     justifyContent: 'center',
@@ -180,9 +182,6 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     color: '#E24E59',
     fontWeight: 'bold',
-    // textShadowColor: 'rgba(203, 31, 44, 0.4)',
-    // textShadowOffset: {width: 3, height: 2},
-    // textShadowRadius: 10,
     fontFamily:'Proxima Nova Font'
   },
   welcome: {

@@ -15,7 +15,7 @@ dotenv.config();
 declare global {
   namespace Express {
     interface Request {
-      user: User;
+      user?: Omit<User,'password'>
     }
   }
 }
@@ -82,15 +82,20 @@ io.on("connection", (socket) => {
 const PORT = 8080;
 
 // Controllers
+import { AuthController } from "./controllers/AuthController";
 import { MessageController } from "./controllers/MessageController";
 import { DiscoverController } from "./controllers/discoverController";
 import { GoalController } from "./controllers/goalController";
 
 import { ChatListController } from "./controllers/ChatListController";
 // Services
+import { AuthService } from "./services/AuthService";
 import { MessageService } from "./services/MessageService";
 import { ChatListService } from "./services/ChatListService";
 import { DiscoverService } from "./services/discoverService";
+
+const authService = new AuthService(knex);
+export const authController = new AuthController(authService);
 
 const messageService = new MessageService(knex);
 export const messageController = new MessageController(messageService);
@@ -108,6 +113,7 @@ export const goalController = new GoalController(goalService);
 // Route Handlers
 import { messageRoutes } from "./routers/messageRoutes";
 import { User } from "./utils/model";
+import { authRoutes } from './routers/authRoutes'
 import { discoverRoutes } from "./routers/discoverRoutes";
 import { goalRoutes } from "./routers/goalRoutes";
 import { chatListRoutes } from "./routers/chatListRoutes";
@@ -117,6 +123,8 @@ app.get("/hi", (req, res) => {
   res.send("bye");
 });
 
+app.use('/auth', authRoutes)
+app.use("/message", messageRoutes);
 app.use("/message", messageRoutes);
 app.use("/chatlist", chatListRoutes);
 app.use("/discover", discoverRoutes);

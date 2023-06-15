@@ -7,9 +7,9 @@ export class DiscoverController {
 
   getUserInfo = async (req: Request, res: Response) => {
     try {
-      // const userId = req.session.users_id!;
-      // const userInfo = await this.discoverService.getUserInfo(userId);
-      // res.status(200).json(userInfo);
+      const userId = req.user!.id;
+      const userInfo = await this.discoverService.getUserInfo(userId);
+      res.status(200).json(userInfo);
     } catch (error) {
       logger.error(error);
       res.status(500).json({ error: "Internal server error" });
@@ -50,12 +50,23 @@ export class DiscoverController {
     try {
       // const userId = req.session.users_id!;
       // const targetUserId = req.params.uid
-      // const likeUser = await this.discoverService.updateLikeUser(userId);
-      res.status(200).json();
+      // await this.discoverService.updateLikeUser(userId, targetUser);
+      res.status(200).json({ message: "like or match success" });
     } catch (error) {
       logger.error(error);
       res.status(500).json({ error: "Internal server error" });
     }
   };
 
+  updateDislikeUser = async (req: Request, res: Response) => {
+    try {
+      const userId = req.user!.id;
+      const targetUserId = JSON.parse(req.params.uid)
+      await this.discoverService.updateDislikeUser(userId, targetUserId);
+      res.status(200).json({ message: "dislike success" });
+    } catch (error) {
+      logger.error(error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  };
 }
