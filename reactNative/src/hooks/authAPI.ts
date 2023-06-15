@@ -14,6 +14,7 @@ export async function localLogin(email: string, password: string) {
   });
 
   const result = await res.json();
+  console.log("check result:",result)
   if(res.status ===200){
     AsyncStorage.setItem('token',result.token)
     return true
