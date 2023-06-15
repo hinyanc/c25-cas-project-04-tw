@@ -40,15 +40,15 @@ const BottomTabs = () => {
         tabBarLabelStyle: {fontSize: 15, marginBottom: 20},
         tabBarIconStyle: {marginTop: 16},
         tabBarStyle: {
-          position: 'absolute',
-          bottom: 10,
-          left: 10,
-          right: 10,
-          elevation: 0,
+          // position: 'absolute',
+          // bottom: 10,
+          // left: 10,
+          // right: 10,
+          // elevation: 0,
           backgroundColor: '#ffffff',
-          borderRadius: 15,
+          // borderRadius: 15,
           height: 90,
-          ...styles.tabShadow,
+          // ...styles.tabShadow,
         },
       })}>
       <Tab.Screen

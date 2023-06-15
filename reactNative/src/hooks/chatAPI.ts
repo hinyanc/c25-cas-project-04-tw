@@ -1,8 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useQuery} from '@tanstack/react-query';
-
-const API_URL = 'http://192.168.160.72:8080';
-
+import {REACT_APP_API_SERVER} from '@env';
 interface ChatList {
   target_user_id: number;
   target_username: string;
@@ -17,7 +14,7 @@ export function useChatList(mainUserId: string) {
     queryKey: ['chatList', mainUserId],
     queryFn: async () => {
       const response = await fetch(
-        `${API_URL}/chatlist/mainUserId/${mainUserId}`,
+        `${REACT_APP_API_SERVER}/chatlist/mainUserId/${mainUserId}`,
       );
       const result = await response.json();
       console.log('check check', result);
@@ -33,7 +30,7 @@ export function useChatList(mainUserId: string) {
 }
 
 export async function deleteChat(chatId: number) {
-  const response = await fetch(`${API_URL}/chatlist/${chatId}`, {
+  const response = await fetch(`${REACT_APP_API_SERVER}/chatlist/${chatId}`, {
     method: 'DELETE',
   });
   const result = await response.json();

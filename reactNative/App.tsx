@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
 
 //name of routes
 export type StackParamList = {
-
   SignUp: undefined;
   MyHome: undefined;
   Onboarding: undefined;
