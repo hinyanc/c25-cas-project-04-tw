@@ -5,13 +5,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AuthState{
     isAuthenticated:boolean
-    email:string|null
+    username:string|null
 }
 
 const initialState:AuthState =
 {
     isAuthenticated: AsyncStorage.getItem('token' )!==null,
-    email:null
+    username:null
 }
 
 
@@ -20,11 +20,11 @@ export const authSlice = createSlice({
     initialState,
     reducers:{
         login:(state,action:PayloadAction<string>)=>{
-            state.email = action.payload
+            state.username = action.payload
             state.isAuthenticated = true
         },
         logout:(state)=>{
-            state.email=null
+            state.username=null
             AsyncStorage.removeItem('token')
             state.isAuthenticated = false
         }

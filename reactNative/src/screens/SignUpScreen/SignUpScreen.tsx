@@ -51,17 +51,23 @@ export interface FormErrorState {
 }
 
 export const schema = {
-  username: z.string().min(4),
-  email: z.string().email(),
-  password: z.string().min(6),
-  gender: z.string(),
+  username: z.string().min(1, {message: 'Username is required'}),
+  email: z.string().email({message: 'Must be a valid email'}),
+  password: z.string().min(6, {message: 'Password is required'}),
+  gender: z.string().min(4, {message: 'Please fill in your gender'}),
   // not sure
-  birthday: z.string().datetime(),
-  height: z.number().int(),
-  weight: z.number().int(),
-  isMember: z.boolean(),
-  gymLevel: z.string(),
-  interests: z.string().array().min(1),
+  birthday: z.string().datetime({message: 'Please fill in your birthday'}),
+  height: z.number().int({message: 'Please fill in your height'}),
+  weight: z.number().int({message: 'Please fill in your weight'}),
+  isMember: z.boolean({
+    required_error: 'This column is required',
+    invalid_type_error: 'IsMember must be a boolean',
+  }),
+  gymLevel: z.string().min(1, {message: 'Please choose your gymlevel'}),
+  interests: z
+    .string()
+    .array()
+    .min(1, {message: 'Choose at least one interest'}),
 } as {
   [x: string]:
     | z.ZodString
@@ -105,7 +111,7 @@ export default function SignUpForm() {
   //     setFormState({...formState, [e.target.name]: e.target.value});
   //   };
   const inputHandler = (name: keyof FormState) => {
-   const value = formState[name]
+    const value = formState[name];
 
     try {
       schema[name].parse(value);
@@ -164,6 +170,8 @@ export default function SignUpForm() {
               back={() => {
                 setSectionNum(1);
               }}
+              inputHandler={inputHandler}
+              errorState={errorState}
             />
           )}
           {sectionNum === 3 && (
@@ -177,6 +185,8 @@ export default function SignUpForm() {
               back={() => {
                 setSectionNum(2);
               }}
+              inputHandler={inputHandler}
+              errorState={errorState}
             />
           )}
           {sectionNum === 4 && (
@@ -193,6 +203,8 @@ export default function SignUpForm() {
               back={() => {
                 setSectionNum(3);
               }}
+              inputHandler={inputHandler}
+              errorState={errorState}
             />
           )}
         </View>
