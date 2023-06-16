@@ -148,6 +148,7 @@ export class DiscoverService {
         .orWhere("users_id", targetUserId)
         .andWhere("matched_users_id", userId)
         .update({ status: "matched" });
+        return {message: 'matched'}
     } else {
       // Insert a new matching record with the status 'requested'
       await this.knex(usersMatchingTable).insert({
@@ -155,6 +156,7 @@ export class DiscoverService {
         matched_users_id: targetUserId,
         status: "requested",
       });
+      return {message: 'requested'}
     }
   };
 

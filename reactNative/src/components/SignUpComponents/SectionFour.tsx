@@ -265,6 +265,7 @@ export default function SectionTwo({
             onPress={() => {
               handleInterestPress(interest);
               onChangeHandler('interests', selectedInterests);
+              console.log("interest",index+1)
             }}
             isPressed={isInterestPressed(interest)}
             text={interest}

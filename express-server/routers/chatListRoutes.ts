@@ -1,12 +1,14 @@
 import { chatListController } from "../server";
 import express from "express";
+import { isLoggedIn } from "../guards";
 
 export const chatListRoutes = express.Router();
 
 // chatListRoutes.get("/", chatListController.getChatHistoryController);
-chatListRoutes.get(
-  "/mainUserId/:mainUserId",
-  chatListController.lastMessageController
-);
+chatListRoutes.get("/", isLoggedIn, chatListController.lastMessageController);
 // chatListRoutes.post("/", chatListController.createChatController);
-chatListRoutes.delete("/:chatId", chatListController.deleteChatController);
+chatListRoutes.delete(
+  "/:chatId",
+  isLoggedIn,
+  chatListController.deleteChatController
+);
