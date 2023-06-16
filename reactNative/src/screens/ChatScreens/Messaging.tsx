@@ -35,6 +35,7 @@ const Messaging = ({route, navigation}: any) => {
   }, []);
 
   const {target_username, target_user_id} = route.params;
+
   console.log('check target', target_username, target_user_id);
 
   const getAsyncInfo = async () => {
@@ -42,7 +43,7 @@ const Messaging = ({route, navigation}: any) => {
       const value = await AsyncStorage.getItem('mainUserId');
       const token = await AsyncStorage.getItem('token');
       if (value !== null) {
-        console.log('check value', value);
+        console.log('check value message ', value, token);
         setMainUser(value);
         setToken(token!);
 
@@ -62,8 +63,14 @@ const Messaging = ({route, navigation}: any) => {
       message: string;
       target_user_id: number;
       main_user_id: number;
+      token: string;
     }) =>
-      useCreateMessages(data.message, data.target_user_id, data.main_user_id),
+      useCreateMessages(
+        data.message,
+        data.target_user_id,
+        data.main_user_id,
+        token,
+      ),
     {
       onSuccess: () => queryClient.invalidateQueries(['message']),
     },
@@ -84,7 +91,7 @@ const Messaging = ({route, navigation}: any) => {
     flatListRef.current?.scrollToEnd(); // Scroll to the end when the component mounts
   }, []);
 
-  const chatMessages = useGetMessages(token, targetUser);
+  const chatMessages = useGetMessages(targetUser, token);
   const handleNewMessage = () => {
     console.log('new message check main user', mainUser);
 
@@ -98,6 +105,7 @@ const Messaging = ({route, navigation}: any) => {
       message,
       target_user_id,
       main_user_id: parseInt(mainUser),
+      token,
       // const hour =
       //   new Date().getHours() < 10
       //     ? `0${new Date().getHours()}`

@@ -1,6 +1,6 @@
 import {useQuery} from '@tanstack/react-query';
 import {REACT_APP_API_SERVER} from '@env';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 interface Message {
   sender_id: Number;
   receiver_id: Number;
@@ -10,23 +10,23 @@ interface Message {
   receiver_username: string;
 }
 
-const target_user_id = 2;
-
 export function useGetMessages(targetUserId: string, token: string) {
+  console.log('get message', targetUserId, token);
   const {isLoading, error, data, isFetching} = useQuery({
     queryKey: ['message', targetUserId, token],
     queryFn: async () => {
       const res = await fetch(
-        `${REACT_APP_API_SERVER}/message/mainUserId/targetUserId/${targetUserId}`,
+        `${REACT_APP_API_SERVER}/message/${targetUserId}`,
         {
           headers: {
-            Authorization: `Bearer ${AsyncStorage.getItem('token')}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
       const result = await res.json();
       return result as Message[];
     },
+    refetchInterval: 10000,
   });
 
   if (isLoading || isFetching || error || !data) {
@@ -40,12 +40,14 @@ export async function useCreateMessages(
   message: string,
   target_user_id: number,
   main_user_id: number,
+  token: string,
 ) {
+  console.log('check create message', token);
   const res = await fetch(`${REACT_APP_API_SERVER}/message/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${AsyncStorage.getItem('token')}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       message: message,

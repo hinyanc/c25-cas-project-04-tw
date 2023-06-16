@@ -6,8 +6,6 @@ export class MessageController {
 
   getMessageHistoryController = async (req: Request, res: Response) => {
     try {
-      console.log("check har", req.params);
-      //@ts-ignore
       const mainUserId = req.user?.id;
       const { targetUserId } = req.params;
 
@@ -23,6 +21,7 @@ export class MessageController {
   };
 
   sendMessageController = async (req: Request, res: Response) => {
+    console.log("create message controller ");
     try {
       //@ts-ignore
       const mainUserId = req.user?.id;

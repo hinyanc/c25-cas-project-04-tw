@@ -5,7 +5,7 @@ import express from "express";
 export const messageRoutes = express.Router();
 
 messageRoutes.get(
-  "/mainUserId/targetUserId/:targetUserId",
+  "/:targetUserId",
   isLoggedIn,
   messageController.getMessageHistoryController
 );

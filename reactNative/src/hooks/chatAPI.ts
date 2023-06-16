@@ -15,14 +15,14 @@ export function useChatList(token: string) {
     queryFn: async () => {
       const response = await fetch(`${REACT_APP_API_SERVER}/chatlist/`, {
         headers: {
-          Authorization: `Bearer ${AsyncStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       const result = await response.json();
       console.log('check check', result);
       return result as ChatList[];
     },
-    refetchInterval: 2000,
+    refetchInterval: 10000,
   });
 
   if (isLoading || isFetching || error || !data) {
@@ -36,7 +36,7 @@ export async function deleteChat(chatId: number, token: string) {
   const response = await fetch(`${REACT_APP_API_SERVER}/chatlist/${chatId}`, {
     method: 'DELETE',
     headers: {
-      Authorization: `Bearer ${AsyncStorage.getItem('token')}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   const result = await response.json();
