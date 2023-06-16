@@ -121,7 +121,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
-    console.log("hi login",errorState)
+    console.log("hi error",errorState)
     // const errors = validate();
     // setErrors(errors);
     // console.log('error', errors);

@@ -82,7 +82,7 @@ io.on("connection", (socket) => {
 const PORT = 8080;
 
 // Controllers
-import { AuthController } from "./controllers/AuthController";
+import { AuthController } from "./controllers/authController";
 import { SignUpController } from "./controllers/SignUpController";
 import { MessageController } from "./controllers/MessageController";
 import { DiscoverController } from "./controllers/discoverController";
