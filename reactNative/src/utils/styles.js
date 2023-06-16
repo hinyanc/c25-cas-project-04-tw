@@ -73,6 +73,16 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
   },
 
+  disabledButton: {
+    width: '25%',
+    height: 45,
+    backgroundColor: '#black',
+    borderRadius: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+  },
+
   mmessageWrapper: {
     width: '100%',
     alignItems: 'flex-start',
@@ -84,6 +94,7 @@ export const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     marginBottom: 2,
+    fontSize: 30,
   },
   mvatar: {
     marginRight: 5,
@@ -316,6 +327,22 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     paddingBottom: 30,
   },
+  CardPT: {
+    bottom: 400,
+    alignSelf: 'flex-end',
+    marginRight: 10,
+    fontSize:16,
+    color: '#E24E59',
+    fontWeight: 'bold',
+    textShadowColor: 'rgba(0,0,0,0.3)',
+    textShadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    textShadowOpacity: 0.3,
+    textShadowRadius: 3.5,
+    elevation: 6,
+  },
   DiscoverUsername: {
     color: '#E24E59',
     fontSize: 24,
@@ -342,12 +369,12 @@ export const styles = StyleSheet.create({
     color: '#707070',
     fontSize: 16,
     fontWeight: 'bold',
-    marginHorizontal: 20,
+    marginHorizontal: 12,
   },
   LikeIcon: {
     position: 'relative',
     bottom: 265,
-    left: 250,
+    // left: 220,
     width: 60,
     height: 60,
     borderRadius: 30,
@@ -366,7 +393,7 @@ export const styles = StyleSheet.create({
   NopeIcon: {
     position: 'relative',
     bottom: 145,
-    left: 50,
+    // left: 70,
     width: 60,
     height: 60,
     borderRadius: 30,

@@ -39,9 +39,6 @@ WHERE q3.target_user_id NOT IN (SELECT target_user_id FROM q1)
 AND q3.target_user_id NOT IN (SELECT target_user_id FROM q2);
 
 
-
-
-
 WITH q1 AS (
     SELECT receiver_id AS target_user_id, MAX(id) AS max_id
     FROM chatroom

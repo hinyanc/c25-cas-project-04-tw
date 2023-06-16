@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {styles} from '../../utils/styles';
 import {StackParamList} from '../../../App';
 import type {StackNavigationProp} from '@react-navigation/stack';
+import {REACT_APP_API_SERVER} from '@env';
 // import Swipeout from 'react-native-swipeout';
 
 interface Item {
@@ -24,7 +25,12 @@ const ChatComponent = ({item}: Item) => {
   return (
     <Pressable style={styles.cchat} onPress={handleNavigation}>
       <View>
-        <Image source={{uri: item.profile_pic}} style={styles.cprofilepic} />
+        <Image
+          source={{
+            uri: `${REACT_APP_API_SERVER}/profile-pic/${item.profile_pic}`,
+          }}
+          style={styles.cprofilepic}
+        />
       </View>
       <View style={styles.crightContainer}>
         <View>
