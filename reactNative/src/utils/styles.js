@@ -94,6 +94,7 @@ export const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     marginBottom: 2,
+    fontSize: 30,
   },
   mvatar: {
     marginRight: 5,
