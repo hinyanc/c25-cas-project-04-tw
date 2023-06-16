@@ -1,9 +1,17 @@
 import {View, Text, Image} from 'react-native';
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {styles} from '../../utils/styles';
 
 export default function MessageComponent({item, mainUser}: any) {
+  // const messagesEndedRef = useRef(null);/\
   const status = item.sender_id == mainUser;
+
+  // useEffect(() => {
+  //   if (messagesEndedRef.current) {
+  //     messagesEndedRef.current.scrollIntoView({behavior: 'smooth'});
+  //   }
+
+  // },[])
 
   return (
     <View>
@@ -20,7 +28,7 @@ export default function MessageComponent({item, mainUser}: any) {
           <View
             style={
               status
-                ? [styles.mmessage, {backgroundColor: 'rgb(194, 243, 194)'}]
+                ? [styles.mmessage, {backgroundColor: 'rgb(252, 215, 221)'}]
                 : styles.mmessage
             }>
             <Text>{item.message}</Text>
@@ -28,6 +36,7 @@ export default function MessageComponent({item, mainUser}: any) {
         </View>
         <Text style={{marginLeft: 40}}>{item.updated_at}</Text>
       </View>
+      {/* <View ref={messagesEndedRef} /> */}
     </View>
   );
 }

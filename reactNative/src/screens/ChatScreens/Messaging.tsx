@@ -1,5 +1,5 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {View, TextInput, Text, FlatList, Pressable, Image} from 'react-native';
+import {View, TextInput, Text, FlatList, Pressable} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MessageComponent from '../../components/ChatComponents/MessageComponent';
 import {styles} from '../../utils/styles';
@@ -27,9 +27,7 @@ const Messaging = ({route, navigation}: any) => {
       console.error('Error while loading username!');
     }
   };
-
   // getMainUserId();
-
   const onCreateMessages = useMutation(
     async (data: {
       message: string;
@@ -84,10 +82,12 @@ const Messaging = ({route, navigation}: any) => {
             renderItem={({item}) => (
               <MessageComponent item={item} mainUser={mainUser} />
             )}
-            // keyExtractor={item => item}
           />
         ) : (
-          ''
+          <View style={styles.chatemptyContainer}>
+            <Text style={styles.chatemptyText}>Start a new chat!</Text>
+            <Text>❤️ You are matched with {target_username} ❤️ </Text>
+          </View>
         )}
       </View>
 
