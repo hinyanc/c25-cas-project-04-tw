@@ -28,14 +28,15 @@
 //     throw error
 //   }
 // }
-import {REACT_APP_API_SERVER} from '@env';
+// import {REACT_APP_API_SERVER} from '@env';
+let REACT_APP_API_SERVER = "http://192.168.160.72:8080"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 export async function localLogin(email: string, password: string) {
-  console.log("check login api url",REACT_APP_API_SERVER)
+  console.log("check env variable",REACT_APP_API_SERVER)
   try {
-    const response = await axios.post(`${REACT_APP_API_SERVER}/auth/login`, {
+    const response = await axios.post(`http://192.168.160.72:8080/auth/login`, {
       email,
       password,
     });

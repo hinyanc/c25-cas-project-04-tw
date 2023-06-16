@@ -9,7 +9,7 @@ import BottomTabs from './src/components/BottomTab';
 import LoginScreen from './src/screens/LoginScreens/LoginScreen';
 import OnBoardingScreen from './src/screens/OnBoardScreen/onBoardScreen';
 import HomeDiscoverScreen from './src/screens/HomeDiscoverScreen';
-import LoginForm from './src/components/LoginComponents/login';
+import LoginForm from './src/screens/LoginScreens/LoginScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
 import SignUpForm from './src/screens/SignUpScreen/SignUpScreen';
@@ -17,6 +17,7 @@ import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
 import {Provider, useSelector} from 'react-redux';
 import {store} from './src/store/store';
 import {LogBox} from 'react-native';
+// import UploadFile from './src/screens/SignUpScreen/UploadFile';
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message'])
 LogBox.ignoreAllLogs();
@@ -46,6 +47,7 @@ export type StackParamList = {
   Login: undefined;
   Next: undefined;
   Chat: undefined;
+  // uploadFile:undefined;
   Messaging: {target_user_id: Number; target_username: string};
 };
 
@@ -103,6 +105,13 @@ export default function App() {
                   headerShown: false,
                 }}
               />
+              {/* <Stack.Screen
+                name="uploadFile"
+                component={UploadFile}
+                options={{
+                  headerShown: false,
+                }}
+              /> */}
               <Stack.Screen
                 name="Login"
                 component={LoginForm}

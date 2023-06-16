@@ -64,7 +64,7 @@ interface SectionOneProps {
   back: () => void;
   formState: FormState;
   errorState: FormErrorState;
-  onChangeHandler: (name: string, value: string | boolean) => void;
+  onChangeHandler: (name: string, value: string | boolean|number) => void;
   inputHandler: (name: keyof FormState) => void;
 }
 
@@ -187,7 +187,8 @@ export default function SectionTwo({
           selectedValue={selectedCenter}
           onValueChange={(itemValue, itemIndex) => {
             setSelectedCenter(itemValue);
-            onChangeHandler('gymCenter', itemValue);
+            onChangeHandler('gymCenter', itemIndex);
+            console.log(itemIndex)
           }}>
           <Picker.Item label="Gym center" value={null} />
           {gymCenter.map((center, index) => (
@@ -202,7 +203,7 @@ export default function SectionTwo({
           selectedValue={selectedLocation}
           onValueChange={(itemValue, itemIndex) => {
             setSelectedLocation(itemValue);
-            onChangeHandler('locaiton', itemValue);
+            onChangeHandler('locaiton', itemIndex);
           }}>
           <Picker.Item label="Gym location" value={null} />
           {gymLocations.map((location, index) => (

@@ -172,6 +172,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
   },
+  
 });
 // style={{
 //   textAlign: 'center',
