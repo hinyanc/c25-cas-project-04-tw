@@ -7,7 +7,7 @@ const HomeDiscoverScreen = () => {
   return (
     <SafeAreaView style={{backgroundColor: '#FFF9F0'}}>
       <UserInfo />
-      {/* <TinderSwipe /> */}
+      <TinderSwipe />
     </SafeAreaView>
   );
 };

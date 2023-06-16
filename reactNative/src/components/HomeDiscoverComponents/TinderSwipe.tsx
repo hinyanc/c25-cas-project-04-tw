@@ -168,6 +168,7 @@ export function TinderSwipe() {
                 cards={cards.filter((card, idx) => idx >= index)}
                 stackSize={2}
                 cardIndex={0}
+                key={0}
                 backgroundColor="#FFF9F0"
                 renderCard={card => (
                   <Animated.View key={card.id} style={[styles1.card]}>

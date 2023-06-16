@@ -7,6 +7,7 @@ const API_URL = 'http://192.168.160.72:8080';
 
 export interface UserInfo {
   username: string;
+  profile_pic: string
 }
 interface TinderProfile {
   id: number;
@@ -31,7 +32,7 @@ export function useGetUsername(token:string) {
         }
       });
       const result = await res.json();
-      return result as UserInfo;
+      return result as UserInfo[];
     },
   });
 
