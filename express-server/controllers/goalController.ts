@@ -7,9 +7,10 @@ export class GoalController {
 
   getBMI = async (req: Request, res: Response) => {
     try {
-      const userId = 1;
+      // @ts-ignore
+      const userId = req.user?.id;
       // const userId = req.session.users_id
-      const BMI = await this.goalService.getBMI(userId);
+      const BMI = await this.goalService.getBMI(userId!);
       res.status(200).json(BMI);
     } catch (error) {
       logger.error(error);
@@ -20,9 +21,10 @@ export class GoalController {
   setTargetWeight = async (req: Request, res: Response) => {
     try {
       const target_weight = req.body.targetWeight;
-      const userId = 1;
+      // @ts-ignore
+      const userId = req.user?.id;
       // const userId = req.session.users_id
-      await this.goalService.setTargetWeight(target_weight, userId);
+      await this.goalService.setTargetWeight(target_weight, userId!);
       res.status(200).json({ message: "set target weight success" });
     } catch (error) {
       logger.error(error);
@@ -32,9 +34,9 @@ export class GoalController {
 
   getGoals = async (req: Request, res: Response) => {
     try {
-      const userId = 1;
-      // const userId = req.session.users_id
-      await this.goalService.getGoals( userId);
+      // @ts-ignore
+      const userId = req.user?.id;
+      await this.goalService.getGoals( userId!);
       res.status(200).json({ message: "set target weight success" });
     } catch (error) {
       logger.error(error);
@@ -45,9 +47,9 @@ export class GoalController {
   addGoals = async (req: Request, res: Response) => {
     try {
       const goals = req.body.goals;
-      const userId = 1;
-      // const userId = req.session.users_id
-      await this.goalService.setTargetWeight(goals, userId);
+      // @ts-ignore
+      const userId = req.user?.id;
+      await this.goalService.setTargetWeight(goals, userId!);
       res.status(200).json({ message: "set target weight success" });
     } catch (error) {
       logger.error(error);
@@ -58,9 +60,9 @@ export class GoalController {
   updateCompletedGoals = async (req: Request, res: Response) => {
     try {
       const goals = req.body.goals;
-      const userId = 1;
-      // const userId = req.session.users_id
-      await this.goalService.updateCompletedGoals(goals, userId);
+      // @ts-ignore
+      const userId = req.user?.id;
+      await this.goalService.updateCompletedGoals(goals, userId!);
       res.status(200).json({ message: "set target weight success" });
     } catch (error) {
       logger.error(error);

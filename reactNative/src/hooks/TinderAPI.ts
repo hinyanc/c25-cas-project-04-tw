@@ -1,5 +1,7 @@
 import {useQuery} from '@tanstack/react-query';
 import {REACT_APP_API_SERVER} from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const API_URL = 'http://192.168.160.72:8080';
 
@@ -22,7 +24,12 @@ export function useGetUsername() {
   const {isLoading, error, data, isFetching} = useQuery({
     queryKey: ['getUsername'],
     queryFn: async () => {
-      const res = await fetch(`${REACT_APP_API_SERVER}/discover/get-user-info`);
+      const res = await fetch(`${REACT_APP_API_SERVER}/discover/get-user-info`,
+      {
+        headers:{
+          "Authorization":`Bearer ${AsyncStorage.getItem('token')}` 
+        }
+      });
       const result = await res.json();
       return result as UserInfo;
     },
@@ -35,15 +42,20 @@ export function useGetUsername() {
   return data;
 }
 
-export function useGetTinderProfile() {
+export function useGetTinderProfile(token:string) {
+  let real_token = AsyncStorage.getItem('token')
   const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['tinderProfile'],
+    queryKey: ['tinderProfile',token],
     queryFn: async () => {
       const res = await fetch(
-        `${REACT_APP_API_SERVER}/discover/get-all-profile`,
+        `${REACT_APP_API_SERVER}/discover/get-all-profile`, {
+          headers:{
+            "Authorization":`Bearer ${token}` 
+          }
+        }
       );
       const result = await res.json();
-      console.log(result)
+      console.log("API check token",result)
       return result as TinderProfile[];
     },
   });
@@ -55,11 +67,15 @@ export function useGetTinderProfile() {
   return data;
 }
 
-export function useGetUserProfile() {
+export function useGetUserProfile(token:string) {
   const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['userProfile'],
+    queryKey: ['userProfile', token],
     queryFn: async () => {
-      const res = await fetch(`${REACT_APP_API_SERVER}/discover/get-all-users`);
+      const res = await fetch(`${REACT_APP_API_SERVER}/discover/get-all-users`, {
+        headers:{
+          "Authorization":`Bearer ${token}` 
+        }
+      });
       const result = await res.json();
       return result as TinderProfile[];
     },
@@ -72,11 +88,15 @@ export function useGetUserProfile() {
   return data;
 }
 
-export function useGetPTProfile() {
+export function useGetPTProfile(token:string) {
   const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['PTProfile'],
+    queryKey: ['PTProfile', token],
     queryFn: async () => {
-      const res = await fetch(`${REACT_APP_API_SERVER}/discover/get-all-pt`);
+      const res = await fetch(`${REACT_APP_API_SERVER}/discover/get-all-pt`, {
+        headers:{
+          "Authorization":`Bearer ${token}` 
+        }
+      });
       const result = await res.json();
       return result as TinderProfile[];
     },
