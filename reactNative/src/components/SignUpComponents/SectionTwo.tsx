@@ -33,7 +33,7 @@ interface SectionOneProps {
   back: () => void;
   errorState: FormErrorState;
   formState: FormState;
-  onChangeHandler: (name: string, value: string | number) => void;
+  onChangeHandler: (name: string, value: string | number | Date) => void;
   inputHandler: (name: keyof FormState) => void;
 }
 
@@ -176,7 +176,12 @@ export default function SectionTwo({
           btnType="gender"
         />
       </View>
-      {errorState.gender && <Text>Error: {errorState.gender}</Text>}
+      {errorState.gender !== null ? (
+        <Text style={styles.errorMsg}>Error:{errorState.gender}</Text>
+      ) : (
+        <></>
+      )}
+      {/* {errorState.gender && <Text>Error: {errorState.gender}</Text>} */}
 
       <Text style={[styles.inputTitle, {marginTop: 10}]}>Date of birth</Text>
 
@@ -194,14 +199,23 @@ export default function SectionTwo({
           value={chosenDate}
           mode="date"
           display="default"
-          onChange={handleDateChange}
+          onChange={e => {
+            handleDateChange(chosenDate);
+            onChangeHandler('birthday', chosenDate);
+          }}
+          // onChange={handleDateChange}
           maximumDate={maxDate}
         />
       )}
       <Text>Chosen Date: {chosenDate.toDateString()}</Text>
-      {errorState.birthday && <Text>Error: {errorState.birthday}</Text>}
+      {errorState.birthday !== null ? (
+        <Text style={styles.errorMsg}>Error:{errorState.birthday}</Text>
+      ) : (
+        <></>
+      )}
+      {/* {errorState.birthday && <Text>Error: {errorState.birthday}</Text>} */}
 
-      <Text style={styles.inputTitle}>Height* (Kg)</Text>
+      <Text style={styles.inputTitle}>Height* (cm)</Text>
       <TextInput
         keyboardType="numeric"
         value={inputHeight}
@@ -221,9 +235,14 @@ export default function SectionTwo({
         placeholder="Height"
         style={styles.input}
       /> */}
-      {errorState.height && <Text>Error: {errorState.height}</Text>}
+            {errorState.height !== null ? (
+        <Text style={styles.errorMsg}>Error:{errorState.height}</Text>
+      ) : (
+        <></>
+      )}
+      {/* {errorState.height && <Text>Error: {errorState.height}</Text>} */}
 
-      <Text style={styles.inputTitle}>Weight* (cm)</Text>
+      <Text style={styles.inputTitle}>Weight* (kg)</Text>
       <TextInput
         keyboardType="numeric"
         value={inputWeight}
@@ -235,11 +254,11 @@ export default function SectionTwo({
         placeholder="Weight"
         style={styles.input}
       />
-                {errorState.password !==null? (
-            <Text style={styles.errorMsg}>{errorState.weight}</Text>
-          ) : (
-            <></>
-          )}
+      {errorState.weight !== null ? (
+        <Text style={styles.errorMsg}>Error:{errorState.weight}</Text>
+      ) : (
+        <></>
+      )}
       {/* {errorState.weight && <Text>Error: {errorState.weight}</Text>} */}
 
       {/* remind */}

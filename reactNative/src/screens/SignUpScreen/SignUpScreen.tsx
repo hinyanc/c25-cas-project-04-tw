@@ -26,7 +26,7 @@ export interface FormState {
   email: string;
   password: string;
   gender: string;
-  birthday: string;
+  birthday: string|null;
   height: number|null;
   weight: number|null;
   isMember: boolean;
@@ -58,8 +58,8 @@ export const schema = {
   // not sure is it date
   birthday: z.string().datetime({message: 'Please fill in your birthday'}),
   // should have min 
-  height: z.number().int({message: 'Please fill in your height'}),
-  weight: z.number().int({message: 'Please fill in your weight'}),
+  height: z.number().min(120,'invalid height.'),
+  weight: z.number().min(30,'invalid weight.'),
   isMember: z.boolean({
     required_error: 'This column is required',
     invalid_type_error: 'IsMember must be a boolean',
@@ -85,7 +85,7 @@ export default function SignUpForm() {
     email: '',
     password: '',
     gender: '',
-    birthday: '',
+    birthday: null,
     height: null,
     weight: null,
     isMember: false,
@@ -127,7 +127,7 @@ export default function SignUpForm() {
 
   const onChangeHandler = (
     name: string,
-    value: string | string[] | boolean|number,
+    value: string | string[] | boolean|number|Date,
   ) => {
     setFormState({...formState, [name]: value});
   };
