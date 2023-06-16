@@ -1,13 +1,13 @@
 import type { Knex } from "knex";
-import {
-  gymLocationTable,
-  gymCenterTable,
-  interestTable,
-  userTable,
-  usersInterestTable,
-  userGymCenterTable,
-  userGymLocationTable,
-} from "../migrations/20230605101740_users";
+// import {
+//   gymLocationTable,
+//   gymCenterTable,
+//   interestTable,
+//   userTable,
+//   usersInterestTable,
+//   userGymCenterTable,
+//   userGymLocationTable,
+// } from "../migrations/20230605101740_users";
 import { createUser } from "../utils/model";
 import { hashPassword } from "../utils/hash";
 
@@ -38,5 +38,6 @@ export class SignUpService {
         bio:input.bio,
         gym_level:input.gym_level
     }).returning("id");
+    console.log("userId",userId)
   };
 }

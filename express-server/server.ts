@@ -130,7 +130,7 @@ app.get("/hi", (req, res) => {
 });
 
 app.use('/auth', authRoutes)
-app.use("/signup", messageRoutes);
+app.use("/signup", signUpRoutes);
 app.use("/message", messageRoutes);
 app.use("/message", messageRoutes);
 app.use("/chatlist", chatListRoutes);
