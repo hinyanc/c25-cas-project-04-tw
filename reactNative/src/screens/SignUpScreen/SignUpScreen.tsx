@@ -30,8 +30,8 @@ export interface FormState {
   height: string;
   weight: string;
   isMember: boolean;
-  gymCenter: string;
-  locaiton: string;
+  gymCenter: number|null;
+  locaiton: number|null;
   bio: string;
   gymLevel: string;
   interests: string[] | null;
@@ -88,8 +88,8 @@ export default function SignUpForm() {
     height: '',
     weight: '',
     isMember: false,
-    gymCenter: '',
-    locaiton: '',
+    gymCenter: null,
+    locaiton: null,
     bio: '',
     gymLevel: '',
     interests: null,
@@ -126,7 +126,7 @@ export default function SignUpForm() {
 
   const onChangeHandler = (
     name: string,
-    value: string | string[] | boolean,
+    value: string | string[] | boolean|number,
   ) => {
     setFormState({...formState, [name]: value});
   };

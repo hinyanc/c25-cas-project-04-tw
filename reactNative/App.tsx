@@ -9,7 +9,7 @@ import BottomTabs from './src/components/BottomTab';
 import LoginScreen from './src/screens/LoginScreens/LoginScreen';
 import OnBoardingScreen from './src/screens/OnBoardScreen/onBoardScreen';
 import HomeDiscoverScreen from './src/screens/HomeDiscoverScreen';
-import LoginForm from './src/components/LoginComponents/login';
+import LoginForm from './src/screens/LoginScreens/LoginScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
 import SignUpForm from './src/screens/SignUpScreen/SignUpScreen';
