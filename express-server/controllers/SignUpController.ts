@@ -18,9 +18,9 @@ export class SignUpController {
       const has_membership = req.body.isMember;
       // use id?
       // something will be empty
-      const gym_center_id = req.body.gymCenter;
-      const gym_location_id = req.body.location;
-      const bio = req.body.bio;
+      const gym_center_id = req.body?.gymCenter;
+      const gym_location_id = req.body?.location;
+      const bio = req.body?.bio;
       const gym_level = req.body.gymLevel;
       // should get id and instert into user interest table
       //form state array should have active or not
