@@ -83,6 +83,7 @@ const PORT = 8080;
 
 // Controllers
 import { AuthController } from "./controllers/AuthController";
+import { SignUpController } from "./controllers/SignUpController";
 import { MessageController } from "./controllers/MessageController";
 import { DiscoverController } from "./controllers/discoverController";
 import { GoalController } from "./controllers/goalController";
@@ -90,12 +91,16 @@ import { GoalController } from "./controllers/goalController";
 import { ChatListController } from "./controllers/ChatListController";
 // Services
 import { AuthService } from "./services/AuthService";
+import { SignUpService } from "./services/SignUpService";
 import { MessageService } from "./services/MessageService";
 import { ChatListService } from "./services/ChatListService";
 import { DiscoverService } from "./services/discoverService";
 
 const authService = new AuthService(knex);
 export const authController = new AuthController(authService);
+
+const signUpService = new SignUpService(knex);
+export const signUpController = new SignUpController(signUpService);
 
 const messageService = new MessageService(knex);
 export const messageController = new MessageController(messageService);
@@ -114,6 +119,7 @@ export const goalController = new GoalController(goalService);
 import { messageRoutes } from "./routers/messageRoutes";
 import { User } from "./utils/model";
 import { authRoutes } from './routers/authRoutes'
+import { signUpRoutes } from './routers/signUpRoutes'
 import { discoverRoutes } from "./routers/discoverRoutes";
 import { goalRoutes } from "./routers/goalRoutes";
 import { chatListRoutes } from "./routers/chatListRoutes";
@@ -124,6 +130,7 @@ app.get("/hi", (req, res) => {
 });
 
 app.use('/auth', authRoutes)
+app.use("/signup", messageRoutes);
 app.use("/message", messageRoutes);
 app.use("/message", messageRoutes);
 app.use("/chatlist", chatListRoutes);
