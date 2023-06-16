@@ -7,17 +7,23 @@ import socket from '../../utils/socket';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Chat = () => {
-  // let mainUserId = await AsyncStorage.getItem('mainUserId');
-  // let mainUserId = 1;
-  // const chats = useChatList(mainUserId!);
   const [mainUser, setMainUser] = useState('');
+  const [token, setToken] = useState('');
+  const [tempChats, setTempChats] = useState<any[]>([]);
 
-  const getMainUserId = async () => {
+  const getAsyncInfo = async () => {
     try {
       const value = await AsyncStorage.getItem('mainUserId');
+      const token = await AsyncStorage.getItem('token');
+
       if (value !== null) {
-        console.log('hi', value);
+        console.log('hihi', value, 'token', token);
+        // We have data!!
+        console.log('value');
         setMainUser(value);
+        setToken(token!);
+
+        // socket.emit('socketId', value);
       }
     } catch (e) {
       console.error('Error while loading username!');
@@ -25,17 +31,19 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    getMainUserId();
+    getAsyncInfo();
+    // socket.on('message', (data: {data: string; from: string}) => {
+    //   console.log('Received message:', data);
+    //   // Handle the received message
+    // });
+
+    return () => {
+      // Clean up event listeners
+      // socket.off('message');
+    };
   }, []);
-  // useLayoutEffect(() => {
-  //   getMainUserId();
-  // }, []);
 
-  // let chats: any[] = [];
-  // if (mainUser != '') {
-
-  const chats: any[] = useChatList(mainUser);
-  const [tempChats, setTempChats] = useState<any[]>([]);
+  const chats: any[] = useChatList(token);
 
   useEffect(() => {
     if (chats.length > 0) {
@@ -44,9 +52,6 @@ const Chat = () => {
     }
   }, [chats]);
 
-  // } else {
-  //   chats = [];
-  // }
   console.log('check temp', tempChats);
   return (
     <SafeAreaView style={styles.chatscreen}>

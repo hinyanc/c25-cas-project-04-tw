@@ -7,6 +7,7 @@ export class ChatListController {
 
   lastMessageController = async (req: Request, res: Response) => {
     try {
+      //@ts-ignore
       const mainUserId = req.user?.id;
       const lastMessage = await this.chatListService.getLastMessage(
         mainUserId!
@@ -22,10 +23,11 @@ export class ChatListController {
 
   deleteChatController = async (req: Request, res: Response) => {
     try {
-      const { mainUserId } = req.body;
+      //@ts-ignore
+      const mainUserId = req.user?.id;
       const { chatId } = req.params;
       const deletedChat = await this.chatListService.deleteChat(
-        mainUserId,
+        mainUserId!,
         chatId
       );
       res.status(200).json(deletedChat);

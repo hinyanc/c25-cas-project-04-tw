@@ -6,11 +6,11 @@ export class MessageController {
 
   getMessageHistoryController = async (req: Request, res: Response) => {
     try {
-      console.log("check har", req.params);
-      const { mainUserId, targetUserId } = req.params;
+      const mainUserId = req.user?.id;
+      const { targetUserId } = req.params;
 
       const messagesHistory = await this.messageService.getAllMessages(
-        parseInt(mainUserId),
+        mainUserId!,
         parseInt(targetUserId)
       );
       res.status(200).json(messagesHistory);
@@ -21,10 +21,12 @@ export class MessageController {
   };
 
   sendMessageController = async (req: Request, res: Response) => {
+    console.log("create message controller ");
     try {
-      const { mainUserId } = req.body;
+      //@ts-ignore
+      const mainUserId = req.user?.id;
       const { message, targetUserId } = req.body;
-      await this.messageService.sendMessage(mainUserId, targetUserId, message);
+      await this.messageService.sendMessage(mainUserId!, targetUserId, message);
       res.status(200).json("Success send message");
     } catch (error) {
       logger.error(error);

@@ -4,7 +4,6 @@
 // // import { StackParamList } from '../../../App';
 // // import {StackScreenProps} from '@react-navigation/stack';
 
-
 // const LoginScreen = () => {
 //     return (
 //       <View>
@@ -12,7 +11,7 @@
 //       </View>
 //     );
 //   };
-  
+
 //   export default LoginScreen;
 import React, {useState} from 'react';
 import {
@@ -53,27 +52,30 @@ const schema = {
 type LoginScreenProps = StackScreenProps<StackParamList, 'Login'>;
 
 const {width, height} = Dimensions.get('window');
+
 type Validate = {
   email: string;
   password: string;
 };
+
 const LoginForm = ({navigation}: LoginScreenProps) => {
   const [email, setEmail] = useState('yannes.0828@gmail.com');
   const [password, setPassword] = useState('123abc');
   // const [notEmpty, setNotEmpty] = useState(false);
   // const [errors, setErrors] = useState<Validate>({email: '', password: ''});
 
-  const handleEmail =(newText:string)=>{
-    setEmail(newText)
-  }
-  const handlePassword =(newText:string)=>{
-    setPassword(newText)
-  }
+  const handleEmail = (newText: string) => {
+    setEmail(newText);
+  };
+  const handlePassword = (newText: string) => {
+    setPassword(newText);
+  };
 
   const [formState, setFormState] = useState<FormState>({
     email: '',
     password: '',
   });
+
   const [errorState, setErrorState] = useState<FormErrorState>({
     email: null,
     password: null,
@@ -121,26 +123,27 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
-    console.log("hi error",errorState)
+    console.log('hi error', errorState);
     // const errors = validate();
     // setErrors(errors);
     // console.log('error', errors);
     if (errorState.email === null && errorState.password === null) {
-    //   // Handle login logic here
-    //   // navigation.navigate('Home');
-    //   setNotEmpty(true);
-    console.log("no error")
-    const success = await localLogin(email, password);
-    if (success) {
-      dispatch(login(email));
-      navigation.replace('MyHome');
-          console.log("uuu")
-      //   }else{
-      //     // react-toast alert not
-      //     console.log("fail")
-      //   }
-    }}
-    console.log("sth happended")
+      //   // Handle login logic here
+      //   // navigation.navigate('Home');
+      //   setNotEmpty(true);
+      console.log('no error');
+      const success = await localLogin(email, password);
+      if (success) {
+        dispatch(login(email));
+        navigation.replace('MyHome');
+        console.log('uuu');
+        //   }else{
+        //     // react-toast alert not
+        //     console.log("fail")
+        //   }
+      }
+    }
+    console.log('sth happended');
   };
 
   // console.log(navigation)
@@ -178,17 +181,20 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
           <TextInput
             placeholder="Email"
             value={email}
-            onChangeText={(text)=>{handleEmail(text); onChangeHandler('email', text)}}
+            onChangeText={text => {
+              handleEmail(text);
+              onChangeHandler('email', text);
+            }}
             style={[styles.input, errorState.email ? styles.error : {}]}
             keyboardType="email-address"
             onBlur={e => {
               console.log('email', errorState.email);
-              inputHandler("email")
+              inputHandler('email');
               // console.log('check check', errors);
               // setErrors(errors);
             }}
           />
-          {errorState.email!==null ? (
+          {errorState.email !== null ? (
             <Text style={styles.errorMsg}>{errorState.email}</Text>
           ) : (
             <></>
@@ -204,14 +210,17 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
             placeholder="Password"
             secureTextEntry
             value={password}
-            onChangeText={(text)=>{handlePassword(text); onChangeHandler('password', text)}}
+            onChangeText={text => {
+              handlePassword(text);
+              onChangeHandler('password', text);
+            }}
             onBlur={e => {
-              inputHandler("password")
+              inputHandler('password');
               // setErrors(errors);
             }}
             style={[styles.input, errorState.password ? styles.error : {}]}
           />
-          {errorState.password !==null? (
+          {errorState.password !== null ? (
             <Text style={styles.errorMsg}>{errorState.password}</Text>
           ) : (
             <></>

@@ -1,5 +1,6 @@
 import {useQuery} from '@tanstack/react-query';
 import {REACT_APP_API_SERVER} from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 interface ChatList {
   target_user_id: number;
   target_username: string;
@@ -8,19 +9,20 @@ interface ChatList {
   updated_at: Date;
 }
 
-export function useChatList(mainUserId: string) {
-  console.log('check hook', mainUserId);
+export function useChatList(token: string) {
   const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['chatList', mainUserId],
+    queryKey: ['chatList', token],
     queryFn: async () => {
-      const response = await fetch(
-        `${REACT_APP_API_SERVER}/chatlist/mainUserId/${mainUserId}`,
-      );
+      const response = await fetch(`${REACT_APP_API_SERVER}/chatlist/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const result = await response.json();
       console.log('check check', result);
       return result as ChatList[];
     },
-    refetchInterval: 2000,
+    refetchInterval: 10000,
   });
 
   if (isLoading || isFetching || error || !data) {
@@ -30,9 +32,12 @@ export function useChatList(mainUserId: string) {
   return data;
 }
 
-export async function deleteChat(chatId: number) {
+export async function deleteChat(chatId: number, token: string) {
   const response = await fetch(`${REACT_APP_API_SERVER}/chatlist/${chatId}`, {
     method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   const result = await response.json();
   return result.data;
