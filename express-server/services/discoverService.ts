@@ -19,7 +19,7 @@ export class DiscoverService {
     const getAllProfileResult = await this.knex(userTable)
       .select(
         this.knex.raw(
-          /*sql*/ `users.id, is_pt, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio, (users_matching.status) AS match_status`
+          /*sql*/ `users.id, is_pt, gender, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio, (users_matching.status) AS match_status`
         )
       )
       .join("users_interest", "users_interest.users_id", "users.id")
@@ -43,6 +43,7 @@ export class DiscoverService {
       .groupBy(
         "users.id",
         "is_pt",
+        'gender',
         "username",
         "bio",
         "profile_pic",
@@ -57,7 +58,7 @@ export class DiscoverService {
     const getAllUsersProfileResult = await this.knex(userTable)
       .select(
         this.knex.raw(
-          /*sql*/ `users.id, is_pt, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio,(users_matching.status) AS match_status`
+          /*sql*/ `users.id, is_pt, gender, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio,(users_matching.status) AS match_status`
         )
       )
       .join("users_interest", "users_interest.users_id", "users.id")
@@ -81,6 +82,7 @@ export class DiscoverService {
       .groupBy(
         "users.id",
         "is_pt",
+        'gender',
         "username",
         "bio",
         "profile_pic",
@@ -96,7 +98,7 @@ export class DiscoverService {
     const getAllPTProfileResult = await this.knex(userTable)
       .select(
         this.knex.raw(
-          /*sql*/ `users.id, is_pt, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio,(users_matching.status) AS match_status`
+          /*sql*/ `users.id, is_pt, gender, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio,(users_matching.status) AS match_status`
         )
       )
       .join("users_interest", "users_interest.users_id", "users.id")
@@ -120,6 +122,7 @@ export class DiscoverService {
       .groupBy(
         "users.id",
         "is_pt",
+        'gender',
         "username",
         "bio",
         "profile_pic",

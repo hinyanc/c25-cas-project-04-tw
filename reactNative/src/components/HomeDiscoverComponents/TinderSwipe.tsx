@@ -21,13 +21,14 @@ const ScreenHeight = Dimensions.get('window').height;
 
 type CardType = {
   id: number;
-  profile_pic: any;
+  profile_pic: string;
+  gender: string;
   username: string;
   gym_center: string;
   gym_location: string;
   interest_name: string[];
   bio: string;
-  is_PT: boolean;
+  is_pt: boolean;
 };
 
 export function TinderSwipe() {
@@ -128,8 +129,8 @@ export function TinderSwipe() {
       </View>
 
       <View style={styles1.container}>
-        {swipedCards.length === cards.length ? (
-          <Text style={{position: 'relative', bottom: 500, fontSize:100}}>
+        {cards.length === 0 ? (
+          <Text style={{position: 'relative', bottom: 500, fontSize: 100}}>
             All cards swiped!
           </Text>
         ) : (
@@ -149,6 +150,9 @@ export function TinderSwipe() {
                         }}
                         style={styles1.card2}
                       />
+                      {card.is_pt == true ? (
+                          <Text style={styles.CardPT}><Ionicons name="md-ribbon" size={25} color={'#E24E59'} /> PT</Text>
+                           ) : (<Text style={styles.CardPT}><Ionicons name="ios-bicycle" size={25} color={'#E24E59'} /> GyMates</Text>)} 
                       <View
                         style={[
                           styles.CardInfo,
@@ -159,6 +163,7 @@ export function TinderSwipe() {
                         <Text style={styles.DiscoverUsername}>
                           {card.username}
                         </Text>
+
                         <Text style={styles.DiscoverGym}>
                           {card.gym_center} {card.gym_location}
                         </Text>
@@ -179,18 +184,24 @@ export function TinderSwipe() {
                           })}
                         </View>
                       </View>
-
-                      <TouchableOpacity
-                        onPress={() => {onSwipe(index + 1)}}
-                        style={[
-                          styles.NopeIcon,
-                          card.interest_name.length > 3
-                            ? {bottom: 282}
-                            : {bottom: 245},
-                        ]}>
-                        <Ionicons name="close" size={45} color={'#ED8974'} />
-                      </TouchableOpacity>
-                      {/* <TouchableOpacity
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-evenly',
+                        }}>
+                        <TouchableOpacity
+                          onPress={() => {
+                            onSwipe(index + 1);
+                          }}
+                          style={[
+                            styles.NopeIcon,
+                            card.interest_name.length > 3
+                              ? {bottom: 282}
+                              : {bottom: 245},
+                          ]}>
+                          <Ionicons name="close" size={45} color={'#ED8974'} />
+                        </TouchableOpacity>
+                        {/* <TouchableOpacity
                         onPress={() => {
                           onSwipe(index + 1);
                         }}
@@ -202,24 +213,25 @@ export function TinderSwipe() {
                         ]}>
                         <Ionicons name="md-star" size={35} color={'#4FADC2'} />
                       </TouchableOpacity> */}
-                      <TouchableOpacity
-                        onPress={() => {
-                          onSwipe(index + 1);
-                        }}
-                        style={[
-                          styles.LikeIcon,
-                          card.interest_name.length > 3
-                            ? {bottom: 342}
-                            : {bottom: 305},
-                        ]}>
-                        <Ionicons name="heart" size={35} color={'#7CCD96'} />
-                      </TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() => {
+                            onSwipe(index + 1);
+                          }}
+                          style={[
+                            styles.LikeIcon,
+                            card.interest_name.length > 3
+                              ? {bottom: 282}
+                              : {bottom: 245},
+                          ]}>
+                          <Ionicons name="heart" size={35} color={'#7CCD96'} />
+                        </TouchableOpacity>
+                      </View>
                       <View
                         style={[
                           styles.bio,
                           card.interest_name.length > 3
-                            ? {bottom: 340}
-                            : {bottom: 300},
+                            ? {bottom: 272}
+                            : {bottom: 235},
                         ]}>
                         <Text style={styles.bio}>{card.bio}</Text>
                       </View>
@@ -361,9 +373,9 @@ export function TinderSwipe() {
 
 const styles1 = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: ScreenWidth * 0.9,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    width: ScreenWidth * 0.8,
     height: ScreenHeight * 0.85,
     backgroundColor: '#FFF9F0',
     top: 370,
@@ -375,11 +387,20 @@ const styles1 = StyleSheet.create({
     borderTopStartRadius: 0,
     borderTopEndRadius: 0,
     backgroundColor: '#FFF9F0',
-    width: ScreenWidth * 0.9,
+    width: ScreenWidth * 0.8,
     height: ScreenHeight * 0.5,
     borderWidth: 1,
-    borderTopWidth: 0,
+    // borderTopWidth: 1,
     borderColor: '#707070',
+    alignSelf: 'center',
+    shadowColor: '#707070',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 3.5,
+    elevation: 6,
   },
   card2: {
     position: 'relative',
@@ -387,7 +408,7 @@ const styles1 = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     backgroundColor: '#FFF9F0',
-    width: ScreenWidth * 0.9,
+    width: ScreenWidth * 0.8,
     height: ScreenHeight * 0.4,
     borderTopWidth: 1,
     borderRightWidth: 1,
@@ -395,7 +416,7 @@ const styles1 = StyleSheet.create({
     borderColor: '#707070',
   },
   image: {
-    width: ScreenWidth * 0.9, // 50% of the screen width
+    width: ScreenWidth * 0.8, // 50% of the screen width
     height: ScreenHeight * 0.4, // 30% of the screen height
     backgroundColor: 'white',
     borderTopWidth: 1,
