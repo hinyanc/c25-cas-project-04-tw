@@ -35,7 +35,7 @@ export class SignUpService {
         height:parseInt(input.height),
         weight:parseInt(input.weight),
         has_membership:input.has_membership,
-        bio:input.bio,
+        bio:input?.bio,
         gym_level:input.gym_level
     }).returning("id");
     console.log("userId",userId)
