@@ -27,8 +27,8 @@ export interface FormState {
   password: string;
   gender: string;
   birthday: string;
-  height: string;
-  weight: string;
+  height: number|null;
+  weight: number|null;
   isMember: boolean;
   gymCenter: number|null;
   locaiton: number|null;
@@ -55,8 +55,9 @@ export const schema = {
   email: z.string().email({message: 'Must be a valid email'}),
   password: z.string().min(6, {message: 'Password is required'}),
   gender: z.string().min(4, {message: 'Please fill in your gender'}),
-  // not sure
+  // not sure is it date
   birthday: z.string().datetime({message: 'Please fill in your birthday'}),
+  // should have min 
   height: z.number().int({message: 'Please fill in your height'}),
   weight: z.number().int({message: 'Please fill in your weight'}),
   isMember: z.boolean({
@@ -85,8 +86,8 @@ export default function SignUpForm() {
     password: '',
     gender: '',
     birthday: '',
-    height: '',
-    weight: '',
+    height: null,
+    weight: null,
     isMember: false,
     gymCenter: null,
     locaiton: null,

@@ -17,6 +17,7 @@ import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
 import {Provider, useSelector} from 'react-redux';
 import {store} from './src/store/store';
 import {LogBox} from 'react-native';
+// import UploadFile from './src/screens/SignUpScreen/UploadFile';
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message'])
 LogBox.ignoreAllLogs();
@@ -46,6 +47,7 @@ export type StackParamList = {
   Login: undefined;
   Next: undefined;
   Chat: undefined;
+  // uploadFile:undefined;
   Messaging: {target_user_id: Number; target_username: string};
 };
 
@@ -103,6 +105,13 @@ export default function App() {
                   headerShown: false,
                 }}
               />
+              {/* <Stack.Screen
+                name="uploadFile"
+                component={UploadFile}
+                options={{
+                  headerShown: false,
+                }}
+              /> */}
               <Stack.Screen
                 name="Login"
                 component={LoginForm}

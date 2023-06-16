@@ -33,7 +33,7 @@ interface SectionOneProps {
   back: () => void;
   errorState: FormErrorState;
   formState: FormState;
-  onChangeHandler: (name: string, value: string) => void;
+  onChangeHandler: (name: string, value: string | number) => void;
   inputHandler: (name: keyof FormState) => void;
 }
 
@@ -93,6 +93,10 @@ export default function SectionTwo({
   // date
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [chosenDate, setChosenDate] = useState(new Date());
+
+  // height value weight value
+  const [inputHeight, setInputHeight] = useState('');
+  const [inputWeight, setInputWeight] = useState('');
 
   const handleDateChange = (event: any, selectedDate?: Date) => {
     setShowDatePicker(false);
@@ -200,23 +204,43 @@ export default function SectionTwo({
       <Text style={styles.inputTitle}>Height* (Kg)</Text>
       <TextInput
         keyboardType="numeric"
-        value={formState.height}
-        onChangeText={text => onChangeHandler('height', text)}
-        onBlur={e => parseInt(formState.height)}
+        value={inputHeight}
+        onChangeText={text => {
+          setInputHeight(text);
+          onChangeHandler('height', parseInt(text));
+        }}
+        onBlur={e => inputHandler('height')}
         placeholder="Height"
         style={styles.input}
       />
+      {/* <TextInput
+        keyboardType="numeric"
+        value={inputHeight}
+        onChangeText={text => onChangeHandler('height', text)}
+        onBlur={e => parseInt(inputHeight)}
+        placeholder="Height"
+        style={styles.input}
+      /> */}
       {errorState.height && <Text>Error: {errorState.height}</Text>}
 
       <Text style={styles.inputTitle}>Weight* (cm)</Text>
       <TextInput
         keyboardType="numeric"
-        value={formState.weight}
-        onChangeText={text => onChangeHandler('weight', text)}
+        value={inputWeight}
+        onChangeText={text => {
+          setInputWeight(text);
+          onChangeHandler('weight', parseInt(text));
+        }}
+        onBlur={e => inputHandler('weight')}
         placeholder="Weight"
         style={styles.input}
       />
-      {errorState.weight && <Text>Error: {errorState.weight}</Text>}
+                {errorState.password !==null? (
+            <Text style={styles.errorMsg}>{errorState.weight}</Text>
+          ) : (
+            <></>
+          )}
+      {/* {errorState.weight && <Text>Error: {errorState.weight}</Text>} */}
 
       {/* remind */}
       <Text

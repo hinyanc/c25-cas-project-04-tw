@@ -60,6 +60,7 @@ export default function SectionOne({
       <Text style={styles.inputTitle}>Username*</Text>
       <TextInput
         value={formState.username}
+        placeholder="Username"
         onChangeText={text => onChangeHandler('username', text)}
         onBlur={e => inputHandler('username')}
         style={styles.input}

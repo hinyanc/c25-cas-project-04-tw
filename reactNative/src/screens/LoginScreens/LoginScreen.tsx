@@ -58,8 +58,8 @@ type Validate = {
   password: string;
 };
 const LoginForm = ({navigation}: LoginScreenProps) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('learning20150133@gmail.com');
+  const [password, setPassword] = useState('123abc');
   // const [notEmpty, setNotEmpty] = useState(false);
   // const [errors, setErrors] = useState<Validate>({email: '', password: ''});
 
@@ -121,23 +121,26 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
+    console.log("hi login",errorState)
     // const errors = validate();
     // setErrors(errors);
     // console.log('error', errors);
-    // if (errors.email === '' && errors.password === '') {
+    if (errorState.email === null && errorState.password === null) {
     //   // Handle login logic here
     //   // navigation.navigate('Home');
     //   setNotEmpty(true);
+    console.log("no error")
     const success = await localLogin(email, password);
     if (success) {
       dispatch(login(email));
       navigation.replace('MyHome');
-      //     console.log("uuu")
+          console.log("uuu")
       //   }else{
       //     // react-toast alert not
       //     console.log("fail")
       //   }
-    }
+    }}
+    console.log("sth happended")
   };
 
   // console.log(navigation)
@@ -175,7 +178,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
           <TextInput
             placeholder="Email"
             value={email}
-            onChangeText={()=>{handleEmail; onChangeHandler('email', email)}}
+            onChangeText={(text)=>{handleEmail(text); onChangeHandler('email', text)}}
             style={[styles.input, errorState.email ? styles.error : {}]}
             keyboardType="email-address"
             onBlur={e => {
@@ -185,7 +188,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
               // setErrors(errors);
             }}
           />
-          {errorState.email!=="" ? (
+          {errorState.email!==null ? (
             <Text style={styles.errorMsg}>{errorState.email}</Text>
           ) : (
             <></>
@@ -201,14 +204,14 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
             placeholder="Password"
             secureTextEntry
             value={password}
-            onChangeText={()=>{handlePassword; onChangeHandler('password', password)}}
+            onChangeText={(text)=>{handlePassword(text); onChangeHandler('password', text)}}
             onBlur={e => {
               inputHandler("password")
               // setErrors(errors);
             }}
             style={[styles.input, errorState.password ? styles.error : {}]}
           />
-          {errorState.password !==""? (
+          {errorState.password !==null? (
             <Text style={styles.errorMsg}>{errorState.password}</Text>
           ) : (
             <></>
@@ -254,6 +257,19 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
             }}>
             Go to home
           </Text>
+          {/* <Text
+            style={{
+              // textDecorationLine: 'underline',
+              fontWeight: 'bold',
+              fontSize: 20,
+            }}
+            onPress={async () => {
+              await AsyncStorage.setItem('mainUserId', '1');
+              navigation.navigate('uploadFile');
+              // sign up
+            }}>
+            Go to uploadfile
+          </Text> */}
         </View>
       </ScrollView>
     </SafeAreaView>
