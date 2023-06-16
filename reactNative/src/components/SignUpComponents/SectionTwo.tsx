@@ -235,7 +235,7 @@ export default function SectionTwo({
         placeholder="Height"
         style={styles.input}
       /> */}
-            {errorState.height !== null ? (
+      {errorState.height !== null ? (
         <Text style={styles.errorMsg}>Error:{errorState.height}</Text>
       ) : (
         <></>
@@ -275,7 +275,20 @@ export default function SectionTwo({
       {/* ///continue button */}
       <TouchableOpacity
         onPress={e => {
-          next();
+          e.preventDefault;
+          // not working
+          inputHandler('gender');
+          inputHandler('birthday');
+          inputHandler('height');
+          inputHandler('weight');
+          if (
+            errorState.gender === null &&
+            errorState.birthday === null &&
+            errorState.height === null &&
+            errorState.weight === null
+          ) {
+            next();
+          }
         }}
         style={styles.Continuebtn}>
         <Text

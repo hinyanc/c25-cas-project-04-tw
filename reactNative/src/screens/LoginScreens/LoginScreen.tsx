@@ -32,7 +32,7 @@ import {localLogin} from '../../hooks/authAPI';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../../store/store';
 import {login} from '../../slices/authSlices';
-import {zodResolver} from '@hookform/resolvers/zod';
+// import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
 
 interface FormState {
