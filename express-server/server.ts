@@ -82,14 +82,14 @@ io.on("connection", (socket) => {
 const PORT = 8080;
 
 // Controllers
-import { AuthController } from "./controllers/AuthController";
+import { AuthController } from "./controllers/authController";
 import { MessageController } from "./controllers/MessageController";
 import { DiscoverController } from "./controllers/discoverController";
 import { GoalController } from "./controllers/goalController";
 
 import { ChatListController } from "./controllers/ChatListController";
 // Services
-import { AuthService } from "./services/AuthService";
+import { AuthService } from "./services/authService";
 import { MessageService } from "./services/MessageService";
 import { ChatListService } from "./services/ChatListService";
 import { DiscoverService } from "./services/discoverService";
