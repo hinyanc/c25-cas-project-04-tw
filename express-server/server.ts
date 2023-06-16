@@ -15,7 +15,7 @@ dotenv.config();
 declare global {
   namespace Express {
     interface Request {
-      user?: Omit<User,'password'>
+      user?: Omit<User, "password">;
     }
   }
 }
@@ -82,7 +82,7 @@ io.on("connection", (socket) => {
 const PORT = 8080;
 
 // Controllers
-import { AuthController } from "./controllers/AuthController";
+import { AuthController } from "./controllers/authController";
 import { SignUpController } from "./controllers/SignUpController";
 import { MessageController } from "./controllers/MessageController";
 import { DiscoverController } from "./controllers/discoverController";
@@ -118,8 +118,8 @@ export const goalController = new GoalController(goalService);
 // Route Handlers
 import { messageRoutes } from "./routers/messageRoutes";
 import { User } from "./utils/model";
-import { authRoutes } from './routers/authRoutes'
-import { signUpRoutes } from './routers/signUpRoutes'
+import { authRoutes } from "./routers/authRoutes";
+import { signUpRoutes } from "./routers/signUpRoutes";
 import { discoverRoutes } from "./routers/discoverRoutes";
 import { goalRoutes } from "./routers/goalRoutes";
 import { chatListRoutes } from "./routers/chatListRoutes";
@@ -129,7 +129,7 @@ app.get("/hi", (req, res) => {
   res.send("bye");
 });
 
-app.use('/auth', authRoutes)
+app.use("/auth", authRoutes);
 app.use("/signup", signUpRoutes);
 app.use("/message", messageRoutes);
 app.use("/message", messageRoutes);
@@ -137,7 +137,7 @@ app.use("/chatlist", chatListRoutes);
 app.use("/discover", discoverRoutes);
 app.use("/goal", goalRoutes);
 
-app.use("/profile-pic", express.static('./assets/profile_pic'))
+app.use("/profile-pic", express.static("./assets/profile_pic"));
 
 server.listen(PORT, () => {
   console.log(`App running at http://localhost:${PORT}`);

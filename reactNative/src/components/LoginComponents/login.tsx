@@ -1,35 +1,3 @@
-<<<<<<< HEAD
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
-  ScrollView,
-} from 'react-native';
-import {StackParamList} from '../../../App';
-import {StackScreenProps} from '@react-navigation/stack';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {localLogin} from '../../hooks/authAPI';
-import {useDispatch} from 'react-redux';
-import {AppDispatch} from '../../store/store';
-import {login} from '../../slices/authSlices';
-type LoginScreenProps = StackScreenProps<StackParamList, 'Login'>;
-
-const {width, height} = Dimensions.get('window');
-type Validate = {
-  email: string;
-  password: string;
-};
-const LoginForm = ({navigation}: LoginScreenProps) => {
-  const [email, setEmail] = useState('beyourdetective@gmail.com');
-  const [password, setPassword] = useState('123abc');
-  const [notEmpty, setNotEmpty] = useState(false);
-  const [errors, setErrors] = useState<Validate>({email: '', password: ''});
-=======
 // import React, {useState} from 'react';
 // import {
 //   View,
@@ -55,160 +23,19 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
 //   email: string;
 //   password: string;
 // }
->>>>>>> adad69cf0b9b9c8e1be7f8154c55c9952304c673
 
 // interface FormErrorState {
 //   email: string | null;
 //   password: string | null;
 // }
 
-<<<<<<< HEAD
-  const dispatch = useDispatch<AppDispatch>();
-
-  const handleLogin = async (e: any) => {
-    e.preventDefault();
-    // const errors = validate();
-    // setErrors(errors);
-    // console.log('error', errors);
-    // if (errors.email === '' && errors.password === '') {
-    //   // Handle login logic here
-    //   // navigation.navigate('Home');
-    //   setNotEmpty(true);
-    const success = await localLogin(email, password);
-    if (success) {
-      dispatch(login(email));
-      navigation.replace('MyHome');
-      //     console.log("uuu")
-      //   }else{
-      //     // react-toast alert not
-      //     console.log("fail")
-      //   }
-    }
-  };
-=======
 // const schema = {
 //   email: z.string().email(),
 //   password: z.string().min(6),
 // } as {[x: string]: z.ZodString};
->>>>>>> adad69cf0b9b9c8e1be7f8154c55c9952304c673
 
 // type LoginScreenProps = StackScreenProps<StackParamList, 'Login'>;
 
-<<<<<<< HEAD
-  return (
-    <SafeAreaView
-      style={{justifyContent: 'center', alignItems: 'center', height: height}}>
-      <ScrollView>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: height,
-          }}>
-          <Text style={styles.title}>Login</Text>
-          <TouchableOpacity style={styles.btn}>
-            <Text
-              style={{
-                textAlign: 'center',
-                paddingVertical: 10,
-                fontSize: 18,
-                fontWeight: 'bold',
-                color: 'green',
-              }}>
-              GOOGLE
-            </Text>
-          </TouchableOpacity>
-          <Text
-            style={{
-              textAlign: 'left',
-              alignSelf: 'flex-start',
-            }}>
-            Username
-          </Text>
-          <TextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={setEmail}
-            style={[styles.input, errors.email ? styles.error : {}]}
-            keyboardType="email-address"
-            onBlur={e => {
-              console.log('email', e.target.valueOf.name);
-              let errors = validate();
-              console.log('check check', errors);
-              setErrors(errors);
-            }}
-          />
-          {errors.email ? (
-            <Text style={styles.errorMsg}>{errors.email}</Text>
-          ) : (
-            <></>
-          )}
-          <Text
-            style={{
-              textAlign: 'left',
-              alignSelf: 'flex-start',
-            }}>
-            Password
-          </Text>
-          <TextInput
-            placeholder="Password"
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-            style={[styles.input, errors.password ? styles.error : {}]}
-          />
-          {errors.password ? (
-            <Text style={styles.errorMsg}>{errors.password}</Text>
-          ) : (
-            <></>
-          )}
-          <TouchableOpacity onPress={handleLogin} style={styles.loginbtn}>
-            <Text
-              style={{
-                textAlign: 'center',
-                paddingVertical: 10,
-                fontSize: 18,
-                fontWeight: 'bold',
-                color: '#fff',
-              }}>
-              Login
-            </Text>
-          </TouchableOpacity>
-          <Text>
-            Still don't have an account?
-            <Text
-              style={{
-                // textDecorationLine: 'underline',
-                fontWeight: 'bold',
-                fontSize: 20,
-              }}
-              onPress={() => {
-                navigation.navigate('SignUp');
-                // sign up
-              }}>
-              Sign Up
-            </Text>
-          </Text>
-          {/* escape */}
-          <Text
-            style={{
-              // textDecorationLine: 'underline',
-              fontWeight: 'bold',
-              fontSize: 20,
-            }}
-            onPress={async () => {
-              await AsyncStorage.setItem('mainUserId', '1');
-              navigation.navigate('MyHome');
-              // sign up
-            }}>
-            Go to home
-          </Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-=======
 // const {width, height} = Dimensions.get('window');
 // type Validate = {
 //   email: string;
@@ -219,7 +46,6 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
 //   const [password, setPassword] = useState('');
 //   // const [notEmpty, setNotEmpty] = useState(false);
 //   // const [errors, setErrors] = useState<Validate>({email: '', password: ''});
->>>>>>> adad69cf0b9b9c8e1be7f8154c55c9952304c673
 
 //   const [formState, setFormState] = useState<FormState>({
 //     email: '',
