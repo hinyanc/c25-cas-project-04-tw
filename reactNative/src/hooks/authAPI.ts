@@ -33,6 +33,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 export async function localLogin(email: string, password: string) {
+  console.log("check login api url",REACT_APP_API_SERVER)
   try {
     const response = await axios.post(`${REACT_APP_API_SERVER}/auth/login`, {
       email,

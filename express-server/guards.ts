@@ -16,9 +16,12 @@ export async function isLoggedIn(
 ) {
   try {
     const token = permit.check(req);
+    console.log("check guard token",token)
     if (!token) {
       return res.status(401).json({ msg: "Permission Denied" });
     }
+
+
 
     const decoded: Omit<User, "password"> = jwtSimple.decode(
       token,
@@ -30,6 +33,7 @@ export async function isLoggedIn(
 
     return next();
   } catch (error) {
+    console.error(error)
     res.status(401).json({ message: "Unauthorized! JWT Error!!!" });
   }
 }

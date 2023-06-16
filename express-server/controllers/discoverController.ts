@@ -5,10 +5,8 @@ import { DiscoverService } from "../services/discoverService";
 export class DiscoverController {
   constructor(private discoverService: DiscoverService) {}
 
-
   getUserInfo = async (req: Request, res: Response) => {
     try {
-
       // @ts-ignore
       const userId = req.user?.id;
       // console.log('req.user', req.user)
@@ -20,9 +18,11 @@ export class DiscoverController {
     }
   };
 
-  getAllProfile = async (_req: Request, res: Response) => {
+  getAllProfile = async (req: Request, res: Response) => {
     try {
-      const allProfile = await this.discoverService.getAllProfile();
+      // @ts-ignore
+      const userId = req.user?.id;
+      const allProfile = await this.discoverService.getAllProfile(userId!);
       res.status(200).json(allProfile);
     } catch (error) {
       logger.error(error);
@@ -30,9 +30,11 @@ export class DiscoverController {
     }
   };
 
-  getAllUsers = async (_req: Request, res: Response) => {
+  getAllUsers = async (req: Request, res: Response) => {
     try {
-      const allUserProfile = await this.discoverService.getAllUsers();
+      // @ts-ignore
+      const userId = req.user?.id;
+      const allUserProfile = await this.discoverService.getAllUsers(userId!);
       res.status(200).json(allUserProfile);
     } catch (error) {
       logger.error(error);
@@ -40,9 +42,11 @@ export class DiscoverController {
     }
   };
 
-  getAllPT = async (_req: Request, res: Response) => {
+  getAllPT = async (req: Request, res: Response) => {
     try {
-      const allPTProfile = await this.discoverService.getAllPT();
+      // @ts-ignore
+      const userId = req.user?.id;
+      const allPTProfile = await this.discoverService.getAllPT(userId!);
       res.status(200).json(allPTProfile);
     } catch (error) {
       logger.error(error);

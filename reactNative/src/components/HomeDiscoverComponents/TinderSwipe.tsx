@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Image,
@@ -13,8 +13,13 @@ import {
 import Swiper from 'react-native-deck-swiper';
 import {styles} from '../../utils/styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useGetTinderProfile} from '../../hooks/TinderAPI';
+import {
+  useGetPTProfile,
+  useGetTinderProfile,
+  useGetUserProfile,
+} from '../../hooks/TinderAPI';
 import {REACT_APP_API_SERVER} from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ScreenWidth = Dimensions.get('window').width;
 const ScreenHeight = Dimensions.get('window').height;
@@ -31,6 +36,7 @@ type CardType = {
   is_pt: boolean;
 };
 
+
 export function TinderSwipe() {
   type ButtonProps = {
     onPress: () => void;
@@ -38,6 +44,29 @@ export function TinderSwipe() {
     text: string;
     textStyle?: TextStyle;
   };
+
+  const [pressedButton, setPressedButton] = useState<string>('All Users');
+  // const [swipedCards, setSwipedCards] = useState<CardType[]>([]);
+  const [index, setIndex] = useState(0);
+  const [token, setToken] = useState('');
+  // const [swiperData, setSwiperData] = useState([]);
+
+  const getLocalStorage = async () => {
+    let token = await AsyncStorage.getItem('token');
+    if (token == null) {
+      console.log('token is not in storage');
+    } else {
+      setToken(token!);
+      console.log('check get async storage token', token);
+    }
+  };
+  useEffect(() => {
+    getLocalStorage();
+  });
+  const cards = useGetTinderProfile(token);
+  // const allUsersAPI = useGetTinderProfile(token);
+  // const gymatesAPI = useGetUserProfile(token);
+  // const ptsAPI = useGetPTProfile(token);
 
   const Button = ({onPress, isPressed, text, textStyle}: ButtonProps) => {
     return (
@@ -56,8 +85,6 @@ export function TinderSwipe() {
     );
   };
 
-  const [pressedButton, setPressedButton] = useState<string>('All Users');
-
   const handleButtonPress = (button: string) => {
     setPressedButton(button);
   };
@@ -66,30 +93,30 @@ export function TinderSwipe() {
     return pressedButton === button;
   };
 
-  const [swipedCards, setSwipedCards] = useState<CardType[]>([]);
+  const handleSwipeRight = (index: number) => {
+    console.log('the what card', index, 'swipe right');
+    console.log('its actual data is ', cards[index]);
 
-  const handleSwipeRight = (idx: number) => {
-    console.log('swipe right', idx + index);
     // setIndex(index => index + 1)
   };
 
-  const handleSwipeLeft = () => {
-    console.log('swipe left');
+  const handleSwipeLeft = (index: number) => {
+    console.log('the what card', index, 'swipe left');
+    console.log('its actual data is ', cards[index]);
   };
   const handleSwipeAll = () => {
-    console.log('all images are shown');
+    console.log('the what card', 'all images are shown');
   };
-
-  const [index, setIndex] = useState(0);
 
   const onSwipe = (newIndex: React.SetStateAction<number>) => {
     setIndex(newIndex);
   };
 
-  let cards = useGetTinderProfile();
-
-  console.log(cards);
-  console.log(cards.filter((card, idx) => idx >= index));
+  console.log('check all cards', cards);
+  console.log(
+    'check filter cards',
+    cards.filter((card, idx) => idx >= index),
+  );
   return (
     <ScrollView style={{backgroundColor: '#FFF9F0'}}>
       <View
@@ -129,20 +156,21 @@ export function TinderSwipe() {
       </View>
 
       <View style={styles1.container}>
-        {cards.length === 0 ? (
-          <Text style={{position: 'relative', bottom: 500, fontSize: 100}}>
-            All cards swiped!
-          </Text>
-        ) : (
+        {
+          // cards.length === 0 ? (
+          //   <Text style={{position: 'relative', bottom: 500, fontSize: 100}}>
+          //     All cards swiped!
+          //   </Text>
+          // ) :
           <>
-            {cards.length > 0 && (
+            {cards.length != 0 ? (
               <Swiper
                 cards={cards.filter((card, idx) => idx >= index)}
                 stackSize={2}
                 cardIndex={0}
                 backgroundColor="#FFF9F0"
                 renderCard={card => (
-                  <Animated.View style={[styles1.card]}>
+                  <Animated.View key={card.id} style={[styles1.card]}>
                     <View>
                       <Image
                         source={{
@@ -151,14 +179,30 @@ export function TinderSwipe() {
                         style={styles1.card2}
                       />
                       {card.is_pt == true ? (
-                          <Text style={styles.CardPT}><Ionicons name="md-ribbon" size={25} color={'#E24E59'} /> PT</Text>
-                           ) : (<Text style={styles.CardPT}><Ionicons name="ios-bicycle" size={25} color={'#E24E59'} /> GyMates</Text>)} 
+                        <Text style={styles.CardPT}>
+                          <Ionicons
+                            name="md-ribbon"
+                            size={25}
+                            color={'#E24E59'}
+                          />{' '}
+                          PT
+                        </Text>
+                      ) : (
+                        <Text style={styles.CardPT}>
+                          <Ionicons
+                            name="ios-bicycle"
+                            size={25}
+                            color={'#E24E59'}
+                          />{' '}
+                          GyMates
+                        </Text>
+                      )}
                       <View
                         style={[
                           styles.CardInfo,
                           card.interest_name.length > 4
-                            ? {bottom: 260}
-                            : {bottom: 221.5},
+                            ? {bottom: 286.5}
+                            : {bottom: 286.5},
                         ]}>
                         <Text style={styles.DiscoverUsername}>
                           {card.username}
@@ -363,9 +407,11 @@ export function TinderSwipe() {
                   height: '100%',
                 }}
               />
+            ) : (
+              <Text>No cards</Text>
             )}
           </>
-        )}
+        }
       </View>
     </ScrollView>
   );

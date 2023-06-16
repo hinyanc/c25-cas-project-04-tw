@@ -325,7 +325,7 @@ export const styles = StyleSheet.create({
   CardInfo: {
     position: 'relative',
     backgroundColor: 'rgba(0,0,0,0.5)',
-    paddingBottom: 30,
+    // paddingBottom: 10,
   },
   CardPT: {
     bottom: 400,
@@ -339,7 +339,6 @@ export const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
-    textShadowOpacity: 0.3,
     textShadowRadius: 3.5,
     elevation: 6,
   },
@@ -367,9 +366,9 @@ export const styles = StyleSheet.create({
   },
   DiscoverInterestText: {
     color: '#707070',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
-    marginHorizontal: 12,
+    marginHorizontal: 8,
   },
   LikeIcon: {
     position: 'relative',

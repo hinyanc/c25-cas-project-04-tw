@@ -18,7 +18,7 @@ export class GoalService {
 
   getBMI = async (userId: number) => {
     const getBMIResult = await this.knex.raw(
-      /*sql*/ `SELECT SUM(weight / (height * height)) FROM users WHERE id = ${userId}`
+      /*sql*/ `SELECT SUM(weight / ((height/100) * (height/100))) FROM users WHERE id = ${userId}`
     );
     return getBMIResult;
   };

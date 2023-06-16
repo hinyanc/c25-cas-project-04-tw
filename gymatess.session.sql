@@ -27,8 +27,14 @@ GROUP BY
 
 
 
+SELECT interest.name 
+FROM users_interest 
+JOIN users ON users_interest.users_id = users.id 
+JOIN interest ON users_interest.interest_id = interest.id
+WHERE users_id = 2;
 
-SELECT * FROM gym_center;
+
+
 SELECT * FROM user_gym_center;
 
 SELECT * FROM users_interest;
@@ -38,3 +44,5 @@ select exists (select * from users_matching where users_id = 1 and matched_users
 select * from users_matching where users_matching.status = 'matched' and users_id = 1 or matched_users_id = 1 
 
 select * from users_matching
+
+SELECT MAX(MAX(users.weight / height / height)*10000) FROM users WHERE id = 1

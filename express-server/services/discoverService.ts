@@ -15,11 +15,11 @@ export class DiscoverService {
     return getUserInfoResult;
   };
 
-  getAllProfile = async () => {
+  getAllProfile = async (userId: number) => {
     const getAllProfileResult = await this.knex(userTable)
       .select(
         this.knex.raw(
-          /*sql*/ `users.id, is_pt, gender, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio, (users_matching.status) AS match_status`
+          /*sql*/ `users.id, is_pt, gender, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio, `
         )
       )
       .join("users_interest", "users_interest.users_id", "users.id")
@@ -40,6 +40,7 @@ export class DiscoverService {
         );
       })
       .whereNot({ "users_matching.status": "matched" })
+      .andWhereNot({'users.id': userId} )
       .groupBy(
         "users.id",
         "is_pt",
@@ -49,12 +50,12 @@ export class DiscoverService {
         "profile_pic",
         "gym_center.gym_center",
         "gym_location.gym_location",
-        "users_matching.status"
+        // "users_matching.status"
       );
     return getAllProfileResult;
   };
 
-  getAllUsers = async () => {
+  getAllUsers = async (userId: number) => {
     const getAllUsersProfileResult = await this.knex(userTable)
       .select(
         this.knex.raw(
@@ -79,6 +80,7 @@ export class DiscoverService {
         );
       })
       .whereNot({ "users_matching.status": "matched" })
+      .andWhereNot({'users.id': userId} )
       .groupBy(
         "users.id",
         "is_pt",
@@ -94,7 +96,7 @@ export class DiscoverService {
     return getAllUsersProfileResult;
   };
 
-  getAllPT = async () => {
+  getAllPT = async (userId: number) => {
     const getAllPTProfileResult = await this.knex(userTable)
       .select(
         this.knex.raw(
@@ -119,6 +121,7 @@ export class DiscoverService {
         );
       })
       .whereNot({ "users_matching.status": "matched" })
+      .andWhereNot({'users.id': userId} )
       .groupBy(
         "users.id",
         "is_pt",
