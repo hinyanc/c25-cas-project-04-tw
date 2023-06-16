@@ -113,7 +113,7 @@ const Messaging = ({route, navigation}: any) => {
   return (
     <View style={styles.messagingscreen}>
       <ScrollView
-        ref={flatListRef}
+        // ref={flatListRef}
         onContentSizeChange={() => flatListRef.current?.scrollToEnd()}>
         <View
           style={[
