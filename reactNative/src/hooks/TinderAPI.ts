@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const API_URL = 'http://192.168.160.72:8080';
 
-interface UserInfo {
+export interface UserInfo {
   username: string;
 }
 interface TinderProfile {
@@ -20,14 +20,14 @@ interface TinderProfile {
   bio: string;
 }
 
-export function useGetUsername() {
+export function useGetUsername(token:string) {
   const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['getUsername'],
+    queryKey: ['getUsername',token],
     queryFn: async () => {
       const res = await fetch(`${REACT_APP_API_SERVER}/discover/get-user-info`,
       {
         headers:{
-          "Authorization":`Bearer ${AsyncStorage.getItem('token')}` 
+          "Authorization":`Bearer ${token}` 
         }
       });
       const result = await res.json();

@@ -325,7 +325,8 @@ export const styles = StyleSheet.create({
   CardInfo: {
     position: 'relative',
     backgroundColor: 'rgba(0,0,0,0.5)',
-    // paddingBottom: 10,
+    paddingBottom: 30,
+    
   },
   CardPT: {
     bottom: 400,

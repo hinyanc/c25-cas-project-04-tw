@@ -113,10 +113,10 @@ export function TinderSwipe() {
   };
 
   console.log('check all cards', cards);
-  console.log(
-    'check filter cards',
-    cards.filter((card, idx) => idx >= index),
-  );
+  // console.log(
+  //   'check filter cards',
+  //   cards.filter((card, idx) => idx >= index),
+  // );
   return (
     <ScrollView style={{backgroundColor: '#FFF9F0'}}>
       <View
@@ -200,9 +200,9 @@ export function TinderSwipe() {
                       <View
                         style={[
                           styles.CardInfo,
-                          card.interest_name.length > 4
+                          card.interest_name.length > 3
                             ? {bottom: 286.5}
-                            : {bottom: 286.5},
+                            : {bottom: 248},
                         ]}>
                         <Text style={styles.DiscoverUsername}>
                           {card.username}
@@ -241,7 +241,7 @@ export function TinderSwipe() {
                             styles.NopeIcon,
                             card.interest_name.length > 3
                               ? {bottom: 282}
-                              : {bottom: 245},
+                              : {bottom: 275},
                           ]}>
                           <Ionicons name="close" size={45} color={'#ED8974'} />
                         </TouchableOpacity>
@@ -265,7 +265,7 @@ export function TinderSwipe() {
                             styles.LikeIcon,
                             card.interest_name.length > 3
                               ? {bottom: 282}
-                              : {bottom: 245},
+                              : {bottom: 275},
                           ]}>
                           <Ionicons name="heart" size={35} color={'#7CCD96'} />
                         </TouchableOpacity>
@@ -275,7 +275,7 @@ export function TinderSwipe() {
                           styles.bio,
                           card.interest_name.length > 3
                             ? {bottom: 272}
-                            : {bottom: 235},
+                            : {bottom: 265},
                         ]}>
                         <Text style={styles.bio}>{card.bio}</Text>
                       </View>
@@ -432,10 +432,10 @@ const styles1 = StyleSheet.create({
     borderRadius: 10,
     borderTopStartRadius: 0,
     borderTopEndRadius: 0,
-    backgroundColor: '#FFF9F0',
+    backgroundColor: '#FFF9F8',
     width: ScreenWidth * 0.8,
     height: ScreenHeight * 0.5,
-    borderWidth: 1,
+    // borderWidth: 1,
     // borderTopWidth: 1,
     borderColor: '#707070',
     alignSelf: 'center',
