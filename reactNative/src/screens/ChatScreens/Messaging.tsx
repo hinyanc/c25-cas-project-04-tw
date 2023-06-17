@@ -23,6 +23,8 @@ const Messaging = ({route, navigation}: any) => {
   const [token, setToken] = useState('');
   const [socketId, setSocketId] = useState('');
   const [targetUserSocketId, setTargetUserSocketId] = useState('');
+  const {target_username, target_user_id} = route.params;
+  console.log('check target', target_username, target_user_id);
 
   useEffect(() => {
     socket.on('socketId', (id: string) => {
@@ -33,10 +35,6 @@ const Messaging = ({route, navigation}: any) => {
       socket.off('socketId');
     };
   }, []);
-
-  const {target_username, target_user_id} = route.params;
-
-  console.log('check target', target_username, target_user_id);
 
   const getAsyncInfo = async () => {
     try {
@@ -95,11 +93,11 @@ const Messaging = ({route, navigation}: any) => {
   const handleNewMessage = () => {
     console.log('new message check main user', mainUser);
 
-    socket.emit('message', {
-      data: message,
-      from: mainUser,
-      to: targetUserSocketId,
-    });
+    // socket.emit('message', {
+    //   data: message,
+    //   from: mainUser,
+    //   to: targetUserSocketId,
+    // });
 
     onCreateMessages.mutate({
       message,

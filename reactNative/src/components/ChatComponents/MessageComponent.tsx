@@ -18,8 +18,8 @@ export default function MessageComponent({item, mainUser}: any) {
       <View
         style={
           status
-            ? [styles.mmessageWrapper, {alignItems: 'flex-end'}]
-            : styles.mmessageWrapper
+            ? styles.mmessageWrapper
+            : [styles.mmessageWrapper, {alignItems: 'flex-end'}]
         }>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           {/* <View>
@@ -28,8 +28,8 @@ export default function MessageComponent({item, mainUser}: any) {
           <View
             style={
               status
-                ? [styles.mmessage, {backgroundColor: 'rgb(252, 215, 221)'}]
-                : styles.mmessage
+                ? styles.mmessage
+                : [styles.mmessage, {backgroundColor: 'rgb(252, 215, 221)'}]
             }>
             <Text>{item.message}</Text>
           </View>
