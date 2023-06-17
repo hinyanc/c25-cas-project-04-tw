@@ -111,6 +111,7 @@ export const chatListController = new ChatListController(chatListService);
 const discoverService = new DiscoverService(knex);
 export const discoverController = new DiscoverController(discoverService);
 
+
 const goalService = new GoalService(knex);
 export const goalController = new GoalController(goalService);
 

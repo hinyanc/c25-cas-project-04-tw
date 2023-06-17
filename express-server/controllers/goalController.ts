@@ -36,8 +36,8 @@ export class GoalController {
     try {
       // @ts-ignore
       const userId = req.user?.id;
-      await this.goalService.getGoals( userId!);
-      res.status(200).json({ message: "set target weight success" });
+      const goals = await this.goalService.getGoals( userId!);
+      res.status(200).json(goals);
     } catch (error) {
       logger.error(error);
       res.status(500).json({ error: "Internal server error" });

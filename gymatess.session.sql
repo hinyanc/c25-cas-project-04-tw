@@ -46,3 +46,7 @@ select * from users_matching where users_matching.status = 'matched' and users_i
 select * from users_matching
 
 SELECT MAX(MAX(users.weight / height / height)*10000) FROM users WHERE id = 1
+
+select * from chatroom where receiver_id =9 and sender_id = 3 or receiver_id =3 and sender_id = 9
+
+select * from users where username = 'Jeffery'
