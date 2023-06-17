@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
   View,
   Image,
@@ -17,6 +17,7 @@ import {
   useGetPTProfile,
   useGetTinderProfile,
   useGetUserProfile,
+  useLikeUser,
 } from '../../hooks/TinderAPI';
 import {REACT_APP_API_SERVER} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -36,6 +37,7 @@ type CardType = {
   is_pt: boolean;
 };
 
+enum Filter { ALL, MATE, PT }
 
 export function TinderSwipe() {
   type ButtonProps = {
@@ -47,9 +49,10 @@ export function TinderSwipe() {
 
   const [pressedButton, setPressedButton] = useState<string>('All Users');
   // const [swipedCards, setSwipedCards] = useState<CardType[]>([]);
+
   const [index, setIndex] = useState(0);
   const [token, setToken] = useState('');
-  // const [swiperData, setSwiperData] = useState([]);
+  const [filter, setFilter] = useState(Filter.ALL);
 
   const getLocalStorage = async () => {
     let token = await AsyncStorage.getItem('token');
@@ -63,10 +66,14 @@ export function TinderSwipe() {
   useEffect(() => {
     getLocalStorage();
   });
+
+
   const cards = useGetTinderProfile(token);
+
   // const allUsersAPI = useGetTinderProfile(token);
   // const gymatesAPI = useGetUserProfile(token);
   // const ptsAPI = useGetPTProfile(token);
+  const like = useLikeUser(token, index)
 
   const Button = ({onPress, isPressed, text, textStyle}: ButtonProps) => {
     return (

@@ -127,7 +127,7 @@ export function useLikeUser(token: string, userId: number) {
         },
       );
       const result = await res.json();
-      return result as TinderProfile[];
+      return result;
     },
   });
 
