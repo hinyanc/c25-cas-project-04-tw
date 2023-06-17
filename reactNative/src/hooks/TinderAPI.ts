@@ -2,12 +2,9 @@ import {useQuery} from '@tanstack/react-query';
 import {REACT_APP_API_SERVER} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-const API_URL = 'http://192.168.160.72:8080';
-
 export interface UserInfo {
   username: string;
-  profile_pic: string
+  profile_pic: string;
 }
 interface TinderProfile {
   id: number;
@@ -21,18 +18,20 @@ interface TinderProfile {
   bio: string;
 }
 
-export function useGetUsername(token:string) {
+export function useGetUsername(token: string) {
   const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['getUsername',token],
+    queryKey: ['getUsername', token],
     queryFn: async () => {
-      const res = await fetch(`${REACT_APP_API_SERVER}/discover/get-user-info`,
-      {
-        headers:{
-          "Authorization":`Bearer ${token}` 
-        }
-      });
+      const res = await fetch(
+        `${REACT_APP_API_SERVER}/discover/get-user-info`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
       const result = await res.json();
-      return result as UserInfo[];
+      return result as UserInfo;
     },
   });
 
@@ -43,20 +42,21 @@ export function useGetUsername(token:string) {
   return data;
 }
 
-export function useGetTinderProfile(token:string) {
-  let real_token = AsyncStorage.getItem('token')
+export function useGetTinderProfile(token: string) {
+  let real_token = AsyncStorage.getItem('token');
   const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['tinderProfile',token],
+    queryKey: ['tinderProfile', token],
     queryFn: async () => {
       const res = await fetch(
-        `${REACT_APP_API_SERVER}/discover/get-all-profile`, {
-          headers:{
-            "Authorization":`Bearer ${token}` 
-          }
-        }
+        `${REACT_APP_API_SERVER}/discover/get-all-profile`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
       const result = await res.json();
-      console.log("API check token",result)
+      console.log('API check token', result);
       return result as TinderProfile[];
     },
   });
@@ -68,15 +68,18 @@ export function useGetTinderProfile(token:string) {
   return data;
 }
 
-export function useGetUserProfile(token:string) {
+export function useGetUserProfile(token: string) {
   const {isLoading, error, data, isFetching} = useQuery({
     queryKey: ['userProfile', token],
     queryFn: async () => {
-      const res = await fetch(`${REACT_APP_API_SERVER}/discover/get-all-users`, {
-        headers:{
-          "Authorization":`Bearer ${token}` 
-        }
-      });
+      const res = await fetch(
+        `${REACT_APP_API_SERVER}/discover/get-all-users`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
       const result = await res.json();
       return result as TinderProfile[];
     },
@@ -89,15 +92,40 @@ export function useGetUserProfile(token:string) {
   return data;
 }
 
-export function useGetPTProfile(token:string) {
+export function useGetPTProfile(token: string) {
   const {isLoading, error, data, isFetching} = useQuery({
     queryKey: ['PTProfile', token],
     queryFn: async () => {
       const res = await fetch(`${REACT_APP_API_SERVER}/discover/get-all-pt`, {
-        headers:{
-          "Authorization":`Bearer ${token}` 
-        }
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+      const result = await res.json();
+      return result as TinderProfile[];
+    },
+  });
+
+  if (isLoading || isFetching || error || !data) {
+    return [];
+  }
+
+  return data;
+}
+
+export function useLikeUser(token: string, userId: number) {
+  const {isLoading, error, data, isFetching} = useQuery({
+    queryKey: ['likeUser', token, userId],
+    queryFn: async () => {
+      const res = await fetch(
+        `${REACT_APP_API_SERVER}/discover/like-users/${userId}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
       const result = await res.json();
       return result as TinderProfile[];
     },

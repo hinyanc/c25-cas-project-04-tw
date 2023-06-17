@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, Image, ScrollView} from 'react-native';
 import {styles} from '../../utils/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useGetUsername} from '../../hooks/TinderAPI';
-import { REACT_APP_API_SERVER } from '@env';
+import {UserInfo, useGetUsername} from '../../hooks/TinderAPI';
+import {REACT_APP_API_SERVER} from '@env';
 
-export function UserInfo() {
+export function HomeUser() {
   const [token, setToken] = useState('');
 
   const getLocalStorage = async () => {
@@ -22,10 +22,8 @@ export function UserInfo() {
   });
 
   let user = useGetUsername(token);
-  let userInfo = Object.values(user)
-  // let profile_pic = Object.values(user[0])
+  let userInfo = Object.values(user);
 
-  console.log(userInfo)
   return (
     <ScrollView
       style={{
@@ -47,20 +45,14 @@ export function UserInfo() {
           alignItems: 'center',
         }}>
         <>
-          {user.length != 0 ? (
-            <>
-              <Image
-                source={{uri: `${REACT_APP_API_SERVER}/profile-pic/${userInfo[1]}`}}
-                style={{height: 80, width: 80, margin: 20, borderRadius: 15}}
-              />
-              <View style={{width: 250}}>
-                <Text style={styles.hiName}>Hi, {userInfo[0].username} </Text>
-                <Text style={styles.welcome}>Welcome back to GyMatess!</Text>
-              </View>
-            </>
-          ) : (
-            <></>
-          )}
+          <Image
+            source={{uri: `${REACT_APP_API_SERVER}/profile-pic/${userInfo[1]}`}}
+            style={{height: 80, width: 80, margin: 20, borderRadius: 15}}
+          />
+          <View style={{width: 250}}>
+            <Text style={styles.hiName}>Hi, {userInfo[0]}! </Text>
+            <Text style={styles.welcome}>Welcome back to GyMatess!</Text>
+          </View>
         </>
       </View>
     </ScrollView>

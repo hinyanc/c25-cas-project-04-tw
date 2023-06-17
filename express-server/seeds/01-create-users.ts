@@ -139,7 +139,8 @@ export async function seed(knex: Knex): Promise<void> {
     "Female",
     "Male",
     "Female",
-    "Male", "Female",
+    "Male",
+    "Female",
   ];
   //dummy email
   for (let randomEmail = 0; randomEmail < 7; randomEmail++) {
@@ -161,8 +162,8 @@ export async function seed(knex: Knex): Promise<void> {
       birthday: faker.date.birthdate({ min: 18, max: 65, mode: "age" }),
       gender: gender[i],
       bio: faker.lorem.sentence(),
-      height: faker.number.int({ min: 150, max: 200 }) + "cm",
-      weight: faker.number.int({ min: 50, max: 100 }) + "kg",
+      height: faker.number.int({ min: 150, max: 200 }),
+      weight: faker.number.int({ min: 50, max: 100 }),
       gym_level: faker.helpers.arrayElement(["Newbie", "Moderate", "Vigorous"]),
       has_membership: hasMembership,
       is_pt: isPt,

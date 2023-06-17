@@ -1,7 +1,12 @@
 import express from "express";
 import { goalController } from "../server";
+import { isLoggedIn } from "../guards";
 
 export const goalRoutes = express.Router();
 
-goalRoutes.get("/get-bmi", goalController.getBMI);
-goalRoutes.post("/set-target-weight", goalController.setTargetWeight);
+goalRoutes.get("/get-bmi", isLoggedIn, goalController.getBMI);
+goalRoutes.post(
+  "/set-target-weight",
+  isLoggedIn,
+  goalController.setTargetWeight
+);

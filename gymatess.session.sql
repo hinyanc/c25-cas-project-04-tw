@@ -23,7 +23,7 @@ GROUP BY
 
 
 
-
+select height, weight from users where users.id = 3
 
 
 

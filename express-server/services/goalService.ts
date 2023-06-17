@@ -17,7 +17,10 @@ export class GoalService {
   constructor(private knex: Knex) {}
 
   getBMI = async (userId: number) => {
-    const getBMIResult = await this.knex(userTable).select('weight', 'height').where('users.id','=',userId)
+    const getBMIResult = await this.knex(userTable)
+      .select("weight", "height")
+      .where("id", userId)
+      .first();
     return getBMIResult;
   };
 
@@ -50,10 +53,10 @@ export class GoalService {
   updateCompletedGoals = async (target_id: number, userId: number) => {
     const updateCompletedGoalsResult = await this.knex(goalsTable)
       .where("users.id", "=", userId)
-      .andWhere('target.id', '=', target_id)
+      .andWhere("target.id", "=", target_id)
       .join(targetGoalsTable, "target.goal_id", "goal.id")
       .join(userTable, "goal.users_id", "users.id")
-      .update('target.is_completed', true)
+      .update("target.is_completed", true);
 
     return updateCompletedGoalsResult;
   };

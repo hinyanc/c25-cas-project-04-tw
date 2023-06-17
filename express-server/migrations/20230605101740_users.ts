@@ -39,8 +39,8 @@ export async function up(knex: Knex): Promise<void> {
     table.date("birthday").notNullable();
     table.string("gender").notNullable();
     table.string("bio").notNullable();
-    table.string("height").notNullable();
-    table.string("weight").notNullable();
+    table.integer("height").notNullable();
+    table.integer("weight").notNullable();
     table.string("gym_level").notNullable();
     table.boolean("has_membership").notNullable();
     table.boolean("is_pt").defaultTo("false");

@@ -87,7 +87,6 @@ import { SignUpController } from "./controllers/SignUpController";
 import { MessageController } from "./controllers/MessageController";
 import { DiscoverController } from "./controllers/discoverController";
 import { GoalController } from "./controllers/goalController";
-
 import { ChatListController } from "./controllers/ChatListController";
 // Services
 import { AuthService } from "./services/AuthService";
@@ -95,6 +94,7 @@ import { SignUpService } from "./services/SignUpService";
 import { MessageService } from "./services/MessageService";
 import { ChatListService } from "./services/ChatListService";
 import { DiscoverService } from "./services/discoverService";
+import { GoalService } from "./services/goalService";
 
 const authService = new AuthService(knex);
 export const authController = new AuthController(authService);
@@ -111,7 +111,6 @@ export const chatListController = new ChatListController(chatListService);
 const discoverService = new DiscoverService(knex);
 export const discoverController = new DiscoverController(discoverService);
 
-import { GoalService } from "./services/goalService";
 const goalService = new GoalService(knex);
 export const goalController = new GoalController(goalService);
 

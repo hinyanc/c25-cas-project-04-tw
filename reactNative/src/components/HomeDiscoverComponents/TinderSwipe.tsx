@@ -102,7 +102,7 @@ export function TinderSwipe() {
 
   const handleSwipeLeft = (index: number) => {
     console.log('the what card', index, 'swipe left');
-    console.log('its actual data is ', cards[index]);
+    console.log('its actual data is ', Object.values(cards[index]));
   };
   const handleSwipeAll = () => {
     console.log('the what card', 'all images are shown');
