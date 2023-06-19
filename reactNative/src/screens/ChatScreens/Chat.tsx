@@ -3,7 +3,6 @@ import {View, Text, SafeAreaView, FlatList} from 'react-native';
 import ChatComponent from '../../components/ChatComponents/ChatComponent';
 import {styles} from '../../utils/styles';
 import {useChatList} from '../../hooks/chatAPI';
-import socket from '../../utils/socket';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Chat = () => {
@@ -32,15 +31,7 @@ const Chat = () => {
 
   useEffect(() => {
     getAsyncInfo();
-    // socket.on('message', (data: {data: string; from: string}) => {
-    //   console.log('Received message:', data);
-    //   // Handle the received message
-    // });
-
-    return () => {
-      // Clean up event listeners
-      // socket.off('message');
-    };
+    return () => {};
   }, []);
 
   const chats: any[] = useChatList(token);

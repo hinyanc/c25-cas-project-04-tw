@@ -4,9 +4,20 @@ import {styles} from '../../utils/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UserInfo, useGetUsername} from '../../hooks/TinderAPI';
 import {REACT_APP_API_SERVER} from '@env';
+import {socket} from '../../utils/socket';
 
 export function HomeUser() {
   const [token, setToken] = useState('');
+
+  useEffect(() => {
+    console.log('joining server', socket.id);
+    if (token !== '') {
+      socket.emit('join', {
+        socketId: socket.id,
+        token: token,
+      });
+    }
+  }, [token]);
 
   const getLocalStorage = async () => {
     let token = await AsyncStorage.getItem('token');

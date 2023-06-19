@@ -17,6 +17,9 @@ import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
 import {Provider, useSelector} from 'react-redux';
 import {store} from './src/store/store';
 import {LogBox} from 'react-native';
+// import socket from './src/utils/socket';
+import {ConnectionState} from './src/utils/ConnectionStates';
+import {Events} from './src/utils/Event';
 // import UploadFile from './src/screens/SignUpScreen/UploadFile';
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message'])
@@ -56,6 +59,8 @@ const Stack = createNativeStackNavigator<StackParamList>();
 export default function App() {
   // const isAuth = useSelector((state:IRootState)=>state.auth.isAuthenticated)
   const [isFirstLaunch, setFirstLaunch] = useState(false);
+  const [serverMessage, setServerMessage] = useState<string[]>([]);
+
   useEffect(() => {
     const getOnboardingFlag = async () => {
       const flag = await AsyncStorage.getItem('hasCompletedOnboarding');
@@ -143,9 +148,6 @@ export default function App() {
               <Stack.Screen name="Messaging" component={Messaging} />
             </Stack.Navigator>
           </NavigationContainer>
-          {/* <NavigationContainer>
-        <BottomTabs />
-      </NavigationContainer> */}
         </QueryClientProvider>
       </Provider>
     </>

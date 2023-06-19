@@ -13,53 +13,64 @@ export const io = new SocketIO(server);
 dotenv.config();
 
 declare global {
+  namespace SocketIO {
+    interface Socket {
+      userId?: number;
+    }
+  }
+}
+
+declare global {
   namespace Express {
     interface Request {
       user?: Omit<User, "password">;
     }
   }
 }
-//
-
-let onlineUsers: string[] = [];
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/demo", express.static("demoClient"));
 
-io.use((socket, next) => {
-  console.log("check middle", socket.id);
-  next();
-});
+// app.use("/demo", express.static("demoClient"));
 
-io.on("connection", (socket) => {
-  console.log("a user connected,its socket id is", socket.id);
-  socket.emit("syslog", "welcome to the chat");
-  onlineUsers.push(socket.id);
-  console.log("online users", onlineUsers);
+// io.use((socket, next) => {
+//   console.log("check middle", socket.id);
+//   next();
+// });
 
-  socket.on("message", (socket) => {
-    console.log(
-      "receive send request from",
-      socket.from,
-      "content",
-      socket.data,
-      "to socket",
-      socket.to
-    );
+// io.on("connection", (socket) => {
+//   console.log("a user connected,its socket id is", socket.id);
+//   socket.emit("syslog", "welcome to the chat");
+//   onlineUsers.push(socket.id);
+//   console.log("online users", onlineUsers);
 
-    io.to(socket.to).emit("message", {
-      data: socket.data,
-      from: socket.from,
-    });
-  });
-});
+//   socket.on("message", (socket) => {
+//     console.log(
+//       "receive send request from",
+//       socket.from,
+//       "content",
+//       socket.data,
+//       "to socket",
+//       socket.to
+//     );
+
+//     io.to(socket.to).emit("message", {
+//       data: socket.data,
+//       from: socket.from,
+//     });
+//   });
+// });
+
+interface OnlineUser {
+  userId: string;
+  socketId: string;
+}
 
 const PORT = 8080;
 
 // Controllers
-import { AuthController } from "./controllers/authController";
+import { AuthController } from "./controllers/AuthController";
 import { SignUpController } from "./controllers/SignUpController";
 import { MessageController } from "./controllers/MessageController";
 import { DiscoverController } from "./controllers/discoverController";
@@ -88,7 +99,6 @@ export const chatListController = new ChatListController(chatListService);
 const discoverService = new DiscoverService(knex);
 export const discoverController = new DiscoverController(discoverService);
 
-
 const goalService = new GoalService(knex);
 export const goalController = new GoalController(goalService);
 
@@ -100,11 +110,35 @@ import { signUpRoutes } from "./routers/signUpRoutes";
 import { discoverRoutes } from "./routers/discoverRoutes";
 import { goalRoutes } from "./routers/goalRoutes";
 import { chatListRoutes } from "./routers/chatListRoutes";
+
 // import expressSession from "express-session";
 
 app.get("/hi", (req, res) => {
   res.send("bye");
 });
+
+app.get(
+  "/getSocketId/userId/:userId",
+  (req: express.Request, res: express.Response) => {
+    let targetUserId = req.params.userId;
+    // let targetUserId = req.query.userId;
+    console.log("targetUserId", targetUserId);
+
+    let found;
+    for (let item of userList) {
+      console.log("inspect", item);
+
+      if (item.userId == targetUserId) {
+        found = item;
+        console.log("found", found);
+        break;
+      }
+    }
+
+    console.log("found", found);
+    res.json({ socketId: found?.socketId });
+  }
+);
 
 app.use("/auth", authRoutes);
 app.use("/signup", signUpRoutes);
@@ -115,6 +149,23 @@ app.use("/discover", discoverRoutes);
 app.use("/goal", goalRoutes);
 
 app.use("/profile-pic", express.static("./assets/profile_pic"));
+
+const userList: OnlineUser[] = [];
+
+io.on("connection", async (socket: any) => {
+  console.log("a user connected,its socket id is", socket.id);
+
+  socket.on("join", async (payload: { socketId: number; token: string }) => {
+    console.log("hi received", payload);
+    const user = await authService.decodeToken(payload.token);
+
+    // push the userId into userList
+    if (socket.id != undefined && user != undefined) {
+      userList.push({ userId: user.id, socketId: socket.id });
+      console.log("userList", userList);
+    }
+  });
+});
 
 server.listen(PORT, () => {
   console.log(`App running at http://localhost:${PORT}`);

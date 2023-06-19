@@ -10,10 +10,14 @@ interface Message {
   receiver_username: string;
 }
 
-export function useGetMessages(targetUserId: string, token: string) {
+export function useGetMessages(
+  targetUserId: string,
+  token: string,
+  enabled: boolean,
+) {
   console.log('get message', targetUserId, token);
   const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['message', targetUserId, token],
+    queryKey: ['message', targetUserId, token, enabled],
     queryFn: async () => {
       const res = await fetch(
         `${REACT_APP_API_SERVER}/message/${targetUserId}`,
@@ -26,12 +30,17 @@ export function useGetMessages(targetUserId: string, token: string) {
       const result = await res.json();
       return result as Message[];
     },
-    refetchInterval: 10000,
+    retry: true,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+    enabled: enabled,
   });
 
   if (isLoading || isFetching || error || !data) {
     return [];
   }
+
+  console.log('API data', data);
 
   return data;
 }

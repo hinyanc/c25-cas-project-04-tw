@@ -22,7 +22,7 @@ export function useChatList(token: string) {
       console.log('check check', result);
       return result as ChatList[];
     },
-    refetchInterval: 10000,
+    retry: true,
   });
 
   if (isLoading || isFetching || error || !data) {

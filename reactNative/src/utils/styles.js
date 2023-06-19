@@ -326,13 +326,12 @@ export const styles = StyleSheet.create({
     position: 'relative',
     backgroundColor: 'rgba(0,0,0,0.5)',
     paddingBottom: 30,
-    
   },
   CardPT: {
     bottom: 400,
     alignSelf: 'flex-end',
     marginRight: 10,
-    fontSize:16,
+    fontSize: 16,
     color: '#E24E59',
     fontWeight: 'bold',
     textShadowColor: 'rgba(0,0,0,0.3)',
@@ -433,4 +432,43 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     fontSize: 16,
   },
+
+  profilescreen: {
+    backgroundColor: '#FFF9F0',
+    flex: 1,
+    padding: 10,
+    position: 'relative',
+  },
+  profileheading: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#E24E59',
+  },
+  prpfiletopContainer: {
+    // backgroundColor: '#F7F7F7',
+    height: 80,
+    width: '100%',
+    padding: 20,
+    justifyContent: 'center',
+    marginBottom: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(112,112,112,0.5)',
+    // elevation: 2,
+  },
+  profileheader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  profilelistContainer: {
+    paddingHorizontal: 10,
+  },
+  profileemptyContainer: {
+    marginTop: 20,
+    width: '100%',
+    height: '80%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  profileemptyText: {fontWeight: 'bold', fontSize: 24, paddingBottom: 30},
 });
