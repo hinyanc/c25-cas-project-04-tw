@@ -179,15 +179,15 @@ export async function seed(knex: Knex): Promise<void> {
     //   .select("height")
     //   .where("id", "=", `${i}`)
     //   .first();
-    const weight = await knex("users")
-      .select("weight")
-      .where("id", "=", `${i}`)
-      .first();
+    // const weight = await knex("users")
+    //   .select("weight")
+    //   .where("id", "=", `${i}`)
+    //   .first();
     // const bmi = weight / (height * height);
 
     await knex(goalsTable).insert({
       users_id: i,
-      target_weight: faker.number.int({ min: 50, max: weight - 5 }) + "kg",
+      target_weight: faker.number.int({ min: 50, max: 100 }),
     });
   }
 
@@ -218,8 +218,8 @@ export async function seed(knex: Knex): Promise<void> {
 
   for (let i = 0; i < targetGoals.length; i++) {
     await knex(targetGoalsTable).insert({
-      goal_id: faker.number.int({ min: 1, max: 10 }),
-      name: targetGoals[0],
+      goal_id: faker.number.int({ min: 3, max: 10 }),
+      name: targetGoals[i],
       is_completed: faker.datatype.boolean(),
     });
   }

@@ -9,4 +9,3 @@ discoverRoutes.get("/get-all-profile",isLoggedIn, discoverController.getAllProfi
 discoverRoutes.get("/get-all-users",isLoggedIn, discoverController.getAllUsers);
 discoverRoutes.get("/get-all-pt", isLoggedIn,discoverController.getAllPT);
 discoverRoutes.put("/like-users/:uid",isLoggedIn, discoverController.updateLikeUser);
-discoverRoutes.put("/dislike-users/:uid", isLoggedIn,discoverController.updateDislikeUser);

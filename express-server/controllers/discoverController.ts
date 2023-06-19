@@ -56,27 +56,14 @@ export class DiscoverController {
 
   updateLikeUser = async (req: Request, res: Response) => {
     try {
-      const userId = 1;
-      // const userId = req.session.users_id!;
-      const targetUserId = parseInt(req.params.uid);
+      // @ts-ignore
+      const userId = req.user?.id;
+      const targetUserId = req.params.uid;
       const result = await this.discoverService.updateLikeUser(
-        userId,
-        targetUserId
+        userId!,
+        +targetUserId
       );
       res.status(200).json(result);
-    } catch (error) {
-      logger.error(error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  };
-
-  updateDislikeUser = async (req: Request, res: Response) => {
-    try {
-      const userId = 1;
-      // const userId = req.user!.id;
-      const targetUserId = parseInt(req.params.uid);
-      await this.discoverService.updateDislikeUser(userId, targetUserId);
-      res.status(200).json({ message: "dislike success" });
     } catch (error) {
       logger.error(error);
       res.status(500).json({ error: "Internal server error" });

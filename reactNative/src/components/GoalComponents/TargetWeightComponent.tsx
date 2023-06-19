@@ -1,21 +1,46 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {styles} from '../../utils/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useGetBMI} from '../../hooks/goalAPI';
+import { REACT_APP_API_SERVER } from '@env';
 
 const TargetWeight = () => {
   const [targetWeight, setTargetWeight] = useState('');
   const [showText, setShowText] = useState(false);
+  const [token, setToken] = useState('');
+
+  const getLocalStorage = async () => {
+    let token = await AsyncStorage.getItem('token');
+    if (token == null) {
+    } else {
+      setToken(token!);
+    }
+  };
+  useEffect(() => {
+    getLocalStorage();
+  });
 
   const handleInputChange = (text: string) => {
     setTargetWeight(text);
   };
-
-  const handleSubmit = () => {
-    if (!targetWeight) {
-      setShowText(false);
-    } else {
-      setShowText(true);
-    }
+  let fetchData = useGetBMI(token);
+  const weight = Object.values(fetchData)[0];
+  const handleSubmit = async () => {
+    setShowText(true);
+    await fetch(
+      `${REACT_APP_API_SERVER}/goal/set-target-weight`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          targetWeight: targetWeight,
+        }),
+      },
+    );
   };
 
   return (
@@ -49,16 +74,20 @@ const TargetWeight = () => {
             <Text style={styles.BMIChartText}>Confirm</Text>
           </TouchableOpacity>
         </View>
-        {showText && (
-          <Text
-            style={{
-              fontSize: 16,
-              textAlign: 'center',
-              color: '#E2868D',
-              marginTop: 8,
-            }}>
-            Still 10 kg to go! Fighting!
-          </Text>
+        {targetWeight ? (
+          showText && (
+            <Text
+              style={{
+                fontSize: 16,
+                textAlign: 'center',
+                color: '#E2868D',
+                marginTop: 8,
+              }}>
+              Still {weight - parseInt(targetWeight)} kg to go! Fighting!
+            </Text>
+          )
+        ) : (
+          <></>
         )}
       </View>
     </View>

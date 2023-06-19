@@ -37,7 +37,19 @@ type CardType = {
   is_pt: boolean;
 };
 
-enum Filter { ALL, MATE, PT }
+interface TinderProfile {
+  id: number;
+  is_pt: boolean;
+  gender: string;
+  username: string;
+  profile_pic: string;
+  gym_center: string;
+  gym_location: string;
+  interest_name: string[];
+  bio: string;
+}
+
+// enum Filter { ALL, MATE, PT }
 
 export function TinderSwipe() {
   type ButtonProps = {
@@ -52,7 +64,7 @@ export function TinderSwipe() {
 
   const [index, setIndex] = useState(0);
   const [token, setToken] = useState('');
-  const [filter, setFilter] = useState(Filter.ALL);
+  // const [filter, setFilter] = useState(Filter.ALL);
 
   const getLocalStorage = async () => {
     let token = await AsyncStorage.getItem('token');
@@ -67,13 +79,25 @@ export function TinderSwipe() {
     getLocalStorage();
   });
 
-
   const cards = useGetTinderProfile(token);
+  // const data = useGetTinderProfile(token);
 
-  // const allUsersAPI = useGetTinderProfile(token);
-  // const gymatesAPI = useGetUserProfile(token);
-  // const ptsAPI = useGetPTProfile(token);
-  const like = useLikeUser(token, index)
+  // let isPTArray: TinderProfile[] = [];
+  // let notPTArray: TinderProfile[] = [];
+
+  // data.map(profile => {
+  //   profile.is_pt ? isPTArray.push(profile) : notPTArray.push(profile);
+  // });
+
+  // let cards: TinderProfile[] = [                                                                      ];
+
+  // cards['All Users'] = data;
+  // cards['GyMates'] = notPTArray;
+  // cards['PTs'] = isPTArray;
+
+  // const [preference, updatePreference] = useState<string>('All Users');
+
+  const like = useLikeUser(token, index);
 
   const Button = ({onPress, isPressed, text, textStyle}: ButtonProps) => {
     return (
@@ -100,14 +124,18 @@ export function TinderSwipe() {
     return pressedButton === button;
   };
 
-  const handleSwipeRight = (index: number) => {
+  const handleRightLike = (index: number) => {
     console.log('the what card', index, 'swipe right');
     console.log('its actual data is ', cards[index]);
 
     // setIndex(index => index + 1)
   };
 
-  const handleSwipeLeft = (index: number) => {
+  // const matchRequest = () => {
+  //   if 
+  // }
+
+  const handleLeftNope = (index: number) => {
     console.log('the what card', index, 'swipe left');
     console.log('its actual data is ', Object.values(cards[index]));
   };
@@ -118,6 +146,10 @@ export function TinderSwipe() {
   const onSwipe = (newIndex: React.SetStateAction<number>) => {
     setIndex(newIndex);
   };
+
+  const handleLike = () => {
+    onSwipe(index + 1)
+  }
 
   console.log('check all cards', cards);
   // console.log(
@@ -182,7 +214,8 @@ export function TinderSwipe() {
                     <View>
                       <Image
                         source={{
-                          uri: `${REACT_APP_API_SERVER}/profile-pic/${card.profile_pic}`,
+                          // @ts-ignore
+                          uri: `${REACT_APP_API_SERVER}/profile-pic/${card.profile_pic!}`,
                         }}
                         style={styles1.card2}
                       />
@@ -253,18 +286,6 @@ export function TinderSwipe() {
                           ]}>
                           <Ionicons name="close" size={45} color={'#ED8974'} />
                         </TouchableOpacity>
-                        {/* <TouchableOpacity
-                        onPress={() => {
-                          onSwipe(index + 1);
-                        }}
-                        style={[
-                          styles.SuperIcon,
-                          card.interest_name.length > 3
-                            ? {bottom: 342}
-                            : {bottom: 305},
-                        ]}>
-                        <Ionicons name="md-star" size={35} color={'#4FADC2'} />
-                      </TouchableOpacity> */}
                         <TouchableOpacity
                           onPress={() => {
                             onSwipe(index + 1);
@@ -291,8 +312,8 @@ export function TinderSwipe() {
                   </Animated.View>
                 )}
                 verticalSwipe={false}
-                onSwipedRight={handleSwipeRight}
-                onSwipedLeft={handleSwipeLeft}
+                onSwipedRight={handleRightLike}
+                onSwipedLeft={handleLeftNope}
                 onSwipedAll={handleSwipeAll}
                 useViewOverflow={false}
                 overlayLabels={{
@@ -370,42 +391,6 @@ export function TinderSwipe() {
                       },
                     },
                   },
-                  // top: {
-                  //   element: (
-                  //     <View
-                  //       style={{
-                  //         borderWidth: 3,
-                  //         borderRadius: 16,
-                  //         borderColor: '#4FADC2',
-                  //         bottom: 400,
-                  //       }}>
-                  //       <Text
-                  //         style={{
-                  //           color: '#4FADC2',
-                  //           fontWeight: 'bold',
-                  //           fontSize: 30,
-                  //           marginHorizontal: 10,
-                  //         }}>
-                  //         SUPER LIKE!
-                  //       </Text>
-                  //     </View>
-                  //   ) /* Optional */,
-                  //   title: 'SUPER LIKE',
-                  //   style: {
-                  //     label: {
-                  //       backgroundColor: 'black',
-                  //       borderColor: 'black',
-                  //       color: 'white',
-                  //       borderWidth: 1,
-                  //     },
-                  //     wrapper: {
-                  //       flexDirection: 'column',
-                  //       alignItems: 'center',
-                  //       justifyContent: 'center',
-                  //       marginTop: -200,
-                  //     },
-                  //   },
-                  // },
                 }}
                 overlayLabelWrapperStyle={{
                   position: 'absolute',

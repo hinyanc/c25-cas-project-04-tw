@@ -4,6 +4,11 @@ import {
   usersMatchingTable,
 } from "../migrations/20230605101740_users";
 
+// interface UsersMatching {
+//   users_id: number;
+//   matched_users_id: number;
+//   status: string;
+// }
 export class DiscoverService {
   constructor(private knex: Knex) {}
 
@@ -17,8 +22,11 @@ export class DiscoverService {
 
   getAllProfile = async (userId: number) => {
     const allProfiles = await this.knex(userTable)
-      .select(this.knex.raw(
-        /*sql*/ `users.id, is_pt, gender, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio`))
+      .select(
+        this.knex.raw(
+          /*sql*/ `users.id, is_pt, gender, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio`
+        )
+      )
       .where("users.id", "!=", userId)
       .join("users_interest", "users_interest.users_id", "users.id")
       .join("interest", "users_interest.interest_id", "interest.id")
@@ -38,8 +46,8 @@ export class DiscoverService {
         "bio",
         "profile_pic",
         "gym_center.gym_center",
-        "gym_location.gym_location",
-      )
+        "gym_location.gym_location"
+      );
 
     let filterMatchedAll: any[] = [];
     for (let item of allProfiles) {
@@ -53,7 +61,6 @@ export class DiscoverService {
     }
     console.log("firstRound", allProfiles);
     console.log("not result ", filterMatchedAll);
-
 
     let allResult: any[] = [];
 
@@ -79,8 +86,11 @@ export class DiscoverService {
 
   getAllUsers = async (userId: number) => {
     const allUsers = await this.knex(userTable)
-      .select(this.knex.raw(
-        /*sql*/ `users.id, is_pt, gender, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio`))
+      .select(
+        this.knex.raw(
+          /*sql*/ `users.id, is_pt, gender, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio`
+        )
+      )
       .where("users.id", "!=", userId)
       .andWhere("users.is_pt", "=", false)
       .join("users_interest", "users_interest.users_id", "users.id")
@@ -101,8 +111,8 @@ export class DiscoverService {
         "bio",
         "profile_pic",
         "gym_center.gym_center",
-        "gym_location.gym_location",
-      )
+        "gym_location.gym_location"
+      );
 
     let filterMatchedUsers: any[] = [];
     for (let item of allUsers) {
@@ -112,11 +122,11 @@ export class DiscoverService {
         .andWhere("matched_users_id", "=", item.id)
         .where("status", "=", "matched");
 
-      if (matchedUsers[0] != undefined) filterMatchedUsers.push(matchedUsers[0]);
+      if (matchedUsers[0] != undefined)
+        filterMatchedUsers.push(matchedUsers[0]);
     }
     console.log("firstRound", allUsers);
     console.log("not result ", filterMatchedUsers);
-
 
     let usersResult: any[] = [];
 
@@ -142,8 +152,11 @@ export class DiscoverService {
 
   getAllPT = async (userId: number) => {
     const allPT = await this.knex(userTable)
-      .select(this.knex.raw(
-        /*sql*/ `users.id, is_pt, gender, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio`))
+      .select(
+        this.knex.raw(
+          /*sql*/ `users.id, is_pt, gender, username, profile_pic, (gym_center.gym_center) AS gym_center, (gym_location.gym_location) AS gym_location, json_agg(interest.name) AS interest_name, bio`
+        )
+      )
       .where("users.id", "!=", userId)
       .andWhere("users.is_pt", "=", true)
       .join("users_interest", "users_interest.users_id", "users.id")
@@ -164,8 +177,8 @@ export class DiscoverService {
         "bio",
         "profile_pic",
         "gym_center.gym_center",
-        "gym_location.gym_location",
-      )
+        "gym_location.gym_location"
+      );
 
     let filterMatchedPT: any[] = [];
     for (let item of allPT) {
@@ -179,7 +192,6 @@ export class DiscoverService {
     }
     console.log("firstRound", allPT);
     console.log("not result ", filterMatchedPT);
-
 
     let ptResult: any[] = [];
 
@@ -206,10 +218,19 @@ export class DiscoverService {
   updateLikeUser = async (userId: number, targetUserId: number) => {
     // Check if a matching record already exists
     const matchExists = await this.knex.raw(
-      /*sql*/ `select exists (select from users_matching where users_id = ${userId} and matched_users_id = ${targetUserId} or users_id = ${targetUserId} and matched_users_id = ${userId}) `
+      /*sql*/ `select exists (select from users_matching where users_id = ? and matched_users_id = ? or users_id = ? and matched_users_id = ?) `,
+      [userId, targetUserId, targetUserId, userId]
     );
 
-    if (matchExists) {
+    if (!matchExists.rows[0].exists) {
+      // Insert a new matching record with the status 'requested'
+      await this.knex(usersMatchingTable).insert({
+        users_id: userId,
+        matched_users_id: targetUserId,
+        status: "requested",
+      });
+      return { message: "requested" };
+    } else {
       // Update the status to 'matched'
       await this.knex(usersMatchingTable)
         .where("users_id", userId)
@@ -218,30 +239,7 @@ export class DiscoverService {
         .andWhere("matched_users_id", userId)
         .update({ status: "matched" });
       return { message: "matched" };
-    } else {
-      // Insert a new matching record with the status 'requested'
-      await this.knex(usersMatchingTable).insert({
-        users_id: userId,
-        matched_users_id: targetUserId,
-        status: "requested",
-      });
-      return { message: "requested" };
     }
   };
 
-  updateDislikeUser = async (userId: number, targetUserId: number) => {
-    // Check if a matching record already exists
-    const matchExists = await this.knex.raw(
-      /*sql*/ `select exists (select from users_matching where users_id = ${userId} and matched_users_id = ${targetUserId} or users_id = ${targetUserId} and matched_users_id = ${userId}) `
-    );
-
-    if (matchExists) {
-      await this.knex(usersMatchingTable)
-        .where("users_id", userId)
-        .andWhere("matched_users_id", targetUserId)
-        .orWhere("users_id", targetUserId)
-        .andWhere("matched_users_id", userId)
-        .update({ status: "dislike" });
-    }
-  };
 }

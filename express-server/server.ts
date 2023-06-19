@@ -77,7 +77,7 @@ import { DiscoverController } from "./controllers/discoverController";
 import { GoalController } from "./controllers/goalController";
 import { ChatListController } from "./controllers/ChatListController";
 // Services
-import { AuthService } from "./services/AuthService";
+import { AuthService } from "./services/authService";
 import { SignUpService } from "./services/SignUpService";
 import { MessageService } from "./services/MessageService";
 import { ChatListService } from "./services/ChatListService";

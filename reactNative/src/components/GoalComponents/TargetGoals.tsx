@@ -15,118 +15,109 @@ import {
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {styles} from '../../utils/styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Goals, useGetGoals} from '../../hooks/goalAPI';
+import {REACT_APP_API_SERVER} from '@env';
 
 const ScreenWidth = Dimensions.get('window').width;
 const ScreenHeight = Dimensions.get('window').height;
 
-type ICheckboxComponent = {
-  id: string;
-  title: string;
-};
-
-type IItem = {
-  item: ICheckboxComponent;
-};
-
-const generateToggleState = (
-  array: ICheckboxComponent[],
-  key: string,
-  value: boolean,
-) => {
-  if (!array) return [];
-  const initialValue = {};
-  return array.reduce((obj, item) => {
-    // @ts-ignore
-    return item[key]
-      ? {
-          ...obj,
-          // @ts-ignore
-          [item[key].replace(/\s/, '')]: value,
-        }
-      : obj;
-  }, initialValue);
-};
-
 const TargetGoals = () => {
-  const itemList = [
-    {id: 'checkbox-1', title: 'Workout 3 times a week!!'},
-    {id: 'checkbox-2', title: 'Match 1 gym mate a week!'},
-    {id: 'checkbox-3', title: 'Body fat lower than 25%'},
-    {id: 'checkbox-4', title: 'Lose Weight!'},
-  ];
+  const [token, setToken] = useState('');
+  const [addGoals, setAddGoals] = useState('');
 
-  const [toggleCheckbox, setToggleCheckbox] = useState<any>({});
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const handleToggleState = (item: ICheckboxComponent) =>
-    setToggleCheckbox({
-      ...toggleCheckbox,
-      [item.id]: !toggleCheckbox[item.id],
-    });
-
+  const getLocalStorage = async () => {
+    let token = await AsyncStorage.getItem('token');
+    if (token == null) {
+      console.log('token is not in storage');
+    } else {
+      setToken(token!);
+      console.log('check get async storage token', token);
+    }
+  };
   useEffect(() => {
-    setToggleCheckbox(generateToggleState(itemList, 'id', false));
-  }, []);
+    getLocalStorage();
+  });
 
-  const CheckboxComponent = ({item}: IItem) => {
-    const {id, title} = item;
-    return (
+  const [modalVisible, setModalVisible] = useState(false);
+  const [render, setRender] = useState(false)
+
+  const goalList = useGetGoals(token, render);
+  console.log(goalList);
+
+  const GoalsCheckboxComponent = () => {
+    const [checkedIds, setCheckedIds] = useState<number[]>([]);
+
+    const handleCheck = async (id: number) => {
+      if (checkedIds.includes(id)) {
+        setCheckedIds(checkedIds.filter(checkedId => checkedId !== id));
+      } else {
+        setCheckedIds([...checkedIds, id]);
+      }
+
+      try {
+        await fetch(
+          `${REACT_APP_API_SERVER}/goal/update-goals/${id}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              is_completed: {},
+            }),
+          },
+        );
+      } catch (error) {
+        console.error('Error updating goal item:', error);
+      }
+    };
+
+    const renderItem = ({item}: {item: Goals}) => (
       <BouncyCheckbox
-        disableBuiltInState
-        fillColor="#E24E59"
+        isChecked={item.is_completed}
+        text={item.name}
+        key={item.id}
+        onPress={() => handleCheck(item.id)}
         iconStyle={{borderColor: '#E24E59'}}
-        isChecked={toggleCheckbox[id]}
-        key={id}
-        onPress={() => handleToggleState({id, title})}
-        style={{marginLeft:25, paddingBottom: 10}}
-        text={title}
-        textStyle={{textDecorationLine: 'none'}}
+        style={{marginLeft: 25, paddingBottom: 10}}
+        textStyle={{width: ScreenWidth * 0.8}}
+        fillColor="#E24E59"
+      />
+    );
+
+    return (
+      <FlatList
+        data={goalList}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
       />
     );
   };
 
-  // const NewTask = (id: string, title:string) => {
+  const handleInputChange = (text: string) => {
+    setAddGoals(text);
+  };
+  const handleSubmit = async () => {
+    setModalVisible(!modalVisible)
+    await fetch(
+      `${REACT_APP_API_SERVER}/goal/add-goals`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          addGoals: addGoals,
+        }),
+      },
+    );
+    setRender(!render)
+  };
 
-  //   return (
-  //     <BouncyCheckbox
-  //       disableBuiltInState
-  //       fillColor="red"
-  //       iconStyle={{borderColor: 'red'}}
-  //       isChecked={false}
-  //       key={id}
-  //       // onPress={() => handleToggleState({id, title})}
-  //       style={{paddingBottom: 10}}
-  //       textComponent={
-  //         <TextInput
-  //           placeholder="Enter your goal here"
-  //           value={title}
-  //           placeholderTextColor="#B1B1B1"
-  //           style={{
-  //             padding: 0,
-  //             fontSize: 13,
-  //             paddingLeft: 10,
-  //             width: 200,
-  //             height: 30,
-  //             backgroundColor: 'white',
-  //             marginLeft: 25,
-  //             borderWidth: 1,
-  //             borderRadius: 16,
-  //             borderColor: '#E2868D',
-  //             color: '#B1B1B1',
-  //           }}
-  //         />
-  //       }
-  //       textStyle={{textDecorationLine: 'none'}}
-  //     />
-  //   );
-  // };
-  
-  const renderItem = ({item}: IItem) => <CheckboxComponent item={item} />;
-  
-  // const addNewTask = () => {
-  //   const taskArr = [...itemList]
-  //   taskArr.push(<NewTask/>)
-  // }
+
+
   return (
     <View>
       <View
@@ -138,67 +129,66 @@ const TargetGoals = () => {
         }}>
         <Text style={styles.setGoal}>Target Goals</Text>
         <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: 'rgba(0,0,0,0.5)',
-            width: ScreenWidth,
-            height: ScreenHeight,
-          }}
-          activeOpacity={1}
-          onPressOut={() => {
-            setModalVisible(false);
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
           }}>
-          <ScrollView
-          // directionalLockEnabled={true}
-          // contentContainerStyle={styles.scrollModal}
-          >
-            <TouchableWithoutFeedback>
-              <View style={styles.modalView}>
-                <Text style={styles.modalTitle}>
-                  Add your goal
-                </Text>
-                <TextInput
-                  placeholder="Enter your goal here"
-                  placeholderTextColor="#B1B1B1"
-                  // value={promotionCode}
-                  // onChangeText={handleInputChange}
-                  style={{
-                    padding: 0,
-                    fontSize: 14,
-                    paddingLeft: 10,
-                    width: 250,
-                    height: 35,
-                    backgroundColor: 'white',
-                    borderWidth: 1,
-                    borderRadius: 16,
-                    borderColor: '#E2868D',
-                    color: '#B1B1B1',
-                  }}
-                />
-                <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity
-                  style={[styles.PlanSubmitBtn]}
-                  onPress={() => setModalVisible(!modalVisible)}>
-                  <Text style={styles.BMIChartText}>Submit</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.PlanSubmitBtn]}
-                  onPress={() => setModalVisible(!modalVisible)}>
-                  <Text style={styles.BMIChartText}>Cancel</Text>
-                </TouchableOpacity></View>
-              </View>
-            </TouchableWithoutFeedback>
-          </ScrollView>
-        </TouchableOpacity>
-      </Modal>
-        <TouchableOpacity onPress={()=>setModalVisible(true)}>
+          <TouchableOpacity
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              width: ScreenWidth,
+              height: ScreenHeight,
+            }}
+            activeOpacity={1}
+            onPressOut={() => {
+              setModalVisible(false);
+            }}>
+            <ScrollView
+            // directionalLockEnabled={true}
+            // contentContainerStyle={styles.scrollModal}
+            >
+              <TouchableWithoutFeedback>
+                <View style={styles.modalView}>
+                  <Text style={styles.modalTitle}>Add your goal</Text>
+                  <TextInput
+                    placeholder="Enter your goal here"
+                    placeholderTextColor="#B1B1B1"
+                    value={addGoals}
+                    onChangeText={handleInputChange}
+                    style={{
+                      padding: 0,
+                      fontSize: 14,
+                      paddingLeft: 10,
+                      width: 250,
+                      height: 35,
+                      backgroundColor: 'white',
+                      borderWidth: 1,
+                      borderRadius: 16,
+                      borderColor: '#E2868D',
+                      color: '#B1B1B1',
+                    }}
+                  />
+                  <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity
+                      style={[styles.PlanSubmitBtn]}
+                      onPress={() => {handleSubmit()}}>
+                      <Text style={styles.BMIChartText}>Submit</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.PlanSubmitBtn]}
+                      onPress={() => setModalVisible(!modalVisible)}>
+                      <Text style={styles.BMIChartText}>Cancel</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </TouchableWithoutFeedback>
+            </ScrollView>
+          </TouchableOpacity>
+        </Modal>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Ionicons
             name="add-circle-sharp"
             size={35}
@@ -210,14 +200,8 @@ const TargetGoals = () => {
       <SafeAreaView
         style={{
           marginTop: 10,
-          height: 140,
         }}>
-        <FlatList
-          data={itemList}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          style={{padding: 2}}
-        />
+        <GoalsCheckboxComponent />
       </SafeAreaView>
     </View>
   );

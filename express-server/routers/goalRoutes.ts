@@ -12,4 +12,4 @@ goalRoutes.post(
 );
 goalRoutes.get("/get-goals", isLoggedIn, goalController.getGoals);
 goalRoutes.post("/add-goals", isLoggedIn, goalController.addGoals);
-goalRoutes.put("/update-goals", isLoggedIn, goalController.updateCompletedGoals);
+goalRoutes.put("/update-goals/:tid", isLoggedIn, goalController.updateCompletedGoals);
