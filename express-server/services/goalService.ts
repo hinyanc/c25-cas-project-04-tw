@@ -10,7 +10,7 @@ interface SetTargetWeight {
 }
 
 interface AddGoals {
-  goals: string;
+  addGoals: string;
 }
 
 export class GoalService {
@@ -25,39 +25,51 @@ export class GoalService {
   };
 
   setTargetWeight = async (input: SetTargetWeight, userId: number) => {
-    const targetWeight = await this.knex(goalsTable)
-      .insert({ target_weight: input.targetWeight })
-      .join(userTable, "goal.users_id", "users.id")
-      .where("users.id", "=", userId);
+    const targetWeight = await this.knex(goalsTable).insert({
+      users_id: userId,
+      target_weight: input.targetWeight,
+    });
     return targetWeight;
   };
 
   getGoals = async (userId: number) => {
     const getGoalsResult = await this.knex(goalsTable)
-      .select("target.name")
+      .select("target.id", "target.name", "is_completed")
       .join(targetGoalsTable, "target.goal_id", "goal.id")
       .join(userTable, "goal.users_id", "users.id")
-      .where("users.id", "=", userId);
+      .where("users.id", "=", userId)
+      .orderBy("is_completed", "desc")
+      .orderBy('id', 'asc');
     return getGoalsResult;
   };
 
   addGoals = async (input: AddGoals, userId: number) => {
-    const addGoalsResult = await this.knex(goalsTable)
-      .insert({ goals: input.goals })
-      .join(targetGoalsTable, "target.goal_id", "goal.id")
-      .join(userTable, "goal.users_id", "users.id")
-      .where("users.id", "=", userId);
-    return addGoalsResult;
+    const addGoalsResult = await this.knex.raw(
+      /*sql*/ `
+      INSERT INTO target (name, is_completed, goal_id)
+      VALUES (?, false,
+      (SELECT id
+      FROM goal
+      WHERE users_id = ?
+      LIMIT 1))`,
+      [input.addGoals, userId]
+    );
+    return addGoalsResult.rows;
   };
 
   updateCompletedGoals = async (target_id: number, userId: number) => {
-    const updateCompletedGoalsResult = await this.knex(goalsTable)
-      .where("users.id", "=", userId)
-      .andWhere("target.id", "=", target_id)
-      .join(targetGoalsTable, "target.goal_id", "goal.id")
-      .join(userTable, "goal.users_id", "users.id")
-      .update("target.is_completed", true);
-
-    return updateCompletedGoalsResult;
+    const resultId = await this.knex.raw(
+      /*sql*/ `
+      UPDATE target t
+      SET is_completed = NOT is_completed
+      FROM goal g
+      WHERE t.goal_id = g.id
+      AND users_id = ?
+      AND t.id = ?
+      RETURNING t.id as id
+    `,
+      [userId, target_id]
+    );
+    return resultId.rows;
   };
 }

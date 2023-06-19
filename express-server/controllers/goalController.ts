@@ -20,12 +20,12 @@ export class GoalController {
 
   setTargetWeight = async (req: Request, res: Response) => {
     try {
-      const target_weight = req.body.targetWeight;
+      const target_weight = req.body;
       // @ts-ignore
       const userId = req.user?.id;
       // const userId = req.session.users_id
       await this.goalService.setTargetWeight(target_weight, userId!);
-      res.status(200).json({ message: "set target weight success" });
+      res.status(200).json({ message: `target weight: ${target_weight.targetWeight}` });
     } catch (error) {
       logger.error(error);
       res.status(500).json({ error: "Internal server error" });
@@ -36,7 +36,7 @@ export class GoalController {
     try {
       // @ts-ignore
       const userId = req.user?.id;
-      const goals = await this.goalService.getGoals( userId!);
+      const goals = await this.goalService.getGoals(userId!);
       res.status(200).json(goals);
     } catch (error) {
       logger.error(error);
@@ -46,11 +46,12 @@ export class GoalController {
 
   addGoals = async (req: Request, res: Response) => {
     try {
-      const goals = req.body.goals;
+      const goals = req.body;
       // @ts-ignore
       const userId = req.user?.id;
-      await this.goalService.setTargetWeight(goals, userId!);
-      res.status(200).json({ message: "set target weight success" });
+      const added = await this.goalService.addGoals(goals, userId!);
+      console.log(added)
+      res.status(200).json({ message: `add goal ${goals.addGoals} success` });
     } catch (error) {
       logger.error(error);
       res.status(500).json({ error: "Internal server error" });
@@ -59,11 +60,12 @@ export class GoalController {
 
   updateCompletedGoals = async (req: Request, res: Response) => {
     try {
-      const goals = req.body.goals;
+      const target_id = req.params.tid;
       // @ts-ignore
       const userId = req.user?.id;
-      await this.goalService.updateCompletedGoals(goals, userId!);
-      res.status(200).json({ message: "set target weight success" });
+      const resultId = await this.goalService.updateCompletedGoals(+target_id, userId!);
+      console.log(resultId)
+      res.status(200).json({ message: "completed goal success" });
     } catch (error) {
       logger.error(error);
       res.status(500).json({ error: "Internal server error" });

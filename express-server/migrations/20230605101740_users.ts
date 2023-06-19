@@ -51,7 +51,7 @@ export async function up(knex: Knex): Promise<void> {
     table.increments();
     table.integer("users_id").unsigned();
     table.foreign("users_id").references("users.id");
-    table.string("target_weight");
+    table.integer("target_weight");
     table.timestamps(false, true);
   });
 
