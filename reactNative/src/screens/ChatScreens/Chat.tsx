@@ -5,34 +5,24 @@ import {styles} from '../../utils/styles';
 import {useChatList} from '../../hooks/chatAPI';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 const Chat = () => {
-  const [mainUser, setMainUser] = useState('');
   const [token, setToken] = useState('');
   const [tempChats, setTempChats] = useState<any[]>([]);
 
-  const getAsyncInfo = async () => {
-    try {
-      const value = await AsyncStorage.getItem('mainUserId');
-      const token = await AsyncStorage.getItem('token');
-
-      if (value !== null) {
-        console.log('hihi', value, 'token', token);
-        // We have data!!
-        console.log('value');
-        setMainUser(value);
-        setToken(token!);
-
-        // socket.emit('socketId', value);
-      }
-    } catch (e) {
-      console.error('Error while loading username!');
-    }
-  };
-
   useEffect(() => {
+    const getAsyncInfo = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+
+        if (token) {
+          setToken(token!);
+        }
+      } catch (e) {
+        console.error('Error while loading username!');
+      }
+    };
+
     getAsyncInfo();
-    return () => {};
   }, []);
 
   const chats: any[] = useChatList(token);
@@ -46,31 +36,28 @@ const Chat = () => {
 
   console.log('check temp', tempChats);
   return (
+    <SafeAreaView style={styles.chatscreen}>
+      <View style={styles.chattopContainer}>
+        <View style={styles.chatheader}>
+          <Text style={styles.chatheading}>Chats</Text>
+        </View>
+      </View>
 
-      <SafeAreaView style={styles.chatscreen}>
-        <View style={styles.chattopContainer}>
-          <View style={styles.chatheader}>
-            <Text style={styles.chatheading}>Chats</Text>
+      <View style={styles.chatlistContainer}>
+        {chats.length > 0 || tempChats.length > 0 ? (
+          <FlatList
+            data={chats.length > 0 ? chats : tempChats}
+            renderItem={({item}) => <ChatComponent item={item} />}
+            keyExtractor={item => item.target_user_id as any}
+          />
+        ) : (
+          <View style={styles.chatemptyContainer}>
+            <Text style={styles.chatemptyText}>No rooms created!</Text>
+            <Text>❤️ Go to discover and match your new gyMatess! ❤️</Text>
           </View>
-        </View>
-
-        <View style={styles.chatlistContainer}>
-          {chats.length > 0 || tempChats.length > 0 ? (
-            <FlatList
-              data={chats.length > 0 ? chats : tempChats}
-              renderItem={({item}) => <ChatComponent item={item} />}
-              keyExtractor={item => item.target_user_id as any}
-            />
-          ) : (
-            <View style={styles.chatemptyContainer}>
-              <Text style={styles.chatemptyText}>No rooms created!</Text>
-              <Text>❤️ Go to discover and match your new gyMatess! ❤️</Text>
-            </View>
-          )}
-        </View>
-      </SafeAreaView>
-
-      
+        )}
+      </View>
+    </SafeAreaView>
   );
 };
 

@@ -6,6 +6,7 @@ export class MessageController {
 
   getMessageHistoryController = async (req: Request, res: Response) => {
     try {
+      console.log("messagesHistory");
       const mainUserId = req.user?.id;
       const { targetUserId } = req.params;
 

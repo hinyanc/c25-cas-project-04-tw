@@ -260,7 +260,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
               fontSize: 20,
             }}
             onPress={async () => {
-              await AsyncStorage.setItem('mainUserId', '1');
+              // await AsyncStorage.setItem('mainUserId', '1');
               navigation.navigate('MyHome');
               // sign up
             }}>

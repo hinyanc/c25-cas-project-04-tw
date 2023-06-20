@@ -18,8 +18,6 @@ import {Provider, useSelector} from 'react-redux';
 import {store} from './src/store/store';
 import {LogBox} from 'react-native';
 // import socket from './src/utils/socket';
-import {ConnectionState} from './src/utils/ConnectionStates';
-import {Events} from './src/utils/Event';
 // import UploadFile from './src/screens/SignUpScreen/UploadFile';
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message'])
