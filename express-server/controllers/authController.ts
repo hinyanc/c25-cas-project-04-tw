@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { logger } from "../utils/logger";
-import { AuthService } from "../services/authService";
+import { AuthService } from "../services/AuthService";
 import { comparePassword } from "../utils/hash";
 import jwtSimple from "jwt-simple";
 import jwt from "../utils/jwt";
