@@ -28,7 +28,7 @@ import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 const {width, height} = Dimensions.get('window');
 
-interface SectionOneProps {
+interface SectionTwoProps {
   next: () => void;
   back: () => void;
   errorState: FormErrorState;
@@ -44,7 +44,7 @@ export default function SectionTwo({
   onChangeHandler,
   errorState,
   inputHandler,
-}: SectionOneProps) {
+}: SectionTwoProps) {
   type ButtonProps = {
     onPress: () => void;
     isPressed?: boolean;

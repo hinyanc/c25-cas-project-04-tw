@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -33,7 +33,7 @@ const interests: string[] = [
   'Boxing',
   'Stretching',
 ];
-interface SectionOneProps {
+interface SectionFourProps {
   next: () => void;
   back: () => void;
   formState: FormState;
@@ -43,14 +43,14 @@ interface SectionOneProps {
 
 }
 
-export default function SectionTwo({
+export default function SectionFour({
   next,
   back,
   formState,
   onChangeHandler,
   inputHandler,
   errorState,
-}: SectionOneProps) {
+}: SectionFourProps) {
   type ButtonProps = {
     onPress: () => void;
     isPressed: boolean;
@@ -134,7 +134,7 @@ export default function SectionTwo({
   };
 
   const isButtonPressed = (button: string) => {
-    return pressedButton === button;
+    return formState.gymLevel === button;
   };
 
   // interest
@@ -148,6 +148,15 @@ export default function SectionTwo({
       setSelectedInterests([...selectedInterests, interest]);
     }
   };
+
+  useEffect(() => {
+    if (formState.interests)  setSelectedInterests(formState.interests)
+    
+  }, [])
+
+  useEffect(() => {
+    onChangeHandler('interests', selectedInterests);
+  }, [selectedInterests])
 
   const isInterestPressed = (interest: string) => {
     return selectedInterests.includes(interest);
@@ -264,8 +273,8 @@ export default function SectionTwo({
             key={index}
             onPress={() => {
               handleInterestPress(interest);
-              onChangeHandler('interests', selectedInterests);
-              console.log("interest",index+1)
+              // onChangeHandler('interests', selectedInterests);
+              // console.log("interest",index+1)
             }}
             isPressed={isInterestPressed(interest)}
             text={interest}
