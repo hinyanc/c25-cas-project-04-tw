@@ -20,6 +20,7 @@ import {LogBox} from 'react-native';
 // import socket from './src/utils/socket';
 import {ConnectionState} from './src/utils/ConnectionStates';
 import {Events} from './src/utils/Event';
+import PlanScreen from './src/screens/PlanScreen';
 // import UploadFile from './src/screens/SignUpScreen/UploadFile';
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message'])
@@ -50,6 +51,7 @@ export type StackParamList = {
   Login: undefined;
   Next: undefined;
   Chat: undefined;
+  Plan: undefined;
   // uploadFile:undefined;
   Messaging: {target_user_id: Number; target_username: string};
 };
@@ -146,6 +148,9 @@ export default function App() {
                 }}
               />
               <Stack.Screen name="Messaging" component={Messaging} />
+              <Stack.Screen name="Plan" component={PlanScreen} options={{
+                  headerShown: false,
+                }} />
             </Stack.Navigator>
           </NavigationContainer>
         </QueryClientProvider>

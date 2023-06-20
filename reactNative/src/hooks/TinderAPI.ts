@@ -68,51 +68,6 @@ export function useGetTinderProfile(token: string, preference: string) {
   return data;
 }
 
-export function useGetUserProfile(token: string, preference: string) {
-  const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['userProfile', token, preference],
-    queryFn: async () => {
-      const res = await fetch(
-        `${REACT_APP_API_SERVER}/discover/get-all-users`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      const result = await res.json();
-      return result as TinderProfile[];
-    },
-  });
-
-  if (isLoading || isFetching || error || !data) {
-    return [];
-  }
-
-  return data;
-}
-
-export function useGetPTProfile(token: string, preference: string) {
-  const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['PTProfile', token, preference],
-    queryFn: async () => {
-      const res = await fetch(`${REACT_APP_API_SERVER}/discover/get-all-pt`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const result = await res.json();
-      return result as TinderProfile[];
-    },
-  });
-
-  if (isLoading || isFetching || error || !data) {
-    return [];
-  }
-
-  return data;
-}
-
 export function useLikeUser(token: string, userId: number) {
   const {isLoading, error, data, isFetching} = useQuery({
     queryKey: ['likeUser', token, userId],

@@ -1,8 +1,8 @@
 import React from 'react';
-import {FlatList, Image, SafeAreaView, Text, View} from 'react-native';
+import {FlatList, Image, SafeAreaView, Text, TextInput, View} from 'react-native';
 import {styles} from '../../utils/styles';
 import {REACT_APP_API_SERVER} from '@env';
-import {TextInput} from 'react-native-gesture-handler';
+
 
 const UserScreen = () => {
   const item = {
@@ -20,7 +20,7 @@ const UserScreen = () => {
   };
 
   return (
-    <View>
+    <View style={{backgroundColor: '#FFF9F0'}}>
       <SafeAreaView style={styles.profilescreen}>
         <View style={styles.prpfiletopContainer}>
           <View style={styles.chatheader}>

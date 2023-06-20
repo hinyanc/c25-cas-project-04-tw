@@ -102,6 +102,9 @@ export const discoverController = new DiscoverController(discoverService);
 const goalService = new GoalService(knex);
 export const goalController = new GoalController(goalService);
 
+const profileService = new ProfileService(knex);
+export const profileController = new ProfileController(profileService);
+
 // Route Handlers
 import { messageRoutes } from "./routers/messageRoutes";
 import { User } from "./utils/model";
@@ -110,6 +113,9 @@ import { signUpRoutes } from "./routers/signUpRoutes";
 import { discoverRoutes } from "./routers/discoverRoutes";
 import { goalRoutes } from "./routers/goalRoutes";
 import { chatListRoutes } from "./routers/chatListRoutes";
+import { profileRoutes } from "./routers/profileRoutes";
+import { ProfileService } from "./services/profileService";
+import { ProfileController } from "./controllers/profileController";
 
 // import expressSession from "express-session";
 
@@ -147,6 +153,7 @@ app.use("/message", messageRoutes);
 app.use("/chatlist", chatListRoutes);
 app.use("/discover", discoverRoutes);
 app.use("/goal", goalRoutes);
+app.use("/profile", profileRoutes);
 
 app.use("/profile-pic", express.static("./assets/profile_pic"));
 

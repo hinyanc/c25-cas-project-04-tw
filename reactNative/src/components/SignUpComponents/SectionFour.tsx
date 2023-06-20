@@ -203,7 +203,7 @@ export default function SectionTwo({
           isPressed={isButtonPressed('Newbie')}
           text="Newbie"
           textStyle={{
-            color: '#000',
+            color: '#e24e59',
           }}
           btnType="level"
         />
@@ -217,7 +217,7 @@ export default function SectionTwo({
           isPressed={isButtonPressed('Moderate')}
           text="Moderate"
           textStyle={{
-            color: '#000',
+            color: '#e24e59',
           }}
           btnType="level"
         />
@@ -230,7 +230,7 @@ export default function SectionTwo({
           isPressed={isButtonPressed('Vigorous')}
           text="Vigorous"
           textStyle={{
-            color: '#000',
+            color: '#e24e59',
           }}
           btnType="level"
         />

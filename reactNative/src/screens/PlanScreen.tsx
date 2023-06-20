@@ -8,16 +8,22 @@ import PlansPrice from '../components/PlanComponents/PlanPrice';
 const PlanScreen = () => {
   return (
     <ScrollView>
-    <View style={{flex: 1, alignItems: 'center', backgroundColor:'#FFF9F0'}}>
-      <Text style={styles.subPlan}>Subscription Plans</Text>
-      <Text style={styles.subDetails}>Upgrade to Diamond</Text>
-      <Text style={styles.subDetails}>
-        for an enhanced GyMatess experience.
-      </Text>
-      <PlansTable />
-      <PlansPrice />
-      <PlanButton />
-    </View></ScrollView>
+      <View style={{flex: 1, alignItems: 'center', backgroundColor: '#FFF9F0',padding: 10,
+    position: 'relative',}}>
+        <View style={styles.prpfiletopContainer}>
+          <View style={styles.chatheader}>
+            <Text style={styles.profileheading}>Subscription Plans</Text>
+          </View>
+        </View>
+        <Text style={styles.subDetails}>Upgrade to Diamond</Text>
+        <Text style={styles.subDetails}>
+          for an enhanced GyMatess experience.
+        </Text>
+        <PlansTable />
+        <PlansPrice />
+        <PlanButton />
+      </View>
+    </ScrollView>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {View, Text, SafeAreaView, FlatList} from 'react-native';
+import {View, Text, SafeAreaView, FlatList, ScrollView} from 'react-native';
 import ChatComponent from '../../components/ChatComponents/ChatComponent';
 import {styles} from '../../utils/styles';
 import {useChatList} from '../../hooks/chatAPI';
@@ -47,7 +47,7 @@ const Chat = () => {
   console.log('check temp', tempChats);
   return (
 
-      <SafeAreaView style={styles.chatscreen}>
+      <ScrollView style={styles.chatscreen}>
         <View style={styles.chattopContainer}>
           <View style={styles.chatheader}>
             <Text style={styles.chatheading}>Chats</Text>
@@ -68,7 +68,7 @@ const Chat = () => {
             </View>
           )}
         </View>
-      </SafeAreaView>
+      </ScrollView>
 
       
   );
