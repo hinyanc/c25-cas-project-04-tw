@@ -42,10 +42,10 @@ export function useGetUsername(token: string) {
   return data;
 }
 
-export function useGetTinderProfile(token: string) {
+export function useGetTinderProfile(token: string, preference: string) {
   let real_token = AsyncStorage.getItem('token');
   const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['tinderProfile', token],
+    queryKey: ['tinderProfile', token, preference],
     queryFn: async () => {
       const res = await fetch(
         `${REACT_APP_API_SERVER}/discover/get-all-profile`,
@@ -68,9 +68,9 @@ export function useGetTinderProfile(token: string) {
   return data;
 }
 
-export function useGetUserProfile(token: string) {
+export function useGetUserProfile(token: string, preference: string) {
   const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['userProfile', token],
+    queryKey: ['userProfile', token, preference],
     queryFn: async () => {
       const res = await fetch(
         `${REACT_APP_API_SERVER}/discover/get-all-users`,
@@ -92,9 +92,9 @@ export function useGetUserProfile(token: string) {
   return data;
 }
 
-export function useGetPTProfile(token: string) {
+export function useGetPTProfile(token: string, preference: string) {
   const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['PTProfile', token],
+    queryKey: ['PTProfile', token, preference],
     queryFn: async () => {
       const res = await fetch(`${REACT_APP_API_SERVER}/discover/get-all-pt`, {
         headers: {

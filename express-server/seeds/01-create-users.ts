@@ -218,7 +218,7 @@ export async function seed(knex: Knex): Promise<void> {
 
   for (let i = 0; i < targetGoals.length; i++) {
     await knex(targetGoalsTable).insert({
-      goal_id: faker.number.int({ min: 3, max: 10 }),
+      goal_id: faker.number.int({ min: 1, max: 10 }),
       name: targetGoals[i],
       is_completed: faker.datatype.boolean(),
     });

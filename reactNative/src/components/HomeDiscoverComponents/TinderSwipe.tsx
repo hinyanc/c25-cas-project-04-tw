@@ -79,7 +79,9 @@ export function TinderSwipe() {
     getLocalStorage();
   });
 
-  const cards = useGetTinderProfile(token);
+  const [preference, updatePreference] = useState<string>('All Users');
+
+  const cards = useGetTinderProfile(token, 'All Users');
   // const data = useGetTinderProfile(token);
 
   // let isPTArray: TinderProfile[] = [];
@@ -95,7 +97,7 @@ export function TinderSwipe() {
   // cards['GyMates'] = notPTArray;
   // cards['PTs'] = isPTArray;
 
-  // const [preference, updatePreference] = useState<string>('All Users');
+  
 
   const like = useLikeUser(token, index);
 
