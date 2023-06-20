@@ -70,14 +70,14 @@ interface OnlineUser {
 const PORT = 8080;
 
 // Controllers
-import { AuthController } from "./controllers/AuthController";
+import { AuthController } from "./controllers/authController";
 import { SignUpController } from "./controllers/SignUpController";
 import { MessageController } from "./controllers/MessageController";
 import { DiscoverController } from "./controllers/discoverController";
 import { GoalController } from "./controllers/goalController";
 import { ChatListController } from "./controllers/ChatListController";
 // Services
-import { AuthService } from "./services/AuthService";
+import { AuthService } from "./services/authService";
 import { SignUpService } from "./services/SignUpService";
 import { MessageService } from "./services/MessageService";
 import { ChatListService } from "./services/ChatListService";

@@ -159,11 +159,11 @@ export async function seed(knex: Knex): Promise<void> {
       username: usernames[i],
       //can't generate useful picture
       profile_pic: image[i],
-      birthday: faker.date.birthdate({ min: 18, max: 65, mode: "age" }),
+      birthday: faker.date.birthdate({ min: 18, max: 50, mode: "age" }),
       gender: gender[i],
       bio: faker.lorem.sentence(),
-      height: faker.number.int({ min: 150, max: 200 }),
-      weight: faker.number.int({ min: 50, max: 100 }),
+      height: faker.number.int({ min: 155, max: 200 }),
+      weight: faker.number.int({ min: 45, max: 80 }),
       gym_level: faker.helpers.arrayElement(["Newbie", "Moderate", "Vigorous"]),
       has_membership: hasMembership,
       is_pt: isPt,
@@ -187,7 +187,7 @@ export async function seed(knex: Knex): Promise<void> {
 
     await knex(goalsTable).insert({
       users_id: i,
-      target_weight: faker.number.int({ min: 50, max: 100 }),
+      target_weight: faker.number.int({ min: 45, max: 75 }),
     });
   }
 
@@ -214,6 +214,7 @@ export async function seed(knex: Knex): Promise<void> {
     "Increase overall fitness and well-being",
     "running a marathon",
     "completing a triathlon",
+    "Lose body fat %"
   ];
 
   for (let i = 0; i < targetGoals.length; i++) {

@@ -79,26 +79,9 @@ export function TinderSwipe() {
     getLocalStorage();
   });
 
-  const [preference, updatePreference] = useState<string>('All Users');
+  const [preference, updatePreference] = useState<string>('get-all-profile');
 
-  const cards = useGetTinderProfile(token, 'All Users');
-  // const data = useGetTinderProfile(token);
-
-  // let isPTArray: TinderProfile[] = [];
-  // let notPTArray: TinderProfile[] = [];
-
-  // data.map(profile => {
-  //   profile.is_pt ? isPTArray.push(profile) : notPTArray.push(profile);
-  // });
-
-  // let cards: TinderProfile[] = [                                                                      ];
-
-  // cards['All Users'] = data;
-  // cards['GyMates'] = notPTArray;
-  // cards['PTs'] = isPTArray;
-
-  
-
+  const cards = useGetTinderProfile(token, preference)
   const like = useLikeUser(token, index);
 
   const Button = ({onPress, isPressed, text, textStyle}: ButtonProps) => {
@@ -120,6 +103,13 @@ export function TinderSwipe() {
 
   const handleButtonPress = (button: string) => {
     setPressedButton(button);
+    if (button === 'All Users'){
+      return updatePreference('get-all-profile')
+    } else if (button === 'GyMates') {
+      return updatePreference('get-all-users')
+    } else if (button === 'PTs'){
+      return updatePreference('get-all-pt')
+    }
   };
 
   const isButtonPressed = (button: string) => {
