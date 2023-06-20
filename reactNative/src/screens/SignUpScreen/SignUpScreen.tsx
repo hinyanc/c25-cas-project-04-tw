@@ -197,6 +197,7 @@ export default function SignUpForm() {
               next={() => {
                 // setSectionNum(5);
                 //validate if success
+                //toast
                 // show success and redirect to login
 
                 navigation.navigate('Login');
