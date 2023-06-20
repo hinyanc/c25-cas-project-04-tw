@@ -23,6 +23,30 @@ import { DocumentPickerResponse } from 'react-native-document-picker';
 
 const {width, height} = Dimensions.get('window');
 
+
+  // const submitForm = async () => {
+  //   const formData = new FormData();
+  //   formData.append('file', {
+  //     uri: profile_pic.uri,
+  //     type: profile_pic.type,
+  //     name: profile_pic.name,
+  //   })
+  //   formData.append("username",username)
+  //   formData.append("email",email)
+  //   formData.append("password",password)
+  //   formData.append("gender",gender)
+  //   formData.append("birthday",birthday)
+  //   formData.append("height",height)
+  //   formData.append("weight",weight)
+  //   formData.append("isMember",isMember)
+  //   formData.append("gymCenter",gymCenter)
+  //   formData.append("locaiton",locaiton)
+  //   formData.append("bio",bio)
+  //   formData.append("gymLevel",gymLevel)
+  //   formData.append("interests",interests)
+  //   formData.append("profile_pic",profile_pic)
+  // }
+
 export interface FormState {
   username: string;
   email: string;
