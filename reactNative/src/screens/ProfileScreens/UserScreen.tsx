@@ -10,23 +10,13 @@ import {
 import {styles} from '../../utils/styles';
 import {REACT_APP_API_SERVER} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LogoutBtn from '../../components/ProfileComponents/Logout';
+import { useGetInfo } from '../../hooks/profileAPI';
+import { Info } from '../../hooks/profileAPI';
 
 const UserScreen = () => {
   const [mainUser, setMainUser] = useState('');
   const [token, setToken] = useState('');
-  const item = {
-    profile_pic: 'profile_pic',
-    username: 'XXXXXXXX',
-    email: 'XXXXXXXX',
-    gender: 'XXXXXXXX',
-    date_of_birth: 'XXXXXXXX',
-    height: 'XXXXXXXX',
-    weight: 'XXXXXXXX',
-    gym_center: 'XXXXXXXX',
-    bio: 'XXXXXXXX',
-    gym_level: 'XXXXXXXX',
-    interests: 'XXXXXXXX',
-  };
 
   const getAsyncInfo = async () => {
     try {
@@ -47,19 +37,22 @@ const UserScreen = () => {
     return () => {};
   }, []);
 
+  const item: Info[] = useGetInfo(token)
+
   return (
     <View style={{backgroundColor: '#FFF9F0'}}>
       <SafeAreaView style={styles.profilescreen}>
         <View style={styles.prpfiletopContainer}>
           <View style={styles.chatheader}>
             <Text style={styles.profileheading}>My Profile</Text>
+            <LogoutBtn />
           </View>
         </View>
-        <View style={styles.profilelistContainer}>
+        {/* <View style={styles.profilelistContainer}>
           <View>
             <Image
               source={{
-                uri: `${REACT_APP_API_SERVER}/profile-pic/${item.profile_pic}`,
+                uri: `${REACT_APP_API_SERVER}/profile-pic/${item[0].profile_pic}`,
               }}
               style={styles.cprofilepic}
             />
@@ -67,39 +60,59 @@ const UserScreen = () => {
 
           <View>
             <Text>Username</Text>
-            <TextInput defaultValue="${item.username}"></TextInput>
+            <TextInput defaultValue={item[0].username}></TextInput>
           </View>
 
           <View>
-            <Text>email</Text>
-            <TextInput defaultValue="${item.email}"></TextInput>
+            <Text>Email</Text>
+            <TextInput keyboardType='email-address' defaultValue={item[0].email}></TextInput>
           </View>
 
           <View>
-            <Text>gender</Text>
-            <TextInput defaultValue="${item.gender}"></TextInput>
+            <Text>Gender</Text>
+            <TextInput defaultValue={item[0].gender}></TextInput>
           </View>
 
           <View>
-            <Text>date_of_birth</Text>
-            <TextInput defaultValue="${item.date_of_birth}"></TextInput>
+            <Text>Date of birth</Text>
+            <TextInput defaultValue={ item[0].birthday}></TextInput>
           </View>
 
           <View>
-            <Text>height</Text>
-            <TextInput defaultValue="${item.height}"></TextInput>
+            <Text>Height</Text>
+            <TextInput defaultValue={item[0].height}></TextInput>
           </View>
 
           <View>
-            <Text>gym_center</Text>
-            <TextInput defaultValue="${item.gym_center}"></TextInput>
+            <Text>Weight</Text>
+            <TextInput defaultValue={item[0].weight}></TextInput>
+          </View>
+
+          <View>
+            <Text>Gym center</Text>
+            <TextInput defaultValue={item[0].gym_center}></TextInput>
+          </View>
+
+          <View>
+            <Text>Center location</Text>
+            <TextInput defaultValue={item[0].gym_location}></TextInput>
+          </View>
+
+          <View>
+            <Text>Bio</Text>
+            <TextInput defaultValue={item[0].bio}></TextInput>
+          </View>
+
+          <View>
+            <Text>Gym level</Text>
+            <TextInput defaultValue={item[0].gym_level}></TextInput>
           </View>
 
           <View>
             <Text>interests</Text>
-            <TextInput defaultValue="${item.interests"></TextInput>
+            <TextInput defaultValue={item[0].interest}></TextInput>
           </View>
-        </View>
+        </View> */}
       </SafeAreaView>
     </View>
   );

@@ -76,6 +76,7 @@ import { MessageController } from "./controllers/MessageController";
 import { DiscoverController } from "./controllers/discoverController";
 import { GoalController } from "./controllers/goalController";
 import { ChatListController } from "./controllers/ChatListController";
+import { ProfileController } from './controllers/profileController'
 // Services
 import { AuthService } from "./services/authService";
 import { SignUpService } from "./services/SignUpService";
@@ -83,6 +84,7 @@ import { MessageService } from "./services/MessageService";
 import { ChatListService } from "./services/ChatListService";
 import { DiscoverService } from "./services/discoverService";
 import { GoalService } from "./services/goalService";
+import { ProfileService } from "./services/profileService";
 
 const authService = new AuthService(knex);
 export const authController = new AuthController(authService);
@@ -114,8 +116,7 @@ import { discoverRoutes } from "./routers/discoverRoutes";
 import { goalRoutes } from "./routers/goalRoutes";
 import { chatListRoutes } from "./routers/chatListRoutes";
 import { profileRoutes } from "./routers/profileRoutes";
-import { ProfileService } from "./services/profileService";
-import { ProfileController } from "./controllers/profileController";
+
 
 // import expressSession from "express-session";
 
