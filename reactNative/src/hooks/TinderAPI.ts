@@ -48,7 +48,7 @@ export function useGetTinderProfile(token: string, preference: string) {
     queryKey: ['tinderProfile', token, preference],
     queryFn: async () => {
       const res = await fetch(
-        `${REACT_APP_API_SERVER}/discover/get-all-profile`,
+        `${REACT_APP_API_SERVER}/discover/${preference}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
