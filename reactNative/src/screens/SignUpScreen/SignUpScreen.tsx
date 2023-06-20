@@ -18,6 +18,7 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../App';
 import {z} from 'zod';
+import SectionFive from '../../components/SignUpComponents/SectionFIve';
 
 const {width, height} = Dimensions.get('window');
 
@@ -94,6 +95,7 @@ export default function SignUpForm() {
     bio: '',
     gymLevel: '',
     interests: null,
+    // intersts need to json stringify
   });
 
   const [errorState, setErrorState] = useState<FormErrorState>({
@@ -194,6 +196,30 @@ export default function SignUpForm() {
             <SectionFour
               formState={formState}
               onChangeHandler={onChangeHandler}
+              // next={() => {
+              //   // setSectionNum(5);
+              //   //validate if success
+              //   //toast
+              //   // show success and redirect to login
+
+              //   navigation.navigate('Login');
+              // }}
+              next={() => {
+                setSectionNum(5);
+                console.log('p4', formState);
+              }}
+              back={() => {
+                setSectionNum(3);
+              }}
+              inputHandler={inputHandler}
+              errorState={errorState}
+            />
+          )}
+          {/* image upload */}
+          {sectionNum === 5 && (
+            <SectionFive
+              formState={formState}
+              onChangeHandler={onChangeHandler}
               next={() => {
                 // setSectionNum(5);
                 //validate if success
@@ -203,7 +229,7 @@ export default function SignUpForm() {
                 navigation.navigate('Login');
               }}
               back={() => {
-                setSectionNum(3);
+                setSectionNum(4);
               }}
               inputHandler={inputHandler}
               errorState={errorState}

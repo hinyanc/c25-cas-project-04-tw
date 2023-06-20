@@ -33,7 +33,7 @@ const interests: string[] = [
   'Boxing',
   'Stretching',
 ];
-interface SectionOneProps {
+interface SectionFourProps {
   next: () => void;
   back: () => void;
   formState: FormState;
@@ -43,14 +43,14 @@ interface SectionOneProps {
 
 }
 
-export default function SectionTwo({
+export default function SectionFour({
   next,
   back,
   formState,
   onChangeHandler,
   inputHandler,
   errorState,
-}: SectionOneProps) {
+}: SectionFourProps) {
   type ButtonProps = {
     onPress: () => void;
     isPressed: boolean;

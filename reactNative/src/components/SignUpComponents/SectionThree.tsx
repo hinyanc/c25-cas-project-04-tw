@@ -59,7 +59,7 @@ const gymLocations: string[] = [
   'Yuen Long',
 ];
 
-interface SectionOneProps {
+interface SectionThreeProps {
   next: () => void;
   back: () => void;
   formState: FormState;
@@ -68,14 +68,14 @@ interface SectionOneProps {
   inputHandler: (name: keyof FormState) => void;
 }
 
-export default function SectionTwo({
+export default function SectionThree({
   next,
   back,
   formState,
   onChangeHandler,
   inputHandler,
   errorState,
-}: SectionOneProps) {
+}: SectionThreeProps) {
   type ButtonProps = {
     onPress: () => void;
     isPressed: boolean;
