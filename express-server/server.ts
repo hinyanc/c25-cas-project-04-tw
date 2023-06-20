@@ -153,7 +153,7 @@ app.use("/message", messageRoutes);
 app.use("/chatlist", chatListRoutes);
 app.use("/discover", discoverRoutes);
 app.use("/goal", goalRoutes);
-// app.use("/profile", profileRoutes);
+app.use("/profile", profileRoutes);
 
 app.use("/profile-pic", express.static("./assets/profile_pic"));
 
