@@ -7,20 +7,24 @@ import {
   Pressable,
   ScrollView,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import MessageComponent from '../../components/ChatComponents/MessageComponent';
 import {styles} from '../../utils/styles';
 import {useGetMessages} from '../../hooks/messageAPI';
 import {useCreateMessages} from '../../hooks/messageAPI';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
-import {REACT_APP_API_SERVER} from '@env';
-
+import {socket} from '../../utils/socket';
 const Messaging = ({route, navigation}: any) => {
   const queryClient = useQueryClient();
   const [message, setMessage] = useState('');
   const {target_username, target_user_id} = route.params;
   const chatMessages = useGetMessages(target_user_id);
 
+  socket.on('confirm', (payload: any) => {
+    console.log('check server socket confirm', payload.message);
+    queryClient.invalidateQueries({
+      queryKey: ['message', {targetUserId: target_user_id}],
+    });
+  });
   const onCreateMessages = useMutation(
     async (data: {message: string; target_user_id: string}) =>
       useCreateMessages(data.message, data.target_user_id),
@@ -37,36 +41,10 @@ const Messaging = ({route, navigation}: any) => {
     navigation.setOptions({title: target_username});
   }, []);
 
-  // Get user info from Async Storage
-  // useEffect(() => {
-  //   const getAsyncInfo = async () => {
-  //     try {
-  //       const token = await AsyncStorage.getItem('token');
-  //       console.log('check value message ', target_user_id);
-  //       if (target_user_id && token) {
-  //         setToken(token!);
-
-  //         const response = await fetch(
-  //           `${REACT_APP_API_SERVER}/getSocketId/userId/${target_user_id}`,
-  //         );
-  //         if (!response.ok) {
-  //           throw new Error(`HTTP error! status: ${response.status}`);
-  //         }
-  //         const data = await response.json();
-  //         console.log('check data', data);
-  //       }
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   };
-
-  //   getAsyncInfo();
-  // }, []);
-
   const handleNewMessage = (event: React.FormEvent) => {
     event.preventDefault();
+    console.log('check before mutate', target_user_id);
     onCreateMessages.mutate({message, target_user_id});
-
     setMessage('');
   };
 

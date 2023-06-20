@@ -102,8 +102,8 @@ export const discoverController = new DiscoverController(discoverService);
 const goalService = new GoalService(knex);
 export const goalController = new GoalController(goalService);
 
-const profileService = new ProfileService(knex);
-export const profileController = new ProfileController(profileService);
+// const profileService = new ProfileService(knex);
+// export const profileController = new ProfileController(profileService);
 
 // Route Handlers
 import { messageRoutes } from "./routers/messageRoutes";
@@ -113,9 +113,9 @@ import { signUpRoutes } from "./routers/signUpRoutes";
 import { discoverRoutes } from "./routers/discoverRoutes";
 import { goalRoutes } from "./routers/goalRoutes";
 import { chatListRoutes } from "./routers/chatListRoutes";
-import { profileRoutes } from "./routers/profileRoutes";
-import { ProfileService } from "./services/profileService";
-import { ProfileController } from "./controllers/profileController";
+// import { profileRoutes } from "./routers/profileRoutes";
+// import { ProfileService } from "./services/profileService";
+// import { ProfileController } from "./controllers/profileController";
 
 // import expressSession from "express-session";
 
@@ -149,15 +149,14 @@ app.get(
 app.use("/auth", authRoutes);
 app.use("/signup", signUpRoutes);
 app.use("/message", messageRoutes);
-app.use("/message", messageRoutes);
 app.use("/chatlist", chatListRoutes);
 app.use("/discover", discoverRoutes);
 app.use("/goal", goalRoutes);
-app.use("/profile", profileRoutes);
+// app.use("/profile", profileRoutes);
 
 app.use("/profile-pic", express.static("./assets/profile_pic"));
 
-const userList: OnlineUser[] = [];
+export const userList: OnlineUser[] = [];
 
 io.on("connection", async (socket: any) => {
   console.log("a user connected,its socket id is", socket.id);
@@ -173,6 +172,16 @@ io.on("connection", async (socket: any) => {
     }
   });
 });
+
+app.post(
+  "/test/createMessage",
+  (req: express.Request, res: express.Response) => {
+    const { message, targetUserId } = req.body;
+    console.log("check create message body", message, targetUserId);
+
+    res.json({ msg: "received create message request" });
+  }
+);
 
 server.listen(PORT, () => {
   console.log(`App running at http://localhost:${PORT}`);
