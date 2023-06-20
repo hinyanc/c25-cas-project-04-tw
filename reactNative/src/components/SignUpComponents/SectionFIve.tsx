@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -26,7 +26,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import DocumentPicker, {
   DocumentPickerResponse,
 } from 'react-native-document-picker';
-import { Image } from 'react-native';
+import {Image} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -35,7 +35,10 @@ interface SectionFiveProps {
   back: () => void;
   errorState: FormErrorState;
   formState: FormState;
-  onChangeHandler: (name: string, value: string | number | Date) => void;
+  onChangeHandler: (
+    name: string,
+    value: string | number | Date | DocumentPickerResponse | null,
+  ) => void;
   inputHandler: (name: keyof FormState) => void;
 }
 
@@ -49,25 +52,48 @@ export default function SectionFive({
 }: SectionFiveProps) {
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
 
-  const [uploadImage, setuploadImage] = useState(null);
+  const [uploadImage, setuploadImage] = useState<DocumentPickerResponse | null>(
+    null,
+  );
+
+  useEffect(() => {
+    if (formState.profile_pic) setuploadImage(formState.profile_pic);
+  }, []);
 
   const pickImage = async () => {
     try {
-      const result: DocumentPickerResponse = await DocumentPicker.pick({
+      const result = await DocumentPicker.pick({
         type: [DocumentPicker.types.images],
       });
-      setuploadImage(result);
-      console.log(
-        result.uri,
-        result.type, // mime type
-        result.name,
-        result.size,
-      );
+      setuploadImage(result[0] || null);
+      onChangeHandler('profile_pic', result[0]);
       // do something with the selected file
     } catch (error) {
       console.log(error);
     }
   };
+    const submitForm = async () => {
+    const formData = new FormData();
+    formData.append('file', {
+      uri: formState.profile_pic!.uri,
+      type: formState.profile_pic!.type,
+      name: formState.profile_pic!.name,
+    })
+    formData.append("username",formState.username)
+    formData.append("email",formState.email)
+    formData.append("password",formState.password)
+    formData.append("gender",formState.gender)
+    formData.append("birthday",formState.birthday)
+    formData.append("height",formState.height)
+    formData.append("weight",formState.weight)
+    formData.append("isMember",formState.isMember)
+    formData.append("gymCenter",formState.gymCenter)
+    formData.append("locaiton",formState.locaiton)
+    formData.append("bio",formState.bio)
+    formData.append("gymLevel",formState.gymLevel)
+    formData.append("interests",formState.interests)
+    formData.append("profile_pic",formState.profile_pic)
+  }
 
   return (
     <View
@@ -96,10 +122,16 @@ export default function SectionFive({
           STEP 5/5
         </Text>
       </View>
+      {uploadImage ? (
+        <Image
+          source={{uri: uploadImage.uri}}
+          style={{width: 200, height: 200, resizeMode: 'contain'}}
+        />
+      ) : (
+        <Text>No image selected</Text>
+      )}
 
-      <TouchableOpacity
-      onPress={pickImage}
-      style={styles.Continuebtn}>
+      <TouchableOpacity onPress={pickImage} style={styles.Continuebtn}>
         <Text
           style={{
             textAlign: 'center',
@@ -111,7 +143,6 @@ export default function SectionFive({
           Upload your profile image
         </Text>
       </TouchableOpacity>
-      {uploadImage? <Image source={{uri:uploadImage}}/>: <></> }
 
       {/* remind */}
       <Text
@@ -131,18 +162,6 @@ export default function SectionFive({
         onPress={e => {
           e.preventDefault;
           // not working
-          inputHandler('gender');
-          inputHandler('birthday');
-          inputHandler('height');
-          inputHandler('weight');
-          if (
-            errorState.gender === null &&
-            errorState.birthday === null &&
-            errorState.height === null &&
-            errorState.weight === null
-          ) {
-            next();
-          }
         }}
         style={styles.Continuebtn}>
         <Text

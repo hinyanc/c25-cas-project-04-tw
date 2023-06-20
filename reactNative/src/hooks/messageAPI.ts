@@ -40,7 +40,7 @@ export async function useCreateMessages(
   target_user_id: string,
 ) {
   const token = await AsyncStorage.getItem('token');
-  const res = await fetch(`${REACT_APP_API_SERVER}/message/`, {
+  const res = await fetch(`${REACT_APP_API_SERVER}/message`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -56,18 +56,18 @@ export async function useCreateMessages(
   return {result, target_user_id};
 }
 
-export async function connectSocket(target_user_id: string) {
-  try {
-    const token = await AsyncStorage.getItem('token');
-    const response = await fetch(
-      `${REACT_APP_API_SERVER}/getSocketId/userId/${target_user_id}`,
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    console.log('check data', data);
-  } catch (e) {
-    console.error(e);
-  }
-}
+// export async function connectSocket(target_user_id: string) {
+//   try {
+//     const token = await AsyncStorage.getItem('token');
+//     const response = await fetch(
+//       `${REACT_APP_API_SERVER}/getSocketId/userId/${target_user_id}`,
+//     );
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+//     const data = await response.json();
+//     console.log('check data', data);
+//   } catch (e) {
+//     console.error(e);
+//   }
+// }

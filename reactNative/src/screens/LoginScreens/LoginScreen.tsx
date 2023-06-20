@@ -26,7 +26,6 @@ import {
 import {StackParamList} from '../../../App';
 import {StackScreenProps} from '@react-navigation/stack';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {localLogin} from '../../hooks/authAPI';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../../store/store';
@@ -298,7 +297,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     justifyContent: 'center',
-    alignItems:'center',
+    alignItems: 'center',
     width: width * 0.75,
     height: height * 0.07,
     backgroundColor: 'rgba(4, 59, 92, 0.7)',
@@ -320,7 +319,7 @@ const styles = StyleSheet.create({
   },
   loginbtn: {
     justifyContent: 'center',
-    alignItems:'center',
+    alignItems: 'center',
     width: width * 0.75,
     height: height * 0.07,
     marginHorizontal: 4,

@@ -19,8 +19,33 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../App';
 import {z} from 'zod';
 import SectionFive from '../../components/SignUpComponents/SectionFIve';
+import { DocumentPickerResponse } from 'react-native-document-picker';
 
 const {width, height} = Dimensions.get('window');
+
+
+  // const submitForm = async () => {
+  //   const formData = new FormData();
+  //   formData.append('file', {
+  //     uri: profile_pic.uri,
+  //     type: profile_pic.type,
+  //     name: profile_pic.name,
+  //   })
+  //   formData.append("username",username)
+  //   formData.append("email",email)
+  //   formData.append("password",password)
+  //   formData.append("gender",gender)
+  //   formData.append("birthday",birthday)
+  //   formData.append("height",height)
+  //   formData.append("weight",weight)
+  //   formData.append("isMember",isMember)
+  //   formData.append("gymCenter",gymCenter)
+  //   formData.append("locaiton",locaiton)
+  //   formData.append("bio",bio)
+  //   formData.append("gymLevel",gymLevel)
+  //   formData.append("interests",interests)
+  //   formData.append("profile_pic",profile_pic)
+  // }
 
 export interface FormState {
   username: string;
@@ -36,6 +61,7 @@ export interface FormState {
   bio: string;
   gymLevel: string;
   interests: string[] | null;
+  profile_pic:DocumentPickerResponse|null
 }
 
 export interface FormErrorState {
@@ -49,6 +75,7 @@ export interface FormErrorState {
   isMember: string | null;
   gymLevel: string | null;
   interests: string | null;
+  //missing profile pic
 }
 
 export const schema = {
@@ -96,6 +123,7 @@ export default function SignUpForm() {
     gymLevel: '',
     interests: null,
     // intersts need to json stringify
+    profile_pic:null
   });
 
   const [errorState, setErrorState] = useState<FormErrorState>({
@@ -129,7 +157,7 @@ export default function SignUpForm() {
 
   const onChangeHandler = (
     name: string,
-    value: string | string[] | boolean|number|Date,
+    value: string | string[] | boolean|number|Date|DocumentPickerResponse|null,
   ) => {
     setFormState({...formState, [name]: value});
   };
