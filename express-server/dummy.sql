@@ -94,3 +94,6 @@ FROM
 WHERE
     q3.target_user_id NOT IN (SELECT target_user_id FROM q1)
     AND q3.target_user_id NOT IN (SELECT target_user_id FROM q2);
+
+
+select * from chatroom where sender_id = 3 and receiver_id = 1 or receiver_id = 3 and sender_id = 1;

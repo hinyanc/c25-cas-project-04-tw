@@ -260,7 +260,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
               fontSize: 20,
             }}
             onPress={async () => {
-              await AsyncStorage.setItem('mainUserId', '1');
+              // await AsyncStorage.setItem('mainUserId', '1');
               navigation.navigate('MyHome');
               // sign up
             }}>
@@ -297,6 +297,8 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   btn: {
+    justifyContent: 'center',
+    alignItems:'center',
     width: width * 0.75,
     height: height * 0.07,
     backgroundColor: 'rgba(4, 59, 92, 0.7)',
@@ -317,6 +319,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   loginbtn: {
+    justifyContent: 'center',
+    alignItems:'center',
     width: width * 0.75,
     height: height * 0.07,
     marginHorizontal: 4,

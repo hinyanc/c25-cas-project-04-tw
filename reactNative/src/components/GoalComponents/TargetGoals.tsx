@@ -55,25 +55,27 @@ const TargetGoals = () => {
         setCheckedIds([...checkedIds, id]);
       }
 
-      try {
-        await fetch(
-          `${REACT_APP_API_SERVER}/goal/update-goals/${id}`,
-          {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              is_completed: {},
-            }),
-          },
-        );
-      } catch (error) {
-        console.error('Error updating goal item:', error);
-      }
+      // try {
+      //   await fetch(
+      //     `${REACT_APP_API_SERVER}/goal/update-goals/${id}`,
+      //     {
+      //       method: 'PUT',
+      //       headers: {
+      //         'Content-Type': 'application/json',
+      //       },
+      //       body: JSON.stringify({
+      //         is_completed: {},
+      //       }),
+      //     },
+      //   );
+      // } catch (error) {
+      //   console.error('Error updating goal item:', error);
+      // }
     };
 
-    const renderItem = ({item}: {item: Goals}) => (
+    const renderItem = ({item}: {item: Goals}) => {
+      // const [checkState, setCheckState] = useState<boolean>(item.is_completed)
+      return (
       <BouncyCheckbox
         isChecked={item.is_completed}
         text={item.name}
@@ -84,7 +86,7 @@ const TargetGoals = () => {
         textStyle={{width: ScreenWidth * 0.8}}
         fillColor="#E24E59"
       />
-    );
+    );}
 
     return (
       <FlatList
@@ -114,6 +116,7 @@ const TargetGoals = () => {
       },
     );
     setRender(!render)
+    setAddGoals('')
   };
 
 

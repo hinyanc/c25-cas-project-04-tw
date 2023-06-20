@@ -13,43 +13,39 @@ import {
 import Swiper from 'react-native-deck-swiper';
 import {styles} from '../../utils/styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {
-  useGetPTProfile,
-  useGetTinderProfile,
-  useGetUserProfile,
-  useLikeUser,
-} from '../../hooks/TinderAPI';
+import {useGetTinderProfile, useLikeUser} from '../../hooks/TinderAPI';
 import {REACT_APP_API_SERVER} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {StackParamList} from '../../../App';
 
 const ScreenWidth = Dimensions.get('window').width;
 const ScreenHeight = Dimensions.get('window').height;
 
-type CardType = {
-  id: number;
-  profile_pic: string;
-  gender: string;
-  username: string;
-  gym_center: string;
-  gym_location: string;
-  interest_name: string[];
-  bio: string;
-  is_pt: boolean;
-};
+// type CardType = {
+//   id: number;
+//   profile_pic: string;
+//   gender: string;
+//   username: string;
+//   gym_center: string;
+//   gym_location: string;
+//   interest_name: string[];
+//   bio: string;
+//   is_pt: boolean;
+// };
 
-interface TinderProfile {
-  id: number;
-  is_pt: boolean;
-  gender: string;
-  username: string;
-  profile_pic: string;
-  gym_center: string;
-  gym_location: string;
-  interest_name: string[];
-  bio: string;
-}
-
-// enum Filter { ALL, MATE, PT }
+// interface TinderProfile {
+//   id: number;
+//   is_pt: boolean;
+//   gender: string;
+//   username: string;
+//   profile_pic: string;
+//   gym_center: string;
+//   gym_location: string;
+//   interest_name: string[];
+//   bio: string;
+// }
 
 export function TinderSwipe() {
   type ButtonProps = {
@@ -81,7 +77,7 @@ export function TinderSwipe() {
 
   const [preference, updatePreference] = useState<string>('get-all-profile');
 
-  const cards = useGetTinderProfile(token, preference)
+  const cards = useGetTinderProfile(token, preference);
   const like = useLikeUser(token, index);
 
   const Button = ({onPress, isPressed, text, textStyle}: ButtonProps) => {
@@ -103,12 +99,12 @@ export function TinderSwipe() {
 
   const handleButtonPress = (button: string) => {
     setPressedButton(button);
-    if (button === 'All Users'){
-      return updatePreference('get-all-profile')
+    if (button === 'All Users') {
+      return updatePreference('get-all-profile');
     } else if (button === 'GyMates') {
-      return updatePreference('get-all-users')
-    } else if (button === 'PTs'){
-      return updatePreference('get-all-pt')
+      return updatePreference('get-all-users');
+    } else if (button === 'PTs') {
+      return updatePreference('get-all-pt');
     }
   };
 
@@ -124,15 +120,21 @@ export function TinderSwipe() {
   };
 
   // const matchRequest = () => {
-  //   if 
+  //   if
   // }
 
   const handleLeftNope = (index: number) => {
     console.log('the what card', index, 'swipe left');
     console.log('its actual data is ', Object.values(cards[index]));
   };
+
   const handleSwipeAll = () => {
     console.log('the what card', 'all images are shown');
+    return (
+      <>
+      <Text>Swiped all</Text>
+      </>
+    )
   };
 
   const onSwipe = (newIndex: React.SetStateAction<number>) => {
@@ -140,14 +142,22 @@ export function TinderSwipe() {
   };
 
   const handleLike = () => {
-    onSwipe(index + 1)
-  }
+    onSwipe(index + 1);
+  };
 
   console.log('check all cards', cards);
   // console.log(
   //   'check filter cards',
   //   cards.filter((card, idx) => idx >= index),
   // );
+
+  const filteredCards = useMemo(
+    () => cards.filter((_card, idx) => idx >= index),
+    [cards, index],
+  );
+
+  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
+
   return (
     <ScrollView style={{backgroundColor: '#FFF9F0'}}>
       <View
@@ -194,9 +204,9 @@ export function TinderSwipe() {
           //   </Text>
           // ) :
           <>
-            {cards.length != 0 ? (
+            {filteredCards.length != 0 ? (
               <Swiper
-                cards={cards.filter((card, idx) => idx >= index)}
+                cards={filteredCards}
                 stackSize={2}
                 cardIndex={0}
                 key={0}
@@ -393,7 +403,41 @@ export function TinderSwipe() {
                 }}
               />
             ) : (
-              <Text>No cards</Text>
+              <View
+                style={{width: ScreenWidth, alignItems: 'center', bottom: 230}}>
+                <Text
+                  style={{
+                    fontSize: 25,
+                    color: '#E24E59',
+                    fontWeight: 'bold',
+                    marginBottom: 10,
+                    fontStyle: 'italic',
+                  }}>
+                  Oops!
+                </Text>
+                <Text style={styles1.swipedAll}>
+                  You have swiped all your quotas!
+                </Text>
+                <Text style={styles1.swipedAll}>
+                  Consider joining our Diamond membership?
+                </Text>
+                <Text style={styles1.swipedAll}>
+                  Learn more{' '}
+                  <Text
+                    style={{
+                      fontWeight: 'bold',
+                      textDecorationLine: 'underline',
+                      fontSize: 25,
+                      color: '#E24E59',
+                    }}
+                    onPress={() => {
+                      navigation.navigate('Plan');
+                    }}>
+                    HERE
+                  </Text>{' '}
+                  !
+                </Text>
+              </View>
             )}
           </>
         }
@@ -403,6 +447,10 @@ export function TinderSwipe() {
 }
 
 const styles1 = StyleSheet.create({
+  swipedAll: {
+    fontSize: 18,
+    color: '#707070',
+  },
   container: {
     // alignItems: 'center',
     // justifyContent: 'center',

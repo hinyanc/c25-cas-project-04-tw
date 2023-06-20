@@ -2,9 +2,9 @@ import {View, Text, Image} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import {styles} from '../../utils/styles';
 
-export default function MessageComponent({item, mainUser}: any) {
+export default function MessageComponent({item, targetUserId}: any) {
   // const messagesEndedRef = useRef(null);/\
-  const status = item.sender_id == mainUser;
+  const status = item.sender_id !== targetUserId;
 
   // useEffect(() => {
   //   if (messagesEndedRef.current) {
@@ -18,8 +18,8 @@ export default function MessageComponent({item, mainUser}: any) {
       <View
         style={
           status
-            ? styles.mmessageWrapper
-            : [styles.mmessageWrapper, {alignItems: 'flex-end'}]
+            ? [styles.mmessageWrapper, {alignItems: 'flex-end'}]
+            : styles.mmessageWrapper
         }>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           {/* <View>
@@ -28,8 +28,8 @@ export default function MessageComponent({item, mainUser}: any) {
           <View
             style={
               status
-                ? styles.mmessage
-                : [styles.mmessage, {backgroundColor: 'rgb(252, 215, 221)'}]
+                ? [styles.mmessage, {backgroundColor: 'rgb(252, 215, 221)'}]
+                : styles.mmessage
             }>
             <Text>{item.message}</Text>
           </View>

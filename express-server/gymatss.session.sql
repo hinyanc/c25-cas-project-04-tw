@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 select * from users_matching join users on users_matching.users_id = users.id where users_id = 1 and status = "matched";
-=======
     SELECT DISTINCT ON (users.id)
     users.id AS target_user_id,
     users.username AS target_username,
@@ -38,4 +36,3 @@ i= i<a.length i++{
 } 
 
 
->>>>>>> 3918d21f5242c3e1e3dba36a6d87b9e0248ba918

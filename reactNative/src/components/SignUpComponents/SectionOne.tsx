@@ -120,6 +120,7 @@ export default function SectionOne({
       {/* have account back to login */}
       <Text
         style={{
+          
           // textDecorationLine: 'underline',
           textAlign: 'center',
           width: width * 0.75,

@@ -15,9 +15,14 @@ const GoalScreen = () => {
         style={{
           backgroundColor: '#FFF9F0',
           width: ScreenWidth,
-          height: ScreenHeight,
+          height: ScreenHeight,padding: 10,
+          position: 'relative',
         }}>
-        <Text style={styles.setGoal}>Set Your Goal</Text>
+        <View style={styles.prpfiletopContainer}>
+          <View style={styles.chatheader}>
+            <Text style={styles.profileheading}>Set your Goals</Text>
+          </View>
+        </View>
         <BMI />
         <TargetWeight />
         <TargetGoals />

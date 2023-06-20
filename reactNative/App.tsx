@@ -8,7 +8,6 @@ import Chat from './src/screens/ChatScreens/Chat';
 import BottomTabs from './src/components/BottomTab';
 import LoginScreen from './src/screens/LoginScreens/LoginScreen';
 import OnBoardingScreen from './src/screens/OnBoardScreen/onBoardScreen';
-import HomeDiscoverScreen from './src/screens/HomeDiscoverScreen';
 import LoginForm from './src/screens/LoginScreens/LoginScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
@@ -17,9 +16,8 @@ import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
 import {Provider, useSelector} from 'react-redux';
 import {store} from './src/store/store';
 import {LogBox} from 'react-native';
+import PlanScreen from './src/screens/PlanScreen';
 // import socket from './src/utils/socket';
-import {ConnectionState} from './src/utils/ConnectionStates';
-import {Events} from './src/utils/Event';
 // import UploadFile from './src/screens/SignUpScreen/UploadFile';
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message'])
@@ -50,6 +48,7 @@ export type StackParamList = {
   Login: undefined;
   Next: undefined;
   Chat: undefined;
+  Plan: undefined;
   // uploadFile:undefined;
   Messaging: {target_user_id: Number; target_username: string};
 };
@@ -146,6 +145,9 @@ export default function App() {
                 }}
               />
               <Stack.Screen name="Messaging" component={Messaging} />
+              <Stack.Screen name="Plan" component={PlanScreen} options={{
+                  headerShown: false,
+                }} />
             </Stack.Navigator>
           </NavigationContainer>
         </QueryClientProvider>

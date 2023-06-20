@@ -13,110 +13,59 @@ import {styles} from '../../utils/styles';
 import {useGetMessages} from '../../hooks/messageAPI';
 import {useCreateMessages} from '../../hooks/messageAPI';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
-import {socket} from '../../utils/socket';
-
-interface Message {
-  to: string;
-  message: string;
-}
-
-interface UserInfo {
-  userId: string;
-}
+import {REACT_APP_API_SERVER} from '@env';
 
 const Messaging = ({route, navigation}: any) => {
   const queryClient = useQueryClient();
   const [message, setMessage] = useState('');
-  const [mainUser, setMainUser] = useState('');
-  const [targetUserId, setTargetUserId] = useState('');
-  const [targetSocketId, setTargetSocketId] = useState('');
-  const [token, setToken] = useState('');
   const {target_username, target_user_id} = route.params;
-  console.log('check target', target_username, target_user_id);
-  const [enabled, setEnabled] = useState(true);
-  const [temp, setTemp] = useState<any[]>([]);
-
-  // useEffect(() => {
-  //   console.log('try emitting to server', socket.id);
-  //   if (token !== '') {
-  //     socket.emit('hi', {
-  //       message: 'hi',
-  //       socketId: socket.id,
-  //       token: token,
-  //     });
-  //   }
-  // }, [token]);
-
-  const getAsyncInfo = async () => {
-    try {
-      const value = await AsyncStorage.getItem('mainUserId');
-      const token = await AsyncStorage.getItem('token');
-
-      if (value !== null && targetUserId !== '' && token !== '') {
-        console.log('check value message ', value, token, targetUserId);
-        setMainUser(value);
-        setToken(token!);
-
-        const response = await fetch(
-          `http://192.168.160.72:8080/getSocketId/userId/${targetUserId}`,
-        );
-        const data = await response.json();
-        console.log('check data', data);
-        setTargetSocketId(data.socketId);
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const chatMessages = useGetMessages(target_user_id);
 
   const onCreateMessages = useMutation(
-    async (data: {
-      message: string;
-      target_user_id: number;
-      main_user_id: number;
-      token: string;
-    }) =>
-      useCreateMessages(
-        data.message,
-        data.target_user_id,
-        data.main_user_id,
-        token,
-      ),
+    async (data: {message: string; target_user_id: string}) =>
+      useCreateMessages(data.message, data.target_user_id),
     {
-      onSuccess: () => queryClient.invalidateQueries(['message']),
+      onSuccess: result =>
+        queryClient.invalidateQueries({
+          queryKey: ['message', {targetUserId: result.target_user_id}],
+        }),
     },
   );
 
   // Sets the header title to the name chatroom's name
   useLayoutEffect(() => {
     navigation.setOptions({title: target_username});
-    setTargetUserId(target_user_id);
   }, []);
 
   // Get user info from Async Storage
-  useEffect(() => {
-    getAsyncInfo();
-  });
+  // useEffect(() => {
+  //   const getAsyncInfo = async () => {
+  //     try {
+  //       const token = await AsyncStorage.getItem('token');
+  //       console.log('check value message ', target_user_id);
+  //       if (target_user_id && token) {
+  //         setToken(token!);
 
-  const chatMessages = useGetMessages(targetUserId, token, enabled);
+  //         const response = await fetch(
+  //           `${REACT_APP_API_SERVER}/getSocketId/userId/${target_user_id}`,
+  //         );
+  //         if (!response.ok) {
+  //           throw new Error(`HTTP error! status: ${response.status}`);
+  //         }
+  //         const data = await response.json();
+  //         console.log('check data', data);
+  //       }
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   };
 
-  // terminate auto fetch upon first successful history fetch
-  useEffect(() => {
-    if (chatMessages.length > 0) {
-      console.log('set temp');
-      setTemp(chatMessages);
-      setEnabled(false);
-    }
-  }, [chatMessages]);
+  //   getAsyncInfo();
+  // }, []);
 
   const handleNewMessage = (event: React.FormEvent) => {
     event.preventDefault();
-    onCreateMessages.mutate({
-      message,
-      target_user_id,
-      main_user_id: parseInt(mainUser),
-      token,
-    });
+    onCreateMessages.mutate({message, target_user_id});
 
     setMessage('');
   };
@@ -128,13 +77,13 @@ const Messaging = ({route, navigation}: any) => {
           styles.messagingscreen,
           {paddingVertical: 15, paddingHorizontal: 10},
         ]}>
-        {temp[0] ? (
+        {chatMessages.length > 0 ? (
           <FlatList
-            data={temp}
+            data={chatMessages}
             inverted
             contentContainerStyle={{flexDirection: 'column-reverse'}}
             renderItem={({item}) => (
-              <MessageComponent item={item} mainUser={mainUser} />
+              <MessageComponent item={item} targetUserId={target_user_id} />
             )}
           />
         ) : (

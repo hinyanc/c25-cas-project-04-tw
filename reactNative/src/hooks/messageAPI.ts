@@ -1,5 +1,6 @@
 import {useQuery} from '@tanstack/react-query';
 import {REACT_APP_API_SERVER} from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Message {
   sender_id: Number;
@@ -10,22 +11,14 @@ interface Message {
   receiver_username: string;
 }
 
-export function useGetMessages(
-  targetUserId: string,
-  token: string,
-  enabled: boolean,
-) {
-  console.log('get message', targetUserId, token);
-  const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['message', targetUserId, token, enabled],
+export function useGetMessages(targetUserId: string) {
+  const {isLoading, error, data} = useQuery({
+    queryKey: ['message', {targetUserId}],
     queryFn: async () => {
+      const token = await AsyncStorage.getItem('token');
       const res = await fetch(
         `${REACT_APP_API_SERVER}/message/${targetUserId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
+        {headers: {Authorization: `Bearer ${token}`}},
       );
       const result = await res.json();
       return result as Message[];
@@ -33,25 +26,20 @@ export function useGetMessages(
     retry: true,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
-    enabled: enabled,
   });
 
-  if (isLoading || isFetching || error || !data) {
+  if (isLoading || error || !data) {
     return [];
   }
-
-  console.log('API data', data);
 
   return data;
 }
 
 export async function useCreateMessages(
   message: string,
-  target_user_id: number,
-  main_user_id: number,
-  token: string,
+  target_user_id: string,
 ) {
-  console.log('check create message', token);
+  const token = await AsyncStorage.getItem('token');
   const res = await fetch(`${REACT_APP_API_SERVER}/message/`, {
     method: 'POST',
     headers: {
@@ -61,10 +49,25 @@ export async function useCreateMessages(
     body: JSON.stringify({
       message: message,
       targetUserId: target_user_id,
-      mainUserId: main_user_id,
     }),
   });
 
   const result = await res.json();
-  return result;
+  return {result, target_user_id};
+}
+
+export async function connectSocket(target_user_id: string) {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    const response = await fetch(
+      `${REACT_APP_API_SERVER}/getSocketId/userId/${target_user_id}`,
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log('check data', data);
+  } catch (e) {
+    console.error(e);
+  }
 }

@@ -33,6 +33,8 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   Continuebtn: {
+    justifyContent: 'center',
+    alignItems:'center',
     width: width * 0.75,
     height: height * 0.07,
     marginHorizontal: 4,
@@ -90,6 +92,7 @@ export const styles = StyleSheet.create({
     color: '#fff',
   },
   bioInput: {
+    paddingLeft:15,
     width: width * 0.75,
     minHeight: 130,
     marginHorizontal: 4,
@@ -127,7 +130,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#e24e59',
   },
   levelBtnTextPressed: {
     textAlign: 'center',
@@ -150,12 +153,12 @@ export const styles = StyleSheet.create({
   },
   interestBtnPressed: {
     // flex: 1,
-    height: 50,
-    borderRadius: 16,
+    
     backgroundColor: '#e24e59',
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 0,
+    borderWidth: 2,
+    borderColor: '#fff',
   },
   interestBtnText: {
     textAlign: 'center',
@@ -167,7 +170,7 @@ export const styles = StyleSheet.create({
   },
   interestToogleBtnText: {
     textAlign: 'center',
-    paddingVertical: 10,
+    paddingVertical: 5,
     fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',

@@ -212,7 +212,7 @@ export default function SectionFour({
           isPressed={isButtonPressed('Newbie')}
           text="Newbie"
           textStyle={{
-            color: '#000',
+            color: '#e24e59',
           }}
           btnType="level"
         />
@@ -226,7 +226,7 @@ export default function SectionFour({
           isPressed={isButtonPressed('Moderate')}
           text="Moderate"
           textStyle={{
-            color: '#000',
+            color: '#e24e59',
           }}
           btnType="level"
         />
@@ -239,7 +239,7 @@ export default function SectionFour({
           isPressed={isButtonPressed('Vigorous')}
           text="Vigorous"
           textStyle={{
-            color: '#000',
+            color: '#e24e59',
           }}
           btnType="level"
         />
