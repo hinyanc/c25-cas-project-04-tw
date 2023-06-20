@@ -19,6 +19,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../App';
 import {z} from 'zod';
 import SectionFive from '../../components/SignUpComponents/SectionFIve';
+import { DocumentPickerResponse } from 'react-native-document-picker';
 
 const {width, height} = Dimensions.get('window');
 
@@ -36,6 +37,7 @@ export interface FormState {
   bio: string;
   gymLevel: string;
   interests: string[] | null;
+  profile_pic:DocumentPickerResponse|null
 }
 
 export interface FormErrorState {
@@ -49,6 +51,7 @@ export interface FormErrorState {
   isMember: string | null;
   gymLevel: string | null;
   interests: string | null;
+  //missing profile pic
 }
 
 export const schema = {
@@ -96,6 +99,7 @@ export default function SignUpForm() {
     gymLevel: '',
     interests: null,
     // intersts need to json stringify
+    profile_pic:null
   });
 
   const [errorState, setErrorState] = useState<FormErrorState>({
@@ -129,7 +133,7 @@ export default function SignUpForm() {
 
   const onChangeHandler = (
     name: string,
-    value: string | string[] | boolean|number|Date,
+    value: string | string[] | boolean|number|Date|DocumentPickerResponse|null,
   ) => {
     setFormState({...formState, [name]: value});
   };
