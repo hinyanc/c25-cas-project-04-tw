@@ -15,17 +15,23 @@ export class SignUpController {
       // change to number
       const height = req.body.height;
       const weight = req.body.weight;
-      const has_membership = req.body.isMember;
+      const has_member = req.body.has_member;
       // use id?
       // something will be empty
-      const gym_center_id = req.body?.gymCenter;
-      const gym_location_id = req.body?.location;
+      const gym_center_id = req.body?.gym_center_id;
+      const gym_location_id = req.body?.gym_location_id;
       const bio = req.body?.bio;
-      const gym_level = req.body.gymLevel;
+      const gym_level = req.body.gym_level;
       // should get id and instert into user interest table
       //form state array should have active or not
 
-      const interestArr = req.body.interest;
+      const interestArr = req.body.interestArr;
+
+      const profile_pic = req.file;
+
+      // console.log("check field", height, gym_level);
+      console.log("check file", req.file?.filename);
+      console.log("ckeck gym level",gym_level)
 
       await this.signUpService.createUser({
         username,
@@ -35,13 +41,15 @@ export class SignUpController {
         birthday,
         height,
         weight,
-        has_membership,
+        has_member,
         gym_center_id,
         gym_location_id,
         bio,
         gym_level,
         interestArr,
+        profile_pic,
       });
+
       res.status(200).json({ message: "create user success" });
     } catch (error) {
       logger.error(error);

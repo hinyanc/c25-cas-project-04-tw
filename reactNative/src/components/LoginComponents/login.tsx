@@ -186,7 +186,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
   );
 };
 
-export default LoginForm;
+// export default LoginForm;
 
 const styles = StyleSheet.create({
   title: {

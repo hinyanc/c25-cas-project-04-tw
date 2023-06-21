@@ -35,7 +35,7 @@ export interface createUser {
   height: string;
   weight: string;
   // change to number
-  has_membership: boolean;
+  has_member: boolean;
   // use id?
   // something will be empty
   gym_center_id?: number|null;
@@ -44,6 +44,6 @@ export interface createUser {
   gym_level: string;
   // should get id and instert into user interest table
   //form state array should have active or not
-
+  profile_pic: Express.Multer.File | undefined
   interestArr: number[];
 }

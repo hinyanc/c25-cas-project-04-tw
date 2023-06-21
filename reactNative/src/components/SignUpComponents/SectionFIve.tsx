@@ -27,6 +27,7 @@ import DocumentPicker, {
   DocumentPickerResponse,
 } from 'react-native-document-picker';
 import {Image} from 'react-native';
+import {REACT_APP_API_SERVER} from '@env';
 
 const {width, height} = Dimensions.get('window');
 
@@ -72,28 +73,36 @@ export default function SectionFive({
       console.log(error);
     }
   };
-    const submitForm = async () => {
+  const submitForm = async () => {
     const formData = new FormData();
     formData.append('file', {
       uri: formState.profile_pic!.uri,
       type: formState.profile_pic!.type,
       name: formState.profile_pic!.name,
-    })
-    formData.append("username",formState.username)
-    formData.append("email",formState.email)
-    formData.append("password",formState.password)
-    formData.append("gender",formState.gender)
-    formData.append("birthday",formState.birthday)
-    formData.append("height",formState.height)
-    formData.append("weight",formState.weight)
-    formData.append("isMember",formState.isMember)
-    formData.append("gymCenter",formState.gymCenter)
-    formData.append("locaiton",formState.locaiton)
-    formData.append("bio",formState.bio)
-    formData.append("gymLevel",formState.gymLevel)
-    formData.append("interests",formState.interests)
-    formData.append("profile_pic",formState.profile_pic)
-  }
+    });
+    formData.append('username', formState.username);
+    formData.append('email', formState.email);
+    formData.append('password', formState.password);
+    formData.append('gender', formState.gender);
+    formData.append('birthday', formState.birthday);
+    formData.append('height', formState.height);
+    formData.append('weight', formState.weight);
+    formData.append('isMember', formState.isMember);
+    formData.append('gymCenter', formState.gymCenter);
+    formData.append('locaiton', formState.locaiton);
+    formData.append('bio', formState.bio);
+    formData.append('gymLevel', formState.gymLevel);
+    formData.append('interests', formState.interests);
+    formData.append('profile_pic', formState.profile_pic);
+
+    const res = await fetch(`${REACT_APP_API_SERVER}/signUp`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    const result = await res;
+    console.log('check signup fetch result', result);
+  };
 
   return (
     <View
@@ -162,6 +171,8 @@ export default function SectionFive({
         onPress={e => {
           e.preventDefault;
           // not working
+          console.log('check formState', formState);
+          submitForm();
         }}
         style={styles.Continuebtn}>
         <Text

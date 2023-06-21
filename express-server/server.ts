@@ -76,7 +76,7 @@ import { MessageController } from "./controllers/MessageController";
 import { DiscoverController } from "./controllers/discoverController";
 import { GoalController } from "./controllers/goalController";
 import { ChatListController } from "./controllers/ChatListController";
-import { ProfileController } from './controllers/profileController'
+import { ProfileController } from "./controllers/profileController";
 // Services
 import { AuthService } from "./services/authService";
 import { SignUpService } from "./services/SignUpService";
@@ -116,7 +116,6 @@ import { discoverRoutes } from "./routers/discoverRoutes";
 import { goalRoutes } from "./routers/goalRoutes";
 import { chatListRoutes } from "./routers/chatListRoutes";
 import { profileRoutes } from "./routers/profileRoutes";
-
 
 // import expressSession from "express-session";
 

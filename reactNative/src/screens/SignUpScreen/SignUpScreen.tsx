@@ -19,49 +19,48 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../App';
 import {z} from 'zod';
 import SectionFive from '../../components/SignUpComponents/SectionFIve';
-import { DocumentPickerResponse } from 'react-native-document-picker';
+import {DocumentPickerResponse} from 'react-native-document-picker';
 
 const {width, height} = Dimensions.get('window');
 
-
-  // const submitForm = async () => {
-  //   const formData = new FormData();
-  //   formData.append('file', {
-  //     uri: profile_pic.uri,
-  //     type: profile_pic.type,
-  //     name: profile_pic.name,
-  //   })
-  //   formData.append("username",username)
-  //   formData.append("email",email)
-  //   formData.append("password",password)
-  //   formData.append("gender",gender)
-  //   formData.append("birthday",birthday)
-  //   formData.append("height",height)
-  //   formData.append("weight",weight)
-  //   formData.append("isMember",isMember)
-  //   formData.append("gymCenter",gymCenter)
-  //   formData.append("locaiton",locaiton)
-  //   formData.append("bio",bio)
-  //   formData.append("gymLevel",gymLevel)
-  //   formData.append("interests",interests)
-  //   formData.append("profile_pic",profile_pic)
-  // }
+// const submitForm = async () => {
+//   const formData = new FormData();
+//   formData.append('file', {
+//     uri: profile_pic.uri,
+//     type: profile_pic.type,
+//     name: profile_pic.name,
+//   })
+//   formData.append("username",username)
+//   formData.append("email",email)
+//   formData.append("password",password)
+//   formData.append("gender",gender)
+//   formData.append("birthday",birthday)
+//   formData.append("height",height)
+//   formData.append("weight",weight)
+//   formData.append("has_member",isMember)
+//   formData.append("gym_center_id",gymCenter)
+//   formData.append("gym_locaiton_id",locaiton)
+//   formData.append("bio",bio)
+//   formData.append("gym_level",gymLevel)
+//   formData.append("interestArr",interests)
+//   formData.append("profile_pic",profile_pic)
+// }
 
 export interface FormState {
   username: string;
   email: string;
   password: string;
   gender: string;
-  birthday: string|null;
-  height: number|null;
-  weight: number|null;
+  birthday: string | null;
+  height: number | null;
+  weight: number | null;
   isMember: boolean;
-  gymCenter: number|null;
-  locaiton: number|null;
+  gymCenter: number | null;
+  locaiton: number | null;
   bio: string;
   gymLevel: string;
   interests: string[] | null;
-  profile_pic:DocumentPickerResponse|null
+  profile_pic: DocumentPickerResponse | null;
 }
 
 export interface FormErrorState {
@@ -85,9 +84,9 @@ export const schema = {
   gender: z.string().min(4, {message: 'Please fill in your gender'}),
   // not sure is it date
   birthday: z.string().datetime({message: 'Please fill in your birthday'}),
-  // should have min 
-  height: z.number().min(120,'invalid height.'),
-  weight: z.number().min(30,'invalid weight.'),
+  // should have min
+  height: z.number().min(120, 'invalid height.'),
+  weight: z.number().min(30, 'invalid weight.'),
   isMember: z.boolean({
     required_error: 'This column is required',
     invalid_type_error: 'IsMember must be a boolean',
@@ -109,21 +108,21 @@ export const schema = {
 export default function SignUpForm() {
   const [sectionNum, setSectionNum] = useState(1);
   const [formState, setFormState] = useState<FormState>({
-    username: '',
-    email: '',
-    password: '',
-    gender: '',
-    birthday: null,
-    height: null,
-    weight: null,
-    isMember: false,
-    gymCenter: null,
-    locaiton: null,
-    bio: '',
-    gymLevel: '',
-    interests: null,
+    username: 'test1',
+    email: 'test1@gmail.com',
+    password: 'abc123',
+    gender: 'Female',
+    birthday: new Date().toDateString(),
+    height: 175,
+    weight: 65,
+    isMember: true,
+    gymCenter: 1,
+    locaiton: 1,
+    bio: 'Hello World',
+    gymLevel: 'Newbie',
+    interests: ['Yoga'],
     // intersts need to json stringify
-    profile_pic:null
+    profile_pic: null,
   });
 
   const [errorState, setErrorState] = useState<FormErrorState>({
@@ -157,7 +156,14 @@ export default function SignUpForm() {
 
   const onChangeHandler = (
     name: string,
-    value: string | string[] | boolean|number|Date|DocumentPickerResponse|null,
+    value:
+      | string
+      | string[]
+      | boolean
+      | number
+      | Date
+      | DocumentPickerResponse
+      | null,
   ) => {
     setFormState({...formState, [name]: value});
   };
