@@ -31,7 +31,7 @@ export class SignUpController {
 
       // console.log("check field", height, gym_level);
       console.log("check file", req.file?.filename);
-      console.log("ckeck gym level",gym_level)
+      console.log("ckeck gym level", gym_level);
 
       await this.signUpService.createUser({
         username,
