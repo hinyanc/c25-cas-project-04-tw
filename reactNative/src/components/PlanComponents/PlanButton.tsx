@@ -62,7 +62,7 @@ const PlanButton = () => {
           <TouchableWithoutFeedback>
             <View style={styles.modalView}>
               <Text style={styles.modalTitle}>
-                Enter the promotion code to get 1 month free trial !
+                Enter the promotion code to get 7 Days free trial !
               </Text>
               <TextInput
                 placeholder="Enter the promotion code here"

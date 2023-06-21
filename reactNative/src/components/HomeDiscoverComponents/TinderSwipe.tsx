@@ -167,7 +167,6 @@ export function TinderSwipe() {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Text style={styles.discoverTitle}>Discover</Text>
         <View
           style={{
             flex: 3,
@@ -175,6 +174,7 @@ export function TinderSwipe() {
             justifyContent: 'space-evenly',
             marginLeft: 20,
             marginRight: 20,
+            marginTop: 20
           }}>
           <Button
             onPress={() => handleButtonPress('All Users')}
@@ -223,7 +223,7 @@ export function TinderSwipe() {
                         style={styles1.card2}
                       />
                       {card.is_pt == true ? (
-                        <Text style={styles.CardPT}>
+                        <Text style={[styles.CardPT,{bottom: ScreenHeight*0.5}]}>
                           <Ionicons
                             name="md-ribbon"
                             size={25}
@@ -232,7 +232,7 @@ export function TinderSwipe() {
                           PT
                         </Text>
                       ) : (
-                        <Text style={styles.CardPT}>
+                        <Text style={[styles.CardPT,{bottom: ScreenHeight*0.5}]}>
                           <Ionicons
                             name="ios-bicycle"
                             size={25}

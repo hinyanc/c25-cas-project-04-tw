@@ -328,7 +328,6 @@ export const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   CardPT: {
-    bottom: 400,
     alignSelf: 'flex-end',
     marginRight: 10,
     fontSize: 16,
