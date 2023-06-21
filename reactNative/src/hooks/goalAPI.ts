@@ -1,6 +1,5 @@
 import {useMutation, useQuery} from '@tanstack/react-query';
 import {REACT_APP_API_SERVER} from '@env';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface BMI {
   weight: number;
