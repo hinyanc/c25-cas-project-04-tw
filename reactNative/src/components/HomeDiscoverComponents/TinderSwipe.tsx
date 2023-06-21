@@ -223,7 +223,7 @@ export function TinderSwipe() {
                         style={styles1.card2}
                       />
                       {card.is_pt == true ? (
-                        <Text style={[styles.CardPT,{bottom: ScreenHeight*0.5}]}>
+                        <Text style={[styles.CardPT,{bottom: ScreenHeight*0.52}]}>
                           <Ionicons
                             name="md-ribbon"
                             size={25}
@@ -232,7 +232,7 @@ export function TinderSwipe() {
                           PT
                         </Text>
                       ) : (
-                        <Text style={[styles.CardPT,{bottom: ScreenHeight*0.5}]}>
+                        <Text style={[styles.CardPT,{bottom: ScreenHeight*0.52}]}>
                           <Ionicons
                             name="ios-bicycle"
                             size={25}
