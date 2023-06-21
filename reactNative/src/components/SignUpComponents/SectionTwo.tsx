@@ -131,7 +131,7 @@ export default function SectionTwo({
             color: '#e24e59',
             fontWeight: 'bold',
           }}>
-          STEP 2/4
+          STEP 2/5
         </Text>
       </View>
 
@@ -202,6 +202,7 @@ export default function SectionTwo({
           onChange={e => {
             handleDateChange(chosenDate);
             onChangeHandler('birthday', chosenDate);
+            console.log("hihi",chosenDate)
           }}
           // onChange={handleDateChange}
           maximumDate={maxDate}
@@ -213,7 +214,7 @@ export default function SectionTwo({
       ) : (
         <></>
       )}
-      {/* {errorState.birthday && <Text>Error: {errorState.birthday}</Text>} */}
+
 
       <Text style={styles.inputTitle}>Height* (cm)</Text>
       <TextInput

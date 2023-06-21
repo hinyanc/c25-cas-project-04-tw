@@ -75,11 +75,6 @@ export default function SectionFive({
   };
   const submitForm = async () => {
     const formData = new FormData();
-    formData.append('file', {
-      uri: formState.profile_pic!.uri,
-      type: formState.profile_pic!.type,
-      name: formState.profile_pic!.name,
-    });
     formData.append('username', formState.username);
     formData.append('email', formState.email);
     formData.append('password', formState.password);
@@ -87,12 +82,12 @@ export default function SectionFive({
     formData.append('birthday', formState.birthday);
     formData.append('height', formState.height);
     formData.append('weight', formState.weight);
-    formData.append('isMember', formState.isMember);
-    formData.append('gymCenter', formState.gymCenter);
-    formData.append('locaiton', formState.locaiton);
+    formData.append('has_member', formState.isMember);
+    formData.append('gym_center_id', formState.gymCenter);
+    formData.append('gym_locaiton_id', formState.locaiton);
     formData.append('bio', formState.bio);
-    formData.append('gymLevel', formState.gymLevel);
-    formData.append('interests', formState.interests);
+    formData.append('gym_level', formState.gymLevel);
+    formData.append('interestArr', formState.interests);
     formData.append('profile_pic', formState.profile_pic);
 
     const res = await fetch(`${REACT_APP_API_SERVER}/signUp`, {

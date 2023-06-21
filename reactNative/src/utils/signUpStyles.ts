@@ -45,6 +45,7 @@ export const styles = StyleSheet.create({
   errorMsg: {
     color: 'red',
     marginBottom: 10,
+    textAlign:"center"
   },
   error: {
     borderColor: 'red',

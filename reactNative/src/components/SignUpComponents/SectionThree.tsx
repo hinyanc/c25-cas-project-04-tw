@@ -64,7 +64,7 @@ interface SectionThreeProps {
   back: () => void;
   formState: FormState;
   errorState: FormErrorState;
-  onChangeHandler: (name: string, value: string | boolean|number) => void;
+  onChangeHandler: (name: string, value: string | boolean | number) => void;
   inputHandler: (name: keyof FormState) => void;
 }
 
@@ -134,7 +134,7 @@ export default function SectionThree({
             color: '#e24e59',
             fontWeight: 'bold',
           }}>
-          STEP 3/4
+          STEP 3/5
         </Text>
       </View>
 
@@ -177,7 +177,11 @@ export default function SectionThree({
           }}
         />
       </View>
-      {errorState.isMember && <Text>Error: {errorState.isMember}</Text>}
+      {errorState.isMember !== null ? (
+        <Text style={styles.errorMsg}>Error:{errorState.isMember}</Text>
+      ) : (
+        <></>
+      )}
 
       <Text style={[styles.inputTitle, {marginTop: 10}]}>
         Choose your gym center
@@ -188,7 +192,7 @@ export default function SectionThree({
           onValueChange={(itemValue, itemIndex) => {
             setSelectedCenter(itemValue);
             onChangeHandler('gymCenter', itemIndex);
-            console.log(itemIndex)
+            console.log(itemIndex);
           }}>
           <Picker.Item label="Gym center" value={null} />
           {gymCenter.map((center, index) => (
@@ -210,6 +214,8 @@ export default function SectionThree({
             <Picker.Item key={index} label={location} value={location} />
           ))}
         </Picker>
+
+        
       </View>
       <Text style={styles.inputTitle}>Bio</Text>
       <TextInput

@@ -52,7 +52,7 @@ export default function SectionOne({
           color: '#e24e59',
           fontWeight: 'bold',
         }}>
-        STEP 1/4
+        STEP 1/5
       </Text>
       {/* title */}
       <Text style={[styles.title, {marginBottom: height * 0.05}]}>Signup</Text>
@@ -65,7 +65,11 @@ export default function SectionOne({
         onBlur={e => inputHandler('username')}
         style={styles.input}
       />
-      {errorState.username && <Text>Error: {errorState.username}</Text>}
+      {errorState.username !== null ? (
+        <Text style={styles.errorMsg}>Error:{errorState.username}</Text>
+      ) : (
+        <></>
+      )}
 
       <Text style={styles.inputTitle}>Email address*</Text>
       <TextInput
@@ -75,7 +79,11 @@ export default function SectionOne({
         placeholder="Email"
         style={styles.input}
       />
-      {errorState.email && <Text>Error: {errorState.email}</Text>}
+      {errorState.email !== null ? (
+        <Text style={styles.errorMsg}>Error:{errorState.email}</Text>
+      ) : (
+        <></>
+      )}
 
       <Text style={styles.inputTitle}>Password*</Text>
       <TextInput
@@ -86,7 +94,11 @@ export default function SectionOne({
         placeholder="Password"
         style={styles.input}
       />
-      {errorState.password && <Text>Error: {errorState.password}</Text>}
+      {errorState.password !== null ? (
+        <Text style={styles.errorMsg}>Error:{errorState.password}</Text>
+      ) : (
+        <></>
+      )}
 
       {/* remind */}
       <Text
@@ -120,7 +132,6 @@ export default function SectionOne({
       {/* have account back to login */}
       <Text
         style={{
-          
           // textDecorationLine: 'underline',
           textAlign: 'center',
           width: width * 0.75,
