@@ -53,8 +53,8 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Proxima Nova Font.otf</string>
-		<string>LeagueSpartan-VariableFont_wght.ttf</string>
+		<string>Proxima Nova.otf</string>
+		<string>League Spartan.ttf</string>
 	</array>
 </dict>
 </plist>
