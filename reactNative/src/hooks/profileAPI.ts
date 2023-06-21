@@ -12,7 +12,7 @@ export interface Info {
   weight: number;
   bio: string;
   gym_level: string;
-  interest: string;
+  interest_names: string;
   gym_center: string;
   gym_location: string;
 }
@@ -27,31 +27,42 @@ export interface newInfo {
   weight: number;
   bio: string;
   gym_level: string;
-  interest: string;
+  interest_names: string;
   gym_center: string;
   gym_location: string;
 }
 
-export function useGetInfo() {
-  const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ['showInfo'],
-    queryFn: async () => {
-      const token = await AsyncStorage.getItem('token');
-      const res = await fetch(`${REACT_APP_API_SERVER}/profile/info`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const result = await res.json();
-      return result as Info[];
+// export function useGetInfo() {
+//   const {isLoading, error, data, isFetching} = useQuery({
+//     queryKey: ['showInfo'],
+//     queryFn: async () => {
+//       const token = await AsyncStorage.getItem('token');
+//       const res = await fetch(`${REACT_APP_API_SERVER}/profile/info`, {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       });
+//       const result = await res.json();
+//       return result;
+//     },
+//   });
+
+//   if (isLoading || isFetching || error || !data) {
+//     return [];
+//   }
+
+//   return data;
+// }
+
+export async function useGetInfo() {
+  const token = await AsyncStorage.getItem('token');
+  const res = await fetch(`${REACT_APP_API_SERVER}/profile/update`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   });
-
-  if (isLoading || isFetching || error || !data) {
-    return [];
-  }
-
-  return data;
+  const result = await res.json();
+  return result;
 }
 
 export async function useUpdateInfo(
@@ -92,5 +103,5 @@ export async function useUpdateInfo(
   });
 
   const result = await res.json();
-  return {result};
+  return result;
 }
