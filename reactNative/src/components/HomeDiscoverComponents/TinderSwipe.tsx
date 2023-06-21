@@ -112,17 +112,29 @@ export function TinderSwipe() {
     return pressedButton === button;
   };
 
-  const handleRightLike = (index: number, token:string) => {
+  const handleRightLike = async (token: string, index: number) => {
     console.log('the what card', index, 'swipe right');
     console.log('its actual data is ', cards[index]);
+    const res = await await fetch(
+      `${REACT_APP_API_SERVER}/discover/like-users/${cards[index].id}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    const result = await res.json();
+    console.log(result);
+
+    if(result.message==="matched"){
+    navigation.navigate('Match');
+    }
+
     // handleLike(index, token)
 
     // setIndex(index => index + 1)
   };
-
-  // const matchRequest = () => {
-  //   if
-  // }
 
   const handleLeftNope = (index: number) => {
     console.log('the what card', index, 'swipe left');
@@ -133,20 +145,34 @@ export function TinderSwipe() {
     console.log('the what card', 'all images are shown');
     return (
       <>
-      <Text>Swiped all</Text>
+        <Text>Swiped all</Text>
       </>
-    )
+    );
   };
 
   const onSwipe = (newIndex: React.SetStateAction<number>) => {
     setIndex(newIndex);
   };
 
-  const handleLike = async (id: number, token: string) => {
+  const handleLike = async (token: string, id: number) => {
     onSwipe(index + 1);
+    const res = await fetch(
+      `${REACT_APP_API_SERVER}/discover/like-users/${id}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    const result = await res.json();
+    console.log(result);
+    if(result.message==="matched"){
+    navigation.navigate('Match');
+    }
   };
 
-  console.log('check all cards', cards);
+  // console.log('check all cards', cards);
   // console.log(
   //   'check filter cards',
   //   cards.filter((card, idx) => idx >= index),
@@ -174,7 +200,7 @@ export function TinderSwipe() {
             justifyContent: 'space-evenly',
             marginLeft: 20,
             marginRight: 20,
-            marginTop: 20
+            marginTop: 20,
           }}>
           <Button
             onPress={() => handleButtonPress('All Users')}
@@ -223,7 +249,11 @@ export function TinderSwipe() {
                         style={styles1.card2}
                       />
                       {card.is_pt == true ? (
-                        <Text style={[styles.CardPT,{bottom: ScreenHeight*0.52}]}>
+                        <Text
+                          style={[
+                            styles.CardPT,
+                            {bottom: ScreenHeight * 0.52},
+                          ]}>
                           <Ionicons
                             name="md-ribbon"
                             size={25}
@@ -232,7 +262,11 @@ export function TinderSwipe() {
                           PT
                         </Text>
                       ) : (
-                        <Text style={[styles.CardPT,{bottom: ScreenHeight*0.52}]}>
+                        <Text
+                          style={[
+                            styles.CardPT,
+                            {bottom: ScreenHeight * 0.52},
+                          ]}>
                           <Ionicons
                             name="ios-bicycle"
                             size={25}
@@ -249,7 +283,7 @@ export function TinderSwipe() {
                             : {bottom: 248},
                         ]}>
                         <Text style={styles.DiscoverUsername}>
-                          {card.username}
+                          {card.username}{card.id}
                         </Text>
 
                         <Text style={styles.DiscoverGym}>
@@ -291,7 +325,8 @@ export function TinderSwipe() {
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() => {
-                            handleLike(card.id, token)
+                            handleLike(token, card.id);
+                            // swiper index instead of card's users_id, why/_\
                           }}
                           style={[
                             styles.LikeIcon,
@@ -315,7 +350,10 @@ export function TinderSwipe() {
                   </Animated.View>
                 )}
                 verticalSwipe={false}
-                onSwipedRight={()=>{handleRightLike(filteredCards[0].id, token)}}
+                onSwipedRight={() => {
+                  handleRightLike(token, filteredCards[0].id);
+                  // swiper index instead of card's users_id, why/_\
+                }}
                 onSwipedLeft={handleLeftNope}
                 onSwipedAll={handleSwipeAll}
                 useViewOverflow={false}

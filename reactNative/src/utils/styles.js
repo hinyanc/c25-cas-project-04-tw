@@ -200,7 +200,7 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     color: '#E24E59',
     fontWeight: 'bold',
-    fontFamily: 'Proxima Nova Font',
+    fontFamily: 'League Spartan',
   },
   welcome: {
     fontSize: 15,
