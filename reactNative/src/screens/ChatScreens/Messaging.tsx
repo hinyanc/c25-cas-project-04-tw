@@ -1,12 +1,5 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {
-  View,
-  TextInput,
-  Text,
-  FlatList,
-  Pressable,
-  ScrollView,
-} from 'react-native';
+import {View, TextInput, Text, FlatList, Pressable} from 'react-native';
 import MessageComponent from '../../components/ChatComponents/MessageComponent';
 import {styles} from '../../utils/styles';
 import {useGetMessages} from '../../hooks/messageAPI';
