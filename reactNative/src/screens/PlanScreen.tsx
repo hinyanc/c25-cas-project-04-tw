@@ -10,9 +10,9 @@ const PlanScreen = () => {
     <ScrollView>
       <View style={{flex: 1, alignItems: 'center', backgroundColor: '#FFF9F0',padding: 10,
     position: 'relative',}}>
-        <View style={styles.prpfiletopContainer}>
+        <View style={styles.profileTopContainer}>
           <View style={styles.chatheader}>
-            <Text style={styles.profileheading}>Subscription Plans</Text>
+            <Text style={styles.profileHeading}>Subscription Plans</Text>
           </View>
         </View>
         <Text style={styles.subDetails}>Upgrade to Diamond</Text>

@@ -18,9 +18,9 @@ const GoalScreen = () => {
           height: ScreenHeight,padding: 10,
           position: 'relative',
         }}>
-        <View style={styles.prpfiletopContainer}>
+        <View style={styles.profileTopContainer}>
           <View style={styles.chatheader}>
-            <Text style={styles.profileheading}>Set your Goals</Text>
+            <Text style={styles.profileHeading}>Set your Goals</Text>
           </View>
         </View>
         <BMI />

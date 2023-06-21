@@ -40,7 +40,7 @@ const TargetGoals = () => {
   });
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [render, setRender] = useState(false)
+  const [render, setRender] = useState(false);
 
   const goalList = useGetGoals(token, render);
   console.log(goalList);
@@ -48,45 +48,44 @@ const TargetGoals = () => {
   const GoalsCheckboxComponent = () => {
     const [checkedIds, setCheckedIds] = useState<number[]>([]);
 
-    const handleCheck = async (id: number) => {
+    const handleCheck = async (
+      id: number,
+      isChecked: boolean,
+      token: string,
+    ) => {
       if (checkedIds.includes(id)) {
         setCheckedIds(checkedIds.filter(checkedId => checkedId !== id));
       } else {
         setCheckedIds([...checkedIds, id]);
       }
 
-      // try {
-      //   await fetch(
-      //     `${REACT_APP_API_SERVER}/goal/update-goals/${id}`,
-      //     {
-      //       method: 'PUT',
-      //       headers: {
-      //         'Content-Type': 'application/json',
-      //       },
-      //       body: JSON.stringify({
-      //         is_completed: {},
-      //       }),
-      //     },
-      //   );
-      // } catch (error) {
-      //   console.error('Error updating goal item:', error);
-      // }
+      try {
+        await fetch(`${REACT_APP_API_SERVER}/goal/update-goals/${id}`, {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      } catch (error) {
+        console.error('Error updating goal item:', error);
+      }
     };
 
     const renderItem = ({item}: {item: Goals}) => {
       // const [checkState, setCheckState] = useState<boolean>(item.is_completed)
       return (
-      <BouncyCheckbox
-        isChecked={item.is_completed}
-        text={item.name}
-        key={item.id}
-        onPress={() => handleCheck(item.id)}
-        iconStyle={{borderColor: '#E24E59'}}
-        style={{marginLeft: 25, paddingBottom: 10}}
-        textStyle={{width: ScreenWidth * 0.8}}
-        fillColor="#E24E59"
-      />
-    );}
+        <BouncyCheckbox
+          isChecked={item.is_completed}
+          text={item.name}
+          key={item.id}
+          onPress={(isChecked: boolean) => handleCheck(item.id, isChecked, token)}
+          iconStyle={{borderColor: '#E24E59'}}
+          style={{marginLeft: 25, paddingBottom: 10}}
+          textStyle={{width: ScreenWidth * 0.8}}
+          fillColor="#E24E59"
+        />
+      );
+    };
 
     return (
       <FlatList
@@ -101,25 +100,20 @@ const TargetGoals = () => {
     setAddGoals(text);
   };
   const handleSubmit = async () => {
-    setModalVisible(!modalVisible)
-    await fetch(
-      `${REACT_APP_API_SERVER}/goal/add-goals`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          addGoals: addGoals,
-        }),
+    setModalVisible(!modalVisible);
+    await fetch(`${REACT_APP_API_SERVER}/goal/add-goals`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
-    );
-    setRender(!render)
-    setAddGoals('')
+      body: JSON.stringify({
+        addGoals: addGoals,
+      }),
+    });
+    setRender(!render);
+    setAddGoals('');
   };
-
-
 
   return (
     <View>
@@ -177,7 +171,9 @@ const TargetGoals = () => {
                   <View style={{flexDirection: 'row'}}>
                     <TouchableOpacity
                       style={[styles.PlanSubmitBtn]}
-                      onPress={() => {handleSubmit()}}>
+                      onPress={() => {
+                        handleSubmit();
+                      }}>
                       <Text style={styles.BMIChartText}>Submit</Text>
                     </TouchableOpacity>
                     <TouchableOpacity

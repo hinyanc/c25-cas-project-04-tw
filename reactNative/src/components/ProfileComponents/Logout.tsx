@@ -1,24 +1,28 @@
 import React from 'react';
-import { Button, View } from 'react-native';
-import { logout } from '../../slices/authSlices';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StackParamList } from '../../../App';
+import {Text, TouchableOpacity, View} from 'react-native';
+import {logout} from '../../slices/authSlices';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {StackParamList} from '../../../App';
+import {useDispatch} from 'react-redux';
+import {styles} from '../../utils/styles';
 
 const LogoutBtn = () => {
-    const navigation = useNavigation<StackNavigationProp<StackParamList>>();
+  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
+  const dispatch = useDispatch();
 
-    const logoutRedirect = () => {
-        logout
-        navigation.navigate('Onboarding');
-    }
+  const logoutRedirect = () => {
+    dispatch(logout());
+    navigation.navigate('Onboarding');
+  };
 
-    return (
-        <View>
-            <Button onPress={()=>{logoutRedirect}} title={'Logout'}/>
-                
-        </View>
-    )
-}
+  return (
 
-export default LogoutBtn
+      <TouchableOpacity style={styles.LogoutBtn} onPress={logoutRedirect}>
+        <Text style={styles.LogoutText}>LOGOUT</Text>
+      </TouchableOpacity>
+
+  );
+};
+
+export default LogoutBtn;

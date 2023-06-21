@@ -112,9 +112,10 @@ export function TinderSwipe() {
     return pressedButton === button;
   };
 
-  const handleRightLike = (index: number) => {
+  const handleRightLike = (index: number, token:string) => {
     console.log('the what card', index, 'swipe right');
     console.log('its actual data is ', cards[index]);
+    handleLike(index, token)
 
     // setIndex(index => index + 1)
   };
@@ -141,7 +142,7 @@ export function TinderSwipe() {
     setIndex(newIndex);
   };
 
-  const handleLike = () => {
+  const handleLike = async (id: number, token: string) => {
     onSwipe(index + 1);
   };
 
@@ -290,7 +291,7 @@ export function TinderSwipe() {
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() => {
-                            onSwipe(index + 1);
+                            handleLike(card.id, token)
                           }}
                           style={[
                             styles.LikeIcon,
@@ -314,7 +315,7 @@ export function TinderSwipe() {
                   </Animated.View>
                 )}
                 verticalSwipe={false}
-                onSwipedRight={handleRightLike}
+                onSwipedRight={()=>{handleRightLike(filteredCards[0].id, token)}}
                 onSwipedLeft={handleLeftNope}
                 onSwipedAll={handleSwipeAll}
                 useViewOverflow={false}

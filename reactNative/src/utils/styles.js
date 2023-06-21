@@ -433,18 +433,19 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  profilescreen: {
+  profileScreen: {
     backgroundColor: '#FFF9F0',
     flex: 1,
     padding: 10,
     position: 'relative',
   },
-  profileheading: {
+  profileHeading: {
     fontSize: 30,
     fontWeight: 'bold',
     color: '#E24E59',
+    justifyContent: 'center',
   },
-  prpfiletopContainer: {
+  profileTopContainer: {
     // backgroundColor: '#F7F7F7',
     height: 80,
     width: '100%',
@@ -471,4 +472,18 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   profileemptyText: {fontWeight: 'bold', fontSize: 24, paddingBottom: 30},
+  LogoutBtn: {
+    justifyContent: 'center',
+    alignContent:'center',
+    backgroundColor: '#E24E59',
+    width: 120,
+    borderRadius: 18,
+    height: 35,
+  },
+  LogoutText: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: '#fff',
+    fontWeight: 'bold',
+  },
 });

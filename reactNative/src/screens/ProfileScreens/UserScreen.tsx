@@ -3,6 +3,7 @@ import {
   FlatList,
   Image,
   SafeAreaView,
+  ScrollView,
   Text,
   TextInput,
   View,
@@ -40,11 +41,11 @@ const UserScreen = () => {
   const item: Info[] = useGetInfo(token)
 
   return (
-    <View style={{backgroundColor: '#FFF9F0'}}>
-      <SafeAreaView style={styles.profilescreen}>
-        <View style={styles.prpfiletopContainer}>
+
+      <ScrollView style={styles.profileScreen}>
+        <View style={styles.profileTopContainer}>
           <View style={styles.chatheader}>
-            <Text style={styles.profileheading}>My Profile</Text>
+            <Text style={styles.profileHeading}>My Profile</Text>
             <LogoutBtn />
           </View>
         </View>
@@ -113,8 +114,8 @@ const UserScreen = () => {
             <TextInput defaultValue={item[0].interest}></TextInput>
           </View>
         </View> */}
-      </SafeAreaView>
-    </View>
+      </ScrollView>
+
   );
 };
 

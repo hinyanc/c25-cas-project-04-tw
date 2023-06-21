@@ -46,6 +46,7 @@ const BMI = () => {
   const weight = Object.values(fetchData)[0]
   const height = Object.values(fetchData)[1]
   const bmi = calculateBMI(weight, height)
+  console.log(bmi)
 
   return (
     <View style={{height: 50, marginBottom: 30}}>
