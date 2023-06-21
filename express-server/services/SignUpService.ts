@@ -20,6 +20,7 @@ export class SignUpService {
       .where("email", input.email)
       .first();
 
+      console.log("createUser service",input.gym_level)
     if (result) {
       throw new Error("existing users!");
     }
@@ -34,9 +35,10 @@ export class SignUpService {
         birthday:input.birthday,
         height:parseInt(input.height),
         weight:parseInt(input.weight),
-        has_membership:input.has_membership,
+        has_membership:input.has_member,
         bio:input?.bio,
-        gym_level:input.gym_level
+        gym_level:input.gym_level,
+        profile_pic:input.profile_pic?.filename
     }).returning("id");
     console.log("userId",userId)
   };
