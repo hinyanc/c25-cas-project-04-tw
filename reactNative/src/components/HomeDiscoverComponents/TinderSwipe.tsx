@@ -115,7 +115,7 @@ export function TinderSwipe() {
   const handleRightLike = (index: number, token:string) => {
     console.log('the what card', index, 'swipe right');
     console.log('its actual data is ', cards[index]);
-    handleLike(index, token)
+    // handleLike(index, token)
 
     // setIndex(index => index + 1)
   };

@@ -142,6 +142,18 @@ export async function seed(knex: Knex): Promise<void> {
     "Male",
     "Female",
   ];
+  const bio: string[] = [
+    "Passionate about fitness and pushing my limits. Gym is my second home. Always striving for progress, not perfection. Let's sweat it out together! 💪🏋️‍♂️",
+    'Chasing endorphins and setting new fitness goals every day. Gym addict on a mission to become the best version of myself. Join me on this sweaty journey! 🏋️‍♀️💦',
+    "Dedication and determination are my workout mantras. I believe in the power of fitness to transform lives. Let's crush our goals and inspire others along the way! 💥💪",
+    "Sweating it out, one rep at a time. Fitness is not just a hobby; it's a lifestyle. Join me in my fitness journey as we strive for strength, both physically and mentally! 🏋️‍♀️💫",
+    "Embracing the grind and pushing beyond my limits. The gym is where I find solace and unleash my inner strength. Fitness is my passion, and I'm here to inspire you to find yours! 💪🔥",
+    "Dancing through life with a fitness mindset. Gym sessions are my therapy, and breaking a sweat is my way of expressing myself. Let's groove and stay fit together! 💃💪",
+    "Balancing my love for food with intense workouts. Cooking healthy meals and hitting the gym keeps me in harmony. Join me in the pursuit of a fit and flavorful lifestyle! 🍳🥗💪",
+    "Dance is my cardio, and the gym is my playground. I'm all about embracing the joy of movement and sculpting a strong, confident body. Let's groove and grow together! 💃💪",
+    "Capturing fitness moments one snapshot at a time. Combining my passion for photography with a dedication to fitness. Join me on this visual journey of strength and perseverance! 📸💪",
+    "Exploring the beauty of fitness and the outdoors. From hiking trails to yoga mats, I believe in finding harmony between nature and the gym. Let's find our balance together! 🌿🏋️‍♀️"
+  ]
   //dummy email
   for (let randomEmail = 0; randomEmail < 7; randomEmail++) {
     const email = faker.internet.email();
@@ -161,7 +173,7 @@ export async function seed(knex: Knex): Promise<void> {
       profile_pic: image[i],
       birthday: faker.date.birthdate({ min: 18, max: 50, mode: "age" }),
       gender: gender[i],
-      bio: faker.lorem.sentence(),
+      bio: bio[i],
       height: faker.number.int({ min: 155, max: 200 }),
       weight: faker.number.int({ min: 45, max: 80 }),
       gym_level: faker.helpers.arrayElement(["Newbie", "Moderate", "Vigorous"]),
