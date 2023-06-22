@@ -485,4 +485,11 @@ export const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+  matchView: {
+    // margin: 20,
+    backgroundColor: 'rgba(252, 215, 221,0.8)',
+    // borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+  },
 });

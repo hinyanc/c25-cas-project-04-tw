@@ -1,6 +1,6 @@
 import {useQuery} from '@tanstack/react-query';
 import {REACT_APP_API_SERVER} from '@env';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export interface UserInfo {
   username: string;
@@ -43,7 +43,7 @@ export function useGetUsername(token: string) {
 }
 
 export function useGetTinderProfile(token: string, preference: string) {
-  let real_token = AsyncStorage.getItem('token');
+
   const {isLoading, error, data, isFetching} = useQuery({
     queryKey: ['tinderProfile', token, preference],
     queryFn: async () => {
