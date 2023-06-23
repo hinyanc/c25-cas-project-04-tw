@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -85,6 +85,10 @@ export default function SectionTwo({
     setPressedButton(button);
   };
 
+  useEffect(() => {
+    if (formState.gender) setPressedButton(formState.gender);
+  }, []);
+  
   const isButtonPressed = (button: string) => {
     return pressedButton === button;
   };
@@ -202,7 +206,7 @@ export default function SectionTwo({
           onChange={e => {
             handleDateChange(chosenDate);
             onChangeHandler('birthday', chosenDate);
-            console.log("hihi",chosenDate)
+            console.log('hihi', chosenDate);
           }}
           // onChange={handleDateChange}
           maximumDate={maxDate}
@@ -214,7 +218,6 @@ export default function SectionTwo({
       ) : (
         <></>
       )}
-
 
       <Text style={styles.inputTitle}>Height* (cm)</Text>
       <TextInput

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -106,6 +106,10 @@ export default function SectionThree({
     setPressedButton(button);
   };
 
+  useEffect(() => {
+    if (formState.isMember) setPressedButton('Yes');
+    else setPressedButton('No');
+  }, []);
   const isButtonPressed = (button: string) => {
     return pressedButton === button;
   };
@@ -208,15 +212,13 @@ export default function SectionThree({
           onValueChange={(itemValue, itemIndex) => {
             setSelectedLocation(itemValue);
             onChangeHandler('locaiton', itemIndex);
-            console.log("location",itemIndex)
+            console.log('location', itemIndex);
           }}>
           <Picker.Item label="Gym location" value={null} />
           {gymLocations.map((location, index) => (
             <Picker.Item key={index} label={location} value={location} />
           ))}
         </Picker>
-
-        
       </View>
       <Text style={styles.inputTitle}>Bio</Text>
       <TextInput

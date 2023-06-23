@@ -44,7 +44,7 @@ export default function SectionOne({
   return (
     <View
       style={{
-        marginBottom: height * 0.13,
+        marginBottom: height * 0.07,
       }}>
       <Text
         style={{
@@ -55,50 +55,56 @@ export default function SectionOne({
         STEP 1/5
       </Text>
       {/* title */}
-      <Text style={[styles.title, {marginBottom: height * 0.05}]}>Signup</Text>
+      <Text style={[styles.title, {marginBottom: height * 0.01}]}>Signup</Text>
       {/* input */}
-      <Text style={styles.inputTitle}>Username*</Text>
-      <TextInput
-        value={formState.username}
-        placeholder="Username"
-        onChangeText={text => onChangeHandler('username', text)}
-        onBlur={e => inputHandler('username')}
-        style={styles.input}
-      />
-      {errorState.username !== null ? (
-        <Text style={styles.errorMsg}>Error:{errorState.username}</Text>
-      ) : (
-        <></>
-      )}
+      <View style={{height:height*0.2}}>
+        <Text style={styles.inputTitle}>Username*</Text>
+        <TextInput
+          value={formState.username}
+          placeholder="Username"
+          onChangeText={text => onChangeHandler('username', text)}
+          onBlur={e => inputHandler('username')}
+          style={styles.input}
+        />
+        {errorState.username !== null ? (
+          <Text style={styles.errorMsg}>Error:{errorState.username}</Text>
+        ) : (
+          <></>
+        )}
+      </View>
 
-      <Text style={styles.inputTitle}>Email address*</Text>
-      <TextInput
-        value={formState.email}
-        onChangeText={text => onChangeHandler('email', text)}
-        onBlur={e => inputHandler('email')}
-        placeholder="Email"
-        style={styles.input}
-      />
-      {errorState.email !== null ? (
-        <Text style={styles.errorMsg}>Error:{errorState.email}</Text>
-      ) : (
-        <></>
-      )}
+      <View style={{height:height*0.2}}>
+        <Text style={styles.inputTitle}>Email address*</Text>
+        <TextInput
+          value={formState.email}
+          onChangeText={text => onChangeHandler('email', text)}
+          onBlur={e => inputHandler('email')}
+          placeholder="Email"
+          style={styles.input}
+        />
+        {errorState.email !== null ? (
+          <Text style={styles.errorMsg}>Error:{errorState.email}</Text>
+        ) : (
+          <></>
+        )}
+      </View>
 
-      <Text style={styles.inputTitle}>Password*</Text>
-      <TextInput
-        secureTextEntry
-        value={formState.password}
-        onChangeText={text => onChangeHandler('password', text)}
-        onBlur={e => inputHandler('password')}
-        placeholder="Password"
-        style={styles.input}
-      />
-      {errorState.password !== null ? (
-        <Text style={styles.errorMsg}>Error:{errorState.password}</Text>
-      ) : (
-        <></>
-      )}
+      <View style={{height:height*0.2}}>
+        <Text style={styles.inputTitle}>Password*</Text>
+        <TextInput
+          secureTextEntry
+          value={formState.password}
+          onChangeText={text => onChangeHandler('password', text)}
+          onBlur={e => inputHandler('password')}
+          placeholder="Password"
+          style={styles.input}
+        />
+        {errorState.password !== null ? (
+          <Text style={styles.errorMsg}>Error:{errorState.password}</Text>
+        ) : (
+          <></>
+        )}
+      </View>
 
       {/* remind */}
       <Text
@@ -106,7 +112,7 @@ export default function SectionOne({
           // textDecorationLine: 'underline',
           textAlign: 'center',
           width: width * 0.75,
-          marginBottom: height * 0.02,
+          marginBottom: height * 0.01,
         }}>
         Your name will be public and we'll send updates to the email address you
         provide.
@@ -135,7 +141,7 @@ export default function SectionOne({
           // textDecorationLine: 'underline',
           textAlign: 'center',
           width: width * 0.75,
-          marginTop: 10,
+          marginTop: 5,
         }}>
         Already have an account?
         <Text

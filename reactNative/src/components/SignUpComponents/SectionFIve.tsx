@@ -79,7 +79,7 @@ export default function SectionFive({
     formData.append('email', formState.email);
     formData.append('password', formState.password);
     formData.append('gender', formState.gender);
-    formData.append('birthday', (formState.birthday?.toISOString()));
+    formData.append('birthday', formState.birthday?.toISOString());
     formData.append('height', formState.height);
     formData.append('weight', formState.weight);
     formData.append('has_member', formState.isMember);
@@ -87,7 +87,7 @@ export default function SectionFive({
     formData.append('gym_location_id', formState.locaiton);
     formData.append('bio', formState.bio);
     formData.append('gym_level', formState.gymLevel);
-    formData.append('interestArr',JSON.stringify(formState.interests));
+    formData.append('interestArr', JSON.stringify(formState.interests));
     formData.append('profile_pic', formState.profile_pic);
 
     const res = await fetch(`${REACT_APP_API_SERVER}/signUp`, {
@@ -126,61 +126,65 @@ export default function SectionFive({
           STEP 5/5
         </Text>
       </View>
-      {uploadImage ? (
-        <Image
-          source={{uri: uploadImage.uri}}
-          style={{width: 200, height: 200, resizeMode: 'contain'}}
-        />
-      ) : (
-        <Text>No image selected</Text>
-      )}
+      <View style={{height: height * 0.4}}>
+        {uploadImage ? (
+          <Image
+            source={{uri: uploadImage.uri}}
+            style={{width: 200, height: 200, resizeMode: 'contain'}}
+          />
+        ) : (
+          <Text>No image selected</Text>
+        )}
 
-      <TouchableOpacity onPress={pickImage} style={styles.Continuebtn}>
+        <TouchableOpacity onPress={pickImage} style={styles.Continuebtn}>
+          <Text
+            style={{
+              textAlign: 'center',
+              paddingVertical: 10,
+              fontSize: 18,
+              fontWeight: 'bold',
+              color: '#fff',
+            }}>
+            Upload your profile image
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{height:height*0.43}}>
+        {/* remind */}
         <Text
           style={{
+            // textDecorationLine: 'underline',
             textAlign: 'center',
-            paddingVertical: 10,
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: '#fff',
+            width: width * 0.75,
+            marginTop: height * 0.04,
+           
           }}>
-          Upload your profile image
+          By continuing, you agree to Gymatess's Terms of service. We will
+          manage information about you as described in our Privacy Policy, and
+          Cookie Policy.
         </Text>
-      </TouchableOpacity>
 
-      {/* remind */}
-      <Text
-        style={{
-          // textDecorationLine: 'underline',
-          textAlign: 'center',
-          width: width * 0.75,
-          marginBottom: height * 0.02,
-        }}>
-        By continuing, you agree to Gymatess's Terms of service. We will manage
-        information about you as described in our Privacy Policy, and Cookie
-        Policy.
-      </Text>
-
-      {/* ///continue button */}
-      <TouchableOpacity
-        onPress={e => {
-          e.preventDefault;
-          // not working
-          console.log('check formState', formState);
-          submitForm();
-        }}
-        style={styles.Continuebtn}>
-        <Text
-          style={{
-            textAlign: 'center',
-            paddingVertical: 10,
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: '#fff',
-          }}>
-          Sign Up
-        </Text>
-      </TouchableOpacity>
+        {/* ///continue button */}
+        <TouchableOpacity
+          onPress={e => {
+            e.preventDefault;
+            // not working
+            console.log('check formState', formState);
+            submitForm();
+          }}
+          style={styles.Continuebtn}>
+          <Text
+            style={{
+              textAlign: 'center',
+              paddingVertical: 10,
+              fontSize: 18,
+              fontWeight: 'bold',
+              color: '#fff',
+            }}>
+            Sign Up
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
