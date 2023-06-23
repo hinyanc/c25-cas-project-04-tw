@@ -26,6 +26,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../App';
+import MatchPopup from './MatchPopup';
 
 const ScreenWidth = Dimensions.get('window').width;
 const ScreenHeight = Dimensions.get('window').height;
@@ -39,6 +40,8 @@ export function TinderSwipe() {
   };
 
   const [pressedButton, setPressedButton] = useState<string>('All Users');
+  const [matchedUser, setMatchedUser] = useState<null | number>(null);
+  const [showText, setShowText] = useState(false);
   // const [swipedCards, setSwipedCards] = useState<CardType[]>([]);
 
   const [index, setIndex] = useState(0);
@@ -48,10 +51,8 @@ export function TinderSwipe() {
   const getLocalStorage = async () => {
     let token = await AsyncStorage.getItem('token');
     if (token == null) {
-      console.log('token is not in storage');
     } else {
       setToken(token!);
-      console.log('check get async storage token', token);
     }
   };
   useEffect(() => {
@@ -112,79 +113,18 @@ export function TinderSwipe() {
       },
     );
     const result = await res.json();
-    console.log(result.message);
+    console.log(
+      'check message',
+      result.message,
+      'index',
+      index,
+      filteredCards[index],
+    );
 
     if (result.message === 'matched') {
-      setModalVisible(!modalVisible);
-      return (
-        <Modal
-          style={{}}
-          animationType="fade"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-            setModalVisible(!modalVisible);
-          }}>
-          <View
-            style={[
-              styles.matchView,
-              {width: ScreenWidth, height: ScreenHeight},
-            ]}>
-            <Text style={styles.modalTitle}>🏋🏻‍♀️ It's a Match! 🧘🏻‍♂️</Text>
-            <Text style={styles.modalText}>
-              You and {filteredCards[index].username} have liked each other.
-            </Text>
-            <View>
-              <Image
-                style={{
-                  height: 100,
-                  width: 100,
-                  margin: 10,
-                  borderRadius: 50,
-                }}
-                source={{
-                  uri: `${REACT_APP_API_SERVER}/profile-pic/${userInfo[1]}`,
-                }}
-              />
-              <Image
-                style={{
-                  height: 100,
-                  width: 100,
-                  margin: 10,
-                  borderRadius: 50,
-                }}
-                source={{
-                  uri: `${REACT_APP_API_SERVER}/profile-pic/${filteredCards[
-                    index
-                  ].profile_pic!}`,
-                }}
-              />
-            </View>
-            <Text>
-              Let's click{' '}
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  textDecorationLine: 'underline',
-                  fontSize: 25,
-                  color: '#E24E59',
-                }}
-                onPress={() => {
-                  navigation.navigate('Chat');
-                }}>
-                HERE
-              </Text>{' '}
-              to start chatting with each other!
-            </Text>
-            <TouchableOpacity
-              style={[styles.BMIChartBtn]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.BMIChartText}>BACK</Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
-      );
+      console.log('matched???????');
+      setModalVisible(true);
+      setMatchedUser(index);
     }
   };
 
@@ -193,56 +133,20 @@ export function TinderSwipe() {
     console.log('its actual data is ', cards[index]);
   };
 
-  const handleSwipeAll = () => {
-    console.log('the what card', 'all images are shown');
-    return (
-      <>
-        <View style={{width: ScreenWidth, alignItems: 'center', bottom: 230}}>
-          <Text
-            style={{
-              fontSize: 25,
-              color: '#E24E59',
-              fontWeight: 'bold',
-              marginBottom: 10,
-              fontStyle: 'italic',
-            }}>
-            Oops!
-          </Text>
-          <Text style={styles1.swipedAll}>
-            You have swiped all your quotas!
-          </Text>
-          <Text style={styles1.swipedAll}>
-            Consider joining our Diamond membership?
-          </Text>
-          <Text style={styles1.swipedAll}>
-            Learn more{' '}
-            <Text
-              style={{
-                fontWeight: 'bold',
-                textDecorationLine: 'underline',
-                fontSize: 25,
-                color: '#E24E59',
-              }}
-              onPress={() => {
-                navigation.navigate('Plan');
-              }}>
-              HERE
-            </Text>{' '}
-            !
-          </Text>
-        </View>
-      </>
-    );
-  };
-
   const onSwipe = (newIndex: React.SetStateAction<number>) => {
     setIndex(newIndex);
   };
 
-  const handleLike = async (token: string, index: number) => {
+  const handleLike = async (
+    token: string,
+    cardIndex: number,
+    index: number,
+  ) => {
     onSwipe(index + 1);
+    console.log('likebtn index, ', cardIndex);
+    console.log('swipe index: ', index);
     const res = await fetch(
-      `${REACT_APP_API_SERVER}/discover/like-users/${index}`,
+      `${REACT_APP_API_SERVER}/discover/like-users/${cardIndex}`,
       {
         method: 'PUT',
         headers: {
@@ -251,9 +155,13 @@ export function TinderSwipe() {
       },
     );
     const result = await res.json();
-    console.log(result);
+    console.log('check message', result);
+
     if (result.message === 'matched') {
-      setModalVisible(!modalVisible);
+      console.log('matched???????');
+      console.log('should match with ', cardIndex);
+      setModalVisible(true);
+      setMatchedUser(cardIndex);
     }
   };
 
@@ -261,9 +169,6 @@ export function TinderSwipe() {
     () => cards.filter((_card, idx) => idx >= index),
     [cards, index],
   );
-
-  let user = useGetUsername(token);
-  let userInfo = Object.values(user);
 
   return (
     <ScrollView style={{backgroundColor: '#FFF9F0'}}>
@@ -316,11 +221,11 @@ export function TinderSwipe() {
                 cards={filteredCards}
                 stackSize={2}
                 cardIndex={0}
-                key={0}
+                key={filteredCards[0].id}
                 backgroundColor="#FFF9F0"
                 renderCard={card => (
                   <Animated.View key={card.id} style={[styles1.card]}>
-                    <View>
+                    <View key={card.id}>
                       <Image
                         source={{
                           // @ts-ignore
@@ -364,7 +269,6 @@ export function TinderSwipe() {
                         ]}>
                         <Text style={styles.DiscoverUsername}>
                           {card.username}
-                          {card.id}
                         </Text>
 
                         <Text style={styles.DiscoverGym}>
@@ -406,8 +310,7 @@ export function TinderSwipe() {
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() => {
-                            handleLike(token, card.id);
-                            // swiper index instead of card's users_id, why/_\
+                            handleLike(token, card.id, index);
                           }}
                           style={[
                             styles.LikeIcon,
@@ -415,7 +318,7 @@ export function TinderSwipe() {
                               ? {bottom: 282}
                               : {bottom: 275},
                           ]}>
-                          <Ionicons name="heart" size={35} color={'#7CCD96'} />
+                          <Ionicons name="heart" size={35} color={'#53BF76'} />
                         </TouchableOpacity>
                       </View>
                       <View
@@ -433,10 +336,9 @@ export function TinderSwipe() {
                 verticalSwipe={false}
                 onSwipedRight={cardIndex => {
                   handleRightLike(token, cardIndex);
-                  // swiper index instead of card's users_id, why/_\
                 }}
                 onSwipedLeft={handleLeftNope}
-                onSwipedAll={handleSwipeAll}
+                onSwipedAll={() => setShowText(!showText)}
                 useViewOverflow={false}
                 overlayLabels={{
                   left: {
@@ -482,12 +384,12 @@ export function TinderSwipe() {
                         style={{
                           borderWidth: 3,
                           borderRadius: 16,
-                          borderColor: '#7CCD96',
+                          borderColor: '#53BF76',
                           bottom: 400,
                         }}>
                         <Text
                           style={{
-                            color: '#7CCD96',
+                            color: '#53BF76',
                             fontWeight: 'bold',
                             fontSize: 30,
                             marginHorizontal: 10,
@@ -559,6 +461,8 @@ export function TinderSwipe() {
                 </Text>
               </View>
             )}
+           
+            <MatchPopup card={filteredCards[matchedUser!]} />
           </>
         }
       </View>

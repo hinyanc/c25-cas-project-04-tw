@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "dev": "ts-node-dev server.ts"
+    "dev": "ts-node-dev server.ts",
+    "data": "knex migrate:rollback && knex migrate:latest && knex seed:run"
   },
   "devDependencies": {
     "@types/express-session": "^1.17.7",

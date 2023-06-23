@@ -487,7 +487,7 @@ export const styles = StyleSheet.create({
   },
   matchView: {
     // margin: 20,
-    backgroundColor: 'rgba(252, 215, 221,0.8)',
+    backgroundColor: 'rgba(255, 249, 240,0.9)',
     // borderRadius: 20,
     padding: 35,
     alignItems: 'center',
