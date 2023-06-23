@@ -88,7 +88,7 @@ export default function SectionTwo({
   useEffect(() => {
     if (formState.gender) setPressedButton(formState.gender);
   }, []);
-  
+
   const isButtonPressed = (button: string) => {
     return pressedButton === button;
   };
@@ -102,12 +102,25 @@ export default function SectionTwo({
   const [inputHeight, setInputHeight] = useState('');
   const [inputWeight, setInputWeight] = useState('');
 
+  useEffect(() => {
+    if (formState.height) setInputHeight(formState.height.toString());
+  }, []);
+
+  useEffect(() => {
+    if (formState.weight) setInputWeight(formState.weight.toString());
+  }, []);
+
   const handleDateChange = (event: any, selectedDate?: Date) => {
     setShowDatePicker(false);
     if (selectedDate) {
       setChosenDate(selectedDate);
     }
   };
+  
+  useEffect(() => {
+    if (formState.birthday) setChosenDate(formState.birthday);
+  }, []);
+
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 12);
 
@@ -204,9 +217,10 @@ export default function SectionTwo({
           mode="date"
           display="default"
           onChange={e => {
-            handleDateChange(chosenDate);
+            handleDateChange;
             onChangeHandler('birthday', chosenDate);
-            console.log('hihi', chosenDate);
+            // console.log('hihi', e);
+            setShowDatePicker(false)
           }}
           // onChange={handleDateChange}
           maximumDate={maxDate}

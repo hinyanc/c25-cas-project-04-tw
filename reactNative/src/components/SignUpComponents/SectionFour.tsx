@@ -144,7 +144,7 @@ export default function SectionFour({
 
   const handleInterestPress = (interest: number) => {
     const maxSelections = 5;
-    console.log("selectedInterests",selectedInterests)
+    console.log('selectedInterests', selectedInterests);
     if (selectedInterests.includes(interest)) {
       setSelectedInterests(selectedInterests.filter(item => item !== interest));
     } else if (selectedInterests.length < maxSelections) {
@@ -277,11 +277,11 @@ export default function SectionFour({
           <Button
             key={index}
             onPress={() => {
-              handleInterestPress(index+1);
+              handleInterestPress(index + 1);
               // onChangeHandler('interests', selectedInterests);
-              console.log("interest",index+1)
+              console.log('interest', index + 1);
             }}
-            isPressed={isInterestPressed(index+1)}
+            isPressed={isInterestPressed(index + 1)}
             text={interest}
             textStyle={{color: '#F2B3B7'}}
             btnType="interest"
@@ -311,7 +311,16 @@ export default function SectionFour({
       {/* ///continue button */}
       <TouchableOpacity
         onPress={e => {
-          next();
+          // next();
+          try {
+            inputHandler('gymLevel');
+            if (errorState.gender === null) {
+              next();
+            } else {
+            }
+          } catch (e) {
+            console.error(e);
+          }
         }}
         style={styles.Continuebtn}>
         <Text
