@@ -41,7 +41,7 @@ interface SectionFourProps {
   back: () => void;
   formState: FormState;
   errorState: FormErrorState;
-  onChangeHandler: (name: string, value: string | string[]) => void;
+  onChangeHandler: (name: string, value: string | number[]) => void;
   inputHandler: (name: keyof FormState) => void;
 }
 
@@ -140,9 +140,9 @@ export default function SectionFour({
   };
 
   // interest
-  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+  const [selectedInterests, setSelectedInterests] = useState<number[]>([]);
 
-  const handleInterestPress = (interest: string) => {
+  const handleInterestPress = (interest: number) => {
     const maxSelections = 5;
     if (selectedInterests.includes(interest)) {
       setSelectedInterests(selectedInterests.filter(item => item !== interest));
@@ -159,7 +159,7 @@ export default function SectionFour({
     onChangeHandler('interests', selectedInterests);
   }, [selectedInterests]);
 
-  const isInterestPressed = (interest: string) => {
+  const isInterestPressed = (interest: number) => {
     return selectedInterests.includes(interest);
   };
   ////
@@ -276,11 +276,11 @@ export default function SectionFour({
           <Button
             key={index}
             onPress={() => {
-              handleInterestPress(interest);
+              handleInterestPress(index+1);
               // onChangeHandler('interests', selectedInterests);
-              // console.log("interest",index+1)
+              console.log("interest",index+1)
             }}
-            isPressed={isInterestPressed(interest)}
+            isPressed={isInterestPressed(index+1)}
             text={interest}
             textStyle={{color: '#F2B3B7'}}
             btnType="interest"

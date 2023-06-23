@@ -37,7 +37,7 @@ export interface FormState {
   locaiton: number | null;
   bio: string;
   gymLevel: string;
-  interests: string[] | null;
+  interests: number[] | null;
   profile_pic: DocumentPickerResponse | null;
 }
 
@@ -98,7 +98,7 @@ export default function SignUpForm() {
     locaiton: 1,
     bio: 'Hello World',
     gymLevel: 'Newbie',
-    interests: ['Yoga'],
+    interests: [1,2],
     // intersts need to json stringify
     profile_pic: null,
   });
@@ -136,7 +136,7 @@ export default function SignUpForm() {
     name: string,
     value:
       | string
-      | string[]
+      | number[]
       | boolean
       | number
       | Date
