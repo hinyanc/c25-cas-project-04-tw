@@ -129,7 +129,7 @@ export default function SectionTwo({
     <View
       style={{
         marginBottom: height * 0.13,
-        marginTop: height * 0.07,
+        marginTop: height * 0.02,
       }}>
       <View
         style={{
@@ -326,7 +326,7 @@ export default function SectionTwo({
         </Text>
       </TouchableOpacity>
       {/* have account back to login */}
-      <Text
+      {/* <Text
         style={{
           // textDecorationLine: 'underline',
           textAlign: 'center',
@@ -346,7 +346,7 @@ export default function SectionTwo({
           }}>
           Login
         </Text>
-      </Text>
+      </Text> */}
     </View>
   );
 }

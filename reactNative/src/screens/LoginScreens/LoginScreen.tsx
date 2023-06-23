@@ -251,33 +251,6 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
               Sign Up
             </Text>
           </Text>
-          {/* escape */}
-          <Text
-            style={{
-              // textDecorationLine: 'underline',
-              fontWeight: 'bold',
-              fontSize: 20,
-            }}
-            onPress={async () => {
-              // await AsyncStorage.setItem('mainUserId', '1');
-              navigation.navigate('MyHome');
-              // sign up
-            }}>
-            Go to home
-          </Text>
-          {/* <Text
-            style={{
-              // textDecorationLine: 'underline',
-              fontWeight: 'bold',
-              fontSize: 20,
-            }}
-            onPress={async () => {
-              await AsyncStorage.setItem('mainUserId', '1');
-              navigation.navigate('uploadFile');
-              // sign up
-            }}>
-            Go to uploadfile
-          </Text> */}
         </View>
       </ScrollView>
     </SafeAreaView>
