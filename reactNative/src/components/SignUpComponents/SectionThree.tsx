@@ -208,6 +208,7 @@ export default function SectionThree({
           onValueChange={(itemValue, itemIndex) => {
             setSelectedLocation(itemValue);
             onChangeHandler('locaiton', itemIndex);
+            console.log("location",itemIndex)
           }}>
           <Picker.Item label="Gym location" value={null} />
           {gymLocations.map((location, index) => (

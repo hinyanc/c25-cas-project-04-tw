@@ -29,9 +29,27 @@ export class SignUpController {
 
       const profile_pic = req.file;
 
+      
       // console.log("check field", height, gym_level);
       console.log("check file", req.file?.filename);
-      console.log("ckeck gym level",gym_level)
+      console.log("ckeck gym level", gym_level);
+      
+      console.log("check controller ", {
+        username,
+        email,
+        password,
+        gender,
+        birthday,
+        height,
+        weight,
+        has_member,
+        gym_center_id,
+        gym_location_id,
+        bio,
+        gym_level,
+        interestArr,
+        profile_pic,
+      });
 
       await this.signUpService.createUser({
         username,
@@ -49,6 +67,7 @@ export class SignUpController {
         interestArr,
         profile_pic,
       });
+
 
       res.status(200).json({ message: "create user success" });
     } catch (error) {

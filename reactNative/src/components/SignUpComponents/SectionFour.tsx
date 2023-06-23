@@ -144,6 +144,7 @@ export default function SectionFour({
 
   const handleInterestPress = (interest: number) => {
     const maxSelections = 5;
+    console.log("selectedInterests",selectedInterests)
     if (selectedInterests.includes(interest)) {
       setSelectedInterests(selectedInterests.filter(item => item !== interest));
     } else if (selectedInterests.length < maxSelections) {

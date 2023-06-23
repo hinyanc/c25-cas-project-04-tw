@@ -79,12 +79,12 @@ export default function SectionFive({
     formData.append('email', formState.email);
     formData.append('password', formState.password);
     formData.append('gender', formState.gender);
-    formData.append('birthday', formState.birthday);
+    formData.append('birthday', (formState.birthday?.toISOString()));
     formData.append('height', formState.height);
     formData.append('weight', formState.weight);
     formData.append('has_member', formState.isMember);
     formData.append('gym_center_id', formState.gymCenter);
-    formData.append('gym_locaiton_id', formState.locaiton);
+    formData.append('gym_location_id', formState.locaiton);
     formData.append('bio', formState.bio);
     formData.append('gym_level', formState.gymLevel);
     formData.append('interestArr',JSON.stringify(formState.interests));
