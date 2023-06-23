@@ -127,15 +127,16 @@ export default function SectionFive({
         </Text>
       </View>
       <View style={{height: height * 0.4}}>
-        {uploadImage ? (
-          <Image
-            source={{uri: uploadImage.uri}}
-            style={{width: 200, height: 200, resizeMode: 'contain'}}
-          />
-        ) : (
-          <Text>No image selected</Text>
-        )}
-
+        <View style={{justifyContent:"center",alignItems:"center"}}>
+          {uploadImage ? (
+            <Image
+              source={{uri: uploadImage.uri}}
+              style={{width: 200, height: 200, resizeMode: 'contain'}}
+            />
+          ) : (
+            <Text>No image selected</Text>
+          )}
+        </View>
         <TouchableOpacity onPress={pickImage} style={styles.Continuebtn}>
           <Text
             style={{
@@ -149,7 +150,7 @@ export default function SectionFive({
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={{height:height*0.43}}>
+      <View style={{height: height * 0.43}}>
         {/* remind */}
         <Text
           style={{
@@ -157,7 +158,6 @@ export default function SectionFive({
             textAlign: 'center',
             width: width * 0.75,
             marginTop: height * 0.04,
-           
           }}>
           By continuing, you agree to Gymatess's Terms of service. We will
           manage information about you as described in our Privacy Policy, and

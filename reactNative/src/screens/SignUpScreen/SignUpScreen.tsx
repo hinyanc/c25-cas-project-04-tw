@@ -90,7 +90,7 @@ export default function SignUpForm() {
     email: 'test1@gmail.com',
     password: 'abc123',
     gender: 'Female',
-    birthday: null,
+    birthday: new Date(),
     height: 175,
     weight: 65,
     isMember: true,

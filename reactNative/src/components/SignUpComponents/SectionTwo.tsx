@@ -114,9 +114,10 @@ export default function SectionTwo({
     setShowDatePicker(false);
     if (selectedDate) {
       setChosenDate(selectedDate);
+      onChangeHandler('birthday', selectedDate);
     }
   };
-  
+
   useEffect(() => {
     if (formState.birthday) setChosenDate(formState.birthday);
   }, []);
@@ -216,12 +217,12 @@ export default function SectionTwo({
           value={chosenDate}
           mode="date"
           display="default"
-          onChange={e => {
-            handleDateChange;
-            onChangeHandler('birthday', chosenDate);
-            // console.log('hihi', e);
-            setShowDatePicker(false)
-          }}
+          onChange={
+            handleDateChange
+            // onChangeHandler('birthday', chosenDate);
+            // console.log('hihi', chosenDate);
+            // setShowDatePicker(false)
+          }
           // onChange={handleDateChange}
           maximumDate={maxDate}
         />
