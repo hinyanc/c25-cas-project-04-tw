@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -64,7 +64,7 @@ interface SectionThreeProps {
   back: () => void;
   formState: FormState;
   errorState: FormErrorState;
-  onChangeHandler: (name: string, value: string | boolean|number) => void;
+  onChangeHandler: (name: string, value: string | boolean | number) => void;
   inputHandler: (name: keyof FormState) => void;
 }
 
@@ -106,6 +106,25 @@ export default function SectionThree({
     setPressedButton(button);
   };
 
+  const gymCenterDict = {
+    1: '24/7 Fitness',
+    2: 'Pure Fitness',
+    3: 'Go24',
+    4: 'Physical',
+    5: 'Fitness First',
+    6: 'Anytime Fitness',
+    7: 'Snap Fitness',
+    8: 'Leisure and Cultural Services Department (LCSD)',
+  };
+
+  // useEffect(() => {
+  //   if (formState.gymCenter) setSelectedCenter(gymCenterDict.(formState.gymCenter));
+  // }, []);
+
+  useEffect(() => {
+    if (formState.isMember) setPressedButton('Yes');
+    else setPressedButton('No');
+  }, []);
   const isButtonPressed = (button: string) => {
     return pressedButton === button;
   };
@@ -134,7 +153,7 @@ export default function SectionThree({
             color: '#e24e59',
             fontWeight: 'bold',
           }}>
-          STEP 3/4
+          STEP 3/5
         </Text>
       </View>
 
@@ -177,7 +196,11 @@ export default function SectionThree({
           }}
         />
       </View>
-      {errorState.isMember && <Text>Error: {errorState.isMember}</Text>}
+      {errorState.isMember !== null ? (
+        <Text style={styles.errorMsg}>Error:{errorState.isMember}</Text>
+      ) : (
+        <></>
+      )}
 
       <Text style={[styles.inputTitle, {marginTop: 10}]}>
         Choose your gym center
@@ -188,7 +211,7 @@ export default function SectionThree({
           onValueChange={(itemValue, itemIndex) => {
             setSelectedCenter(itemValue);
             onChangeHandler('gymCenter', itemIndex);
-            console.log(itemIndex)
+            console.log(itemIndex);
           }}>
           <Picker.Item label="Gym center" value={null} />
           {gymCenter.map((center, index) => (
@@ -204,6 +227,7 @@ export default function SectionThree({
           onValueChange={(itemValue, itemIndex) => {
             setSelectedLocation(itemValue);
             onChangeHandler('locaiton', itemIndex);
+            console.log('location', itemIndex);
           }}>
           <Picker.Item label="Gym location" value={null} />
           {gymLocations.map((location, index) => (

@@ -16,7 +16,7 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    image: "juliawlc/gymatess"
+    image: "juliawlc/gymatess:latest"
     ports:
       - "8080:8080"
   postgres:

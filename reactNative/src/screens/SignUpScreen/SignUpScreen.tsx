@@ -23,35 +23,13 @@ import {DocumentPickerResponse} from 'react-native-document-picker';
 
 const {width, height} = Dimensions.get('window');
 
-// const submitForm = async () => {
-//   const formData = new FormData();
-//   formData.append('file', {
-//     uri: profile_pic.uri,
-//     type: profile_pic.type,
-//     name: profile_pic.name,
-//   })
-//   formData.append("username",username)
-//   formData.append("email",email)
-//   formData.append("password",password)
-//   formData.append("gender",gender)
-//   formData.append("birthday",birthday)
-//   formData.append("height",height)
-//   formData.append("weight",weight)
-//   formData.append("has_member",isMember)
-//   formData.append("gym_center_id",gymCenter)
-//   formData.append("gym_locaiton_id",locaiton)
-//   formData.append("bio",bio)
-//   formData.append("gym_level",gymLevel)
-//   formData.append("interestArr",interests)
-//   formData.append("profile_pic",profile_pic)
-// }
 
 export interface FormState {
   username: string;
   email: string;
   password: string;
   gender: string;
-  birthday: string | null;
+  birthday: Date | null;
   height: number | null;
   weight: number | null;
   isMember: boolean;
@@ -59,7 +37,7 @@ export interface FormState {
   locaiton: number | null;
   bio: string;
   gymLevel: string;
-  interests: string[] | null;
+  interests: number[] | null;
   profile_pic: DocumentPickerResponse | null;
 }
 
@@ -112,15 +90,16 @@ export default function SignUpForm() {
     email: 'test1@gmail.com',
     password: 'abc123',
     gender: 'Female',
-    birthday: new Date().toDateString(),
+    birthday: new Date(),
     height: 175,
     weight: 65,
     isMember: true,
     gymCenter: 1,
     locaiton: 1,
     bio: 'Hello World',
-    gymLevel: 'Newbie',
-    interests: ['Yoga'],
+    // gymLevel: 'Newbie',
+    gymLevel: '',
+    interests: [1,2],
     // intersts need to json stringify
     profile_pic: null,
   });
@@ -158,7 +137,7 @@ export default function SignUpForm() {
     name: string,
     value:
       | string
-      | string[]
+      | number[]
       | boolean
       | number
       | Date

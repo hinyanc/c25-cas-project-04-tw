@@ -1,5 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {color} from 'react-native-elements/dist/helpers';
+import {TableWrapper} from 'react-native-table-component';
+const {width, height} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   chatscreen: {
@@ -67,7 +69,7 @@ export const styles = StyleSheet.create({
     width: '25%',
     height: 45,
     backgroundColor: '#E24E59',
-    borderRadius: 3,
+    // borderRadius: 3,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
@@ -77,7 +79,7 @@ export const styles = StyleSheet.create({
     width: '25%',
     height: 45,
     backgroundColor: '#black',
-    borderRadius: 3,
+    // borderRadius: 3,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
@@ -462,6 +464,8 @@ export const styles = StyleSheet.create({
   },
   profilelistContainer: {
     paddingHorizontal: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   profileemptyContainer: {
     marginTop: 20,
@@ -473,7 +477,7 @@ export const styles = StyleSheet.create({
   profileemptyText: {fontWeight: 'bold', fontSize: 24, paddingBottom: 30},
   LogoutBtn: {
     justifyContent: 'center',
-    alignContent:'center',
+    alignContent: 'center',
     backgroundColor: '#E24E59',
     width: 120,
     borderRadius: 18,
@@ -491,5 +495,118 @@ export const styles = StyleSheet.create({
     // borderRadius: 20,
     padding: 35,
     alignItems: 'center',
+  },
+  levelBtn: {
+    flex: 1,
+    height: height * 0.07,
+    borderRadius: 16,
+    borderWidth: 2,
+    width: width * 0.75,
+    borderColor: '#F2B3B7',
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  levelBtnPressed: {
+    flex: 1,
+    height: height * 0.08,
+    borderRadius: 16,
+    backgroundColor: '#e24e59',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 0,
+    width: width * 0.75,
+  },
+  levelBtnText: {
+    textAlign: 'center',
+    paddingVertical: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#e24e59',
+  },
+  levelBtnTextPressed: {
+    textAlign: 'center',
+    paddingVertical: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  interestBtn: {
+    // flex: 1,
+    height: 45,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: '#F2B3B7',
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: height * 0.003,
+    marginVertical: height * 0.003,
+  },
+  interestBtnPressed: {
+    // flex: 1,
+
+    backgroundColor: '#e24e59',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#fff',
+  },
+  interestBtnText: {
+    textAlign: 'center',
+    paddingVertical: 5,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#F2B3B7',
+    paddingHorizontal: 20,
+  },
+  interestToogleBtnText: {
+    textAlign: 'center',
+    paddingVertical: 5,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  pprofilepic: {
+    height: 150,
+    width: 150,
+    borderRadius: 30,
+  },
+
+  profiledetails: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 350,
+    alignItems: 'center',
+    // flex: 1,
+  },
+  profileinput: {
+    width: width * 0.5,
+    height: height * 0.03,
+    marginHorizontal: 4,
+    marginVertical: 10,
+    fontSize: 14,
+    borderWidth: 2,
+    borderRadius: 16,
+    color: 'black',
+    borderColor: 'rgba(255, 94, 135, 0.17)',
+    textAlign: 'center',
+    padding: 0,
+  },
+  profileinputbio: {
+    width: width * 0.5,
+    height: height * 0.1,
+    marginHorizontal: 4,
+    marginVertical: 10,
+    fontSize: 14,
+    flex: 1,
+    flexWrap: 'wrap',
+    borderWidth: 2,
+    borderRadius: 16,
+    color: 'black',
+    borderColor: 'rgba(255, 94, 135, 0.17)',
+    textAlign: 'center',
+    padding: 0,
   },
 });

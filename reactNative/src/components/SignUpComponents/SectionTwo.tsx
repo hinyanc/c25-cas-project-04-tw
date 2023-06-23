@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -85,6 +85,10 @@ export default function SectionTwo({
     setPressedButton(button);
   };
 
+  useEffect(() => {
+    if (formState.gender) setPressedButton(formState.gender);
+  }, []);
+
   const isButtonPressed = (button: string) => {
     return pressedButton === button;
   };
@@ -98,12 +102,26 @@ export default function SectionTwo({
   const [inputHeight, setInputHeight] = useState('');
   const [inputWeight, setInputWeight] = useState('');
 
+  useEffect(() => {
+    if (formState.height) setInputHeight(formState.height.toString());
+  }, []);
+
+  useEffect(() => {
+    if (formState.weight) setInputWeight(formState.weight.toString());
+  }, []);
+
   const handleDateChange = (event: any, selectedDate?: Date) => {
     setShowDatePicker(false);
     if (selectedDate) {
       setChosenDate(selectedDate);
+      onChangeHandler('birthday', selectedDate);
     }
   };
+
+  useEffect(() => {
+    if (formState.birthday) setChosenDate(formState.birthday);
+  }, []);
+
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 12);
 
@@ -131,7 +149,7 @@ export default function SectionTwo({
             color: '#e24e59',
             fontWeight: 'bold',
           }}>
-          STEP 2/4
+          STEP 2/5
         </Text>
       </View>
 
@@ -199,10 +217,12 @@ export default function SectionTwo({
           value={chosenDate}
           mode="date"
           display="default"
-          onChange={e => {
-            handleDateChange(chosenDate);
-            onChangeHandler('birthday', chosenDate);
-          }}
+          onChange={
+            handleDateChange
+            // onChangeHandler('birthday', chosenDate);
+            // console.log('hihi', chosenDate);
+            // setShowDatePicker(false)
+          }
           // onChange={handleDateChange}
           maximumDate={maxDate}
         />
@@ -213,7 +233,6 @@ export default function SectionTwo({
       ) : (
         <></>
       )}
-      {/* {errorState.birthday && <Text>Error: {errorState.birthday}</Text>} */}
 
       <Text style={styles.inputTitle}>Height* (cm)</Text>
       <TextInput
