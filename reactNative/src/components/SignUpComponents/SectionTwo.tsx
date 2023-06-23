@@ -157,7 +157,7 @@ export default function SectionTwo({
       <Text
         style={[
           styles.inputTitle,
-          {marginTop: height * 0.04, marginBottom: 10},
+          {marginTop: height * 0.04, marginBottom: 5},
         ]}>
         Gender*
       </Text>
@@ -194,59 +194,61 @@ export default function SectionTwo({
           btnType="gender"
         />
       </View>
-      {errorState.gender !== null ? (
-        <Text style={styles.errorMsg}>Error:{errorState.gender}</Text>
-      ) : (
-        <></>
-      )}
-      {/* {errorState.gender && <Text>Error: {errorState.gender}</Text>} */}
+      <View style={{height: height * 0.02}}>
+        {errorState.gender !== null ? (
+          <Text style={styles.errorMsg}>Error:{errorState.gender}</Text>
+        ) : (
+          <></>
+        )}
+      </View>
 
-      <Text style={[styles.inputTitle, {marginTop: 10}]}>Date of birth</Text>
-
-      <Button
-        onPress={() => setShowDatePicker(true)}
-        text="Select Date"
-        textStyle={{
-          color: '#fff',
-        }}
-        btnType="date"
-      />
-      {showDatePicker && (
-        <RNDateTimePicker
-          testID="datePicker"
-          value={chosenDate}
-          mode="date"
-          display="default"
-          onChange={
-            handleDateChange
-            // onChangeHandler('birthday', chosenDate);
-            // console.log('hihi', chosenDate);
-            // setShowDatePicker(false)
-          }
-          // onChange={handleDateChange}
-          maximumDate={maxDate}
+      <Text style={[styles.inputTitle, {marginTop: 5}]}>Date of birth</Text>
+      <View style={{height: height * 0.14}}>
+        <Button
+          onPress={() => setShowDatePicker(true)}
+          text="Select Date"
+          textStyle={{
+            color: '#fff',
+          }}
+          btnType="date"
         />
-      )}
-      <Text>Chosen Date: {chosenDate.toDateString()}</Text>
-      {errorState.birthday !== null ? (
-        <Text style={styles.errorMsg}>Error:{errorState.birthday}</Text>
-      ) : (
-        <></>
-      )}
-
-      <Text style={styles.inputTitle}>Height* (cm)</Text>
-      <TextInput
-        keyboardType="numeric"
-        value={inputHeight}
-        onChangeText={text => {
-          setInputHeight(text);
-          onChangeHandler('height', parseInt(text));
-        }}
-        onBlur={e => inputHandler('height')}
-        placeholder="Height"
-        style={styles.input}
-      />
-      {/* <TextInput
+        {showDatePicker && (
+          <RNDateTimePicker
+            testID="datePicker"
+            value={chosenDate}
+            mode="date"
+            display="default"
+            onChange={
+              handleDateChange
+              // onChangeHandler('birthday', chosenDate);
+              // console.log('hihi', chosenDate);
+              // setShowDatePicker(false)
+            }
+            // onChange={handleDateChange}
+            maximumDate={maxDate}
+          />
+        )}
+        <Text>Chosen Date: {chosenDate.toDateString()}</Text>
+        {errorState.birthday !== null ? (
+          <Text style={styles.errorMsg}>Error:{errorState.birthday}</Text>
+        ) : (
+          <></>
+        )}
+      </View>
+      <View style={{height: height * 0.17}}>
+        <Text style={styles.inputTitle}>Height* (cm)</Text>
+        <TextInput
+          keyboardType="numeric"
+          value={inputHeight}
+          onChangeText={text => {
+            setInputHeight(text);
+            onChangeHandler('height', parseInt(text));
+          }}
+          onBlur={e => inputHandler('height')}
+          placeholder="Height"
+          style={styles.input}
+        />
+        {/* <TextInput
         keyboardType="numeric"
         value={inputHeight}
         onChangeText={text => onChangeHandler('height', text)}
@@ -254,13 +256,14 @@ export default function SectionTwo({
         placeholder="Height"
         style={styles.input}
       /> */}
-      {errorState.height !== null ? (
-        <Text style={styles.errorMsg}>Error:{errorState.height}</Text>
-      ) : (
-        <></>
-      )}
-      {/* {errorState.height && <Text>Error: {errorState.height}</Text>} */}
-
+        {errorState.height !== null ? (
+          <Text style={styles.errorMsg}>Error:{errorState.height}</Text>
+        ) : (
+          <></>
+        )}
+        {/* {errorState.height && <Text>Error: {errorState.height}</Text>} */}
+      </View>
+      <View style={{height: height * 0.18}}>
       <Text style={styles.inputTitle}>Weight* (kg)</Text>
       <TextInput
         keyboardType="numeric"
@@ -278,6 +281,7 @@ export default function SectionTwo({
       ) : (
         <></>
       )}
+      </View>
       {/* {errorState.weight && <Text>Error: {errorState.weight}</Text>} */}
 
       {/* remind */}
@@ -286,7 +290,7 @@ export default function SectionTwo({
           // textDecorationLine: 'underline',
           textAlign: 'center',
           width: width * 0.75,
-          marginBottom: height * 0.02,
+          // marginBottom: height * 0.02,
         }}>
         Age and gender help improve recommendations
       </Text>

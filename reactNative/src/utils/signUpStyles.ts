@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
   },
   inputTitle: {
     textAlign: 'left',
-    marginTop: 4,
+    marginTop: 2,
     alignSelf: 'flex-start',
   },
   signUp: {
