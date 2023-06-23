@@ -12,7 +12,7 @@ export interface Info {
   weight: string;
   bio: string;
   gym_level: string;
-  interest_names: string;
+  interest_names: string[];
   gym_center: string;
   gym_location: string;
 }
@@ -42,7 +42,7 @@ export interface newInfo {
   weight: string;
   bio: string;
   gym_level: string;
-  interest_names: string;
+  interest_names: string[];
   gym_center: string;
   gym_location: string;
 }
@@ -88,7 +88,7 @@ export async function useUpdateInfo(
   weight: string,
   bio: string,
   gym_level: string,
-  interest: string,
+  interest: string[],
   gym_center: string,
   gym_location: string,
 ) {
