@@ -9,11 +9,18 @@ import {
   ScrollView,
   TouchableOpacity,
   TextStyle,
+  Modal,
+  Alert,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import {styles} from '../../utils/styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useGetTinderProfile, useLikeUser} from '../../hooks/TinderAPI';
+import {
+  useGetTinderProfile,
+  useGetUsername,
+  useLikeUser,
+} from '../../hooks/TinderAPI';
 import {REACT_APP_API_SERVER} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
@@ -22,30 +29,6 @@ import {StackParamList} from '../../../App';
 
 const ScreenWidth = Dimensions.get('window').width;
 const ScreenHeight = Dimensions.get('window').height;
-
-// type CardType = {
-//   id: number;
-//   profile_pic: string;
-//   gender: string;
-//   username: string;
-//   gym_center: string;
-//   gym_location: string;
-//   interest_name: string[];
-//   bio: string;
-//   is_pt: boolean;
-// };
-
-// interface TinderProfile {
-//   id: number;
-//   is_pt: boolean;
-//   gender: string;
-//   username: string;
-//   profile_pic: string;
-//   gym_center: string;
-//   gym_location: string;
-//   interest_name: string[];
-//   bio: string;
-// }
 
 export function TinderSwipe() {
   type ButtonProps = {
@@ -78,7 +61,8 @@ export function TinderSwipe() {
   const [preference, updatePreference] = useState<string>('get-all-profile');
 
   const cards = useGetTinderProfile(token, preference);
-  const like = useLikeUser(token, index);
+
+  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
 
   const Button = ({onPress, isPressed, text, textStyle}: ButtonProps) => {
     return (
@@ -112,52 +96,174 @@ export function TinderSwipe() {
     return pressedButton === button;
   };
 
-  const handleRightLike = (index: number, token:string) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleRightLike = async (token: string, index: number) => {
     console.log('the what card', index, 'swipe right');
-    console.log('its actual data is ', cards[index]);
-    // handleLike(index, token)
+    console.log('its actual data is ', filteredCards[index]);
+    console.log('its user id ', filteredCards[index].id);
+    const res = await await fetch(
+      `${REACT_APP_API_SERVER}/discover/like-users/${filteredCards[index].id}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    const result = await res.json();
+    console.log(result.message);
 
-    // setIndex(index => index + 1)
+    if (result.message === 'matched') {
+      setModalVisible(!modalVisible);
+      return (
+        <Modal
+          style={{}}
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <View
+            style={[
+              styles.matchView,
+              {width: ScreenWidth, height: ScreenHeight},
+            ]}>
+            <Text style={styles.modalTitle}>🏋🏻‍♀️ It's a Match! 🧘🏻‍♂️</Text>
+            <Text style={styles.modalText}>
+              You and {filteredCards[index].username} have liked each other.
+            </Text>
+            <View>
+              <Image
+                style={{
+                  height: 100,
+                  width: 100,
+                  margin: 10,
+                  borderRadius: 50,
+                }}
+                source={{
+                  uri: `${REACT_APP_API_SERVER}/profile-pic/${userInfo[1]}`,
+                }}
+              />
+              <Image
+                style={{
+                  height: 100,
+                  width: 100,
+                  margin: 10,
+                  borderRadius: 50,
+                }}
+                source={{
+                  uri: `${REACT_APP_API_SERVER}/profile-pic/${filteredCards[
+                    index
+                  ].profile_pic!}`,
+                }}
+              />
+            </View>
+            <Text>
+              Let's click{' '}
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  textDecorationLine: 'underline',
+                  fontSize: 25,
+                  color: '#E24E59',
+                }}
+                onPress={() => {
+                  navigation.navigate('Chat');
+                }}>
+                HERE
+              </Text>{' '}
+              to start chatting with each other!
+            </Text>
+            <TouchableOpacity
+              style={[styles.BMIChartBtn]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.BMIChartText}>BACK</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      );
+    }
   };
-
-  // const matchRequest = () => {
-  //   if
-  // }
 
   const handleLeftNope = (index: number) => {
     console.log('the what card', index, 'swipe left');
-    console.log('its actual data is ', Object.values(cards[index]));
+    console.log('its actual data is ', cards[index]);
   };
 
   const handleSwipeAll = () => {
     console.log('the what card', 'all images are shown');
     return (
       <>
-      <Text>Swiped all</Text>
+        <View style={{width: ScreenWidth, alignItems: 'center', bottom: 230}}>
+          <Text
+            style={{
+              fontSize: 25,
+              color: '#E24E59',
+              fontWeight: 'bold',
+              marginBottom: 10,
+              fontStyle: 'italic',
+            }}>
+            Oops!
+          </Text>
+          <Text style={styles1.swipedAll}>
+            You have swiped all your quotas!
+          </Text>
+          <Text style={styles1.swipedAll}>
+            Consider joining our Diamond membership?
+          </Text>
+          <Text style={styles1.swipedAll}>
+            Learn more{' '}
+            <Text
+              style={{
+                fontWeight: 'bold',
+                textDecorationLine: 'underline',
+                fontSize: 25,
+                color: '#E24E59',
+              }}
+              onPress={() => {
+                navigation.navigate('Plan');
+              }}>
+              HERE
+            </Text>{' '}
+            !
+          </Text>
+        </View>
       </>
-    )
+    );
   };
 
   const onSwipe = (newIndex: React.SetStateAction<number>) => {
     setIndex(newIndex);
   };
 
-  const handleLike = async (id: number, token: string) => {
+  const handleLike = async (token: string, index: number) => {
     onSwipe(index + 1);
+    const res = await fetch(
+      `${REACT_APP_API_SERVER}/discover/like-users/${index}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    const result = await res.json();
+    console.log(result);
+    if (result.message === 'matched') {
+      setModalVisible(!modalVisible);
+    }
   };
-
-  console.log('check all cards', cards);
-  // console.log(
-  //   'check filter cards',
-  //   cards.filter((card, idx) => idx >= index),
-  // );
 
   const filteredCards = useMemo(
     () => cards.filter((_card, idx) => idx >= index),
     [cards, index],
   );
 
-  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
+  let user = useGetUsername(token);
+  let userInfo = Object.values(user);
 
   return (
     <ScrollView style={{backgroundColor: '#FFF9F0'}}>
@@ -174,7 +280,7 @@ export function TinderSwipe() {
             justifyContent: 'space-evenly',
             marginLeft: 20,
             marginRight: 20,
-            marginTop: 20
+            marginTop: 20,
           }}>
           <Button
             onPress={() => handleButtonPress('All Users')}
@@ -223,7 +329,11 @@ export function TinderSwipe() {
                         style={styles1.card2}
                       />
                       {card.is_pt == true ? (
-                        <Text style={[styles.CardPT,{bottom: ScreenHeight*0.52}]}>
+                        <Text
+                          style={[
+                            styles.CardPT,
+                            {bottom: ScreenHeight * 0.52},
+                          ]}>
                           <Ionicons
                             name="md-ribbon"
                             size={25}
@@ -232,7 +342,11 @@ export function TinderSwipe() {
                           PT
                         </Text>
                       ) : (
-                        <Text style={[styles.CardPT,{bottom: ScreenHeight*0.52}]}>
+                        <Text
+                          style={[
+                            styles.CardPT,
+                            {bottom: ScreenHeight * 0.52},
+                          ]}>
                           <Ionicons
                             name="ios-bicycle"
                             size={25}
@@ -250,6 +364,7 @@ export function TinderSwipe() {
                         ]}>
                         <Text style={styles.DiscoverUsername}>
                           {card.username}
+                          {card.id}
                         </Text>
 
                         <Text style={styles.DiscoverGym}>
@@ -291,7 +406,8 @@ export function TinderSwipe() {
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() => {
-                            handleLike(card.id, token)
+                            handleLike(token, card.id);
+                            // swiper index instead of card's users_id, why/_\
                           }}
                           style={[
                             styles.LikeIcon,
@@ -315,7 +431,10 @@ export function TinderSwipe() {
                   </Animated.View>
                 )}
                 verticalSwipe={false}
-                onSwipedRight={()=>{handleRightLike(filteredCards[0].id, token)}}
+                onSwipedRight={cardIndex => {
+                  handleRightLike(token, cardIndex);
+                  // swiper index instead of card's users_id, why/_\
+                }}
                 onSwipedLeft={handleLeftNope}
                 onSwipedAll={handleSwipeAll}
                 useViewOverflow={false}

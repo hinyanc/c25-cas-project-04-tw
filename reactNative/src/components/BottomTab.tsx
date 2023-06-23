@@ -37,7 +37,7 @@ const BottomTabs = () => {
         },
         tabBarActiveTintColor: '#E24E59',
         tabBarInactiveTintColor: '#707070',
-        tabBarLabelStyle: {fontSize: 15, marginBottom: 20},
+        tabBarLabelStyle: {fontSize: 15, marginBottom: 20, fontFamily:'Proxima Nova'},
         tabBarIconStyle: {marginTop: 16},
         tabBarStyle: {
           // position: 'absolute',

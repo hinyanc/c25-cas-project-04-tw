@@ -17,6 +17,7 @@ import {Provider, useSelector} from 'react-redux';
 import {store} from './src/store/store';
 import {LogBox} from 'react-native';
 import PlanScreen from './src/screens/PlanScreen';
+import MatchesScreen from './src/screens/MatchesScreen';
 // import socket from './src/utils/socket';
 // import UploadFile from './src/screens/SignUpScreen/UploadFile';
 
@@ -49,6 +50,7 @@ export type StackParamList = {
   Next: undefined;
   Chat: undefined;
   Plan: undefined;
+  Match: undefined;
   // uploadFile:undefined;
   Messaging: {target_user_id: Number; target_username: string};
 };
@@ -145,9 +147,20 @@ export default function App() {
                 }}
               />
               <Stack.Screen name="Messaging" component={Messaging} />
-              <Stack.Screen name="Plan" component={PlanScreen} options={{
+              <Stack.Screen
+                name="Plan"
+                component={PlanScreen}
+                options={{
                   headerShown: false,
-                }} />
+                }}
+              />
+              <Stack.Screen
+                name="Match"
+                component={MatchesScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
             </Stack.Navigator>
           </NavigationContainer>
         </QueryClientProvider>

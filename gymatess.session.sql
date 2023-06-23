@@ -39,7 +39,7 @@ SELECT * FROM user_gym_center;
 
 SELECT * FROM users_interest;
 
-select exists (select * from users_matching where users_id = 1 and matched_users_id = 2 or users_id = 2 and matched_users_id =1) 
+select exists (select * from users_matching where users_id = 1 and matched_users_id = 3 or users_id = 3 and matched_users_id =1) 
 
 select * from users_matching where users_matching.status = 'matched' and users_id = 1 or matched_users_id = 1 
 
@@ -50,3 +50,5 @@ SELECT MAX(MAX(users.weight / height / height)*10000) FROM users WHERE id = 1
 select * from chatroom where receiver_id =9 and sender_id = 3 or receiver_id =3 and sender_id = 9
 
 select * from users where username = 'Jeffery'
+
+select users_matching.users_id, users_matching.matched_users_id from users_matching where users_id = 1 and matched_users_id = 3 or users_id = 3 and matched_users_id = 1

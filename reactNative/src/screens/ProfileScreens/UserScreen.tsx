@@ -1,17 +1,29 @@
-import React, {useState} from 'react';
-import {Button, Image, ScrollView, Text, TextInput, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  Button,
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  TextInput,
+  TextStyle,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {useGetInfo, useUpdateInfo} from '../../hooks/profileAPI';
 import {Info, newInfo} from '../../hooks/profileAPI';
 import {styles} from '../../utils/styles';
 import {REACT_APP_API_SERVER} from '@env';
+import {DocumentPickerResponse} from 'react-native-document-picker';
+import {FormErrorState, FormState} from '../SignUpScreen/SignUpScreen';
 
-const UserScreen = async () => {
-  const showInfo: Info = await useGetInfo();
-  const [newItem, setNewItem] = useState<newInfo>(showInfo);
-  console.log(showInfo);
+const UserScreen = () => {
+  const showInfo: Info[] | undefined = useGetInfo();
+  const [newItem, setNewItem] = useState<newInfo>(showInfo as unknown as Info);
+  console.log('showInfo:', showInfo);
 
-  const updateUserInfo = async () => {
-    const updatedData = await useUpdateInfo(
+  const updateUserInfo = () => {
+    const updatedData = useUpdateInfo(
       newItem.profile_pic,
       newItem.username,
       newItem.email,
@@ -27,128 +39,259 @@ const UserScreen = async () => {
     );
     console.log(updatedData);
   };
-  if (!showInfo) {
-    return <Text>Loading...</Text>;
-  }
+
+  const [errorState, setErrorState] = useState<FormErrorState>({
+    username: null,
+    email: null,
+    password: null,
+    gender: null,
+    birthday: null,
+    height: null,
+    weight: null,
+    isMember: null,
+    gymLevel: null,
+    interests: null,
+  });
+
+  // interest
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+
+  const interests: string[] = [
+    'Yoga',
+    'Weightlifting',
+    'Pilates',
+    'Injury recover',
+    'Aerobic',
+    'Cardio',
+    'Boxing',
+    'Stretching',
+  ];
+  const handleInterestPress = (interest: string) => {
+    const maxSelections = 5;
+    if (selectedInterests.includes(interest)) {
+      setSelectedInterests(selectedInterests.filter(item => item !== interest));
+    } else if (selectedInterests.length < maxSelections) {
+      setSelectedInterests([...selectedInterests, interest]);
+    }
+  };
+  const isInterestPressed = (interest: string) => {
+    return selectedInterests.includes(interest);
+  };
+
+  useEffect(() => {
+    if (newItem.interest_names !== undefined)
+      setSelectedInterests(newItem.interest_names);
+  }, []);
+  useEffect(() => {
+    onChangeHandler('interests', selectedInterests);
+  }, [selectedInterests]);
+
+  type ButtonProps = {
+    onPress: () => void;
+    isPressed: boolean;
+    text: string;
+    textStyle?: TextStyle;
+    btnType: string;
+  };
+  const InterestButton = ({
+    onPress,
+    isPressed,
+    text,
+    textStyle,
+    btnType,
+  }: ButtonProps) => {
+    return (
+      <TouchableOpacity
+        style={[
+          btnType === 'level'
+            ? [styles.levelBtn, isPressed && styles.levelBtnPressed]
+            : [styles.interestBtn, isPressed && styles.interestBtnPressed],
+        ]}
+        onPress={onPress}>
+        <Text
+          style={[
+            btnType === 'level'
+              ? [
+                  styles.levelBtnText,
+                  textStyle,
+                  isPressed && styles.levelBtnTextPressed,
+                ]
+              : [
+                  styles.interestBtnText,
+                  textStyle,
+                  isPressed && styles.interestToogleBtnText,
+                ],
+          ]}>
+          {text}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const onChangeHandler = (
+    name: string,
+    value:
+      | string
+      | string[]
+      | boolean
+      | number
+      | Date
+      | DocumentPickerResponse
+      | null,
+  ) => {
+    setNewItem({...newItem, [name]: value});
+  };
+
   return (
-    <ScrollView style={styles.profileScreen}>
-      <View style={styles.profileTopContainer}>
-        <View style={styles.chatheader}>
-          <Text style={styles.profileHeading}>My Profile</Text>
+    // {!showInfo? <Text>Loading...</Text>:<Text>hi</Text>}
+    showInfo == undefined ? (
+      <Text>Loading ...</Text>
+    ) : (
+      <ScrollView style={styles.profileScreen}>
+        <View style={styles.profileTopContainer}>
+          <View style={styles.chatheader}>
+            <Text style={styles.profileHeading}>My Profile</Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.profilelistContainer}>
-        <View>
-          <Image
-            source={{
-              uri: `${REACT_APP_API_SERVER}/profile-pic/${showInfo.profile_pic}`,
-            }}
-            style={styles.cprofilepic}
-          />
+        <View style={styles.profilelistContainer}>
+          <View>
+            <Image
+              source={{
+                uri: `${REACT_APP_API_SERVER}/profile-pic/${showInfo[0]
+                  .profile_pic!}`,
+              }}
+              style={styles.cprofilepic}
+            />
+          </View>
+
+          <View>
+            <Text>Username</Text>
+            <TextInput
+              defaultValue={showInfo[0].username}
+              onChangeText={text => setNewItem({...newItem, username: text})}
+            />
+          </View>
+
+          <View>
+            <Text>Email</Text>
+            <TextInput
+              keyboardType="email-address"
+              defaultValue={showInfo[0].email}
+              onChangeText={text => setNewItem({...newItem, email: text})}
+            />
+          </View>
+
+          <View>
+            <Text>Gender</Text>
+            <TextInput
+              defaultValue={showInfo[0].gender}
+              onChangeText={text => setNewItem({...newItem, gender: text})}
+            />
+          </View>
+
+          <View>
+            <Text>Date of birth</Text>
+            <TextInput
+              defaultValue={showInfo[0].birthday}
+              onChangeText={text => setNewItem({...newItem, birthday: text})}
+            />
+          </View>
+
+          <View>
+            <Text>Height</Text>
+            <TextInput
+              defaultValue={showInfo[0].height.toString()}
+              onChangeText={text => setNewItem({...newItem, height: text})}
+            />
+          </View>
+
+          <View>
+            <Text>Weight</Text>
+            <TextInput
+              defaultValue={showInfo[0].weight.toString()}
+              onChangeText={text => setNewItem({...newItem, weight: text})}
+            />
+          </View>
+
+          <View>
+            <Text>Gym center</Text>
+            <TextInput
+              defaultValue={showInfo[0].gym_center}
+              onChangeText={text => setNewItem({...newItem, gym_center: text})}
+            />
+          </View>
+
+          <View>
+            <Text>Center location</Text>
+            <TextInput
+              defaultValue={showInfo[0].gym_location}
+              onChangeText={text =>
+                setNewItem({...newItem, gym_location: text})
+              }
+            />
+          </View>
+
+          <View>
+            <Text>Bio</Text>
+            <TextInput
+              defaultValue={showInfo[0].bio}
+              onChangeText={text => setNewItem({...newItem, bio: text})}
+            />
+          </View>
+
+          <View>
+            <Text>Gym level</Text>
+            <TextInput
+              defaultValue={showInfo[0].gym_level}
+              onChangeText={text => setNewItem({...newItem, gym_level: text})}
+            />
+          </View>
+
+          {/* {showInfo[0].interest_names.map((interest, index) => (
+            <InterestButton
+              key={index}
+              onPress={() => {
+                handleInterestPress(interest);
+                // onChangeHandler('interests', selectedInterests);
+                // console.log("interest",index+1)
+              }}
+              isPressed={isInterestPressed(interest)}
+              text={interest}
+              textStyle={{color: '#F2B3B7'}}
+              btnType="interest"
+            />
+          ))} */}
+          {interests.map((interest, index) => (
+            <InterestButton
+              key={index}
+              onPress={() => {
+                handleInterestPress(interest);
+                // onChangeHandler('interests', selectedInterests);
+                // console.log("interest",index+1)
+              }}
+              isPressed={isInterestPressed(interest)}
+              text={interest}
+              textStyle={{color: '#F2B3B7'}}
+              btnType="interest"
+            />
+          ))}
+
+          {/* <View>
+            <Text>Interests</Text>
+            <TextInput
+              defaultValue={showInfo[0].interest_names}
+              onChangeText={text =>
+                setNewItem({...newItem, interest_names: text})
+              }
+            />
+          </View> */}
         </View>
 
         <View>
-          <Text>Username</Text>
-          <TextInput
-            value={showInfo.username}
-            onChangeText={text => setNewItem({...newItem, username: text})}
-          />
+          <Button title="Update" onPress={updateUserInfo} />
         </View>
-
-        <View>
-          <Text>Email</Text>
-          <TextInput
-            keyboardType="email-address"
-            value={showInfo.email}
-            onChangeText={text => setNewItem({...newItem, email: text})}
-          />
-        </View>
-
-        <View>
-          <Text>Gender</Text>
-          <TextInput
-            value={showInfo.gender}
-            onChangeText={text => setNewItem({...newItem, gender: text})}
-          />
-        </View>
-
-        <View>
-          <Text>Date of birth</Text>
-          <TextInput
-            value={showInfo.birthday.toString()}
-            onChangeText={text =>
-              setNewItem({...newItem, birthday: new Date(text)})
-            }
-          />
-        </View>
-
-        <View>
-          <Text>Height</Text>
-          <TextInput
-            value={showInfo.height.toString()}
-            onChangeText={text =>
-              setNewItem({...newItem, height: Number(text)})
-            }
-          />
-        </View>
-
-        <View>
-          <Text>Weight</Text>
-          <TextInput
-            value={showInfo.weight.toString()}
-            onChangeText={text =>
-              setNewItem({...newItem, weight: Number(text)})
-            }
-          />
-        </View>
-
-        <View>
-          <Text>Gym center</Text>
-          <TextInput
-            value={showInfo.gym_center}
-            onChangeText={text => setNewItem({...newItem, gym_center: text})}
-          />
-        </View>
-
-        <View>
-          <Text>Center location</Text>
-          <TextInput
-            value={showInfo.gym_location}
-            onChangeText={text => setNewItem({...newItem, gym_location: text})}
-          />
-        </View>
-
-        <View>
-          <Text>Bio</Text>
-          <TextInput
-            value={showInfo.bio}
-            onChangeText={text => setNewItem({...newItem, bio: text})}
-          />
-        </View>
-
-        <View>
-          <Text>Gym level</Text>
-          <TextInput
-            value={showInfo.gym_level}
-            onChangeText={text => setNewItem({...newItem, gym_level: text})}
-          />
-        </View>
-
-        <View>
-          <Text>Interests</Text>
-          <TextInput
-            value={showInfo.interest_names}
-            onChangeText={text =>
-              setNewItem({...newItem, interest_names: text})
-            }
-          />
-        </View>
-      </View>
-
-      <View>
-        <Button title="Update" onPress={updateUserInfo} />
-      </View>
-    </ScrollView>
+      </ScrollView>
+    )
   );
 };
 

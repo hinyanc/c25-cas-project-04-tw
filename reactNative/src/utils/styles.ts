@@ -1,5 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {color} from 'react-native-elements/dist/helpers';
+const {width, height} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   chatscreen: {
@@ -67,7 +68,7 @@ export const styles = StyleSheet.create({
     width: '25%',
     height: 45,
     backgroundColor: '#E24E59',
-    borderRadius: 3,
+    // borderRadius: 3,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
@@ -77,7 +78,7 @@ export const styles = StyleSheet.create({
     width: '25%',
     height: 45,
     backgroundColor: '#black',
-    borderRadius: 3,
+    // borderRadius: 3,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
@@ -200,7 +201,7 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     color: '#E24E59',
     fontWeight: 'bold',
-    fontFamily: 'Proxima Nova Font',
+    fontFamily: 'League Spartan',
   },
   welcome: {
     fontSize: 15,
@@ -473,7 +474,7 @@ export const styles = StyleSheet.create({
   profileemptyText: {fontWeight: 'bold', fontSize: 24, paddingBottom: 30},
   LogoutBtn: {
     justifyContent: 'center',
-    alignContent:'center',
+    alignContent: 'center',
     backgroundColor: '#E24E59',
     width: 120,
     borderRadius: 18,
@@ -484,5 +485,84 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff',
     fontWeight: 'bold',
+  },
+  matchView: {
+    // margin: 20,
+    backgroundColor: 'rgba(252, 215, 221,0.8)',
+    // borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+  },
+  levelBtn: {
+    flex: 1,
+    height: height * 0.07,
+    borderRadius: 16,
+    borderWidth: 2,
+    width: width * 0.75,
+    borderColor: '#F2B3B7',
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  levelBtnPressed: {
+    flex: 1,
+    height: height * 0.08,
+    borderRadius: 16,
+    backgroundColor: '#e24e59',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 0,
+    width: width * 0.75,
+  },
+  levelBtnText: {
+    textAlign: 'center',
+    paddingVertical: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#e24e59',
+  },
+  levelBtnTextPressed: {
+    textAlign: 'center',
+    paddingVertical: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  interestBtn: {
+    // flex: 1,
+    height: 45,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: '#F2B3B7',
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: height * 0.003,
+    marginVertical: height * 0.003,
+  },
+  interestBtnPressed: {
+    // flex: 1,
+
+    backgroundColor: '#e24e59',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#fff',
+  },
+  interestBtnText: {
+    textAlign: 'center',
+    paddingVertical: 5,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#F2B3B7',
+    paddingHorizontal: 20,
+  },
+  interestToogleBtnText: {
+    textAlign: 'center',
+    paddingVertical: 5,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
   },
 });
