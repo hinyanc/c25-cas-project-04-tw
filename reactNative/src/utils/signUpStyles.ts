@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: 'bold',
-    marginTop: 20,
+    marginTop: 10,
     textAlign: 'left',
     marginVertical: 10,
     alignSelf: 'flex-start',
@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
   },
   errorMsg: {
     color: 'red',
-    marginBottom: 10,
+    textAlign:"center"
   },
   error: {
     borderColor: 'red',

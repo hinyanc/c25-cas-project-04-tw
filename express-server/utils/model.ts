@@ -45,5 +45,5 @@ export interface createUser {
   // should get id and instert into user interest table
   //form state array should have active or not
   profile_pic: Express.Multer.File | undefined
-  interestArr: number[];
+  interestArr: string;
 }

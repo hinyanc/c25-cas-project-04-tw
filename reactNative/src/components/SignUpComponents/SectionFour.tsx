@@ -18,7 +18,10 @@ import {styles} from '../../utils/signUpStyles';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../App';
-import {FormErrorState, FormState} from '../../screens/SignUpScreen/SignUpScreen';
+import {
+  FormErrorState,
+  FormState,
+} from '../../screens/SignUpScreen/SignUpScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Picker} from '@react-native-picker/picker';
 const {width, height} = Dimensions.get('window');
@@ -38,9 +41,8 @@ interface SectionFourProps {
   back: () => void;
   formState: FormState;
   errorState: FormErrorState;
-  onChangeHandler: (name: string, value: string | string[]) => void;
+  onChangeHandler: (name: string, value: string | number[]) => void;
   inputHandler: (name: keyof FormState) => void;
-
 }
 
 export default function SectionFour({
@@ -138,10 +140,11 @@ export default function SectionFour({
   };
 
   // interest
-  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+  const [selectedInterests, setSelectedInterests] = useState<number[]>([]);
 
-  const handleInterestPress = (interest: string) => {
+  const handleInterestPress = (interest: number) => {
     const maxSelections = 5;
+    console.log('selectedInterests', selectedInterests);
     if (selectedInterests.includes(interest)) {
       setSelectedInterests(selectedInterests.filter(item => item !== interest));
     } else if (selectedInterests.length < maxSelections) {
@@ -150,15 +153,14 @@ export default function SectionFour({
   };
 
   useEffect(() => {
-    if (formState.interests)  setSelectedInterests(formState.interests)
-    
-  }, [])
+    if (formState.interests) setSelectedInterests(formState.interests);
+  }, []);
 
   useEffect(() => {
     onChangeHandler('interests', selectedInterests);
-  }, [selectedInterests])
+  }, [selectedInterests]);
 
-  const isInterestPressed = (interest: string) => {
+  const isInterestPressed = (interest: number) => {
     return selectedInterests.includes(interest);
   };
   ////
@@ -191,7 +193,7 @@ export default function SectionFour({
             color: '#e24e59',
             fontWeight: 'bold',
           }}>
-          STEP 4/4
+          STEP 4/5
         </Text>
       </View>
 
@@ -245,8 +247,11 @@ export default function SectionFour({
         />
       </View>
 
-      {errorState.gymLevel && <Text>Error: {errorState.gymLevel}</Text>}
-
+      {errorState.gymLevel !== null ? (
+        <Text style={styles.errorMsg}>Error:{errorState.gymLevel}</Text>
+      ) : (
+        <></>
+      )}
 
       <Text style={[styles.title]}>Interests</Text>
 
@@ -272,19 +277,22 @@ export default function SectionFour({
           <Button
             key={index}
             onPress={() => {
-              handleInterestPress(interest);
+              handleInterestPress(index + 1);
               // onChangeHandler('interests', selectedInterests);
-              // console.log("interest",index+1)
+              console.log('interest', index + 1);
             }}
-            isPressed={isInterestPressed(interest)}
+            isPressed={isInterestPressed(index + 1)}
             text={interest}
             textStyle={{color: '#F2B3B7'}}
             btnType="interest"
           />
         ))}
       </View>
-      {errorState.interests && <Text>Error: {errorState.interests}</Text>}
-
+      {errorState.interests !== null ? (
+        <Text style={styles.errorMsg}>Error:{errorState.interests}</Text>
+      ) : (
+        <></>
+      )}
 
       {/* remind */}
       <View>
@@ -303,7 +311,16 @@ export default function SectionFour({
       {/* ///continue button */}
       <TouchableOpacity
         onPress={e => {
-          next();
+          // next();
+          try {
+            inputHandler('gymLevel');
+            if (errorState.gender === null) {
+              next();
+            } else {
+            }
+          } catch (e) {
+            console.error(e);
+          }
         }}
         style={styles.Continuebtn}>
         <Text
@@ -314,7 +331,7 @@ export default function SectionFour({
             fontWeight: 'bold',
             color: '#fff',
           }}>
-          Sign Up
+          Continue
         </Text>
       </TouchableOpacity>
     </View>

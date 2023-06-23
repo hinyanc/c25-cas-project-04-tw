@@ -117,8 +117,6 @@ import { goalRoutes } from "./routers/goalRoutes";
 import { chatListRoutes } from "./routers/chatListRoutes";
 import { profileRoutes } from "./routers/profileRoutes";
 
-// import expressSession from "express-session";
-
 app.get("/hi", (req, res) => {
   res.send("bye");
 });
@@ -182,15 +180,15 @@ io.on("connection", async (socket: any) => {
   });
 });
 
-app.post(
-  "/test/createMessage",
-  (req: express.Request, res: express.Response) => {
-    const { message, targetUserId } = req.body;
-    console.log("check create message body", message, targetUserId);
+// app.post(
+//   "/test/createMessage",
+//   (req: express.Request, res: express.Response) => {
+//     const { message, targetUserId } = req.body;
+//     console.log("check create message body", message, targetUserId);
 
-    res.json({ msg: "received create message request" });
-  }
-);
+//     res.json({ msg: "received create message request" });
+//   }
+// );
 
 server.listen(PORT, () => {
   console.log(`App running at http://localhost:${PORT}`);
