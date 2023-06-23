@@ -29,7 +29,7 @@ export class SignUpController {
 
       const profile_pic = req.file;
 
-  …
+  
       // console.log("check field", height, gym_level);
       console.log("check file", req.file?.filename);
       console.log("ckeck gym level", gym_level);
