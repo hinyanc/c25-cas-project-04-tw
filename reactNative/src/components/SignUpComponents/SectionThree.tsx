@@ -106,20 +106,23 @@ export default function SectionThree({
     setPressedButton(button);
   };
 
-  const gymCenterDict = {
-    1: '24/7 Fitness',
-    2: 'Pure Fitness',
-    3: 'Go24',
-    4: 'Physical',
-    5: 'Fitness First',
-    6: 'Anytime Fitness',
-    7: 'Snap Fitness',
-    8: 'Leisure and Cultural Services Department (LCSD)',
-  };
+  // const gymCenterDict = {
+  //   1: '24/7 Fitness',
+  //   2: 'Pure Fitness',
+  //   3: 'Go24',
+  //   4: 'Physical',
+  //   5: 'Fitness First',
+  //   6: 'Anytime Fitness',
+  //   7: 'Snap Fitness',
+  //   8: 'Leisure and Cultural Services Department (LCSD)',
+  // };
 
-  // useEffect(() => {
-  //   if (formState.gymCenter) setSelectedCenter(gymCenterDict.(formState.gymCenter));
-  // }, []);
+  useEffect(() => {
+    if (formState.gymCenter) setSelectedCenter(gymCenter[(formState.gymCenter-1)]);
+  }, []);
+  useEffect(() => {
+    if (formState.locaiton) setSelectedLocation(gymLocations[(formState.locaiton-1)]);
+  }, []);
 
   useEffect(() => {
     if (formState.isMember) setPressedButton('Yes');

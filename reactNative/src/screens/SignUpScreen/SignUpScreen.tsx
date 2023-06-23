@@ -97,8 +97,8 @@ export default function SignUpForm() {
     gymCenter: 1,
     locaiton: 1,
     bio: 'Hello World',
-    // gymLevel: 'Newbie',
-    gymLevel: '',
+    gymLevel: 'Newbie',
+    // gymLevel: '',
     interests: [1,2],
     // intersts need to json stringify
     profile_pic: null,
