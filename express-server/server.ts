@@ -171,6 +171,15 @@ io.on("connection", async (socket: any) => {
       console.log("userList", userList);
     }
   });
+
+  //disconnect
+  socket.on("disconnect", function () {
+    console.log("Got disconnect!");
+    const index = userList.findIndex((user) => user.socketId === socket.id);
+    if (index !== -1) {
+      userList.splice(index, 1);
+    }
+  });
 });
 
 app.post(
