@@ -172,14 +172,14 @@ export default function SectionFour({
     <View
       style={{
         marginBottom: height * 0.13,
-        marginTop: height * 0.05,
+        marginTop: height * 0.01,
       }}>
       <View
         style={{
           justifyContent: 'space-between',
           alignItems: 'center',
           flexDirection: 'row',
-          marginTop: height * 0.03,
+          marginTop: height * 0.02,
         }}>
         <TouchableOpacity
           onPress={e => {

@@ -103,7 +103,7 @@ export default function SectionFive({
     <View
       style={{
         marginBottom: height * 0.13,
-        marginTop: height * 0.04,
+        marginTop: height * 0.02,
       }}>
       <View
         style={{

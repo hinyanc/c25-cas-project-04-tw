@@ -126,7 +126,7 @@ export default function SectionThree({
     <View
       style={{
         marginBottom: height * 0.13,
-        marginTop: height * 0.02,
+        marginTop: height * 0.01,
       }}>
       <View
         style={{
