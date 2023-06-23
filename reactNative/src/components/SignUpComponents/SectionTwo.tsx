@@ -129,7 +129,7 @@ export default function SectionTwo({
     <View
       style={{
         marginBottom: height * 0.13,
-        marginTop: height * 0.04,
+        marginTop: height * 0.07,
       }}>
       <View
         style={{
