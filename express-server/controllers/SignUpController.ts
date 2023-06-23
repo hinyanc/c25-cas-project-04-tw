@@ -29,11 +29,11 @@ export class SignUpController {
 
       const profile_pic = req.file;
 
-      
+  …
       // console.log("check field", height, gym_level);
       console.log("check file", req.file?.filename);
       console.log("ckeck gym level", gym_level);
-      
+
       console.log("check controller ", {
         username,
         email,
@@ -67,7 +67,6 @@ export class SignUpController {
         interestArr,
         profile_pic,
       });
-
 
       res.status(200).json({ message: "create user success" });
     } catch (error) {
