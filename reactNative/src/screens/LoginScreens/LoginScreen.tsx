@@ -1,18 +1,3 @@
-// import React from 'react';
-// import { View } from 'react-native';
-// import LoginForm from '../../components/LoginComponents/login';
-// // import { StackParamList } from '../../../App';
-// // import {StackScreenProps} from '@react-navigation/stack';
-
-// const LoginScreen = () => {
-//     return (
-//       <View>
-//         <LoginForm />
-//       </View>
-//     );
-//   };
-
-//   export default LoginScreen;
 import React, {useState} from 'react';
 import {
   View,
@@ -30,7 +15,6 @@ import {localLogin} from '../../hooks/authAPI';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../../store/store';
 import {login} from '../../slices/authSlices';
-// import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
 
 interface FormState {
@@ -187,10 +171,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
             style={[styles.input, errorState.email ? styles.error : {}]}
             keyboardType="email-address"
             onBlur={e => {
-              console.log('email', errorState.email);
               inputHandler('email');
-              // console.log('check check', errors);
-              // setErrors(errors);
             }}
           />
           {errorState.email !== null ? (
@@ -240,7 +221,6 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
             Still don't have an account?
             <Text
               style={{
-                // textDecorationLine: 'underline',
                 fontWeight: 'bold',
                 fontSize: 20,
               }}

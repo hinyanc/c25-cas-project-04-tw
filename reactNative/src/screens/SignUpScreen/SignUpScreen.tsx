@@ -37,7 +37,7 @@ export interface FormState {
   locaiton: number | null;
   bio: string;
   gymLevel: string;
-  interests: number[] | null;
+  interests: string[] | null;
   profile_pic: DocumentPickerResponse | null;
 }
 
@@ -90,7 +90,7 @@ export default function SignUpForm() {
     email: 'test1@gmail.com',
     password: 'abc123',
     gender: 'Female',
-    birthday: new Date(),
+    birthday: new Date(2011,6,24,5,44,2),
     height: 175,
     weight: 65,
     isMember: true,
@@ -99,7 +99,7 @@ export default function SignUpForm() {
     bio: 'Hello World',
     gymLevel: 'Newbie',
     // gymLevel: '',
-    interests: [1,2],
+    interests: ["Yoga","Pilates"],
     // intersts need to json stringify
     profile_pic: null,
   });
@@ -137,7 +137,7 @@ export default function SignUpForm() {
     name: string,
     value:
       | string
-      | number[]
+      | string[]
       | boolean
       | number
       | Date

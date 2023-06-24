@@ -3,14 +3,8 @@ import {
   View,
   Text,
   TextInput,
-  Button,
-  ScrollView,
-  SafeAreaView,
-  StyleSheet,
   Dimensions,
   TouchableOpacity,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
   TextStyle,
 } from 'react-native';
 
@@ -106,12 +100,13 @@ export default function SectionThree({
     setPressedButton(button);
   };
 
-
   useEffect(() => {
-    if (formState.gymCenter) setSelectedCenter(gymCenter[(formState.gymCenter-1)]);
+    if (formState.gymCenter)
+      setSelectedCenter(gymCenter[formState.gymCenter - 1]);
   }, []);
   useEffect(() => {
-    if (formState.locaiton) setSelectedLocation(gymLocations[(formState.locaiton-1)]);
+    if (formState.locaiton)
+      setSelectedLocation(gymLocations[formState.locaiton - 1]);
   }, []);
 
   useEffect(() => {
@@ -121,7 +116,22 @@ export default function SectionThree({
   const isButtonPressed = (button: string) => {
     return pressedButton === button;
   };
-  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
+
+  // continue button only click once
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+
+  const handleButtonClick = () => {
+    // Disable the button after a single click
+    setButtonDisabled(true);
+
+    // Perform your desired action here
+
+    // delay 1 seconds before re-enabling the button
+    setTimeout(() => {
+      setButtonDisabled(false);
+    }, 1001);
+  };
+
   return (
     <View
       style={{
@@ -241,7 +251,18 @@ export default function SectionThree({
       {/* ///continue button */}
       <TouchableOpacity
         onPress={e => {
-          next();
+          e.preventDefault;
+          handleButtonClick;
+          // not working
+          inputHandler('isMember');
+
+          setTimeout(() => {
+            if (
+              errorState.isMember === null
+            ) {
+              next();
+            }
+          }, 1000);
         }}
         style={styles.Continuebtn}>
         <Text

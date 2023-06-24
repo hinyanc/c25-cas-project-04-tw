@@ -43,15 +43,26 @@ export class SignUpService {
       })
       .returning("id");
 
+      const interestDict={
+        "Yoga": 1,
+        "Weightlifting": 2,
+        "Pilates": 3,
+        'Injury recover': 4,
+        "Aerobic": 5,
+        "Cardio": 6,
+        "Boxing": 7,
+        "Stretching": 8
+      }
+
     let interestArr = JSON.parse(input.interestArr);
 
     for (let i = 0; i < interestArr.length; i++) {
       await this.knex("users_interest").insert({
         users_id: userId[0].id,
-        interest_id: interestArr[i],
+        interest_id: interestDict[interestArr[i]],
       });
     }
-    console.log("userId", input.interestArr);
+    console.log("userId", interestDict[interestArr[0]]);
 
     if (input.has_member) {
       await this.knex("user_gym_center").insert({

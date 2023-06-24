@@ -9,7 +9,6 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     marginVertical: 10,
     alignSelf: 'flex-start',
-    // color: '#000',
   },
   btn: {
     width: width * 0.75,
@@ -177,10 +176,4 @@ export const styles = StyleSheet.create({
   },
   
 });
-// style={{
-//   textAlign: 'center',
-//   paddingVertical: 10,
-//   fontSize: 18,
-//   fontWeight: 'bold',
-//   color: '#fff',
-// }}
+
