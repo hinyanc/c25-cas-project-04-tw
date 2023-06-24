@@ -10,7 +10,7 @@ const ScreenHeight = Dimensions.get('window').height;
 
 const GoalScreen = () => {
   return (
-    <ScrollView>
+    <View>
       <View
         style={{
           backgroundColor: '#FFF9F0',
@@ -27,7 +27,7 @@ const GoalScreen = () => {
         <TargetWeight />
         <TargetGoals />
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

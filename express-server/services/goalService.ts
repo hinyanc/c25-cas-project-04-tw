@@ -38,8 +38,8 @@ export class GoalService {
       .join(targetGoalsTable, "target.goal_id", "goal.id")
       .join(userTable, "goal.users_id", "users.id")
       .where("users.id", "=", userId)
-      .orderBy("is_completed", "desc")
-      .orderBy('id', 'asc');
+      .orderBy("is_completed", "asc")
+      .orderBy('id', 'desc');
     return getGoalsResult;
   };
 

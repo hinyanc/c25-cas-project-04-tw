@@ -66,6 +66,8 @@ const Messaging = ({route, navigation}: any) => {
       </View>
       <View style={styles.messaginginputContainer}>
         <TextInput
+        placeholder="Start you chat now!"
+        placeholderTextColor="#B1B1B1"
           style={styles.messaginginput}
           onChangeText={value => setMessage(value)}
           value={message}
@@ -74,7 +76,7 @@ const Messaging = ({route, navigation}: any) => {
           style={styles.messagingbuttonContainer}
           onPress={handleNewMessage}>
           <View>
-            <Text style={{color: '#f2f0f1', fontSize: 20}}>Send</Text>
+            <Text style={{color: '#f2f0f1', fontSize: 20, fontWeight:'bold'}}>Send</Text>
           </View>
         </Pressable>
       </View>

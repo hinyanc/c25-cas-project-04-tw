@@ -23,10 +23,10 @@ const BMI = () => {
   const getLocalStorage = async () => {
     let token = await AsyncStorage.getItem('token');
     if (token == null) {
-      console.log('token is not in storage');
+
     } else {
       setToken(token!);
-      console.log('check get async storage token', token);
+
     }
   };
   useEffect(() => {
@@ -34,7 +34,7 @@ const BMI = () => {
   });
 
   let fetchData = useGetBMI(token);
-  console.log(fetchData)
+
 
   function calculateBMI(weight:number, height:number) {
     const m = height /100
@@ -46,7 +46,7 @@ const BMI = () => {
   const weight = Object.values(fetchData)[0]
   const height = Object.values(fetchData)[1]
   const bmi = calculateBMI(weight, height)
-  console.log(bmi)
+
 
   return (
     <View style={{height: 50, marginBottom: 30}}>

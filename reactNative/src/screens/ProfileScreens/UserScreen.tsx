@@ -253,6 +253,7 @@ const UserScreen = () => {
             <Text>Bio</Text>
             <TextInput
               style={styles.profileinputbio}
+              multiline
               defaultValue={showInfo[0].bio}
               onChangeText={text => setNewItem({...newItem, bio: text})}
             />
@@ -307,10 +308,24 @@ const UserScreen = () => {
             />
           </View> */}
         </View>
-
-        <View>
-          <Button title="Update" onPress={updateUserInfo} />
+        <View style={{alignItems: 'center'}}>
+          <TouchableOpacity style={styles.updateBtn} onPress={updateUserInfo}>
+            <Text
+              style={{
+                textAlign: 'center',
+                paddingVertical: 10,
+                fontSize: 18,
+                fontWeight: 'bold',
+                color: '#fff',
+              }}>
+              Update
+            </Text>
+          </TouchableOpacity>
         </View>
+
+        {/* <View>
+          <Button title="Update" onPress={updateUserInfo} />
+        </View> */}
       </ScrollView>
     )
   );
