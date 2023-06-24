@@ -76,7 +76,7 @@ export default function SectionFive({
     formData.append('gym_level', formState.gymLevel);
     formData.append('interestArr', JSON.stringify(formState.interests));
     formData.append('profile_pic', formState.profile_pic);
-    // console.log('REACT_APP_API_SERVER', REACT_APP_API_SERVER);
+    console.log('REACT_APP_API_SERVER hihio', REACT_APP_API_SERVER);
 
     const res = await fetch(`${REACT_APP_API_SERVER}/signUp`, {
       method: 'POST',

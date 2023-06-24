@@ -228,7 +228,7 @@ export const styles = StyleSheet.create({
   BMIChartBtn: {
     justifyContent: 'center',
     marginTop: 20,
-    marginLeft: 40,
+    marginLeft: width*0.02,
     marginRight: 20,
     marginBottom: 4,
     backgroundColor: '#E24E59',
@@ -292,7 +292,7 @@ export const styles = StyleSheet.create({
   },
   weightBtn: {
     justifyContent: 'center',
-    marginLeft: 20,
+    marginLeft: width * 0.01,
     marginRight: 20,
     backgroundColor: '#E24E59',
     width: 120,
