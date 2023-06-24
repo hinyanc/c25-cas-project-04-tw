@@ -2,16 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
-  TextInput,
-  Button,
-  ScrollView,
-  SafeAreaView,
-  StyleSheet,
   Dimensions,
   TouchableOpacity,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
-  TextStyle,
 } from 'react-native';
 
 import {styles} from '../../utils/signUpStyles';
