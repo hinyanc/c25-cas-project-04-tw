@@ -6,7 +6,7 @@ interface ChatList {
   target_username: string;
   profile_pic: string;
   last_message: string;
-  updated_at: Date;
+  created_at: Date;
 }
 
 export function useChatList(token: string) {

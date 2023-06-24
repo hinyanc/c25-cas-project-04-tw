@@ -142,6 +142,16 @@ const UserScreen = () => {
     setNewItem({...newItem, [name]: value});
   };
 
+  const moment = require('moment');
+  let parsedDatetime;
+  if (showInfo != undefined) {
+    const oriDateTime = showInfo[0].birthday;
+
+    if (oriDateTime != null) {
+      parsedDatetime = moment(oriDateTime).format('YYYY-MM-DD');
+    }
+  }
+
   return (
     // {!showInfo? <Text>Loading...</Text>:<Text>hi</Text>}
     showInfo == undefined ? (
@@ -196,7 +206,7 @@ const UserScreen = () => {
             <Text>Date of birth</Text>
             <TextInput
               style={styles.profileinput}
-              defaultValue={showInfo[0].birthday}
+              defaultValue={parsedDatetime}
               onChangeText={text => setNewItem({...newItem, birthday: text})}
             />
           </View>

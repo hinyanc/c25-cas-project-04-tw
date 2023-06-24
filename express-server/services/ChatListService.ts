@@ -34,11 +34,12 @@ SELECT
     users.username AS target_username,
     users.profile_pic AS profile_pic,
     chatroom.message AS last_message,
-    chatroom.updated_at
+    chatroom.created_at
 FROM
     q1
     LEFT JOIN chatroom ON q1.max_id = chatroom.id
     LEFT JOIN users ON q1.target_user_id = users.id
+
 UNION
 SELECT
     q2.target_user_id,
@@ -52,13 +53,14 @@ FROM
     LEFT JOIN users ON q2.target_user_id = users.id
 WHERE
     q2.target_user_id NOT IN (SELECT target_user_id FROM q1)
+
 UNION
 SELECT
     target_user_id,
     users.username AS target_username,
     users.profile_pic AS profile_pic,
     null AS last_message,
-    null AS updated_at
+    null AS created_at
 FROM
     q3
     LEFT JOIN users ON q3.target_user_id = users.id

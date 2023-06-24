@@ -129,7 +129,7 @@ export const styles = StyleSheet.create({
     marginRight: 6,
   },
   cusername: {
-    fontSize: 20,
+    fontSize: 18,
     marginBottom: 5,
     fontWeight: 'bold',
     color: 'black',
@@ -148,12 +148,17 @@ export const styles = StyleSheet.create({
   },
 
   cmessage: {
-    fontSize: 15,
+    fontSize: 14,
     opacity: 0.7,
+    maxHeight:40
+    // width: 200
   },
   ctime: {
+    marginBottom: 5,
     opacity: 0.5,
     marginRight: 0,
+    position:'absolute',
+    left:175,
   },
   tabText: {
     fontSize: 20,
@@ -490,9 +495,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   matchView: {
-    // margin: 20,
-    backgroundColor: 'rgba(255, 249, 240,0.9)',
-    // borderRadius: 20,
+    backgroundColor: 'rgba(255, 249, 240,0.97)',
     padding: 35,
     alignItems: 'center',
   },
@@ -608,5 +611,33 @@ export const styles = StyleSheet.create({
     borderColor: 'rgba(255, 94, 135, 0.17)',
     textAlign: 'center',
     padding: 0,
+  },
+  matchTitle: {
+    marginVertical: 20,
+    textAlign: 'center',
+    color: '#E24E59',
+    fontSize: 35,
+    fontWeight: 'bold',
+  },
+  backBtn: {
+    justifyContent: 'center',
+    marginTop: 20,
+    marginBottom: 4,
+    backgroundColor: '#E24E59',
+    width: 200,
+    borderRadius: 16,
+    height: 40,
+  },
+  backBtnText: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  matchText: {
+    margin: 15,
+    textAlign: 'center',
+    color: '#E2868D',
+    fontSize: 20,
   },
 });

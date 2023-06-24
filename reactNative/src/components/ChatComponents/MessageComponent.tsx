@@ -1,6 +1,7 @@
 import {View, Text, Image} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import {styles} from '../../utils/styles';
+const moment = require('moment');
 
 export default function MessageComponent({item, targetUserId}: any) {
   // const messagesEndedRef = useRef(null);/\
@@ -12,6 +13,11 @@ export default function MessageComponent({item, targetUserId}: any) {
   //   }
 
   // },[])
+  const oriDateTime = item.created_at;
+  let parsedDatetime;
+  if (oriDateTime != null) {
+    parsedDatetime = moment(oriDateTime).format('YYYY-MM-DD HH:mm');
+  }
 
   return (
     <View>
@@ -34,7 +40,7 @@ export default function MessageComponent({item, targetUserId}: any) {
             <Text>{item.message}</Text>
           </View>
         </View>
-        <Text style={{marginLeft: 40}}>{item.updated_at}</Text>
+        <Text style={{marginLeft: 40}}>{parsedDatetime}</Text>
       </View>
       {/* <View ref={messagesEndedRef} /> */}
     </View>

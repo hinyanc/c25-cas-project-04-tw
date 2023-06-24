@@ -1,6 +1,7 @@
 import { Knex } from "knex";
 import { faker } from "@faker-js/faker";
 import { hashPassword } from "../utils/hash";
+const moment = require('moment-timezone');
 
 import {
   gymLocationTable,
@@ -117,7 +118,7 @@ export async function seed(knex: Knex): Promise<void> {
     "laura.miller76@example.com",
     "kevin.wright82@yahoo.com",
     "melissa.jones1234@gmail.com",
-    "roberto.sanchez68@example.com"
+    "roberto.sanchez68@example.com",
   ];
   const image: string[] = [
     "alex.jpeg",
@@ -184,7 +185,6 @@ export async function seed(knex: Knex): Promise<void> {
     "Male",
     "Female",
     "Female",
-
   ];
   const bio: string[] = [
     "Passionate about fitness and pushing my limits. Gym is my second home. Always striving for progress, not perfection. Let's sweat it out together! 💪🏋️‍♂️",
@@ -233,8 +233,8 @@ export async function seed(knex: Knex): Promise<void> {
       gym_level: faker.helpers.arrayElement(["Newbie", "Moderate", "Vigorous"]),
       has_membership: hasMembership,
       is_pt: isPt,
-      created_at: faker.date.past(),
-      updated_at: faker.date.recent(),
+      created_at: moment(faker.date.past()).utcOffset(8).format('YYYY-MM-DD HH:mm:ss'),
+      updated_at: moment(faker.date.recent()).utcOffset(8).format('YYYY-MM-DD HH:mm:ss'),
     });
   }
 
@@ -290,7 +290,7 @@ export async function seed(knex: Knex): Promise<void> {
     "Boost Core Strength: Work on core exercises for stability and a strong midsection.",
     "Improve Balance: Practice balance-focused exercises for coordination improvement.",
     "Enhance Functional Fitness: Perform functional movements to improve everyday activities.",
-    "Reduce Stress: Engage in mind-body activities for stress reduction and mental well-being."
+    "Reduce Stress: Engage in mind-body activities for stress reduction and mental well-being.",
   ];
 
   for (let i = 0; i < targetGoals.length; i++) {
@@ -322,7 +322,7 @@ export async function seed(knex: Knex): Promise<void> {
     [7, 3, 6],
     [4, 1, 5],
     [3, 8, 7],
-    [6, 2, 4]
+    [6, 2, 4],
   ];
 
   for (let i = 0; i < interest.length; i++) {
@@ -335,40 +335,124 @@ export async function seed(knex: Knex): Promise<void> {
   }
 
   //////insert into user matching table////
-  let matching = [
+  let matched = [
     [
       [2, 5],
       [2, 6],
       [2, 3],
-      [2, 15],
-      [2, 20],
-      [2, 11],
     ],
     [
       [1, 7],
       [1, 4],
       [1, 2],
-      [1, 18],
-      [1, 12],
-      [1, 8],
     ],
     [
       [3, 8],
       [3, 9],
       [3, 1],
-      [3, 13],
-      [3, 4],
-      [3, 17],
     ],
   ];
-  let matchingStatus = ["requested", "matched"];
 
-  for (let i = 0; i < matching.length; i++) {
-    for (let j = 0; j < matching[i].length; j++) {
+  for (let i = 0; i < matched.length; i++) {
+    for (let j = 0; j < matched[i].length; j++) {
       await knex(usersMatchingTable).insert({
-        users_id: matching[i][j][0],
-        matched_users_id: matching[i][j][1],
-        status: matchingStatus[j],
+        users_id: matched[i][j][0],
+        matched_users_id: matched[i][j][1],
+        status: "matched",
+      });
+    }
+  }
+
+  //////insert into user matching table////
+  let requested = [
+    [
+      [4, 2],
+      [4, 3],
+    ],
+    [
+      [5, 1],
+      [5, 3],
+    ],
+    [
+      [6, 1],
+      [6, 3],
+    ],
+    [
+      [7, 2],
+      [7, 3],
+    ],
+    [
+      [8, 2],
+      [8, 1],
+    ],
+    [
+      [9, 2],
+      [9, 1],
+    ],
+    [
+      [10, 2],
+      [10, 1],
+      [10, 3],
+    ],
+    [
+      [11, 2],
+      [11, 1],
+      [11, 3],
+    ],
+    [
+      [12, 2],
+      [12, 1],
+      [12, 3],
+    ],
+    [
+      [13, 2],
+      [13, 1],
+      [13, 3],
+    ],
+    [
+      [14, 2],
+      [14, 1],
+      [14, 3],
+    ],
+    [
+      [15, 2],
+      [15, 1],
+      [15, 3],
+    ],
+    [
+      [16, 2],
+      [16, 1],
+      [16, 3],
+    ],
+    [
+      [17, 2],
+      [17, 1],
+      [17, 3],
+    ],
+    [
+      [18, 2],
+      [18, 1],
+      [18, 3],
+    ],
+    [
+      [19, 2],
+      [19, 1],
+      [19, 3],
+    ],
+    [
+      [20, 2],
+      [20, 1],
+      [20, 3],
+    ],
+  ];
+  // let matchingStatus = ["requested", "matched"];
+
+  for (let i = 0; i < requested.length; i++) {
+    for (let j = 0; j < requested[i].length; j++) {
+      await knex(usersMatchingTable).insert({
+        users_id: requested[i][j][0],
+        matched_users_id: requested[i][j][1],
+        status: "requested",
       });
     }
   }
@@ -406,7 +490,7 @@ export async function seed(knex: Knex): Promise<void> {
       receiver_id = faker.datatype.boolean() ? 2 : 1;
     } while (receiver_id === sender_id);
     let message = faker.lorem.sentence();
-    let created_at = faker.date.past();
+    let created_at = moment(faker.date.past()).utcOffset(8).format('YYYY-MM-DD HH:mm:ss')
 
     await knex(chatroomTable).insert({
       sender_id: sender_id,
@@ -422,7 +506,7 @@ export async function seed(knex: Knex): Promise<void> {
       receiver_id = faker.datatype.boolean() ? 3 : 1;
     } while (receiver_id === sender_id);
     let message = faker.lorem.sentence();
-    let created_at = faker.date.past();
+    let created_at = moment(faker.date.past()).utcOffset(8).format('YYYY-MM-DD HH:mm:ss')
     await knex(chatroomTable).insert({
       sender_id: sender_id,
       receiver_id: receiver_id,
@@ -437,7 +521,7 @@ export async function seed(knex: Knex): Promise<void> {
       receiver_id = faker.datatype.boolean() ? 2 : 3;
     } while (receiver_id === sender_id);
     let message = faker.lorem.sentence();
-    let created_at = faker.date.past();
+    let created_at = moment(faker.date.past()).utcOffset(8).format('YYYY-MM-DD HH:mm:ss')
     await knex(chatroomTable).insert({
       sender_id: sender_id,
       receiver_id: receiver_id,
