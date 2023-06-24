@@ -2,22 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
-  TextInput,
-  Button,
-  ScrollView,
-  SafeAreaView,
-  StyleSheet,
   Dimensions,
   TouchableOpacity,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
   TextStyle,
 } from 'react-native';
 
 import {styles} from '../../utils/signUpStyles';
-import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../../App';
+
 import {
   FormErrorState,
   FormState,
@@ -41,7 +32,7 @@ interface SectionFourProps {
   back: () => void;
   formState: FormState;
   errorState: FormErrorState;
-  onChangeHandler: (name: string, value: string | number[]) => void;
+  onChangeHandler: (name: string, value: string | string[]) => void;
   inputHandler: (name: keyof FormState) => void;
 }
 
@@ -140,9 +131,9 @@ export default function SectionFour({
   };
 
   // interest
-  const [selectedInterests, setSelectedInterests] = useState<number[]>([]);
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
 
-  const handleInterestPress = (interest: number) => {
+  const handleInterestPress = (interest: string) => {
     const maxSelections = 5;
     console.log('selectedInterests', selectedInterests);
     if (selectedInterests.includes(interest)) {
@@ -160,14 +151,25 @@ export default function SectionFour({
     onChangeHandler('interests', selectedInterests);
   }, [selectedInterests]);
 
-  const isInterestPressed = (interest: number) => {
+  const isInterestPressed = (interest: string) => {
     return selectedInterests.includes(interest);
   };
-  ////
-  // check box
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
-  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
+  // continue button only click once
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+
+  const handleButtonClick = () => {
+    // Disable the button after a single click
+    setButtonDisabled(true);
+
+    // Perform your desired action here
+
+    //delay 1 seconds before re-enabling the button
+    setTimeout(() => {
+      setButtonDisabled(false);
+    }, 1001);
+  };
+
   return (
     <View
       style={{
@@ -200,7 +202,6 @@ export default function SectionFour({
       <Text style={[styles.title]}>My Gym Level</Text>
       <View
         style={{
-          // flexDirection: 'row',
           justifyContent: 'center',
           alignItems: 'center',
           width: width * 0.75,
@@ -264,25 +265,16 @@ export default function SectionFour({
           width: width * 0.75,
           flexWrap: 'wrap',
         }}>
-        {/* {interests.map((interest, index) => (
-          <Button
-            key={index}
-            onPress={() => handleButtonPress(interest)}
-            isPressed={isButtonPressed(interest)}
-            text={interest}
-            textStyle={{color: '#000000'}}
-            btnType="interest"
-          />
-        ))} */}
+
         {interests.map((interest, index) => (
           <Button
             key={index}
             onPress={() => {
-              handleInterestPress(index + 1);
+              handleInterestPress(interest);
               // onChangeHandler('interests', selectedInterests);
               console.log('interest', index + 1);
             }}
-            isPressed={isInterestPressed(index + 1)}
+            isPressed={isInterestPressed(interest)}
             text={interest}
             textStyle={{color: '#F2B3B7'}}
             btnType="interest"
@@ -297,33 +289,19 @@ export default function SectionFour({
         )}
       </View>
 
-      {/* remind */}
-      {/* <View>
-        <Text
-          style={{
-            // textDecorationLine: 'underline',
-            textAlign: 'center',
-            width: width * 0.75,
-            marginBottom: height * 0.02,
-          }}>
-          By continuing, you agree to Gymatess's Terms of service. We will
-          manage information about you as described in our Privacy Policy, and
-          Cookie Policy.
-        </Text>
-      </View> */}
-      {/* ///continue button */}
       <TouchableOpacity
         onPress={e => {
-          // next();
-          try {
-            inputHandler('gymLevel');
-            if (errorState.gender === null) {
+          e.preventDefault;
+          handleButtonClick;
+// not string
+          inputHandler('gymLevel');
+          inputHandler('interests');
+
+          setTimeout(() => {
+            if (errorState.gymLevel === null && errorState.interests === null) {
               next();
-            } else {
             }
-          } catch (e) {
-            console.error(e);
-          }
+          }, 1000);
         }}
         style={styles.Continuebtn}>
         <Text

@@ -3,14 +3,8 @@ import {
   View,
   Text,
   TextInput,
-  Button,
-  ScrollView,
-  SafeAreaView,
-  StyleSheet,
   Dimensions,
   TouchableOpacity,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
 } from 'react-native';
 
 import {styles} from '../../utils/signUpStyles';
@@ -28,7 +22,6 @@ interface SectionOneProps {
   next: () => void;
   formState: FormState;
   errorState: FormErrorState;
-  // onChangeHandler: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   onChangeHandler: (name: string, value: string) => void;
   inputHandler: (name: keyof FormState) => void;
 }
@@ -41,6 +34,22 @@ export default function SectionOne({
   errorState,
 }: SectionOneProps) {
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
+
+  // continue button only click once
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+
+  const handleButtonClick = () => {
+    // Disable the button after a single click
+    setButtonDisabled(true);
+
+    // Perform your desired action here
+
+    // delay 1 seconds before re-enabling the button
+    setTimeout(() => {
+      setButtonDisabled(false);
+    }, 1001);
+  };
+
   return (
     <View
       style={{
@@ -57,7 +66,7 @@ export default function SectionOne({
       {/* title */}
       <Text style={[styles.title, {marginBottom: height * 0.01}]}>Signup</Text>
       {/* input */}
-      <View style={{height:height*0.2}}>
+      <View style={{height: height * 0.2}}>
         <Text style={styles.inputTitle}>Username*</Text>
         <TextInput
           value={formState.username}
@@ -73,7 +82,7 @@ export default function SectionOne({
         )}
       </View>
 
-      <View style={{height:height*0.2}}>
+      <View style={{height: height * 0.2}}>
         <Text style={styles.inputTitle}>Email address*</Text>
         <TextInput
           value={formState.email}
@@ -89,7 +98,7 @@ export default function SectionOne({
         )}
       </View>
 
-      <View style={{height:height*0.2}}>
+      <View style={{height: height * 0.2}}>
         <Text style={styles.inputTitle}>Password*</Text>
         <TextInput
           secureTextEntry
@@ -120,8 +129,23 @@ export default function SectionOne({
 
       {/* ///continue button */}
       <TouchableOpacity
+        disabled={isButtonDisabled}
         onPress={e => {
-          next();
+          e.preventDefault;
+          handleButtonClick;
+
+          inputHandler('username');
+          inputHandler('email');
+          inputHandler('password');
+          setTimeout(() => {
+            if (
+              errorState.username === null &&
+              errorState.email === null &&
+              errorState.password === null
+            ) {
+              next();
+            }
+          }, 1000);
         }}
         style={styles.Continuebtn}>
         <Text
@@ -138,7 +162,6 @@ export default function SectionOne({
       {/* have account back to login */}
       <Text
         style={{
-          // textDecorationLine: 'underline',
           textAlign: 'center',
           width: width * 0.75,
           marginTop: 5,
@@ -146,7 +169,6 @@ export default function SectionOne({
         Already have an account?
         <Text
           style={{
-            // textDecorationLine: 'underline',
             fontWeight: 'bold',
             fontSize: 20,
           }}

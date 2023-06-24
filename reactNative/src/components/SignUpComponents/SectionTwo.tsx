@@ -3,14 +3,8 @@ import {
   View,
   Text,
   TextInput,
-  Button,
-  ScrollView,
-  SafeAreaView,
-  StyleSheet,
   Dimensions,
   TouchableOpacity,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
   TextStyle,
 } from 'react-native';
 
@@ -92,6 +86,22 @@ export default function SectionTwo({
   const isButtonPressed = (button: string) => {
     return pressedButton === button;
   };
+
+  // continue button only click once
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+
+  const handleButtonClick = () => {
+    // Disable the button after a single click
+    setButtonDisabled(true);
+
+    // Perform your desired action here
+
+    //delay 1 seconds before re-enabling the button
+    setTimeout(() => {
+      setButtonDisabled(false);
+    }, 1001);
+  };
+
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
 
   // date
@@ -218,13 +228,7 @@ export default function SectionTwo({
             value={chosenDate}
             mode="date"
             display="default"
-            onChange={
-              handleDateChange
-              // onChangeHandler('birthday', chosenDate);
-              // console.log('hihi', chosenDate);
-              // setShowDatePicker(false)
-            }
-            // onChange={handleDateChange}
+            onChange={handleDateChange}
             maximumDate={maxDate}
           />
         )}
@@ -235,6 +239,7 @@ export default function SectionTwo({
           <></>
         )}
       </View>
+
       <View style={{height: height * 0.17}}>
         <Text style={styles.inputTitle}>Height* (cm)</Text>
         <TextInput
@@ -248,41 +253,33 @@ export default function SectionTwo({
           placeholder="Height"
           style={styles.input}
         />
-        {/* <TextInput
-        keyboardType="numeric"
-        value={inputHeight}
-        onChangeText={text => onChangeHandler('height', text)}
-        onBlur={e => parseInt(inputHeight)}
-        placeholder="Height"
-        style={styles.input}
-      /> */}
+
         {errorState.height !== null ? (
           <Text style={styles.errorMsg}>Error:{errorState.height}</Text>
         ) : (
           <></>
         )}
-        {/* {errorState.height && <Text>Error: {errorState.height}</Text>} */}
       </View>
+
       <View style={{height: height * 0.18}}>
-      <Text style={styles.inputTitle}>Weight* (kg)</Text>
-      <TextInput
-        keyboardType="numeric"
-        value={inputWeight}
-        onChangeText={text => {
-          setInputWeight(text);
-          onChangeHandler('weight', parseInt(text));
-        }}
-        onBlur={e => inputHandler('weight')}
-        placeholder="Weight"
-        style={styles.input}
-      />
-      {errorState.weight !== null ? (
-        <Text style={styles.errorMsg}>Error:{errorState.weight}</Text>
-      ) : (
-        <></>
-      )}
+        <Text style={styles.inputTitle}>Weight* (kg)</Text>
+        <TextInput
+          keyboardType="numeric"
+          value={inputWeight}
+          onChangeText={text => {
+            setInputWeight(text);
+            onChangeHandler('weight', parseInt(text));
+          }}
+          onBlur={e => inputHandler('weight')}
+          placeholder="Weight"
+          style={styles.input}
+        />
+        {errorState.weight !== null ? (
+          <Text style={styles.errorMsg}>Error:{errorState.weight}</Text>
+        ) : (
+          <></>
+        )}
       </View>
-      {/* {errorState.weight && <Text>Error: {errorState.weight}</Text>} */}
 
       {/* remind */}
       <Text
@@ -297,21 +294,25 @@ export default function SectionTwo({
 
       {/* ///continue button */}
       <TouchableOpacity
+        disabled={isButtonDisabled}
         onPress={e => {
           e.preventDefault;
-          // not working
+          handleButtonClick;
+
           inputHandler('gender');
           inputHandler('birthday');
           inputHandler('height');
           inputHandler('weight');
-          if (
-            errorState.gender === null &&
-            errorState.birthday === null &&
-            errorState.height === null &&
-            errorState.weight === null
-          ) {
-            next();
-          }
+          setTimeout(() => {
+            if (
+              errorState.gender === null &&
+              errorState.birthday === null &&
+              errorState.height === null &&
+              errorState.weight === null
+            ) {
+              next();
+            }
+          }, 1000);
         }}
         style={styles.Continuebtn}>
         <Text
@@ -325,28 +326,6 @@ export default function SectionTwo({
           Continue
         </Text>
       </TouchableOpacity>
-      {/* have account back to login */}
-      {/* <Text
-        style={{
-          // textDecorationLine: 'underline',
-          textAlign: 'center',
-          width: width * 0.75,
-          marginTop: 10,
-        }}>
-        Already have an account?
-        <Text
-          style={{
-            // textDecorationLine: 'underline',
-            fontWeight: 'bold',
-            fontSize: 20,
-          }}
-          onPress={() => {
-            navigation.navigate('Login');
-            // sign up
-          }}>
-          Login
-        </Text>
-      </Text> */}
     </View>
   );
 }

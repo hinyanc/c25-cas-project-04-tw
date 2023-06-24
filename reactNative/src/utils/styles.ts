@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
     padding: 15,
     flex: 1,
     marginRight: 10,
-    borderRadius: 20,
+    borderRadius: 12,
     borderColor: 'rgba(112,112,112,0.5)',
   },
   messagingbuttonContainer: {
@@ -72,7 +72,7 @@ export const styles = StyleSheet.create({
     // borderRadius: 3,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 50,
+    borderRadius: 12,
   },
 
   disabledButton: {
@@ -159,6 +159,7 @@ export const styles = StyleSheet.create({
     marginRight: 0,
     position:'absolute',
     left:175,
+    width:100
   },
   tabText: {
     fontSize: 20,
@@ -575,6 +576,7 @@ export const styles = StyleSheet.create({
     height: 150,
     width: 150,
     borderRadius: 30,
+    marginBottom:20
   },
 
   profiledetails: {
@@ -582,35 +584,38 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: 350,
     alignItems: 'center',
+    marginBottom:10
     // flex: 1,
   },
   profileinput: {
+    backgroundColor: 'rgba(50,50,50,0.07)',
     width: width * 0.5,
-    height: height * 0.03,
+    height: height * 0.04,
     marginHorizontal: 4,
     marginVertical: 10,
     fontSize: 14,
     borderWidth: 2,
-    borderRadius: 16,
+    borderRadius: 10,
     color: 'black',
-    borderColor: 'rgba(255, 94, 135, 0.17)',
+    borderColor: 'rgba(50,50,50, 0.17)',
     textAlign: 'center',
-    padding: 0,
+    padding: 5,
   },
   profileinputbio: {
-    width: width * 0.5,
-    height: height * 0.1,
+    backgroundColor: 'rgba(50,50,50,0.07)',
+    maxWidth: width * 0.5,
+    height: height * 0.15,
     marginHorizontal: 4,
     marginVertical: 10,
     fontSize: 14,
     flex: 1,
     flexWrap: 'wrap',
     borderWidth: 2,
-    borderRadius: 16,
+    borderRadius: 12,
     color: 'black',
-    borderColor: 'rgba(255, 94, 135, 0.17)',
-    textAlign: 'center',
-    padding: 0,
+    borderColor: 'rgba(50,50,50, 0.17)',
+    // textAlign: 'center',
+    padding: 10,
   },
   matchTitle: {
     marginVertical: 20,
@@ -639,5 +644,16 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#E2868D',
     fontSize: 20,
+  },
+  updateBtn: {
+    justifyContent: 'center',
+    alignItems:'center',
+    width: width * 0.86,
+    height: height * 0.06,
+    marginHorizontal: 4,
+    marginVertical: 25,
+    borderRadius: 16,
+    backgroundColor: '#e24e59',
+    // marginBottom:20
   },
 });

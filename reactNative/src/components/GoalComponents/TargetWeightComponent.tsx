@@ -45,7 +45,7 @@ const TargetWeight = () => {
 
   return (
     <View>
-      <Text style={styles.targetWeight}>Your Target Weight:</Text>
+      <Text style={styles.targetWeight}>Your Target Weight (kg) :</Text>
 
       <View>
         <View style={{flexDirection: 'row'}}>
@@ -76,6 +76,7 @@ const TargetWeight = () => {
         </View>
         {targetWeight ? (
           showText && (
+            <View>
             <Text
               style={{
                 fontSize: 16,
@@ -83,8 +84,27 @@ const TargetWeight = () => {
                 color: '#E2868D',
                 marginTop: 8,
               }}>
-              Still {weight - parseInt(targetWeight)} kg to go! Fighting!
+              Your weight: {weight} kg
             </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                textAlign: 'center',
+                color: '#E2868D',
+                marginTop: 8,
+              }}>
+              Your target weight: {targetWeight} kg
+            </Text>
+            <Text
+            style={{
+              fontSize: 16,
+              textAlign: 'center',
+              color: '#E2868D',
+              marginTop: 8,
+            }}>
+            Still {weight - parseInt(targetWeight)} kg to go! Fighting!
+          </Text>
+          </View>
           )
         ) : (
           <></>

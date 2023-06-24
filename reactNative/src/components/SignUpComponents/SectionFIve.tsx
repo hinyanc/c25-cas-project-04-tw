@@ -1,18 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  ScrollView,
-  SafeAreaView,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
-  TextStyle,
-} from 'react-native';
+import {View, Text, Dimensions, TouchableOpacity} from 'react-native';
 
 import {styles} from '../../utils/signUpStyles';
 import {useNavigation} from '@react-navigation/native';
@@ -89,6 +76,7 @@ export default function SectionFive({
     formData.append('gym_level', formState.gymLevel);
     formData.append('interestArr', JSON.stringify(formState.interests));
     formData.append('profile_pic', formState.profile_pic);
+    // console.log('REACT_APP_API_SERVER', REACT_APP_API_SERVER);
 
     const res = await fetch(`${REACT_APP_API_SERVER}/signUp`, {
       method: 'POST',
@@ -127,7 +115,7 @@ export default function SectionFive({
         </Text>
       </View>
       <View style={{height: height * 0.4}}>
-        <View style={{justifyContent:"center",alignItems:"center"}}>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
           {uploadImage ? (
             <Image
               source={{uri: uploadImage.uri}}
