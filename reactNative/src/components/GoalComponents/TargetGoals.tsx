@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {
-  SafeAreaView,
   FlatList,
   Text,
   View,
@@ -9,7 +8,6 @@ import {
   Modal,
   Alert,
   Dimensions,
-  ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
@@ -29,10 +27,8 @@ const TargetGoals = () => {
   const getLocalStorage = async () => {
     let token = await AsyncStorage.getItem('token');
     if (token == null) {
-      console.log('token is not in storage');
     } else {
       setToken(token!);
-      console.log('check get async storage token', token);
     }
   };
   useEffect(() => {
@@ -43,7 +39,7 @@ const TargetGoals = () => {
   const [render, setRender] = useState(false);
 
   const goalList = useGetGoals(token, render);
-  console.log(goalList);
+  // console.log(goalList);
 
   const GoalsCheckboxComponent = () => {
     const [checkedIds, setCheckedIds] = useState<number[]>([]);
@@ -78,7 +74,9 @@ const TargetGoals = () => {
           isChecked={item.is_completed}
           text={item.name}
           key={item.id}
-          onPress={(isChecked: boolean) => handleCheck(item.id, isChecked, token)}
+          onPress={(isChecked: boolean) =>
+            handleCheck(item.id, isChecked, token)
+          }
           iconStyle={{borderColor: '#E24E59'}}
           style={{marginLeft: 25, paddingBottom: 10}}
           textStyle={{width: ScreenWidth * 0.8}}
@@ -143,7 +141,7 @@ const TargetGoals = () => {
             onPressOut={() => {
               setModalVisible(false);
             }}>
-            <ScrollView
+            <View
             // directionalLockEnabled={true}
             // contentContainerStyle={styles.scrollModal}
             >
@@ -184,7 +182,7 @@ const TargetGoals = () => {
                   </View>
                 </View>
               </TouchableWithoutFeedback>
-            </ScrollView>
+            </View>
           </TouchableOpacity>
         </Modal>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
@@ -196,12 +194,9 @@ const TargetGoals = () => {
           />
         </TouchableOpacity>
       </View>
-      <SafeAreaView
-        style={{
-          marginTop: 10,
-        }}>
+      <View>
         <GoalsCheckboxComponent />
-      </SafeAreaView>
+      </View>
     </View>
   );
 };
