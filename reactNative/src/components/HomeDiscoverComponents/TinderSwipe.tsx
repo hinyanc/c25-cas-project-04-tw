@@ -103,8 +103,9 @@ export function TinderSwipe() {
     console.log('the what card', index, 'swipe right');
     console.log('its actual data is ', filteredCards[index]);
     console.log('its user id ', filteredCards[index].id);
-    const res = await await fetch(
-      `${REACT_APP_API_SERVER}/discover/like-users/${filteredCards[index].id}`,
+    const userId = filteredCards[index].id;
+    const res = await fetch(
+      `${REACT_APP_API_SERVER}/discover/like-users/${userId}`,
       {
         method: 'PUT',
         headers: {
@@ -113,23 +114,14 @@ export function TinderSwipe() {
       },
     );
     const result = await res.json();
-    console.log(
-      'check message',
-      result.message,
-      'index',
-      index,
-      filteredCards[index],
-    );
 
     if (result.message === 'matched') {
-      console.log('matched???????');
       setModalVisible(true);
-      setMatchedUser(index);
+      setMatchedUser(userId);
     }
   };
 
   const handleLeftNope = (index: number) => {
-    console.log('the what card', index, 'swipe left');
     console.log('its actual data is ', cards[index]);
   };
 
@@ -143,8 +135,6 @@ export function TinderSwipe() {
     index: number,
   ) => {
     onSwipe(index + 1);
-    console.log('likebtn index, ', cardIndex);
-    console.log('swipe index: ', index);
     const res = await fetch(
       `${REACT_APP_API_SERVER}/discover/like-users/${cardIndex}`,
       {
@@ -155,10 +145,8 @@ export function TinderSwipe() {
       },
     );
     const result = await res.json();
-    console.log('check message', result);
 
     if (result.message === 'matched') {
-      console.log('matched???????');
       console.log('should match with ', cardIndex);
       setModalVisible(true);
       setMatchedUser(cardIndex);
@@ -225,7 +213,7 @@ export function TinderSwipe() {
                 backgroundColor="#FFF9F0"
                 renderCard={card => (
                   <Animated.View key={card.id} style={[styles1.card]}>
-                    <View key={card.id}>
+                    <View>
                       <Image
                         source={{
                           // @ts-ignore
@@ -282,7 +270,7 @@ export function TinderSwipe() {
                           }}>
                           {card.interest_name.map((interest_name: string) => {
                             return (
-                              <View style={styles.DiscoverInterest}>
+                              <View key={interest_name} style={styles.DiscoverInterest}>
                                 <Text style={styles.DiscoverInterestText}>
                                   {interest_name}
                                 </Text>
@@ -425,7 +413,7 @@ export function TinderSwipe() {
                 }}
               />
             ) : (
-              <View
+              <View key={0} 
                 style={{width: ScreenWidth, alignItems: 'center', bottom: 230}}>
                 <Text
                   style={{
@@ -461,8 +449,8 @@ export function TinderSwipe() {
                 </Text>
               </View>
             )}
-           
-            <MatchPopup card={filteredCards[matchedUser!]} />
+           {/* {console.log(filteredCards, matchedUser)} */}
+            <MatchPopup card={cards.find(c => c.id === matchedUser)} />
           </>
         }
       </View>

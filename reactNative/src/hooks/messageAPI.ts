@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 interface Message {
   sender_id: Number;
   receiver_id: Number;
-  updated_at: Date;
+  created_at: Date;
   message: string;
   sender_username: string;
   receiver_username: string;

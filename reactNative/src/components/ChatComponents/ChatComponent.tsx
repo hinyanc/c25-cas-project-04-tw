@@ -6,6 +6,7 @@ import {styles} from '../../utils/styles';
 import {StackParamList} from '../../../App';
 import type {StackNavigationProp} from '@react-navigation/stack';
 import {REACT_APP_API_SERVER} from '@env';
+const moment = require('moment');
 // import Swipeout from 'react-native-swipeout';
 
 interface Item {
@@ -22,6 +23,12 @@ const ChatComponent = ({item}: Item) => {
     });
   };
 
+  const oriDateTime = item.created_at;
+  let parsedDatetime;
+  if (oriDateTime != null) {
+    parsedDatetime = moment(oriDateTime).fromNow();
+  }
+
   return (
     <Pressable style={styles.cchat} onPress={handleNavigation}>
       <View>
@@ -34,10 +41,12 @@ const ChatComponent = ({item}: Item) => {
       </View>
       <View style={styles.crightContainer}>
         <View>
-          <Text style={styles.cusername}>{item.target_username}</Text>
+          <View style={{justifyContent:'center'}}>
+            <Text style={styles.cusername}>{item.target_username}</Text>
+            <Text style={styles.ctime}>{parsedDatetime}</Text>
+          </View>
           <View style={styles.crightContainer2}>
             <Text style={styles.cmessage}>{item.last_message}</Text>
-            <Text style={styles.ctime}>{item.updated_at}</Text>
           </View>
         </View>
       </View>

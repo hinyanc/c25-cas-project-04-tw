@@ -26,8 +26,8 @@ interface Item {
   profile_pic: any;
 }
 
-const MatchPopup = (props: {card: Item}) => {
-  console.log('check card', props.card);
+const MatchPopup = (props: {card?: Item}) => {
+  // console.log('check card', props.card);
   const [modalVisible, setModalVisible] = useState(true);
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
 
@@ -70,28 +70,30 @@ const MatchPopup = (props: {card: Item}) => {
                 styles.matchView,
                 {width: ScreenWidth, height: ScreenHeight},
               ]}>
-              <Text style={styles.modalTitle}>🏋🏻‍♀️ It's a Match! 🧘🏻‍♂️</Text>
-              <Text style={styles.modalText}>
+              <Text style={styles.matchTitle}>🏋🏻‍♀️ It's a Match! 🧘🏻‍♂️</Text>
+              <View style={{position:'absolute', bottom:ScreenHeight*0.35}}>
+              <Text style={styles.matchText}>
                 You and {props.card.username} have liked each other.
               </Text>
-              <View>
+              <View style={{flexDirection:'row', marginVertical:30, alignItems:'center'}}>
                 <Image
                   style={{
-                    height: 100,
-                    width: 100,
+                    height: 120,
+                    width: 120,
                     margin: 10,
-                    borderRadius: 50,
+                    borderRadius: 60,
                   }}
                   source={{
                     uri: `${REACT_APP_API_SERVER}/profile-pic/${userInfo[1]}`,
                   }}
                 />
+                <Text style={{fontSize:50, margin:10}}>🎉</Text>
                 <Image
                   style={{
-                    height: 100,
-                    width: 100,
+                    height: 120,
+                    width: 120,
                     margin: 10,
-                    borderRadius: 50,
+                    borderRadius: 60,
                   }}
                   source={{
                     uri: `${REACT_APP_API_SERVER}/profile-pic/${props.card
@@ -99,7 +101,7 @@ const MatchPopup = (props: {card: Item}) => {
                   }}
                 />
               </View>
-              <Text>
+              <Text style={styles.matchText}>
                 Let's click{' '}
                 <Text
                   style={{
@@ -114,11 +116,11 @@ const MatchPopup = (props: {card: Item}) => {
                   HERE
                 </Text>{' '}
                 to start chatting with each other!
-              </Text>
+              </Text></View>
               <TouchableOpacity
-                style={[styles.BMIChartBtn]}
+                style={[styles.backBtn,{position:'absolute', bottom:130}]}
                 onPress={() => setModalVisible(false)}>
-                <Text style={styles.BMIChartText}>BACK</Text>
+                <Text style={styles.backBtnText}>BACK</Text>
               </TouchableOpacity>
             </View>
           </TouchableWithoutFeedback>

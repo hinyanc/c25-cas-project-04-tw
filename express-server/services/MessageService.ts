@@ -10,7 +10,7 @@ export class MessageService {
       .select(
         "chatroom.sender_id",
         "chatroom.receiver_id",
-        "chatroom.updated_at",
+        "chatroom.created_at",
         "chatroom.message",
         "users_sender.username as sender_username",
         "users_receiver.username as receiver_username"
@@ -29,7 +29,7 @@ export class MessageService {
       .andWhere("receiver_id", targetUserId)
       .orWhere("sender_id", targetUserId)
       .andWhere("receiver_id", mainUserId)
-      .orderBy("updated_at");
+      .orderBy("created_at");
 
     return messagesHistory;
   };
