@@ -246,12 +246,13 @@ export default function SectionFour({
           btnType="level"
         />
       </View>
-
-      {errorState.gymLevel !== null ? (
-        <Text style={styles.errorMsg}>Error:{errorState.gymLevel}</Text>
-      ) : (
-        <></>
-      )}
+      <View style={{height: height * 0.04}}>
+        {errorState.gymLevel !== null ? (
+          <Text style={styles.errorMsg}>Error:{errorState.gymLevel}</Text>
+        ) : (
+          <></>
+        )}
+      </View>
 
       <Text style={[styles.title]}>Interests</Text>
 
@@ -288,14 +289,16 @@ export default function SectionFour({
           />
         ))}
       </View>
-      {errorState.interests !== null ? (
-        <Text style={styles.errorMsg}>Error:{errorState.interests}</Text>
-      ) : (
-        <></>
-      )}
+      <View style={{height: height * 0.07}}>
+        {errorState.interests !== null ? (
+          <Text style={styles.errorMsg}>Error:{errorState.interests}</Text>
+        ) : (
+          <></>
+        )}
+      </View>
 
       {/* remind */}
-      <View>
+      {/* <View>
         <Text
           style={{
             // textDecorationLine: 'underline',
@@ -307,7 +310,7 @@ export default function SectionFour({
           manage information about you as described in our Privacy Policy, and
           Cookie Policy.
         </Text>
-      </View>
+      </View> */}
       {/* ///continue button */}
       <TouchableOpacity
         onPress={e => {

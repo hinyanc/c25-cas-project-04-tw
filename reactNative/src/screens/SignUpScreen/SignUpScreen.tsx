@@ -155,6 +155,7 @@ export default function SignUpForm() {
         justifyContent: 'center',
         alignItems: 'center',
         height: height,
+
       }}>
       <ScrollView>
         <View
@@ -162,6 +163,7 @@ export default function SignUpForm() {
             justifyContent: 'center',
             alignItems: 'center',
             height: height,
+           
           }}>
           {sectionNum === 1 && (
             <SectionOne
