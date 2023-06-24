@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
   Button,
-  FlatList,
   Image,
   ScrollView,
   Text,
@@ -16,6 +15,13 @@ import {styles} from '../../utils/styles';
 import {REACT_APP_API_SERVER} from '@env';
 import {DocumentPickerResponse} from 'react-native-document-picker';
 import {FormErrorState, FormState} from '../SignUpScreen/SignUpScreen';
+type ButtonProps = {
+  onPress: () => void;
+  isPressed: boolean;
+  text: string;
+  textStyle?: TextStyle;
+  btnType: string;
+};
 
 const UserScreen = () => {
   const showInfo: Info[] | undefined = useGetInfo();
@@ -78,21 +84,15 @@ const UserScreen = () => {
     return selectedInterests.includes(interest);
   };
 
-  useEffect(() => {
-    if (newItem.interest_names !== undefined)
-      setSelectedInterests(newItem.interest_names);
-  }, []);
+  // useEffect(() => {
+  //   if (newItem.interest_names == undefined)
+  //     setSelectedInterests(newItem.interest_names);
+  // }, []);
+
   useEffect(() => {
     onChangeHandler('interests', selectedInterests);
   }, [selectedInterests]);
 
-  type ButtonProps = {
-    onPress: () => void;
-    isPressed: boolean;
-    text: string;
-    textStyle?: TextStyle;
-    btnType: string;
-  };
   const InterestButton = ({
     onPress,
     isPressed,
@@ -160,70 +160,78 @@ const UserScreen = () => {
                 uri: `${REACT_APP_API_SERVER}/profile-pic/${showInfo[0]
                   .profile_pic!}`,
               }}
-              style={styles.cprofilepic}
+              style={styles.pprofilepic}
             />
           </View>
 
-          <View>
+          <View style={styles.profiledetails}>
             <Text>Username</Text>
             <TextInput
+              style={styles.profileinput}
               defaultValue={showInfo[0].username}
               onChangeText={text => setNewItem({...newItem, username: text})}
             />
           </View>
 
-          <View>
+          <View style={styles.profiledetails}>
             <Text>Email</Text>
             <TextInput
+              style={styles.profileinput}
               keyboardType="email-address"
               defaultValue={showInfo[0].email}
               onChangeText={text => setNewItem({...newItem, email: text})}
             />
           </View>
 
-          <View>
+          <View style={styles.profiledetails}>
             <Text>Gender</Text>
             <TextInput
+              style={styles.profileinput}
               defaultValue={showInfo[0].gender}
               onChangeText={text => setNewItem({...newItem, gender: text})}
             />
           </View>
 
-          <View>
+          <View style={styles.profiledetails}>
             <Text>Date of birth</Text>
             <TextInput
+              style={styles.profileinput}
               defaultValue={showInfo[0].birthday}
               onChangeText={text => setNewItem({...newItem, birthday: text})}
             />
           </View>
 
-          <View>
+          <View style={styles.profiledetails}>
             <Text>Height</Text>
             <TextInput
+              style={styles.profileinput}
               defaultValue={showInfo[0].height.toString()}
               onChangeText={text => setNewItem({...newItem, height: text})}
             />
           </View>
 
-          <View>
+          <View style={styles.profiledetails}>
             <Text>Weight</Text>
             <TextInput
+              style={styles.profileinput}
               defaultValue={showInfo[0].weight.toString()}
               onChangeText={text => setNewItem({...newItem, weight: text})}
             />
           </View>
 
-          <View>
+          <View style={styles.profiledetails}>
             <Text>Gym center</Text>
             <TextInput
+              style={styles.profileinput}
               defaultValue={showInfo[0].gym_center}
               onChangeText={text => setNewItem({...newItem, gym_center: text})}
             />
           </View>
 
-          <View>
+          <View style={styles.profiledetails}>
             <Text>Center location</Text>
             <TextInput
+              style={styles.profileinput}
               defaultValue={showInfo[0].gym_location}
               onChangeText={text =>
                 setNewItem({...newItem, gym_location: text})
@@ -231,50 +239,53 @@ const UserScreen = () => {
             />
           </View>
 
-          <View>
+          <View style={styles.profiledetails}>
             <Text>Bio</Text>
             <TextInput
+              style={styles.profileinputbio}
               defaultValue={showInfo[0].bio}
               onChangeText={text => setNewItem({...newItem, bio: text})}
             />
           </View>
 
-          <View>
+          <View style={styles.profiledetails}>
             <Text>Gym level</Text>
             <TextInput
+              style={styles.profileinput}
               defaultValue={showInfo[0].gym_level}
               onChangeText={text => setNewItem({...newItem, gym_level: text})}
             />
           </View>
 
-          {/* {showInfo[0].interest_names.map((interest, index) => (
-            <InterestButton
-              key={index}
-              onPress={() => {
-                handleInterestPress(interest);
-                // onChangeHandler('interests', selectedInterests);
-                // console.log("interest",index+1)
-              }}
-              isPressed={isInterestPressed(interest)}
-              text={interest}
-              textStyle={{color: '#F2B3B7'}}
-              btnType="interest"
-            />
-          ))} */}
-          {interests.map((interest, index) => (
-            <InterestButton
-              key={index}
-              onPress={() => {
-                handleInterestPress(interest);
-                // onChangeHandler('interests', selectedInterests);
-                // console.log("interest",index+1)
-              }}
-              isPressed={isInterestPressed(interest)}
-              text={interest}
-              textStyle={{color: '#F2B3B7'}}
-              btnType="interest"
-            />
-          ))}
+          <View style={styles.profiledetails}>
+            <Text>Interests</Text>
+            {/* Render InterestButton components using showInfo data */}
+            {showInfo[0].interest_names.map((interest, index) => (
+              <InterestButton
+                key={index}
+                onPress={() => {
+                  handleInterestPress(interest);
+                }}
+                isPressed={isInterestPressed(interest)}
+                text={interest}
+                textStyle={{color: '#F2B3B7'}}
+                btnType="interest"
+              />
+            ))}
+            {/* Render InterestButton components using interests array */}
+            {interests.map((interest, index) => (
+              <InterestButton
+                key={index}
+                onPress={() => {
+                  handleInterestPress(interest);
+                }}
+                isPressed={isInterestPressed(interest)}
+                text={interest}
+                textStyle={{color: '#F2B3B7'}}
+                btnType="interest"
+              />
+            ))}
+          </View>
 
           {/* <View>
             <Text>Interests</Text>

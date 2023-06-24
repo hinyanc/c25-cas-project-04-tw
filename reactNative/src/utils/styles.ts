@@ -1,5 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {color} from 'react-native-elements/dist/helpers';
+import {TableWrapper} from 'react-native-table-component';
 const {width, height} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
@@ -463,6 +464,8 @@ export const styles = StyleSheet.create({
   },
   profilelistContainer: {
     paddingHorizontal: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   profileemptyContainer: {
     marginTop: 20,
@@ -488,7 +491,7 @@ export const styles = StyleSheet.create({
   },
   matchView: {
     // margin: 20,
-    backgroundColor: 'rgba(252, 215, 221,0.8)',
+    backgroundColor: 'rgba(255, 249, 240,0.9)',
     // borderRadius: 20,
     padding: 35,
     alignItems: 'center',
@@ -564,5 +567,46 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  pprofilepic: {
+    height: 150,
+    width: 150,
+    borderRadius: 30,
+  },
+
+  profiledetails: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 350,
+    alignItems: 'center',
+    // flex: 1,
+  },
+  profileinput: {
+    width: width * 0.5,
+    height: height * 0.03,
+    marginHorizontal: 4,
+    marginVertical: 10,
+    fontSize: 14,
+    borderWidth: 2,
+    borderRadius: 16,
+    color: 'black',
+    borderColor: 'rgba(255, 94, 135, 0.17)',
+    textAlign: 'center',
+    padding: 0,
+  },
+  profileinputbio: {
+    width: width * 0.5,
+    height: height * 0.1,
+    marginHorizontal: 4,
+    marginVertical: 10,
+    fontSize: 14,
+    flex: 1,
+    flexWrap: 'wrap',
+    borderWidth: 2,
+    borderRadius: 16,
+    color: 'black',
+    borderColor: 'rgba(255, 94, 135, 0.17)',
+    textAlign: 'center',
+    padding: 0,
   },
 });

@@ -49,6 +49,8 @@ export class DiscoverService {
         "gym_location.gym_location"
       );
 
+      console.log(allProfiles)
+
     let filterMatchedAll: any[] = [];
     const matchedAll = await this.knex.raw(
       /*sql*/ `SELECT DISTINCT matched_users_id AS matched_user

@@ -22,10 +22,10 @@ export function HomeUser() {
   const getLocalStorage = async () => {
     let token = await AsyncStorage.getItem('token');
     if (token == null) {
-      console.log('token is not in storage');
+
     } else {
       setToken(token!);
-      console.log('check get async storage token', token);
+
     }
   };
   useEffect(() => {
