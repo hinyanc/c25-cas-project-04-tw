@@ -150,16 +150,16 @@ export const styles = StyleSheet.create({
   cmessage: {
     fontSize: 14,
     opacity: 0.7,
-    maxHeight:40
+    maxHeight: 40,
     // width: 200
   },
   ctime: {
     marginBottom: 5,
     opacity: 0.5,
     marginRight: 0,
-    position:'absolute',
-    left:175,
-    width:100
+    position: 'absolute',
+    left: 175,
+    width: 100,
   },
   tabText: {
     fontSize: 20,
@@ -560,7 +560,7 @@ export const styles = StyleSheet.create({
   interestBtnText: {
     textAlign: 'center',
     paddingVertical: 5,
-    fontSize: 18,
+    fontSize: 13,
     fontWeight: 'bold',
     color: '#F2B3B7',
     paddingHorizontal: 20,
@@ -568,7 +568,7 @@ export const styles = StyleSheet.create({
   interestToogleBtnText: {
     textAlign: 'center',
     paddingVertical: 5,
-    fontSize: 18,
+    fontSize: 13,
     fontWeight: 'bold',
     color: '#fff',
   },
@@ -576,15 +576,15 @@ export const styles = StyleSheet.create({
     height: 150,
     width: 150,
     borderRadius: 30,
-    marginBottom:20
+    marginBottom: 20,
   },
 
   profiledetails: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: 350,
-    alignItems: 'center',
-    marginBottom:10
+    alignItems: 'flex-start',
+    marginBottom: 10,
     // flex: 1,
   },
   profileinput: {
@@ -647,7 +647,7 @@ export const styles = StyleSheet.create({
   },
   updateBtn: {
     justifyContent: 'center',
-    alignItems:'center',
+    alignItems: 'center',
     width: width * 0.86,
     height: height * 0.06,
     marginHorizontal: 4,
@@ -655,5 +655,28 @@ export const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: '#e24e59',
     // marginBottom:20
+  },
+
+  profileinterestdetails: {
+    maxWidth: width * 1,
+    // height: height * 0.9,
+    marginHorizontal: 4,
+    marginVertical: 10,
+    fontSize: 14,
+    // display: 'flex',
+    // flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingRight: 10,
+  },
+
+  updateBtnText: {
+    textAlign: 'center',
+    paddingVertical: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
   },
 });

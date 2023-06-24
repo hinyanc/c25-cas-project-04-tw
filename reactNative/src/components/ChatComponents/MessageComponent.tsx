@@ -1,6 +1,7 @@
 import {View, Text, Image} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import {styles} from '../../utils/styles';
+import {REACT_APP_API_SERVER} from '@env';
 const moment = require('moment');
 
 export default function MessageComponent({item, targetUserId}: any) {
@@ -28,9 +29,6 @@ export default function MessageComponent({item, targetUserId}: any) {
             : styles.mmessageWrapper
         }>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          {/* <View>
-            <Image source={item.profile_pic} style={styles.mprofilepic} />
-          </View> */}
           <View
             style={
               status

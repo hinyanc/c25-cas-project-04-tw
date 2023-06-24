@@ -1,7 +1,6 @@
 import {useQuery} from '@tanstack/react-query';
 import {REACT_APP_API_SERVER} from '@env';
 
-
 export interface UserInfo {
   username: string;
   profile_pic: string;
@@ -43,7 +42,6 @@ export function useGetUsername(token: string) {
 }
 
 export function useGetTinderProfile(token: string, preference: string) {
-
   const {isLoading, error, data, isFetching} = useQuery({
     queryKey: ['tinderProfile', token, preference],
     queryFn: async () => {
@@ -55,6 +53,11 @@ export function useGetTinderProfile(token: string, preference: string) {
           },
         },
       );
+
+      if (res.status < 200 || res.status > 299) {
+        return [];
+      }
+
       const result = await res.json();
       console.log('API check token', result);
       return result as TinderProfile[];
@@ -62,6 +65,7 @@ export function useGetTinderProfile(token: string, preference: string) {
   });
 
   if (isLoading || isFetching || error || !data) {
+    if (error) console.log(error);
     return [];
   }
 

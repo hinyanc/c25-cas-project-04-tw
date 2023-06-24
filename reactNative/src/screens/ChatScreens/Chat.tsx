@@ -52,7 +52,7 @@ const Chat = () => {
           />
         ) : (
           <View style={styles.chatemptyContainer}>
-            <Text style={styles.chatemptyText}>No rooms created!</Text>
+            <Text style={styles.chatemptyText}>Loading...</Text>
             <Text>❤️ Go to discover and match your new gyMatess! ❤️</Text>
           </View>
         )}

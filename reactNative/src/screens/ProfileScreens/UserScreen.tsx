@@ -75,19 +75,26 @@ const UserScreen = () => {
   const handleInterestPress = (interest: string) => {
     const maxSelections = 5;
     if (selectedInterests.includes(interest)) {
-      setSelectedInterests(selectedInterests.filter(item => item !== interest));
+      setSelectedInterests(selectedInterests =>
+        selectedInterests.filter(item => item !== interest),
+      );
     } else if (selectedInterests.length < maxSelections) {
-      setSelectedInterests([...selectedInterests, interest]);
+      setSelectedInterests(selectedInterests => [
+        ...selectedInterests,
+        interest,
+      ]);
     }
   };
+
   const isInterestPressed = (interest: string) => {
+    console.log(selectedInterests);
     return selectedInterests.includes(interest);
   };
 
-  // useEffect(() => {
-  //   if (newItem.interest_names == undefined)
-  //     setSelectedInterests(newItem.interest_names);
-  // }, []);
+  useEffect(() => {
+    if (newItem && newItem.interest_names !== undefined)
+      setSelectedInterests(newItem.interest_names);
+  }, [newItem]);
 
   useEffect(() => {
     onChangeHandler('interests', selectedInterests);
@@ -155,7 +162,9 @@ const UserScreen = () => {
   return (
     // {!showInfo? <Text>Loading...</Text>:<Text>hi</Text>}
     showInfo == undefined ? (
-      <Text>Loading ...</Text>
+      <View style={styles.chatemptyContainer}>
+        <Text style={styles.chatemptyText}>Loading ...</Text>
+      </View>
     ) : (
       <ScrollView style={styles.profileScreen}>
         <View style={styles.profileTopContainer}>
@@ -270,62 +279,40 @@ const UserScreen = () => {
 
           <View style={styles.profiledetails}>
             <Text>Interests</Text>
-            {/* Render InterestButton components using showInfo data */}
-            {showInfo[0].interest_names.map((interest, index) => (
-              <InterestButton
-                key={index}
-                onPress={() => {
-                  handleInterestPress(interest);
-                }}
-                isPressed={isInterestPressed(interest)}
-                text={interest}
-                textStyle={{color: '#F2B3B7'}}
-                btnType="interest"
-              />
-            ))}
-            {/* Render InterestButton components using interests array */}
-            {interests.map((interest, index) => (
-              <InterestButton
-                key={index}
-                onPress={() => {
-                  handleInterestPress(interest);
-                }}
-                isPressed={isInterestPressed(interest)}
-                text={interest}
-                textStyle={{color: '#F2B3B7'}}
-                btnType="interest"
-              />
-            ))}
-          </View>
+            <View style={styles.profileinterestdetails}>
+              {/* {showInfo[0].interest_names.map((interest, index) => (
+                <InterestButton
+                  key={index}
+                  onPress={() => {
+                    handleInterestPress(interest);
+                  }}
+                  isPressed={isInterestPressed(interest)}
+                  text={interest}
+                  textStyle={{color: '#F2B3B7'}}
+                  btnType="interest"
+                />
+              ))} */}
 
-          {/* <View>
-            <Text>Interests</Text>
-            <TextInput
-              defaultValue={showInfo[0].interest_names}
-              onChangeText={text =>
-                setNewItem({...newItem, interest_names: text})
-              }
-            />
-          </View> */}
+              {interests.map((interest, index) => (
+                <InterestButton
+                  key={index}
+                  onPress={() => handleInterestPress(interest)}
+                  isPressed={isInterestPressed(interest)}
+                  text={interest}
+                  textStyle={{
+                    color: isInterestPressed(interest) ? '#000000' : '#F2B3B7',
+                  }}
+                  btnType="interest"
+                />
+              ))}
+            </View>
+          </View>
         </View>
         <View style={{alignItems: 'center'}}>
           <TouchableOpacity style={styles.updateBtn} onPress={updateUserInfo}>
-            <Text
-              style={{
-                textAlign: 'center',
-                paddingVertical: 10,
-                fontSize: 18,
-                fontWeight: 'bold',
-                color: '#fff',
-              }}>
-              Update
-            </Text>
+            <Text style={styles.updateBtnText}>Update</Text>
           </TouchableOpacity>
         </View>
-
-        {/* <View>
-          <Button title="Update" onPress={updateUserInfo} />
-        </View> */}
       </ScrollView>
     )
   );

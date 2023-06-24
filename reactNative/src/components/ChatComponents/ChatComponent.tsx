@@ -41,7 +41,7 @@ const ChatComponent = ({item}: Item) => {
       </View>
       <View style={styles.crightContainer}>
         <View>
-          <View style={{justifyContent:'center'}}>
+          <View style={{justifyContent: 'center'}}>
             <Text style={styles.cusername}>{item.target_username}</Text>
             <Text style={styles.ctime}>{parsedDatetime}</Text>
           </View>

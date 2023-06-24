@@ -9,7 +9,7 @@ interface BMI {
 export interface Goals {
   id: number;
   name: string;
-  is_completed: boolean
+  is_completed: boolean;
 }
 export function useGetBMI(token: string) {
   const {isLoading, error, data, isFetching} = useQuery({
@@ -21,6 +21,7 @@ export function useGetBMI(token: string) {
         },
       });
       const result = await res.json();
+      console.log(result);
       return result as BMI;
     },
   });
@@ -32,7 +33,7 @@ export function useGetBMI(token: string) {
   return data;
 }
 
-export function useGetGoals(token: string, render:boolean) {
+export function useGetGoals(token: string, render: boolean) {
   const {isLoading, error, data, isFetching} = useQuery({
     queryKey: ['getgoals', token, render],
     queryFn: async () => {

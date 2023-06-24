@@ -270,7 +270,9 @@ export function TinderSwipe() {
                           }}>
                           {card.interest_name.map((interest_name: string) => {
                             return (
-                              <View key={interest_name} style={styles.DiscoverInterest}>
+                              <View
+                                key={interest_name}
+                                style={styles.DiscoverInterest}>
                                 <Text style={styles.DiscoverInterestText}>
                                   {interest_name}
                                 </Text>
@@ -413,7 +415,8 @@ export function TinderSwipe() {
                 }}
               />
             ) : (
-              <View key={0} 
+              <View
+                key={0}
                 style={{width: ScreenWidth, alignItems: 'center', bottom: 230}}>
                 <Text
                   style={{
@@ -449,7 +452,7 @@ export function TinderSwipe() {
                 </Text>
               </View>
             )}
-           {/* {console.log(filteredCards, matchedUser)} */}
+            {/* {console.log(filteredCards, matchedUser)} */}
             <MatchPopup card={cards.find(c => c.id === matchedUser)} />
           </>
         }

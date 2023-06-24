@@ -58,6 +58,7 @@ export function useGetInfo() {
         },
       });
       const result = await res.json();
+      console.log(`useGetInfo === ${JSON.stringify(result)}`);
       return result;
     },
   });
