@@ -44,10 +44,10 @@ export default function SectionOne({
 
     // Perform your desired action here
 
-    // Example: Simulate a delay of 2 seconds before re-enabling the button
+    // delay 1 seconds before re-enabling the button
     setTimeout(() => {
       setButtonDisabled(false);
-    }, 2000);
+    }, 1001);
   };
 
   return (
@@ -133,7 +133,7 @@ export default function SectionOne({
         onPress={e => {
           e.preventDefault;
           handleButtonClick;
-          // not working
+
           inputHandler('username');
           inputHandler('email');
           inputHandler('password');

@@ -116,6 +116,7 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
       //   setNotEmpty(true);
       console.log('no error');
       const success = await localLogin(email, password);
+      console.log("hi")
       if (success) {
         dispatch(login(email));
         navigation.replace('MyHome');

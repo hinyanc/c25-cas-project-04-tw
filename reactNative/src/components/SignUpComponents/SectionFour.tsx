@@ -8,9 +8,7 @@ import {
 } from 'react-native';
 
 import {styles} from '../../utils/signUpStyles';
-import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../../App';
+
 import {
   FormErrorState,
   FormState,
@@ -204,7 +202,6 @@ export default function SectionFour({
       <Text style={[styles.title]}>My Gym Level</Text>
       <View
         style={{
-          // flexDirection: 'row',
           justifyContent: 'center',
           alignItems: 'center',
           width: width * 0.75,
@@ -268,16 +265,7 @@ export default function SectionFour({
           width: width * 0.75,
           flexWrap: 'wrap',
         }}>
-        {/* {interests.map((interest, index) => (
-          <Button
-            key={index}
-            onPress={() => handleButtonPress(interest)}
-            isPressed={isButtonPressed(interest)}
-            text={interest}
-            textStyle={{color: '#000000'}}
-            btnType="interest"
-          />
-        ))} */}
+
         {interests.map((interest, index) => (
           <Button
             key={index}
