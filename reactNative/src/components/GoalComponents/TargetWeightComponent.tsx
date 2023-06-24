@@ -63,7 +63,7 @@ const TargetWeight = () => {
               width: 200,
               height: 30,
               backgroundColor: 'white',
-              marginLeft: 25,
+              marginLeft: 15,
               borderWidth: 1,
               borderRadius: 16,
               borderColor: '#E2868D',
