@@ -29,6 +29,7 @@ export function useGetMessages(targetUserId: string) {
   });
 
   if (isLoading || error || !data) {
+    console.log(error);
     return [];
   }
 
