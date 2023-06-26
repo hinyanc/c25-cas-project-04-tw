@@ -51,7 +51,7 @@ const BMI = () => {
   return (
     <View style={{height: 50, marginBottom: 30}}>
       <View
-        style={{flex: 2, flexDirection: 'row', justifyContent: 'flex-start'}}>
+        style={{flex: 2, flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
         <Text style={styles.BMI}>Your BMI: {bmi}</Text>
         <Modal
           animationType="fade"

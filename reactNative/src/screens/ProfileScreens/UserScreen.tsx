@@ -15,6 +15,7 @@ import {styles} from '../../utils/styles';
 import {REACT_APP_API_SERVER} from '@env';
 import {DocumentPickerResponse} from 'react-native-document-picker';
 import {FormErrorState, FormState} from '../SignUpScreen/SignUpScreen';
+import LogoutBtn from '../../components/ProfileComponents/Logout';
 type ButtonProps = {
   onPress: () => void;
   isPressed: boolean;
@@ -258,8 +259,8 @@ const UserScreen = () => {
             />
           </View>
 
-          <View style={styles.profiledetails}>
-            <Text>Bio</Text>
+          <View style={styles.profiledetails2}>
+            <Text style={{marginTop:20}}>Bio</Text>
             <TextInput
               style={styles.profileinputbio}
               multiline
@@ -277,8 +278,8 @@ const UserScreen = () => {
             />
           </View>
 
-          <View style={styles.profiledetails}>
-            <Text>Interests</Text>
+          <View style={styles.profiledetails2}>
+            <Text  style={{marginTop:20}}>Interests</Text>
             <View style={styles.profileinterestdetails}>
               {/* {showInfo[0].interest_names.map((interest, index) => (
                 <InterestButton
@@ -312,6 +313,7 @@ const UserScreen = () => {
           <TouchableOpacity style={styles.updateBtn} onPress={updateUserInfo}>
             <Text style={styles.updateBtnText}>Update</Text>
           </TouchableOpacity>
+          <LogoutBtn />
         </View>
       </ScrollView>
     )

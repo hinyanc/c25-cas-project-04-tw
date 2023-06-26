@@ -19,7 +19,7 @@ const LogoutBtn = () => {
   return (
 
       <TouchableOpacity style={styles.LogoutBtn} onPress={logoutRedirect}>
-        <Text style={styles.LogoutText}>LOGOUT</Text>
+        <Text style={styles.LogoutText}>Logout</Text>
       </TouchableOpacity>
 
   );

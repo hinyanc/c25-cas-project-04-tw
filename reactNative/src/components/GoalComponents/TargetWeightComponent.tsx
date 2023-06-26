@@ -48,7 +48,7 @@ const TargetWeight = () => {
       <Text style={styles.targetWeight}>Your Target Weight (kg) :</Text>
 
       <View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <TextInput
             placeholder="Set your target weight here"
             maxLength={3}
@@ -61,9 +61,9 @@ const TargetWeight = () => {
               fontSize: 13,
               paddingLeft: 10,
               width: 200,
-              height: 30,
+              height: 40,
               backgroundColor: 'white',
-              marginLeft: 15,
+              marginLeft: 25,
               borderWidth: 1,
               borderRadius: 16,
               borderColor: '#E2868D',
