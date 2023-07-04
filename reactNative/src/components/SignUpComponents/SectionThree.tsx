@@ -9,9 +9,6 @@ import {
 } from 'react-native';
 
 import {styles} from '../../utils/signUpStyles';
-import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../../App';
 import {
   FormErrorState,
   FormState,
@@ -19,7 +16,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Picker} from '@react-native-picker/picker';
 
-const {width, height} = Dimensions.get('window');
+const {height} = Dimensions.get('window');
 
 const gymCenter = [
   '24/7 Fitness',
@@ -214,7 +211,6 @@ export default function SectionThree({
           onValueChange={(itemValue, itemIndex) => {
             setSelectedCenter(itemValue);
             onChangeHandler('gymCenter', itemIndex);
-            console.log(itemIndex);
           }}>
           <Picker.Item label="Gym center" value={null} />
           {gymCenter.map((center, index) => (
@@ -230,7 +226,6 @@ export default function SectionThree({
           onValueChange={(itemValue, itemIndex) => {
             setSelectedLocation(itemValue);
             onChangeHandler('locaiton', itemIndex);
-            console.log('location', itemIndex);
           }}>
           <Picker.Item label="Gym location" value={null} />
           {gymLocations.map((location, index) => (

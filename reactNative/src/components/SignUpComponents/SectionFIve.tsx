@@ -142,7 +142,6 @@ export default function SectionFive({
         {/* remind */}
         <Text
           style={{
-            // textDecorationLine: 'underline',
             textAlign: 'center',
             width: width * 0.75,
             marginTop: height * 0.04,
@@ -156,8 +155,6 @@ export default function SectionFive({
         <TouchableOpacity
           onPress={e => {
             e.preventDefault;
-            // not working
-            console.log('check formState', formState);
             submitForm();
           }}
           style={styles.Continuebtn}>

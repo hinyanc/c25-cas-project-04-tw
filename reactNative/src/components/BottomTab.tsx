@@ -33,11 +33,15 @@ const BottomTabs = () => {
           }
 
           // You can return any component that you like here!
-          return <Ionicons name={iconName} size={30} color={color} />;
+          return <Ionicons name={iconName!} size={30} color={color} />;
         },
         tabBarActiveTintColor: '#E24E59',
         tabBarInactiveTintColor: '#707070',
-        tabBarLabelStyle: {fontSize: 15, marginBottom: 20, fontFamily:'Proxima Nova'},
+        tabBarLabelStyle: {
+          fontSize: 15,
+          marginBottom: 20,
+          fontFamily: 'Proxima Nova',
+        },
         tabBarIconStyle: {marginTop: 16},
         tabBarStyle: {
           // position: 'absolute',

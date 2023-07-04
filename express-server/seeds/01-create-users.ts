@@ -1,7 +1,7 @@
 import { Knex } from "knex";
 import { faker } from "@faker-js/faker";
 import { hashPassword } from "../utils/hash";
-const moment = require('moment-timezone');
+const moment = require("moment-timezone");
 
 import {
   gymLocationTable,
@@ -233,8 +233,12 @@ export async function seed(knex: Knex): Promise<void> {
       gym_level: faker.helpers.arrayElement(["Newbie", "Moderate", "Vigorous"]),
       has_membership: hasMembership,
       is_pt: isPt,
-      created_at: moment(faker.date.past()).utcOffset(8).format('YYYY-MM-DD HH:mm:ss'),
-      updated_at: moment(faker.date.recent()).utcOffset(8).format('YYYY-MM-DD HH:mm:ss'),
+      created_at: moment(faker.date.past())
+        .utcOffset(8)
+        .format("YYYY-MM-DD HH:mm:ss"),
+      updated_at: moment(faker.date.recent())
+        .utcOffset(8)
+        .format("YYYY-MM-DD HH:mm:ss"),
     });
   }
 
@@ -490,7 +494,9 @@ export async function seed(knex: Knex): Promise<void> {
       receiver_id = faker.datatype.boolean() ? 2 : 1;
     } while (receiver_id === sender_id);
     let message = faker.lorem.sentence();
-    let created_at = moment(faker.date.past()).utcOffset(8).format('YYYY-MM-DD HH:mm:ss')
+    let created_at = moment(faker.date.past())
+      .utcOffset(8)
+      .format("YYYY-MM-DD HH:mm:ss");
 
     await knex(chatroomTable).insert({
       sender_id: sender_id,
@@ -506,7 +512,9 @@ export async function seed(knex: Knex): Promise<void> {
       receiver_id = faker.datatype.boolean() ? 3 : 1;
     } while (receiver_id === sender_id);
     let message = faker.lorem.sentence();
-    let created_at = moment(faker.date.past()).utcOffset(8).format('YYYY-MM-DD HH:mm:ss')
+    let created_at = moment(faker.date.past())
+      .utcOffset(8)
+      .format("YYYY-MM-DD HH:mm:ss");
     await knex(chatroomTable).insert({
       sender_id: sender_id,
       receiver_id: receiver_id,
@@ -521,7 +529,9 @@ export async function seed(knex: Knex): Promise<void> {
       receiver_id = faker.datatype.boolean() ? 2 : 3;
     } while (receiver_id === sender_id);
     let message = faker.lorem.sentence();
-    let created_at = moment(faker.date.past()).utcOffset(8).format('YYYY-MM-DD HH:mm:ss')
+    let created_at = moment(faker.date.past())
+      .utcOffset(8)
+      .format("YYYY-MM-DD HH:mm:ss");
     await knex(chatroomTable).insert({
       sender_id: sender_id,
       receiver_id: receiver_id,

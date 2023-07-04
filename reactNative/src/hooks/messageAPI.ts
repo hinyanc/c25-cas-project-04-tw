@@ -56,19 +56,3 @@ export async function useCreateMessages(
   const result = await res.json();
   return {result, target_user_id};
 }
-
-// export async function connectSocket(target_user_id: string) {
-//   try {
-//     const token = await AsyncStorage.getItem('token');
-//     const response = await fetch(
-//       `${REACT_APP_API_SERVER}/getSocketId/userId/${target_user_id}`,
-//     );
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-//     const data = await response.json();
-//     console.log('check data', data);
-//   } catch (e) {
-//     console.error(e);
-//   }
-// }

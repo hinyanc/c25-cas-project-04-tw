@@ -118,7 +118,6 @@ export default function SectionOne({
       {/* remind */}
       <Text
         style={{
-          // textDecorationLine: 'underline',
           textAlign: 'center',
           width: width * 0.75,
           marginBottom: height * 0.01,

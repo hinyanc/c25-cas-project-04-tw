@@ -9,18 +9,11 @@ import {
   ScrollView,
   TouchableOpacity,
   TextStyle,
-  Modal,
-  Alert,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import {styles} from '../../utils/styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {
-  useGetTinderProfile,
-  useGetUsername,
-  useLikeUser,
-} from '../../hooks/TinderAPI';
+import {useGetTinderProfile} from '../../hooks/TinderAPI';
 import {REACT_APP_API_SERVER} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
@@ -42,11 +35,9 @@ export function TinderSwipe() {
   const [pressedButton, setPressedButton] = useState<string>('All Users');
   const [matchedUser, setMatchedUser] = useState<null | number>(null);
   const [showText, setShowText] = useState(false);
-  // const [swipedCards, setSwipedCards] = useState<CardType[]>([]);
 
   const [index, setIndex] = useState(0);
   const [token, setToken] = useState('');
-  // const [filter, setFilter] = useState(Filter.ALL);
 
   const getLocalStorage = async () => {
     let token = await AsyncStorage.getItem('token');
@@ -198,11 +189,6 @@ export function TinderSwipe() {
 
       <View style={styles1.container}>
         {
-          // cards.length === 0 ? (
-          //   <Text style={{position: 'relative', bottom: 500, fontSize: 100}}>
-          //     All cards swiped!
-          //   </Text>
-          // ) :
           <>
             {filteredCards.length != 0 ? (
               <Swiper
@@ -452,7 +438,6 @@ export function TinderSwipe() {
                 </Text>
               </View>
             )}
-            {/* {console.log(filteredCards, matchedUser)} */}
             <MatchPopup card={cards.find(c => c.id === matchedUser)} />
           </>
         }
@@ -467,8 +452,6 @@ const styles1 = StyleSheet.create({
     color: '#707070',
   },
   container: {
-    // alignItems: 'center',
-    // justifyContent: 'center',
     width: ScreenWidth * 0.8,
     height: ScreenHeight * 0.85,
     backgroundColor: '#FFF9F0',
@@ -483,8 +466,6 @@ const styles1 = StyleSheet.create({
     backgroundColor: '#FFF9F8',
     width: ScreenWidth * 0.8,
     height: ScreenHeight * 0.5,
-    // borderWidth: 1,
-    // borderTopWidth: 1,
     borderColor: '#707070',
     alignSelf: 'center',
     shadowColor: '#707070',
@@ -510,8 +491,8 @@ const styles1 = StyleSheet.create({
     borderColor: '#707070',
   },
   image: {
-    width: ScreenWidth * 0.8, // 50% of the screen width
-    height: ScreenHeight * 0.4, // 30% of the screen height
+    width: ScreenWidth * 0.8, 
+    height: ScreenHeight * 0.4, 
     backgroundColor: 'white',
     borderTopWidth: 1,
     borderRightWidth: 1,

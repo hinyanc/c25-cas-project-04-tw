@@ -9,7 +9,6 @@ export class DiscoverController {
     try {
       // @ts-ignore
       const userId = req.user?.id;
-      // console.log('req.user', req.user)
       const userInfo = await this.discoverService.getUserInfo(userId!);
       res.status(200).json(userInfo);
     } catch (error) {

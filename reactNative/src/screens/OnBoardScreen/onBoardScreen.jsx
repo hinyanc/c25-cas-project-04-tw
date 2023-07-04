@@ -1,5 +1,5 @@
-import {StackParamList} from '../../../App';
-import {StackScreenProps} from '@react-navigation/stack';
+// import {StackParamList} from '../../../App';
+// import {StackScreenProps} from '@react-navigation/stack';
 
 import React from 'react';
 import {

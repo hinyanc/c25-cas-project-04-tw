@@ -1,13 +1,11 @@
-import {View, Text, Pressable, TextStyle, StyleProp, Image} from 'react-native';
+import {View, Text, Pressable, Image} from 'react-native';
 import React from 'react';
-import IonIcon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {styles} from '../../utils/styles';
 import {StackParamList} from '../../../App';
 import type {StackNavigationProp} from '@react-navigation/stack';
 import {REACT_APP_API_SERVER} from '@env';
 const moment = require('moment');
-// import Swipeout from 'react-native-swipeout';
 
 interface Item {
   item: any;

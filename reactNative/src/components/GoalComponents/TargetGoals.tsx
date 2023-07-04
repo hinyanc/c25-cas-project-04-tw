@@ -39,7 +39,6 @@ const TargetGoals = () => {
   const [render, setRender] = useState(false);
 
   const goalList = useGetGoals(token, render);
-  // console.log(goalList);
 
   const GoalsCheckboxComponent = () => {
     const [checkedIds, setCheckedIds] = useState<number[]>([]);
@@ -68,7 +67,6 @@ const TargetGoals = () => {
     };
 
     const renderItem = ({item}: {item: Goals}) => {
-      // const [checkState, setCheckState] = useState<boolean>(item.is_completed)
       return (
         <BouncyCheckbox
           isChecked={item.is_completed}

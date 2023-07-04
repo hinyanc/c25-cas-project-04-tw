@@ -3,7 +3,6 @@ import {
   Alert,
   Dimensions,
   Modal,
-  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -68,8 +67,6 @@ const PlanButton = () => {
                 placeholder="Enter the promotion code here"
                 maxLength={6}
                 placeholderTextColor="#B1B1B1"
-                // value={promotionCode}
-                // onChangeText={handleInputChange}
                 style={{
                   padding: 0,
                   fontSize: 14,

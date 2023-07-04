@@ -1,6 +1,4 @@
 import {Dimensions, StyleSheet} from 'react-native';
-import {color} from 'react-native-elements/dist/helpers';
-import {TableWrapper} from 'react-native-table-component';
 const {width, height} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
@@ -16,7 +14,6 @@ export const styles = StyleSheet.create({
     color: '#E24E59',
   },
   chattopContainer: {
-    // backgroundColor: '#F7F7F7',
     height: 80,
     width: '100%',
     padding: 20,
@@ -24,7 +21,6 @@ export const styles = StyleSheet.create({
     marginBottom: 8,
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(112,112,112,0.5)',
-    // elevation: 2,
   },
   chatheader: {
     flexDirection: 'row',
@@ -228,7 +224,7 @@ export const styles = StyleSheet.create({
   BMIChartBtn: {
     justifyContent: 'center',
     marginTop: 20,
-    marginLeft: width*0.02,
+    marginLeft: width * 0.02,
     marginRight: 20,
     marginBottom: 4,
     backgroundColor: '#E24E59',
@@ -489,8 +485,8 @@ export const styles = StyleSheet.create({
     marginHorizontal: 4,
     marginVertical: 25,
     borderRadius: 16,
-    borderColor:'#e24e59',
-    borderWidth:2
+    borderColor: '#e24e59',
+    borderWidth: 2,
     // backgroundColor: '#e24e59',
   },
   LogoutText: {
@@ -584,7 +580,7 @@ export const styles = StyleSheet.create({
   },
 
   profiledetails: {
-    alignContent:'center',
+    alignContent: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: 350,
@@ -593,7 +589,7 @@ export const styles = StyleSheet.create({
     // flex: 1,
   },
   profiledetails2: {
-    alignContent:'center',
+    alignContent: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: 350,
@@ -675,13 +671,13 @@ export const styles = StyleSheet.create({
     maxWidth: width * 1,
     // height: height * 0.9,
     marginHorizontal: 4,
-    marginVertical:8,
+    marginVertical: 8,
     fontSize: 14,
     // display: 'flex',
     // flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    flex:2,
+    flex: 2,
     justifyContent: 'flex-end',
     alignItems: 'center',
     // paddingRight: 10,

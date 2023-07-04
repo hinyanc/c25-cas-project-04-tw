@@ -17,7 +17,6 @@ import {
   FormState,
 } from '../../screens/SignUpScreen/SignUpScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 const {width, height} = Dimensions.get('window');
@@ -284,10 +283,8 @@ export default function SectionTwo({
       {/* remind */}
       <Text
         style={{
-          // textDecorationLine: 'underline',
           textAlign: 'center',
           width: width * 0.75,
-          // marginBottom: height * 0.02,
         }}>
         Age and gender help improve recommendations
       </Text>

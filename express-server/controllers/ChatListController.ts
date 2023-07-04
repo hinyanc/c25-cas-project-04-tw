@@ -13,7 +13,7 @@ export class ChatListController {
         mainUserId!
       );
 
-      console.log("last message", lastMessage);
+      // console.log("last message", lastMessage);
       res.status(200).json(lastMessage);
     } catch (error) {
       logger.error(error);

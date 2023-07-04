@@ -59,7 +59,6 @@ export function useGetTinderProfile(token: string, preference: string) {
       }
 
       const result = await res.json();
-      console.log('API check token', result);
       return result as TinderProfile[];
     },
   });

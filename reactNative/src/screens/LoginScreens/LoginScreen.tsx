@@ -84,29 +84,11 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
     setFormState({...formState, [name]: value});
   };
 
-  // const validate = () => {
-  //   console.log(' hihivalidate');
-  //   const emailRegex = /\S+@\S+\.\S+/;
-  //   let errors: Validate = {email: '', password: ''};
-  //   if (!email) {
-  //     errors.email = 'Email is required';
-  //     console.log('email is required');
-  //   } else if (!emailRegex.test(email)) {
-  //     errors.email = 'Invalid email format';
-  //   }
-  //   if (!password) {
-  //     errors.password = 'Password is required';
-  //   } else if (password.length < 6) {
-  //     errors.password = 'Password must be at least 6 characters';
-  //   }
-  //   return errors;
-  // };
-
   const dispatch = useDispatch<AppDispatch>();
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
-    console.log('hi error', errorState);
+    // console.log('hi error', errorState);
     // const errors = validate();
     // setErrors(errors);
     // console.log('error', errors);
@@ -114,20 +96,12 @@ const LoginForm = ({navigation}: LoginScreenProps) => {
       //   // Handle login logic here
       //   // navigation.navigate('Home');
       //   setNotEmpty(true);
-      console.log('no error');
       const success = await localLogin(email, password);
-      console.log("hi")
       if (success) {
         dispatch(login(email));
         navigation.replace('MyHome');
-        console.log('uuu');
-        //   }else{
-        //     // react-toast alert not
-        //     console.log("fail")
-        //   }
       }
     }
-    console.log('sth happended');
   };
 
   // console.log(navigation)

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {ScrollView, Text, View} from 'react-native';
 import {styles} from '../utils/styles';
 import PlansTable from '../components/PlanComponents/PlanTable';

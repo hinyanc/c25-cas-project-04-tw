@@ -9,7 +9,6 @@ export class GoalController {
     try {
       // @ts-ignore
       const userId = req.user?.id;
-      // const userId = req.session.users_id
       const BMI = await this.goalService.getBMI(userId!);
       res.status(200).json(BMI);
     } catch (error) {
@@ -23,7 +22,6 @@ export class GoalController {
       const target_weight = req.body;
       // @ts-ignore
       const userId = req.user?.id;
-      // const userId = req.session.users_id
       await this.goalService.setTargetWeight(target_weight, userId!);
       res.status(200).json({ message: `target weight: ${target_weight.targetWeight}` });
     } catch (error) {
@@ -49,8 +47,7 @@ export class GoalController {
       const goals = req.body;
       // @ts-ignore
       const userId = req.user?.id;
-      const added = await this.goalService.addGoals(goals, userId!);
-      console.log(added)
+      await this.goalService.addGoals(goals, userId!);
       res.status(200).json({ message: `add goal ${goals.addGoals} success` });
     } catch (error) {
       logger.error(error);
@@ -63,8 +60,7 @@ export class GoalController {
       const target_id = req.params.tid;
       // @ts-ignore
       const userId = req.user?.id;
-      const resultId = await this.goalService.updateCompletedGoals(+target_id, userId!);
-      console.log(resultId)
+      await this.goalService.updateCompletedGoals(+target_id, userId!);
       res.status(200).json({ message: "completed goal success" });
     } catch (error) {
       logger.error(error);
