@@ -1,6 +1,5 @@
 import {useQuery} from '@tanstack/react-query';
 import {REACT_APP_API_SERVER} from '@env';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 interface ChatList {
   target_user_id: number;
   target_username: string;
@@ -19,7 +18,6 @@ export function useChatList(token: string) {
         },
       });
       const result = await response.json();
-      console.log('check check', result);
       return result as ChatList[];
     },
     retry: true,

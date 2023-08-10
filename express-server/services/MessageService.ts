@@ -1,7 +1,5 @@
 import type { Knex } from "knex";
-// import type { ChatroomType } from "../utils/model";
 import { chatroomTable } from "../migrations/20230605101740_users";
-// import { io } from "../server";
 export class MessageService {
   constructor(private knex: Knex) {}
 

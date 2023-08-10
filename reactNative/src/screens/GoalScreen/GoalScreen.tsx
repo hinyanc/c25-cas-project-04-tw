@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, ScrollView, Text, View} from 'react-native';
+import {Dimensions, Text, View} from 'react-native';
 import BMI from '../../components/GoalComponents/BMIComponent';
 import TargetWeight from '../../components/GoalComponents/TargetWeightComponent';
 import {styles} from '../../utils/styles';

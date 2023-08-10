@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, Image, ScrollView} from 'react-native';
 import {styles} from '../../utils/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {UserInfo, useGetUsername} from '../../hooks/TinderAPI';
+import {useGetUsername} from '../../hooks/TinderAPI';
 import {REACT_APP_API_SERVER} from '@env';
 import {socket} from '../../utils/socket';
 
@@ -22,10 +22,8 @@ export function HomeUser() {
   const getLocalStorage = async () => {
     let token = await AsyncStorage.getItem('token');
     if (token == null) {
-
     } else {
       setToken(token!);
-
     }
   };
   useEffect(() => {

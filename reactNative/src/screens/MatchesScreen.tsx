@@ -1,20 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, SafeAreaView, Image} from 'react-native';
-import users from '../assets/data/users';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import {REACT_APP_API_SERVER} from '@env';
 import {socket} from '../utils/socket';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useGetUsername} from '../hooks/TinderAPI';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StackParamList } from '../../App';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {StackParamList} from '../../App';
 
 const MatchesScreen = () => {
   const [token, setToken] = useState('');
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
 
   useEffect(() => {
-    console.log('joining server', socket.id);
     if (token !== '') {
       socket.emit('join', {
         socketId: socket.id,
@@ -26,10 +24,8 @@ const MatchesScreen = () => {
   const getLocalStorage = async () => {
     let token = await AsyncStorage.getItem('token');
     if (token == null) {
-      console.log('token is not in storage');
     } else {
       setToken(token!);
-      console.log('check get async storage token', token);
     }
   };
   useEffect(() => {

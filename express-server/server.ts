@@ -32,36 +32,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use("/demo", express.static("demoClient"));
-
-// io.use((socket, next) => {
-//   console.log("check middle", socket.id);
-//   next();
-// });
-
-// io.on("connection", (socket) => {
-//   console.log("a user connected,its socket id is", socket.id);
-//   socket.emit("syslog", "welcome to the chat");
-//   onlineUsers.push(socket.id);
-//   console.log("online users", onlineUsers);
-
-//   socket.on("message", (socket) => {
-//     console.log(
-//       "receive send request from",
-//       socket.from,
-//       "content",
-//       socket.data,
-//       "to socket",
-//       socket.to
-//     );
-
-//     io.to(socket.to).emit("message", {
-//       data: socket.data,
-//       from: socket.from,
-//     });
-//   });
-// });
-
 interface OnlineUser {
   userId: string;
   socketId: string;
@@ -177,18 +147,11 @@ io.on("connection", async (socket: any) => {
     if (index !== -1) {
       userList.splice(index, 1);
     }
+    console.log("check user list after user disconnect", userList);
   });
+
+  
 });
-
-// app.post(
-//   "/test/createMessage",
-//   (req: express.Request, res: express.Response) => {
-//     const { message, targetUserId } = req.body;
-//     console.log("check create message body", message, targetUserId);
-
-//     res.json({ msg: "received create message request" });
-//   }
-// );
 
 server.listen(PORT, () => {
   console.log(`App running at http://localhost:${PORT}`);

@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {View, TextInput, Text, FlatList, Pressable} from 'react-native';
 import MessageComponent from '../../components/ChatComponents/MessageComponent';
 import {styles} from '../../utils/styles';
@@ -10,6 +10,7 @@ const Messaging = ({route, navigation}: any) => {
   const queryClient = useQueryClient();
   const [message, setMessage] = useState('');
   const {target_username, target_user_id} = route.params;
+
   const chatMessages = useGetMessages(target_user_id);
 
   socket.on('confirm', (payload: any) => {
@@ -18,6 +19,7 @@ const Messaging = ({route, navigation}: any) => {
       queryKey: ['message', {targetUserId: target_user_id}],
     });
   });
+
   const onCreateMessages = useMutation(
     async (data: {message: string; target_user_id: string}) =>
       useCreateMessages(data.message, data.target_user_id),
@@ -36,7 +38,7 @@ const Messaging = ({route, navigation}: any) => {
 
   const handleNewMessage = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log('check before mutate', target_user_id);
+    // console.log('check before mutate', target_user_id);
     onCreateMessages.mutate({message, target_user_id});
     setMessage('');
   };
@@ -66,8 +68,8 @@ const Messaging = ({route, navigation}: any) => {
       </View>
       <View style={styles.messaginginputContainer}>
         <TextInput
-        placeholder="Start you chat now!"
-        placeholderTextColor="#B1B1B1"
+          placeholder="Start you chat now!"
+          placeholderTextColor="#B1B1B1"
           style={styles.messaginginput}
           onChangeText={value => setMessage(value)}
           value={message}
@@ -76,7 +78,9 @@ const Messaging = ({route, navigation}: any) => {
           style={styles.messagingbuttonContainer}
           onPress={handleNewMessage}>
           <View>
-            <Text style={{color: '#f2f0f1', fontSize: 20, fontWeight:'bold'}}>Send</Text>
+            <Text style={{color: '#f2f0f1', fontSize: 20, fontWeight: 'bold'}}>
+              Send
+            </Text>
           </View>
         </Pressable>
       </View>

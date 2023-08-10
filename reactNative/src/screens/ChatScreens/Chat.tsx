@@ -1,5 +1,5 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {View, Text, SafeAreaView, FlatList, ScrollView} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, FlatList, ScrollView} from 'react-native';
 import ChatComponent from '../../components/ChatComponents/ChatComponent';
 import {styles} from '../../utils/styles';
 import {useChatList} from '../../hooks/chatAPI';
@@ -34,7 +34,7 @@ const Chat = () => {
     }
   }, [chats]);
 
-  console.log('check temp', tempChats);
+  // console.log('check temp', tempChats);
   return (
     <ScrollView style={styles.chatscreen}>
       <View style={styles.chattopContainer}>

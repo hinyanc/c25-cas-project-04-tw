@@ -9,7 +9,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   login = async (req: Request, res: Response) => {
-    console.log("login check hi");
+
     try {
       const { email, password } = req.body;
       if (!email || !password) {

@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {
-  Button,
   Image,
   ScrollView,
   Text,
@@ -14,7 +13,7 @@ import {Info, newInfo} from '../../hooks/profileAPI';
 import {styles} from '../../utils/styles';
 import {REACT_APP_API_SERVER} from '@env';
 import {DocumentPickerResponse} from 'react-native-document-picker';
-import {FormErrorState, FormState} from '../SignUpScreen/SignUpScreen';
+import {FormErrorState} from '../SignUpScreen/SignUpScreen';
 import LogoutBtn from '../../components/ProfileComponents/Logout';
 type ButtonProps = {
   onPress: () => void;
@@ -27,7 +26,6 @@ type ButtonProps = {
 const UserScreen = () => {
   const showInfo: Info[] | undefined = useGetInfo();
   const [newItem, setNewItem] = useState<newInfo>(showInfo as unknown as Info);
-  console.log('showInfo:', showInfo);
 
   const updateUserInfo = () => {
     const updatedData = useUpdateInfo(
@@ -44,7 +42,6 @@ const UserScreen = () => {
       newItem.gym_center,
       newItem.gym_location,
     );
-    console.log(updatedData);
   };
 
   const [errorState, setErrorState] = useState<FormErrorState>({
@@ -88,7 +85,6 @@ const UserScreen = () => {
   };
 
   const isInterestPressed = (interest: string) => {
-    console.log(selectedInterests);
     return selectedInterests.includes(interest);
   };
 
@@ -161,7 +157,6 @@ const UserScreen = () => {
   }
 
   return (
-    // {!showInfo? <Text>Loading...</Text>:<Text>hi</Text>}
     showInfo == undefined ? (
       <View style={styles.chatemptyContainer}>
         <Text style={styles.chatemptyText}>Loading ...</Text>
@@ -281,18 +276,6 @@ const UserScreen = () => {
           <View style={styles.profiledetails2}>
             <Text  style={{marginTop:20}}>Interests</Text>
             <View style={styles.profileinterestdetails}>
-              {/* {showInfo[0].interest_names.map((interest, index) => (
-                <InterestButton
-                  key={index}
-                  onPress={() => {
-                    handleInterestPress(interest);
-                  }}
-                  isPressed={isInterestPressed(interest)}
-                  text={interest}
-                  textStyle={{color: '#F2B3B7'}}
-                  btnType="interest"
-                />
-              ))} */}
 
               {interests.map((interest, index) => (
                 <InterestButton

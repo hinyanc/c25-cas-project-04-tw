@@ -1,4 +1,4 @@
-import {useMutation, useQuery} from '@tanstack/react-query';
+import {useQuery} from '@tanstack/react-query';
 import {REACT_APP_API_SERVER} from '@env';
 
 interface BMI {
@@ -21,7 +21,6 @@ export function useGetBMI(token: string) {
         },
       });
       const result = await res.json();
-      console.log(result);
       return result as BMI;
     },
   });

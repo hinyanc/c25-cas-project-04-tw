@@ -1,15 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  ScrollView,
-  SafeAreaView,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
+import {View, ScrollView, SafeAreaView, Dimensions} from 'react-native';
 import SectionOne from '../../components/SignUpComponents/SectionOne';
 import SectionTwo from '../../components/SignUpComponents/SectionTwo';
 import SectionThree from '../../components/SignUpComponents/SectionThree';
@@ -21,8 +11,7 @@ import {z} from 'zod';
 import SectionFive from '../../components/SignUpComponents/SectionFIve';
 import {DocumentPickerResponse} from 'react-native-document-picker';
 
-const {width, height} = Dimensions.get('window');
-
+const {height} = Dimensions.get('window');
 
 export interface FormState {
   username: string;
@@ -52,7 +41,6 @@ export interface FormErrorState {
   isMember: string | null;
   gymLevel: string | null;
   interests: string | null;
-  //missing profile pic
 }
 
 export const schema = {
@@ -60,16 +48,14 @@ export const schema = {
   email: z.string().email({message: 'Must be a valid email'}),
   password: z.string().min(6, {message: 'Password is required'}),
   gender: z.string().min(4, {message: 'Please fill in your gender'}),
-  // not sure is it date
   birthday: z.string().datetime({message: 'Please fill in your birthday'}),
-  // should have min
   height: z.number().min(120, 'invalid height.'),
   weight: z.number().min(30, 'invalid weight.'),
   isMember: z.boolean({
     required_error: 'This column is required',
     invalid_type_error: 'IsMember must be a boolean',
   }),
-  gymLevel: z.string().min(1, {message: 'Please choose your gymlevel'}),
+  gymLevel: z.string().min(1, {message: 'Please choose your gym level'}),
   interests: z
     .string()
     .array()
@@ -90,7 +76,7 @@ export default function SignUpForm() {
     email: 'test1@gmail.com',
     password: 'abc123',
     gender: 'Female',
-    birthday: new Date(2011,6,24,5,44,2),
+    birthday: new Date(2011, 6, 24, 5, 44, 2),
     height: 175,
     weight: 65,
     isMember: true,
@@ -98,9 +84,7 @@ export default function SignUpForm() {
     locaiton: 1,
     bio: 'Hello World',
     gymLevel: 'Newbie',
-    // gymLevel: '',
-    interests: ["Yoga","Pilates"],
-    // intersts need to json stringify
+    interests: ['Yoga', 'Pilates'],
     profile_pic: null,
   });
 
@@ -116,9 +100,7 @@ export default function SignUpForm() {
     gymLevel: null,
     interests: null,
   });
-  //   const onChangeHandler = (e: any) => {
-  //     setFormState({...formState, [e.target.name]: e.target.value});
-  //   };
+ 
   const inputHandler = (name: keyof FormState) => {
     const value = formState[name];
 
@@ -155,7 +137,6 @@ export default function SignUpForm() {
         justifyContent: 'center',
         alignItems: 'center',
         height: height,
-
       }}>
       <ScrollView>
         <View
@@ -163,7 +144,6 @@ export default function SignUpForm() {
             justifyContent: 'center',
             alignItems: 'center',
             height: height,
-           
           }}>
           {sectionNum === 1 && (
             <SectionOne
@@ -171,7 +151,7 @@ export default function SignUpForm() {
               onChangeHandler={onChangeHandler}
               next={() => {
                 setSectionNum(2);
-                console.log('p1', formState);
+
               }}
               inputHandler={inputHandler}
               errorState={errorState}
@@ -183,7 +163,7 @@ export default function SignUpForm() {
               onChangeHandler={onChangeHandler}
               next={() => {
                 setSectionNum(3);
-                console.log('p2', formState);
+
               }}
               back={() => {
                 setSectionNum(1);
@@ -198,7 +178,7 @@ export default function SignUpForm() {
               onChangeHandler={onChangeHandler}
               next={() => {
                 setSectionNum(4);
-                console.log('p3', formState);
+
               }}
               back={() => {
                 setSectionNum(2);
@@ -211,17 +191,10 @@ export default function SignUpForm() {
             <SectionFour
               formState={formState}
               onChangeHandler={onChangeHandler}
-              // next={() => {
-              //   // setSectionNum(5);
-              //   //validate if success
-              //   //toast
-              //   // show success and redirect to login
 
-              //   navigation.navigate('Login');
-              // }}
               next={() => {
                 setSectionNum(5);
-                console.log('p4', formState);
+
               }}
               back={() => {
                 setSectionNum(3);

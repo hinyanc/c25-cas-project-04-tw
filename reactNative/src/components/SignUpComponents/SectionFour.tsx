@@ -14,7 +14,6 @@ import {
   FormState,
 } from '../../screens/SignUpScreen/SignUpScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {Picker} from '@react-native-picker/picker';
 const {width, height} = Dimensions.get('window');
 
 const interests: string[] = [
@@ -135,7 +134,6 @@ export default function SectionFour({
 
   const handleInterestPress = (interest: string) => {
     const maxSelections = 5;
-    console.log('selectedInterests', selectedInterests);
     if (selectedInterests.includes(interest)) {
       setSelectedInterests(selectedInterests.filter(item => item !== interest));
     } else if (selectedInterests.length < maxSelections) {
@@ -272,7 +270,6 @@ export default function SectionFour({
             onPress={() => {
               handleInterestPress(interest);
               // onChangeHandler('interests', selectedInterests);
-              console.log('interest', index + 1);
             }}
             isPressed={isInterestPressed(interest)}
             text={interest}

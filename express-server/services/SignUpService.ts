@@ -1,13 +1,4 @@
 import type { Knex } from "knex";
-// import {
-//   gymLocationTable,
-//   gymCenterTable,
-//   interestTable,
-//   userTable,
-//   usersInterestTable,
-//   userGymCenterTable,
-//   userGymLocationTable,
-// } from "../migrations/20230605101740_users";
 import { createUser } from "../utils/model";
 import { hashPassword } from "../utils/hash";
 
@@ -20,7 +11,6 @@ export class SignUpService {
       .where("email", input.email)
       .first();
 
-    console.log("createUser service", input.gym_level);
     if (result) {
       throw new Error("existing users!");
     }
@@ -43,16 +33,16 @@ export class SignUpService {
       })
       .returning("id");
 
-      const interestDict={
-        "Yoga": 1,
-        "Weightlifting": 2,
-        "Pilates": 3,
-        'Injury recover': 4,
-        "Aerobic": 5,
-        "Cardio": 6,
-        "Boxing": 7,
-        "Stretching": 8
-      }
+    const interestDict = {
+      Yoga: 1,
+      Weightlifting: 2,
+      Pilates: 3,
+      "Injury recover": 4,
+      Aerobic: 5,
+      Cardio: 6,
+      Boxing: 7,
+      Stretching: 8,
+    };
 
     let interestArr = JSON.parse(input.interestArr);
 
@@ -62,7 +52,6 @@ export class SignUpService {
         interest_id: interestDict[interestArr[i]],
       });
     }
-    console.log("userId", interestDict[interestArr[0]]);
 
     if (input.has_member) {
       await this.knex("user_gym_center").insert({
@@ -76,6 +65,5 @@ export class SignUpService {
       });
     }
 
-    console.log("userId", userId[0].id);
   };
 }
