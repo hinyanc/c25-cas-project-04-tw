@@ -46,7 +46,10 @@ const BMI = () => {
   const weight = Object.values(fetchData)[0]
   const height = Object.values(fetchData)[1]
   const bmi = calculateBMI(weight, height)
-
+  const targetBmi = 22.5
+  //     const m = height /100
+  // targetWeight = 22.5*(m**2)
+  // 
 
   return (
     <View style={{height: 50, marginBottom: 30}}>

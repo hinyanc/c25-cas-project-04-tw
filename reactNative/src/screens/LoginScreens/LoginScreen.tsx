@@ -42,7 +42,7 @@ type Validate = {
 };
 
 const LoginForm = ({navigation}: LoginScreenProps) => {
-  const [email, setEmail] = useState('beyourdetective@gmail.com');
+  const [email, setEmail] = useState('yannes.0828@gmail.com');
   const [password, setPassword] = useState('123abc');
   // const [notEmpty, setNotEmpty] = useState(false);
   // const [errors, setErrors] = useState<Validate>({email: '', password: ''});

@@ -254,6 +254,7 @@ export default function SectionFour({
       </View>
 
       <Text style={[styles.title]}>Interests</Text>
+      <Text style={[styles.remind]}> (Up to 5 interests can be selected)</Text>
 
       <View
         style={{
@@ -263,7 +264,6 @@ export default function SectionFour({
           width: width * 0.75,
           flexWrap: 'wrap',
         }}>
-
         {interests.map((interest, index) => (
           <Button
             key={index}
@@ -290,7 +290,7 @@ export default function SectionFour({
         onPress={e => {
           e.preventDefault;
           handleButtonClick;
-// not string
+          // not string
           inputHandler('gymLevel');
           inputHandler('interests');
 

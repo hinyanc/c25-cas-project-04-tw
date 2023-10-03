@@ -7,7 +7,13 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
     textAlign: 'left',
-    marginVertical: 10,
+    alignSelf: 'flex-start',
+  },
+  remind: {
+    fontSize: 13,
+    fontWeight:"normal",
+    marginBottom: 10,
+    textAlign: 'left',
     alignSelf: 'flex-start',
   },
   btn: {

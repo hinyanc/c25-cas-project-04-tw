@@ -103,8 +103,8 @@ export async function seed(knex: Knex): Promise<void> {
 
   //default email
   const emails: string[] = [
-    "beyourdetective@gmail.com",
-    "learning20150133@gmail.com",
+    "juliawong@gmail.com",
+    "chinnykam.2023@gmail.com",
     "yannes.0828@gmail.com",
     "johndoe1234@example.com",
     "emily.smith85@gmail.com",
@@ -128,7 +128,7 @@ export async function seed(knex: Knex): Promise<void> {
     "coffee.jpeg",
     "edison.jpeg",
     "kasumi.jpeg",
-    "jason.jpeg",
+    "jason.jpg",
     "yui.jpeg",
     "yipman.jpeg",
     "elva.jpeg",

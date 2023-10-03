@@ -72,17 +72,17 @@ export const schema = {
 export default function SignUpForm() {
   const [sectionNum, setSectionNum] = useState(1);
   const [formState, setFormState] = useState<FormState>({
-    username: 'test1',
-    email: 'test1@gmail.com',
+    username: 'Amy',
+    email: 'amy@gmail.com',
     password: 'abc123',
     gender: 'Female',
-    birthday: new Date(2011, 6, 24, 5, 44, 2),
+    birthday: new Date(1996, 6, 24, 5, 44, 2),
     height: 175,
-    weight: 65,
+    weight: 58,
     isMember: true,
     gymCenter: 1,
     locaiton: 1,
-    bio: 'Hello World',
+    bio: "Hey there! I'm Amy, and I'm all about finding balance in life through yoga, fitness, and meaningful connections. ",
     gymLevel: 'Newbie',
     interests: ['Yoga', 'Pilates'],
     profile_pic: null,
@@ -100,7 +100,7 @@ export default function SignUpForm() {
     gymLevel: null,
     interests: null,
   });
- 
+
   const inputHandler = (name: keyof FormState) => {
     const value = formState[name];
 
@@ -151,7 +151,6 @@ export default function SignUpForm() {
               onChangeHandler={onChangeHandler}
               next={() => {
                 setSectionNum(2);
-
               }}
               inputHandler={inputHandler}
               errorState={errorState}
@@ -163,7 +162,6 @@ export default function SignUpForm() {
               onChangeHandler={onChangeHandler}
               next={() => {
                 setSectionNum(3);
-
               }}
               back={() => {
                 setSectionNum(1);
@@ -178,7 +176,6 @@ export default function SignUpForm() {
               onChangeHandler={onChangeHandler}
               next={() => {
                 setSectionNum(4);
-
               }}
               back={() => {
                 setSectionNum(2);
@@ -191,10 +188,8 @@ export default function SignUpForm() {
             <SectionFour
               formState={formState}
               onChangeHandler={onChangeHandler}
-
               next={() => {
                 setSectionNum(5);
-
               }}
               back={() => {
                 setSectionNum(3);
