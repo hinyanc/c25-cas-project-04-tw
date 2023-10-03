@@ -11,7 +11,7 @@ import {
 } from '../../screens/SignUpScreen/SignUpScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DocumentPicker, {
-  DocumentResponse,
+  DocumentPickerResponse,
 } from 'react-native-document-picker';
 import {Image} from 'react-native';
 import {REACT_APP_API_SERVER} from '@env';
