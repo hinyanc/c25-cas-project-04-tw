@@ -121,7 +121,7 @@ export async function seed(knex: Knex): Promise<void> {
     "roberto.sanchez68@example.com",
   ];
   const image: string[] = [
-    "alex.jpeg",
+    "alex.jpg",
     "sohee.jpeg",
     "masami.jpeg",
     "jeffery.jpeg",
@@ -134,9 +134,9 @@ export async function seed(knex: Knex): Promise<void> {
     "elva.jpeg",
     "eddie.jpeg",
     "jennie.jpeg",
-    "bruce.jpeg",
+    "bruce.jpg",
     "jisoo.jpeg",
-    "adams.jpeg",
+    "adams.jpg",
     "lisa.jpeg",
     "edgar.jpeg",
     "rose.jpeg",

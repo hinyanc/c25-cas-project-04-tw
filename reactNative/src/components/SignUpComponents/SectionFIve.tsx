@@ -85,6 +85,7 @@ export default function SectionFive({
 
     const result = await res;
     console.log('check signup fetch result', result);
+    return result;
   };
 
   return (
@@ -152,10 +153,34 @@ export default function SectionFive({
         </Text>
 
         {/* ///continue button */}
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={e => {
             e.preventDefault;
             submitForm();
+            setTimeout(() => {
+              if (errorState.gymLevel === null && errorState.interests === null) {
+                next();
+              }
+            }, 1000);
+          }}
+          style={styles.Continuebtn}> */}
+        <TouchableOpacity
+          onPress={async () => {
+            try {
+              // Call submitForm and wait for its completion
+              const res = await submitForm();
+
+              // Check if the response indicates success (you should define what success means in your context)
+              if (res.status === 200) {
+                // Assuming 200 means success
+                  next();
+              } else {
+                // Handle an unsuccessful response, e.g., show an error message
+                console.error('Sign up failed:', res.statusText);
+              }
+            } catch (error) {
+              console.error('Error during sign up:', error);
+            }
           }}
           style={styles.Continuebtn}>
           <Text

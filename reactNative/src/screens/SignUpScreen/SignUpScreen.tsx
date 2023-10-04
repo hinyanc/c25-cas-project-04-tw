@@ -74,7 +74,7 @@ export default function SignUpForm() {
   const [formState, setFormState] = useState<FormState>({
     username: 'Amy',
     email: 'amy@gmail.com',
-    password: 'abc123',
+    password: '123abc',
     gender: 'Female',
     birthday: new Date(1996, 6, 24, 5, 44, 2),
     height: 175,

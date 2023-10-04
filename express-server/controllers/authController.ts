@@ -35,7 +35,7 @@ export class AuthController {
       });
     } catch (error: any) {
       logger.error(error.message);
-      res.status(400).json({ message: "Failed to login" });
+      res.status(400).json({ message: "ed to login" });
     }
   };
 }
