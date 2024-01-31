@@ -1,5 +1,4 @@
 # Introducing GyMatess
-![image](https://github.com/leaarn/c25-cas-project-04-tw/assets/125840819/54cea08e-b37a-4c7a-ada1-3f93aaa58467)
 
 GyMatess: Revolutionizing the Way You Approach Fitness
 
